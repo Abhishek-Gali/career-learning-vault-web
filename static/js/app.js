@@ -1,12 +1,12 @@
 /**
- * Career Learning Vault — Full-Stack Cloud Web Hub
+ * Career Learning Vault — Cloud Command Hub
  * Architecture & Engineering by Abhishek Gali
  * Powered by Refero Design & Watermelon UI System
  */
 
 const App = {
   state: {
-    activeTab: 'sandbox',
+    activeView: 'datascience',
     platforms: [],
     selectedPlatform: 'all',
     selectedDifficulty: 'All',
@@ -19,62 +19,503 @@ const App = {
     
     // Interview Quiz Engine State
     interviewTracks: {},
-    selectedTrack: 'cybersecurity',
-    selectedSet: 'domain1_security_principles',
+    activeTrackKey: 'data_science',
+    activeSetId: 'ds_level1_foundations',
     quizQuestions: [],
     currentQuizIdx: 0,
     selectedQuizOption: null,
     quizSubmitted: false,
-    quizStats: { correct: 0, incorrect: 0 },
-
-    // Cron Keep-Alive Telemetry
-    healthData: null
+    quizStats: { correct: 0, incorrect: 0 }
   },
 
+  libraryDocs: [
+    {
+      icon: "📘", title: "ISLP — Statistical Learning with Python",
+      author: "James, Witten, Hastie, Tibshirani (Stanford)",
+      desc: "The definitive machine learning textbook on regression, classification, resampling, and trees.",
+      tag: "Stanford PDF", url: "https://www.statlearning.com/", accent: "#38bdf8"
+    },
+    {
+      icon: "📘", title: "Mathematics for Machine Learning",
+      author: "Deisenroth, Faisal, Ong (Cambridge)",
+      desc: "Rigorous linear algebra, matrix decompositions, vector calculus, and optimization.",
+      tag: "Cambridge Univ.", url: "https://mml-book.github.io/", accent: "#a855f7"
+    },
+    {
+      icon: "📘", title: "Dive into Deep Learning (D2L.ai)",
+      author: "Aston Zhang, Zack Lipton, Mu Li, Alex Smola",
+      desc: "Interactive 1000+ page deep learning textbook from MLPs to Attention Transformers.",
+      tag: "1000+ Pages", url: "https://d2l.ai/", accent: "#f59e0b"
+    },
+    {
+      icon: "📘", title: "UC Berkeley Data 8 Textbook",
+      author: "Ani Adhikari & John DeNero (UC Berkeley)",
+      desc: "Foundations of Data Science: Python for simulation, estimation, and hypothesis tests.",
+      tag: "UC Berkeley", url: "https://inferentialthinking.com/chapters/intro.html", accent: "#10b981"
+    },
+    {
+      icon: "📘", title: "Think Stats (2nd Edition)",
+      author: "Allen B. Downey (Green Tea Press)",
+      desc: "Exploratory Data Analysis, probability distributions, CDFs, and statistical tests.",
+      tag: "PDF Book", url: "https://greenteapress.com/wp/think-stats-2e/", accent: "#38bdf8"
+    },
+    {
+      icon: "📘", title: "Think Python (2nd Edition)",
+      author: "Allen B. Downey",
+      desc: "How to Think Like a Computer Scientist with Python structures and algorithms.",
+      tag: "PDF Book", url: "https://greenteapress.com/wp/think-python-2e/", accent: "#38bdf8"
+    },
+    {
+      icon: "📘", title: "Think Bayes (2nd Edition)",
+      author: "Allen B. Downey",
+      desc: "Practical computational Bayesian statistics and belief updating in Python.",
+      tag: "PDF Book", url: "https://greenteapress.com/wp/think-bayes/", accent: "#a855f7"
+    },
+    {
+      icon: "📕", title: "NIST SP 800-61 Rev 2",
+      author: "National Institute of Standards & Technology",
+      desc: "Computer Security Incident Handling Guide: Preparation, Detection, Containment, Recovery.",
+      tag: "NIST Standard", url: "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf", accent: "#f43f5e"
+    },
+    {
+      icon: "📕", title: "NIST Cybersecurity Framework (CSF) 2.0",
+      author: "NIST Official",
+      desc: "Core cybersecurity functions: Govern, Identify, Protect, Detect, Respond, and Recover.",
+      tag: "CSF 2.0", url: "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf", accent: "#fb7185"
+    },
+    {
+      icon: "📋", title: "Official Pandas Cheatsheet",
+      author: "Pandas Development Team",
+      desc: "Comprehensive syntax guide for DataFrame reshaping, grouping, and window operations.",
+      tag: "Official PDF", url: "https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf", accent: "#38bdf8"
+    },
+    {
+      icon: "📋", title: "Advanced SQL Syntax Cheatsheet",
+      author: "SQL Tutorial Guide",
+      desc: "SELECT, JOIN types, GROUP BY, HAVING, subqueries, CTEs, and Window functions.",
+      tag: "SQL Sheet", url: "https://www.sqltutorial.org/sql-cheat-sheet/", accent: "#38bdf8"
+    },
+    {
+      icon: "📋", title: "Stanford CS229 ML Cheatsheet",
+      author: "Afshine & Shervine Amidi (Stanford)",
+      desc: "Supervised algorithms, SVMs, decision trees, neural networks, and regularization.",
+      tag: "Stanford CS229", url: "https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-supervised-learning", accent: "#f59e0b"
+    },
+    {
+      icon: "📋", title: "Stanford CS229 Linear Algebra Review",
+      author: "Zico Kolter (Stanford)",
+      desc: "Matrices, operations, eigenvalues, eigenvectors, trace, and SVD decomposition.",
+      tag: "Linear Algebra", url: "https://see.stanford.edu/materials/aimlcs229/cs229-linalg.pdf", accent: "#a855f7"
+    },
+    {
+      icon: "📋", title: "Stanford CS229 Probability Review",
+      author: "Apoorv Vyas (Stanford)",
+      desc: "Random variables, joint distributions, conditional expectations, and variance.",
+      tag: "Probability", url: "https://see.stanford.edu/materials/aimlcs229/cs229-prob.pdf", accent: "#f59e0b"
+    },
+    {
+      icon: "📋", title: "Harvard Stat 110 Probability Cheatsheet",
+      author: "Joe Blitzstein & William Chen (Harvard)",
+      desc: "Master probability distribution formulas, expectations, and identities.",
+      tag: "Harvard Stat 110", url: "https://wzchen.github.io/probability_cheatsheet/", accent: "#f59e0b"
+    },
+    {
+      icon: "📋", title: "Official Git Cheatsheet",
+      author: "GitHub Education",
+      desc: "Branching, staging, diffing, rebasing, and remote team collaboration commands.",
+      tag: "GitHub Sheet", url: "https://education.github.io/git-cheat-sheet-education.pdf", accent: "#10b981"
+    }
+  ],
+
   async init() {
-    this.bindGlobalNavigation();
+    this.bindSidebarNavigation();
+    this.bindSubtabNavigation();
     await this.loadPlatforms();
     await this.loadChallenges();
     await this.loadInterviewTracks();
-    this.initCronMonitor();
-    
-    // Auto-select first challenge if available
+    this.renderLibraryCatalog();
+
     if (this.state.challenges.length > 0) {
       await this.selectChallenge(this.state.challenges[0].id);
     }
   },
 
-  bindGlobalNavigation() {
-    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const tab = btn.dataset.tab;
-        this.switchTab(tab);
+  // ── Sidebar Navigation ────────────────────────────────────────────────────
+  bindSidebarNavigation() {
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const view = item.dataset.view;
+        this.switchView(view);
       });
     });
   },
 
-  switchTab(tabName) {
-    this.state.activeTab = tabName;
-    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.tab === tabName);
+  switchView(viewName) {
+    this.state.activeView = viewName;
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.view === viewName);
     });
 
-    ['sandbox-view', 'interviews-view', 'roadmap-view', 'monitor-view'].forEach(viewId => {
-      const el = document.getElementById(viewId);
-      if (el) el.classList.add('hidden');
-    });
+    document.querySelectorAll('.track-view').forEach(v => v.classList.add('hidden'));
 
-    const target = document.getElementById(`${tabName}-view`);
+    const target = document.getElementById(`view-${viewName}`);
     if (target) {
       target.classList.remove('hidden');
     }
+  },
 
-    if (tabName === 'monitor') {
-      this.refreshHealthData();
+  // ── Sub-tab Navigation (Inside each track) ─────────────────────────────────
+  bindSubtabNavigation() {
+    document.querySelectorAll('.subtab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const subtabId = btn.dataset.subtab;
+        const parentSection = btn.closest('.track-view');
+        
+        parentSection.querySelectorAll('.subtab-btn').forEach(b => {
+          b.classList.remove('active', 'bg-cyan-500/15', 'text-cyan-300', 'border-cyan-500/30',
+                             'bg-purple-500/15', 'text-purple-300', 'border-purple-500/30',
+                             'bg-rose-500/15', 'text-rose-300', 'border-rose-500/30',
+                             'bg-amber-500/15', 'text-amber-300', 'border-amber-500/30');
+          b.classList.add('bg-slate-900/60', 'text-slate-400', 'border-slate-800');
+        });
+
+        btn.classList.remove('bg-slate-900/60', 'text-slate-400', 'border-slate-800');
+        btn.classList.add('active', 'bg-emerald-500/15', 'text-emerald-300', 'border-emerald-500/30');
+
+        // Toggle subtab panels
+        const trackPrefix = subtabId.split('-')[0]; // ds, ml, cyber, dsa
+        parentSection.querySelectorAll(`[id^="subtab-${trackPrefix}-"]`).forEach(panel => {
+          panel.classList.add('hidden');
+        });
+
+        const targetPanel = document.getElementById(`subtab-${subtabId}`);
+        if (targetPanel) {
+          targetPanel.classList.remove('hidden');
+        }
+
+        // Trigger quiz loading when switching to prep subtab
+        if (subtabId.endsWith('-prep')) {
+          this.activatePrepSubtab(trackPrefix);
+        }
+      });
+    });
+  },
+
+  activatePrepSubtab(trackPrefix) {
+    const trackMap = {
+      'ds': 'data_science',
+      'ml': 'machine_learning',
+      'cyber': 'cybersecurity',
+      'dsa': 'dsa'
+    };
+    const trackKey = trackMap[trackPrefix];
+    if (!trackKey) return;
+
+    this.state.activeTrackKey = trackKey;
+    const trackObj = this.state.interviewTracks[trackKey];
+    if (trackObj && trackObj.sets && trackObj.sets.length > 0) {
+      this.state.activeSetId = trackObj.sets[0].id;
+      this.renderTrackLevelSelectors(trackPrefix, trackObj.sets);
+      this.loadQuizQuestions(trackPrefix);
     }
   },
 
-  // ── Platforms & Challenges (Coding Sandbox) ────────────────────────────────
+  renderTrackLevelSelectors(trackPrefix, sets) {
+    const container = document.getElementById(`${trackPrefix}-level-selector`);
+    if (!container) return;
+
+    let html = '';
+    sets.forEach(set => {
+      const isSelected = this.state.activeSetId === set.id;
+      html += `
+        <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
+          isSelected 
+            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 shadow-md shadow-emerald-500/10' 
+            : 'bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700'
+        }" data-set="${set.id}" data-pfx="${trackPrefix}">
+          <span>${set.name}</span>
+          <span class="px-1.5 py-0.2 text-[10px] rounded-full bg-slate-800 text-slate-300 font-mono">${set.question_count} Qs</span>
+        </button>
+      `;
+    });
+
+    container.innerHTML = html;
+
+    container.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.state.activeSetId = btn.dataset.set;
+        this.state.quizStats = { correct: 0, incorrect: 0 };
+        this.renderTrackLevelSelectors(btn.dataset.pfx, sets);
+        this.loadQuizQuestions(btn.dataset.pfx);
+      });
+    });
+  },
+
+  async loadQuizQuestions(trackPrefix) {
+    const trackKey = this.state.activeTrackKey;
+    const setId = this.state.activeSetId;
+    if (!trackKey || !setId) return;
+
+    try {
+      const res = await fetch(`/api/interviews/${trackKey}/${setId}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      this.state.quizQuestions = data.questions || [];
+      this.state.currentQuizIdx = 0;
+      this.state.selectedQuizOption = null;
+      this.state.quizSubmitted = false;
+      this.renderQuizCard(trackPrefix);
+    } catch (e) {
+      console.error('Failed to load quiz questions:', e);
+    }
+  },
+
+  renderQuizCard(trackPrefix) {
+    const container = document.getElementById(`${trackPrefix}-quiz-container`);
+    if (!container) return;
+
+    const qList = this.state.quizQuestions;
+    if (!qList || qList.length === 0) {
+      container.innerHTML = '<div class="p-8 text-center text-slate-400">Loading question set...</div>';
+      return;
+    }
+
+    const q = qList[this.state.currentQuizIdx];
+    const qNum = this.state.currentQuizIdx + 1;
+    const totalQ = qList.length;
+
+    const questionPrompt = q.stem || q.question || q.prompt || 'Question prompt not specified.';
+    const correctKey = (q.correct_key || q.answer || q.correct || '').toString().trim().toUpperCase();
+
+    // Parse options safely from Dict or Array
+    let optionsList = [];
+    if (typeof q.options === 'object' && q.options !== null && !Array.isArray(q.options)) {
+      optionsList = Object.keys(q.options).sort().map(k => ({
+        key: k.toUpperCase(),
+        text: q.options[k]
+      }));
+    } else if (Array.isArray(q.options)) {
+      optionsList = q.options.map((opt, idx) => ({
+        key: String.fromCharCode(65 + idx),
+        text: typeof opt === 'object' ? (opt.text || opt.value || JSON.stringify(opt)) : opt
+      }));
+    }
+
+    let optionsHtml = '';
+    optionsList.forEach(opt => {
+      const isChosen = this.state.selectedQuizOption === opt.key;
+      let cardStyle = 'bg-slate-900/60 border-slate-800/80 hover:border-slate-700 hover:bg-slate-800/50';
+      let badgeStyle = 'bg-slate-800 text-slate-300 border border-slate-700';
+
+      if (this.state.quizSubmitted) {
+        const isCorrect = (opt.key === correctKey);
+        if (isCorrect) {
+          cardStyle = 'bg-emerald-950/40 border-emerald-500/80 text-emerald-200 shadow-lg shadow-emerald-950/30';
+          badgeStyle = 'bg-emerald-500 text-black font-black';
+        } else if (isChosen) {
+          cardStyle = 'bg-rose-950/40 border-rose-500/80 text-rose-200 shadow-lg shadow-rose-950/30';
+          badgeStyle = 'bg-rose-500 text-white font-black';
+        } else {
+          cardStyle = 'bg-slate-900/40 border-slate-800/40 opacity-50';
+        }
+      } else if (isChosen) {
+        cardStyle = 'bg-emerald-500/15 border-emerald-500 text-white shadow-md shadow-emerald-500/10';
+        badgeStyle = 'bg-emerald-500 text-black font-black';
+      }
+
+      optionsHtml += `
+        <div class="p-4 rounded-xl border transition-all cursor-pointer flex items-start gap-3.5 ${cardStyle}" onclick="App.selectQuizOption('${opt.key}', '${trackPrefix}')">
+          <span class="w-7 h-7 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-bold ${badgeStyle}">
+            ${opt.key}
+          </span>
+          <span class="text-sm leading-relaxed flex-1">${opt.text}</span>
+        </div>
+      `;
+    });
+
+    let rationaleHtml = '';
+    if (this.state.quizSubmitted) {
+      const userGotCorrect = (this.state.selectedQuizOption === correctKey);
+      
+      rationaleHtml = `
+        <div class="mt-5 p-5 rounded-xl ${userGotCorrect ? 'bg-emerald-950/30 border-emerald-500/40' : 'bg-rose-950/30 border-rose-500/40'} border space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-base">${userGotCorrect ? '🎉' : '💡'}</span>
+            <span class="font-bold text-sm ${userGotCorrect ? 'text-emerald-400' : 'text-rose-400'}">
+              ${userGotCorrect ? 'Correct Answer!' : `Incorrect — The correct answer is Option ${correctKey}`}
+            </span>
+          </div>
+      `;
+
+      if (q.rationales && typeof q.rationales === 'object') {
+        if (q.rationales.correct) {
+          rationaleHtml += `
+            <div class="p-3 rounded-lg bg-black/40 text-xs text-emerald-300 font-medium leading-relaxed">
+              <strong class="text-white">Core Principle:</strong> ${q.rationales.correct}
+            </div>
+          `;
+        }
+        rationaleHtml += '<div class="space-y-1.5 pt-2 text-xs text-slate-300">';
+        optionsList.forEach(opt => {
+          const rText = q.rationales[opt.key];
+          if (rText) {
+            const isOptCorrect = (opt.key === correctKey);
+            rationaleHtml += `
+              <div class="p-2 rounded bg-black/20">
+                <strong class="${isOptCorrect ? 'text-emerald-400' : 'text-slate-400'}">Option ${opt.key}:</strong> 
+                <span class="text-slate-300">${rText}</span>
+              </div>
+            `;
+          }
+        });
+        rationaleHtml += '</div>';
+      } else if (q.explanation) {
+        rationaleHtml += `
+          <div class="p-3 rounded-lg bg-black/40 text-xs text-slate-300 leading-relaxed">
+            <strong class="text-emerald-400">Explanation:</strong> ${q.explanation}
+          </div>
+        `;
+      }
+      rationaleHtml += '</div>';
+    }
+
+    const topicText = q.domain_name || q.sub_objective || q.topic || q.level_name || 'Technical Assessment';
+    const totalAnswered = this.state.quizStats.correct + this.state.quizStats.incorrect;
+    const accuracy = totalAnswered > 0 ? Math.round((this.state.quizStats.correct / totalAnswered) * 100) : 0;
+
+    container.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono text-emerald-400 font-bold tracking-wider uppercase">QUESTION ${qNum} OF ${totalQ}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">${q.cognitive_level || 'STANDARD'}</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs">
+            <span class="text-slate-400 font-mono truncate max-w-xs">${topicText}</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono font-bold">
+              Score: ${this.state.quizStats.correct}/${totalAnswered} (${accuracy}%)
+            </span>
+          </div>
+        </div>
+
+        <h3 class="text-base md:text-lg font-semibold text-slate-100 leading-relaxed pt-1">
+          ${questionPrompt}
+        </h3>
+
+        <div class="space-y-2.5 pt-2">
+          ${optionsHtml}
+        </div>
+
+        ${rationaleHtml}
+
+        <div class="flex items-center justify-between pt-5 border-t border-slate-800 mt-6">
+          <button class="btn-secondary text-xs" onclick="App.prevQuizQuestion('${trackPrefix}')" ${qNum === 1 ? 'disabled' : ''}>
+            ← Previous
+          </button>
+          
+          <div class="flex items-center gap-2">
+            ${!this.state.quizSubmitted ? `
+              <button class="btn-primary text-xs px-5 py-2" onclick="App.submitQuizAnswer('${trackPrefix}')">
+                <span>Check Answer</span>
+              </button>
+            ` : `
+              <button class="btn-coral text-xs px-5 py-2" onclick="App.nextQuizQuestion('${trackPrefix}')">
+                <span>${qNum < totalQ ? 'Next Question →' : 'Complete Set 🎉'}</span>
+              </button>
+            `}
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  selectQuizOption(key, trackPrefix) {
+    if (this.state.quizSubmitted) return;
+    this.state.selectedQuizOption = key;
+    this.renderQuizCard(trackPrefix);
+  },
+
+  submitQuizAnswer(trackPrefix) {
+    if (!this.state.selectedQuizOption) {
+      alert('Please select an option before checking.');
+      return;
+    }
+    const q = this.state.quizQuestions[this.state.currentQuizIdx];
+    const correctKey = (q.correct_key || q.answer || q.correct || '').toString().trim().toUpperCase();
+    
+    if (this.state.selectedQuizOption === correctKey) {
+      this.state.quizStats.correct += 1;
+    } else {
+      this.state.quizStats.incorrect += 1;
+    }
+
+    this.state.quizSubmitted = true;
+    this.renderQuizCard(trackPrefix);
+  },
+
+  nextQuizQuestion(trackPrefix) {
+    if (this.state.currentQuizIdx + 1 < this.state.quizQuestions.length) {
+      this.state.currentQuizIdx += 1;
+      this.state.selectedQuizOption = null;
+      this.state.quizSubmitted = false;
+      this.renderQuizCard(trackPrefix);
+    } else {
+      const accuracy = Math.round((this.state.quizStats.correct / this.state.quizQuestions.length) * 100);
+      alert(`🎉 Set Completed! Your score: ${this.state.quizStats.correct}/${this.state.quizQuestions.length} (${accuracy}%)`);
+    }
+  },
+
+  prevQuizQuestion(trackPrefix) {
+    if (this.state.currentQuizIdx > 0) {
+      this.state.currentQuizIdx -= 1;
+      this.state.selectedQuizOption = null;
+      this.state.quizSubmitted = false;
+      this.renderQuizCard(trackPrefix);
+    }
+  },
+
+  async loadInterviewTracks() {
+    try {
+      const res = await fetch('/api/interviews');
+      this.state.interviewTracks = await res.json();
+    } catch (e) {
+      console.error('Failed to load interview tracks:', e);
+    }
+  },
+
+  // ── Vault Library Catalog (All PDFs & Cheats) ─────────────────────────────
+  renderLibraryCatalog() {
+    const container = document.getElementById('library-cards');
+    if (!container) return;
+
+    let html = '';
+    this.libraryDocs.forEach(doc => {
+      html += `
+        <div class="action-card flex-col items-start gap-2.5 p-4">
+          <div class="action-card-accent" style="background: ${doc.accent};"></div>
+          <div class="flex items-center justify-between w-full">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">${doc.icon}</span>
+              <h4 class="text-xs font-bold text-white truncate max-w-[190px]">${doc.title}</h4>
+            </div>
+            <span class="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-semibold" style="background: ${doc.accent}20; color: ${doc.accent};">
+              ${doc.tag}
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 line-clamp-2">${doc.desc}</p>
+          <div class="pt-2 w-full flex items-center justify-between border-t border-slate-800/80">
+            <span class="text-[10px] text-slate-500">${doc.author}</span>
+            <a href="${doc.url}" target="_blank" class="text-xs font-bold hover:underline" style="color: ${doc.accent};">
+              Open Resource ↗
+            </a>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  },
+
+  // ── Coding Sandbox (Fleet of 312) ─────────────────────────────────────────
   async loadPlatforms() {
     try {
       const res = await fetch('/api/platforms');
@@ -93,7 +534,7 @@ const App = {
     let totalAll = this.state.platforms.reduce((acc, p) => acc + p.count, 0);
     let html = `
       <button class="platform-pill ${this.state.selectedPlatform === 'all' ? 'active' : ''}" data-plat="all">
-        <span>🌐 All Platforms</span>
+        <span>All Platforms</span>
         <span class="pill-counter">${totalAll}</span>
       </button>
     `;
@@ -145,12 +586,7 @@ const App = {
     if (!listEl) return;
 
     if (this.state.challenges.length === 0) {
-      listEl.innerHTML = `
-        <div class="p-8 text-center text-slate-400">
-          <p class="text-sm font-medium">No challenges matching filter.</p>
-          <button class="mt-3 text-xs text-emerald-400 underline" onclick="App.resetFilters()">Clear Filters</button>
-        </div>
-      `;
+      listEl.innerHTML = '<div class="p-8 text-center text-slate-400 text-xs">No challenges matching filter.</div>';
       return;
     }
 
@@ -171,7 +607,6 @@ const App = {
           </div>
           <div class="text-right flex flex-col items-end">
             <span class="text-[11px] text-slate-500 font-mono">${ch.visible_tests_count + ch.hidden_tests_count} Tests</span>
-            <span class="text-[10px] text-emerald-400/80 font-mono">Python 3</span>
           </div>
         </div>
       `;
@@ -184,17 +619,6 @@ const App = {
         this.selectChallenge(item.dataset.cid);
       });
     });
-  },
-
-  resetFilters() {
-    this.state.selectedPlatform = 'all';
-    this.state.selectedDifficulty = 'All';
-    this.state.searchQuery = '';
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) searchInput.value = '';
-    document.querySelectorAll('.diff-pill').forEach(p => p.classList.toggle('active', p.dataset.diff === 'All'));
-    this.renderPlatformPills();
-    this.loadChallenges();
   },
 
   async selectChallenge(cid) {
@@ -414,391 +838,6 @@ const App = {
       editor.value = starter;
       this.state.editorContent = starter;
     }
-  },
-
-  // ── Technical Interviews System (ROBUST DICT/ARRAY PARSING) ──────────────
-  async loadInterviewTracks() {
-    try {
-      const res = await fetch('/api/interviews');
-      this.state.interviewTracks = await res.json();
-      this.renderInterviewTrackSelectors();
-    } catch (e) {
-      console.error('Failed to load interview tracks:', e);
-    }
-  },
-
-  renderInterviewTrackSelectors() {
-    const trackContainer = document.getElementById('interview-track-selector');
-    if (!trackContainer) return;
-
-    const tracks = this.state.interviewTracks;
-    const trackIcons = {
-      cybersecurity: '🛡️',
-      data_science: '📊',
-      machine_learning: '🧠',
-      dsa: '⚡'
-    };
-
-    let html = '';
-    Object.keys(tracks).forEach(key => {
-      const track = tracks[key];
-      const isSelected = this.state.selectedTrack === key;
-      const icon = trackIcons[key] || '🎯';
-      html += `
-        <button class="px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center gap-2 ${
-          isSelected 
-            ? 'bg-gradient-to-r from-emerald-500/25 to-teal-500/25 text-emerald-300 border border-emerald-500/50 shadow-lg shadow-emerald-500/10' 
-            : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700'
-        }" data-track="${key}">
-          <span>${icon}</span>
-          <span>${track.title}</span>
-        </button>
-      `;
-    });
-    trackContainer.innerHTML = html;
-
-    trackContainer.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.state.selectedTrack = btn.dataset.track;
-        this.state.selectedSet = ''; // Reset set so first set of new track is chosen
-        this.state.quizStats = { correct: 0, incorrect: 0 };
-        this.renderInterviewTrackSelectors();
-        this.renderInterviewSetPills();
-      });
-    });
-
-    this.renderInterviewSetPills();
-  },
-
-  renderInterviewSetPills() {
-    const setContainer = document.getElementById('interview-set-selector');
-    if (!setContainer) return;
-
-    const trackObj = this.state.interviewTracks[this.state.selectedTrack];
-    if (!trackObj || !trackObj.sets || trackObj.sets.length === 0) {
-      setContainer.innerHTML = '<span class="text-xs text-slate-400">No question sets available for this track.</span>';
-      return;
-    }
-
-    // Auto-select first set if none selected or invalid
-    const setIds = trackObj.sets.map(s => s.id);
-    if (!setIds.includes(this.state.selectedSet)) {
-      this.state.selectedSet = trackObj.sets[0].id;
-    }
-
-    let html = '';
-    trackObj.sets.forEach(set => {
-      const isSelected = this.state.selectedSet === set.id;
-      html += `
-        <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
-          isSelected 
-            ? 'bg-gradient-to-r from-rose-500/25 to-coral-500/25 text-rose-300 border border-rose-500/50 shadow-md shadow-rose-500/10' 
-            : 'bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700'
-        }" data-set="${set.id}">
-          <span>${set.name}</span>
-          <span class="px-1.5 py-0.2 text-[10px] rounded-full bg-slate-800 text-slate-300 font-mono">${set.question_count} Qs</span>
-        </button>
-      `;
-    });
-
-    setContainer.innerHTML = html;
-
-    setContainer.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.state.selectedSet = btn.dataset.set;
-        this.state.quizStats = { correct: 0, incorrect: 0 };
-        this.renderInterviewSetPills();
-        this.loadQuizQuestions();
-      });
-    });
-
-    this.loadQuizQuestions();
-  },
-
-  async loadQuizQuestions() {
-    const track = this.state.selectedTrack;
-    const setId = this.state.selectedSet;
-    if (!track || !setId) return;
-
-    try {
-      const res = await fetch(`/api/interviews/${track}/${setId}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      this.state.quizQuestions = data.questions || [];
-      this.state.currentQuizIdx = 0;
-      this.state.selectedQuizOption = null;
-      this.state.quizSubmitted = false;
-      this.renderQuizQuestion();
-    } catch (e) {
-      console.error('Failed to load quiz questions:', e);
-    }
-  },
-
-  renderQuizQuestion() {
-    const container = document.getElementById('quiz-question-container');
-    if (!container) return;
-
-    const qList = this.state.quizQuestions;
-    if (!qList || qList.length === 0) {
-      container.innerHTML = '<div class="p-8 text-center text-slate-400">Loading interview question set...</div>';
-      return;
-    }
-
-    const q = qList[this.state.currentQuizIdx];
-    const qNum = this.state.currentQuizIdx + 1;
-    const totalQ = qList.length;
-
-    // Resolve Question Prompt across formats
-    const questionPrompt = q.stem || q.question || q.prompt || 'Question prompt not specified.';
-    const correctKey = (q.correct_key || q.answer || q.correct || '').toString().trim().toUpperCase();
-
-    // Parse options safely from Dictionary or Array
-    let optionsList = [];
-    if (typeof q.options === 'object' && q.options !== null && !Array.isArray(q.options)) {
-      optionsList = Object.keys(q.options).sort().map(k => ({
-        key: k.toUpperCase(),
-        text: q.options[k]
-      }));
-    } else if (Array.isArray(q.options)) {
-      optionsList = q.options.map((opt, idx) => ({
-        key: String.fromCharCode(65 + idx),
-        text: typeof opt === 'object' ? (opt.text || opt.value || JSON.stringify(opt)) : opt
-      }));
-    }
-
-    let optionsHtml = '';
-    optionsList.forEach(opt => {
-      const isChosen = this.state.selectedQuizOption === opt.key;
-      let cardStyle = 'bg-slate-900/60 border-slate-800/80 hover:border-slate-700 hover:bg-slate-800/50';
-      let badgeStyle = 'bg-slate-800 text-slate-300 border border-slate-700';
-
-      if (this.state.quizSubmitted) {
-        const isCorrect = (opt.key === correctKey);
-        if (isCorrect) {
-          cardStyle = 'bg-emerald-950/40 border-emerald-500/80 text-emerald-200 shadow-lg shadow-emerald-950/30';
-          badgeStyle = 'bg-emerald-500 text-black font-black';
-        } else if (isChosen) {
-          cardStyle = 'bg-rose-950/40 border-rose-500/80 text-rose-200 shadow-lg shadow-rose-950/30';
-          badgeStyle = 'bg-rose-500 text-white font-black';
-        } else {
-          cardStyle = 'bg-slate-900/40 border-slate-800/40 opacity-50';
-        }
-      } else if (isChosen) {
-        cardStyle = 'bg-emerald-500/15 border-emerald-500 text-white shadow-md shadow-emerald-500/10';
-        badgeStyle = 'bg-emerald-500 text-black font-black';
-      }
-
-      optionsHtml += `
-        <div class="p-4 rounded-xl border transition-all cursor-pointer flex items-start gap-3.5 ${cardStyle}" onclick="App.selectQuizOption('${opt.key}')">
-          <span class="w-7 h-7 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-bold ${badgeStyle}">
-            ${opt.key}
-          </span>
-          <span class="text-sm leading-relaxed flex-1">${opt.text}</span>
-        </div>
-      `;
-    });
-
-    // Rationale breakdown container
-    let rationaleHtml = '';
-    if (this.state.quizSubmitted) {
-      const userGotCorrect = (this.state.selectedQuizOption === correctKey);
-      
-      rationaleHtml = `
-        <div class="mt-5 p-5 rounded-xl ${userGotCorrect ? 'bg-emerald-950/30 border-emerald-500/40' : 'bg-rose-950/30 border-rose-500/40'} border space-y-3">
-          <div class="flex items-center gap-2">
-            <span class="text-base">${userGotCorrect ? '🎉' : '💡'}</span>
-            <span class="font-bold text-sm ${userGotCorrect ? 'text-emerald-400' : 'text-rose-400'}">
-              ${userGotCorrect ? 'Correct Answer!' : `Incorrect — The correct answer is Option ${correctKey}`}
-            </span>
-          </div>
-      `;
-
-      if (q.rationales && typeof q.rationales === 'object') {
-        if (q.rationales.correct) {
-          rationaleHtml += `
-            <div class="p-3 rounded-lg bg-black/40 text-xs text-emerald-300 font-medium leading-relaxed">
-              <strong class="text-white">Core Principle:</strong> ${q.rationales.correct}
-            </div>
-          `;
-        }
-        rationaleHtml += '<div class="space-y-1.5 pt-2 text-xs text-slate-300">';
-        optionsList.forEach(opt => {
-          const rText = q.rationales[opt.key];
-          if (rText) {
-            const isOptCorrect = (opt.key === correctKey);
-            rationaleHtml += `
-              <div class="p-2 rounded bg-black/20">
-                <strong class="${isOptCorrect ? 'text-emerald-400' : 'text-slate-400'}">Option ${opt.key}:</strong> 
-                <span class="text-slate-300">${rText}</span>
-              </div>
-            `;
-          }
-        });
-        rationaleHtml += '</div>';
-      } else if (q.explanation) {
-        rationaleHtml += `
-          <div class="p-3 rounded-lg bg-black/40 text-xs text-slate-300 leading-relaxed">
-            <strong class="text-emerald-400">Explanation:</strong> ${q.explanation}
-          </div>
-        `;
-      }
-
-      rationaleHtml += '</div>';
-    }
-
-    // Header metadata
-    const topicText = q.domain_name || q.sub_objective || q.topic || q.level_name || 'Interview Drill';
-    const cogLevel = q.cognitive_level || (q.difficulty ? q.difficulty.toUpperCase() : 'STANDARD');
-
-    const totalAnswered = this.state.quizStats.correct + this.state.quizStats.incorrect;
-    const accuracy = totalAnswered > 0 ? Math.round((this.state.quizStats.correct / totalAnswered) * 100) : 0;
-
-    container.innerHTML = `
-      <div class="space-y-4">
-        <!-- Quiz Meta Bar -->
-        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-mono text-emerald-400 font-bold tracking-wider uppercase">QUESTION ${qNum} OF ${totalQ}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">${cogLevel}</span>
-          </div>
-          <div class="flex items-center gap-3 text-xs">
-            <span class="text-slate-400 font-mono truncate max-w-xs">${topicText}</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono font-bold">
-              Score: ${this.state.quizStats.correct}/${totalAnswered} (${accuracy}%)
-            </span>
-          </div>
-        </div>
-
-        <!-- Question Prompt -->
-        <h3 class="text-base md:text-lg font-semibold text-slate-100 leading-relaxed pt-1">
-          ${questionPrompt}
-        </h3>
-
-        <!-- Interactive Options -->
-        <div class="space-y-2.5 pt-2">
-          ${optionsHtml}
-        </div>
-
-        <!-- Pedagogical Rationale (Appears on submit) -->
-        ${rationaleHtml}
-
-        <!-- Action Footer Controls -->
-        <div class="flex items-center justify-between pt-5 border-t border-slate-800 mt-6">
-          <button class="btn-secondary text-xs" onclick="App.prevQuizQuestion()" ${qNum === 1 ? 'disabled' : ''}>
-            ← Previous
-          </button>
-          
-          <div class="flex items-center gap-2">
-            ${!this.state.quizSubmitted ? `
-              <button class="btn-primary text-xs px-5 py-2" onclick="App.submitQuizAnswer()">
-                <span>Check Answer</span>
-              </button>
-            ` : `
-              <button class="btn-coral text-xs px-5 py-2" onclick="App.nextQuizQuestion()">
-                <span>${qNum < totalQ ? 'Next Question →' : 'Complete Set 🎉'}</span>
-              </button>
-            `}
-          </div>
-        </div>
-      </div>
-    `;
-  },
-
-  selectQuizOption(key) {
-    if (this.state.quizSubmitted) return;
-    this.state.selectedQuizOption = key;
-    this.renderQuizQuestion();
-  },
-
-  submitQuizAnswer() {
-    if (!this.state.selectedQuizOption) {
-      alert('Please select an option before checking.');
-      return;
-    }
-    const q = this.state.quizQuestions[this.state.currentQuizIdx];
-    const correctKey = (q.correct_key || q.answer || q.correct || '').toString().trim().toUpperCase();
-    
-    if (this.state.selectedQuizOption === correctKey) {
-      this.state.quizStats.correct += 1;
-    } else {
-      this.state.quizStats.incorrect += 1;
-    }
-
-    this.state.quizSubmitted = true;
-    this.renderQuizQuestion();
-  },
-
-  nextQuizQuestion() {
-    if (this.state.currentQuizIdx + 1 < this.state.quizQuestions.length) {
-      this.state.currentQuizIdx += 1;
-      this.state.selectedQuizOption = null;
-      this.state.quizSubmitted = false;
-      this.renderQuizQuestion();
-    } else {
-      const accuracy = Math.round((this.state.quizStats.correct / this.state.quizQuestions.length) * 100);
-      alert(`🎉 Set Completed! Your score: ${this.state.quizStats.correct}/${this.state.quizQuestions.length} (${accuracy}%)`);
-    }
-  },
-
-  prevQuizQuestion() {
-    if (this.state.currentQuizIdx > 0) {
-      this.state.currentQuizIdx -= 1;
-      this.state.selectedQuizOption = null;
-      this.state.quizSubmitted = false;
-      this.renderQuizQuestion();
-    }
-  },
-
-  // ── 24/7 Keep-Alive & Cron Monitor ────────────────────────────────────────
-  initCronMonitor() {
-    this.refreshHealthData();
-    setInterval(() => {
-      if (this.state.activeTab === 'monitor') {
-        this.refreshHealthData();
-      }
-    }, 20000);
-  },
-
-  async refreshHealthData() {
-    const t0 = performance.now();
-    try {
-      const res = await fetch('/api/health');
-      const t1 = performance.now();
-      const latencyMs = Math.round(t1 - t0);
-      const data = await res.json();
-      this.state.healthData = data;
-      this.renderCronMonitor(data, latencyMs);
-    } catch (e) {
-      console.warn('Health ping deferred:', e);
-    }
-  },
-
-  renderCronMonitor(data, latencyMs) {
-    const elUptime = document.getElementById('mon-uptime');
-    const elPings = document.getElementById('mon-pings');
-    const elLatency = document.getElementById('mon-latency');
-    const elCronStatus = document.getElementById('mon-cron-status');
-    const elTimestamp = document.getElementById('mon-timestamp');
-
-    if (elUptime) elUptime.textContent = `${Math.floor(data.uptime_seconds / 60)}m ${Math.floor(data.uptime_seconds % 60)}s`;
-    if (elPings) elPings.textContent = data.ping_count;
-    if (elLatency) elLatency.textContent = `${latencyMs} ms`;
-    if (elCronStatus) elCronStatus.textContent = data.cron_status;
-    if (elTimestamp) elTimestamp.textContent = new Date(data.timestamp_utc).toLocaleTimeString();
-  },
-
-  copyHealthUrl() {
-    const host = window.location.origin;
-    const url = `${host}/api/health`;
-    navigator.clipboard.writeText(url).then(() => {
-      const btn = document.getElementById('btn-copy-health-url');
-      if (btn) {
-        btn.innerHTML = '<span>✓ Copied to Clipboard!</span>';
-        setTimeout(() => {
-          btn.innerHTML = '<span>📋 Copy URL for cron-job.org</span>';
-        }, 2500);
-      }
-    });
   }
 };
 

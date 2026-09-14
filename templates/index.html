@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Career Learning Vault — Cloud Hub | Engineered by Abhishek Gali</title>
+  <title>Career Learning Vault — Cloud Command Hub | Abhishek Gali</title>
   
   <!-- Inter & JetBrains Mono Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,10 +25,11 @@
             vault: {
               emerald: '#10b981',
               emeraldDark: '#059669',
-              emeraldLight: '#34d399',
               coral: '#fb7185',
               rose: '#f43f5e',
-              cyan: '#38bdf8'
+              cyan: '#38bdf8',
+              purple: '#a855f7',
+              amber: '#f59e0b'
             }
           }
         }
@@ -41,468 +42,1096 @@
 
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* Structural Desktop Layout Overhaul */
+    .vault-layout {
+      display: flex;
+      min-height: 100vh;
+      background-color: #080c14;
+    }
+    .vault-sidebar {
+      width: 290px;
+      flex-shrink: 0;
+      background: rgba(11, 16, 28, 0.95);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 40;
+    }
+    .vault-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      height: 100vh;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+    .sidebar-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #f8fafc;
+    }
+    .sidebar-item.active {
+      background: rgba(16, 185, 129, 0.12);
+      color: #ffffff;
+      border-color: rgba(16, 185, 129, 0.3);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.15);
+    }
+    .sidebar-indicator {
+      position: absolute;
+      left: 0;
+      top: 25%;
+      height: 50%;
+      width: 3.5px;
+      border-radius: 0 4px 4px 0;
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+    .sidebar-item.active .sidebar-indicator {
+      background: #10b981;
+    }
+    .action-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.1rem 1.3rem;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .action-card:hover {
+      background: rgba(22, 33, 58, 0.85);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.5);
+    }
+    .action-card-accent {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+    }
+    .action-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+  </style>
 </head>
-<body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col font-sans">
+<body class="bg-[#080c14] text-slate-100 font-sans antialiased">
 
-  <!-- Header / Top Bar -->
-  <header class="app-header">
-    <div class="flex items-center gap-3">
-      <!-- Modern Tech Hexagon Logo -->
-      <div class="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-rose-500 p-[1.5px] shadow-lg shadow-emerald-500/20">
-        <div class="w-full h-full bg-[#0b1120] rounded-[10px] flex items-center justify-center">
-          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-          </svg>
-        </div>
-      </div>
-      <div>
-        <div class="flex items-center gap-2">
-          <span class="font-extrabold text-sm md:text-base tracking-tight text-white">CAREER VAULT</span>
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono">v2.0 CLOUD</span>
-        </div>
-        <p class="text-[11px] text-slate-400">
-          Engineered by <span class="text-emerald-300 font-semibold">Abhishek Gali</span>
-        </p>
-      </div>
-    </div>
-
-    <!-- Activity-Gated Focus Timer Bar -->
-    <div class="focus-timer-container">
-      <div id="timer-status-badge" class="timer-badge-active">
-        <span class="pulse-dot"></span>
-        <span>ACTIVE</span>
-      </div>
-      <div class="timer-digits" id="timer-digits">00:00:00 / 02:00:00</div>
-      <div class="timer-progress-wrap hidden md:block">
-        <div class="timer-progress-bar" id="timer-progress-bar"></div>
-      </div>
-      <span class="text-xs font-mono text-emerald-400 font-semibold hidden md:inline" id="timer-percentage">0%</span>
-    </div>
-
-    <!-- Navigation Tabs & Author Badge -->
-    <div class="flex items-center gap-2">
-      <nav class="flex items-center gap-1">
-        <button class="nav-tab-btn active" data-tab="sandbox">
-          <span>⚡</span> <span class="hidden md:inline">Coding Fleet (312)</span>
-        </button>
-        <button class="nav-tab-btn" data-tab="interviews">
-          <span>🎯</span> <span class="hidden md:inline">Interview Drills</span>
-        </button>
-        <button class="nav-tab-btn" data-tab="roadmap">
-          <span>🗺️</span> <span class="hidden md:inline">DSA Roadmap</span>
-        </button>
-        <button class="nav-tab-btn" data-tab="monitor">
-          <span>🛰️</span> <span class="hidden md:inline">24/7 Keep-Alive</span>
-        </button>
-      </nav>
-
-      <!-- Author Chip -->
-      <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-700/60 text-xs">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-slate-300">Architect: <strong class="text-white">Abhishek Gali</strong></span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content Views Container -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
-
-    <!-- VIEW 1: CODING SANDBOX (312 CHALLENGES FLEET) -->
-    <section id="sandbox-view" class="space-y-5">
+  <div class="vault-layout">
+    
+    <!-- ── LEFT SIDEBAR (Mirrors launcher.pyw layout) ──────────────────────── -->
+    <aside class="vault-sidebar p-4 space-y-5">
       
-      <!-- Hero Banner -->
-      <div class="glass-panel p-6 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-emerald-500/20">
-        <div class="space-y-1 max-w-2xl z-10">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
-            <span>🚀 10-Platform Coding Fleet</span>
-            <span>•</span>
-            <span>3.0s Isolated Subprocess Runner</span>
+      <!-- Brand & Credits -->
+      <div class="px-2 pt-1 pb-2 border-b border-slate-800/80">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-rose-500 p-[1.5px] shadow-lg shadow-emerald-500/20 flex-shrink-0">
+            <div class="w-full h-full bg-[#0b1120] rounded-[10px] flex items-center justify-center">
+              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            </div>
           </div>
-          <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">Interactive Python Coding Sandbox</h1>
-          <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-            Practice 312 curated, interview-grade coding challenges from Placement Prep, GUVI, HackerRank, LeetCode, GeeksforGeeks, Codewars, HackerEarth, CodeChef, Programiz, and W3Schools.
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-black text-sm tracking-tight text-white">CAREER VAULT</span>
+              <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 font-mono">v2.0</span>
+            </div>
+            <div class="text-[11px] text-slate-400">
+              By <strong class="text-white font-semibold">Abhishek Gali</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Persistent Daily Focus Timer (Desktop & Cloud Synced) -->
+      <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 shadow-inner space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <span>⏱️</span> <span>DAILY FOCUS</span>
+          </span>
+          <div id="timer-status-badge" class="timer-badge-active text-[10px] py-0.5 px-2">
+            <span class="pulse-dot"></span>
+            <span>ACTIVE</span>
+          </div>
+        </div>
+
+        <div class="font-mono text-base font-bold text-white tracking-wide text-center py-0.5" id="timer-digits">
+          00:00:00 / 02:00:00
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="space-y-1">
+          <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-rose-500 rounded-full transition-all duration-300" id="timer-progress-bar" style="width: 0%"></div>
+          </div>
+          <div class="flex justify-between items-center text-[10px] font-mono text-slate-400">
+            <span id="timer-percentage">0% Target</span>
+            <span>2h Daily Goal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tracks (Mirrors launcher.pyw exactly) -->
+      <div class="space-y-1 flex-1">
+        <div class="px-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Career Subject Tracks</div>
+        
+        <div class="sidebar-item active" data-view="datascience">
+          <div class="sidebar-indicator"></div>
+          <span class="text-base">📊</span>
+          <div class="flex-1">
+            <div class="leading-tight">Data Science</div>
+            <div class="text-[10px] text-slate-400 font-normal">Books, SQL, EDA & L1–3</div>
+          </div>
+        </div>
+
+        <div class="sidebar-item" data-view="ml">
+          <div class="sidebar-indicator"></div>
+          <span class="text-base">🧠</span>
+          <div class="flex-1">
+            <div class="leading-tight">Machine Learning</div>
+            <div class="text-[10px] text-slate-400 font-normal">ISLP, Math, D2L & L1–3</div>
+          </div>
+        </div>
+
+        <div class="sidebar-item" data-view="cyber">
+          <div class="sidebar-indicator"></div>
+          <span class="text-base">🛡️</span>
+          <div class="flex-1">
+            <div class="leading-tight">Cyber Security</div>
+            <div class="text-[10px] text-slate-400 font-normal">ISC2 CC, NIST & Threat Lab</div>
+          </div>
+        </div>
+
+        <div class="sidebar-item" data-view="dsa">
+          <div class="sidebar-indicator"></div>
+          <span class="text-base">⚡</span>
+          <div class="flex-1">
+            <div class="leading-tight">DSA & Algorithms</div>
+            <div class="text-[10px] text-slate-400 font-normal">Blind 75 & Complexity</div>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <div class="px-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Hands-On Practice</div>
+          
+          <div class="sidebar-item" data-view="sandbox">
+            <div class="sidebar-indicator"></div>
+            <span class="text-base">💻</span>
+            <div class="flex-1 flex items-center justify-between">
+              <div>
+                <div class="leading-tight">Coding Sandbox</div>
+                <div class="text-[10px] text-slate-400 font-normal">10 Platforms Fleet</div>
+              </div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold">312</span>
+            </div>
+          </div>
+
+          <div class="sidebar-item" data-view="library">
+            <div class="sidebar-indicator"></div>
+            <span class="text-base">📁</span>
+            <div class="flex-1 flex items-center justify-between">
+              <div>
+                <div class="leading-tight">Vault Library</div>
+                <div class="text-[10px] text-slate-400 font-normal">All Textbooks & Cheats</div>
+              </div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono font-bold">PDFs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Author Profile Footer -->
+      <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-sm font-black text-emerald-400">
+          AG
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="text-xs font-bold text-white truncate">Abhishek Gali</div>
+          <div class="text-[10px] text-emerald-400 font-medium">Lead Systems Architect</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── MAIN CONTENT VIEWPORT ───────────────────────────────────────────── -->
+    <main class="vault-main p-5 md:p-8 space-y-6">
+
+      <!-- =================================================================== -->
+      <!-- VIEW 1: DATA SCIENCE TRACK (DEFAULT)                                -->
+      <!-- =================================================================== -->
+      <section id="view-datascience" class="track-view space-y-6">
+        <!-- Hero Banner with Illustration Thumbnail -->
+        <div class="glass-panel p-6 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-cyan-500/20">
+          <div class="space-y-2 max-w-2xl z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold">
+              <span>📊 Analytics, SQL & Exploratory Modeling</span>
+              <span>•</span>
+              <span>30-Day Master Syllabus</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Data Science Master Track</h1>
+            <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+              Foundations of inferential thinking, tabular data manipulation with Pandas, advanced relational SQL window operations, statistical hypothesis testing, and Level 1–3 interview prep.
+            </p>
+            <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📅 30-Day Master Plan</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📘 4 Core Textbooks</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📋 5 Cheatsheets</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🎓 60 Level Interview Qs</span>
+            </div>
+          </div>
+          <div class="w-full md:w-64 h-36 rounded-xl overflow-hidden border border-slate-700/60 shadow-xl flex-shrink-0">
+            <img src="/static/images/banner_datascience.png" alt="Data Science Banner" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- Sub-Tabs Navigation -->
+        <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+          <button class="subtab-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30" data-subtab="ds-resources">
+            📚 Books, Cheatsheets & Videos
+          </button>
+          <button class="subtab-btn px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white" data-subtab="ds-prep">
+            🎯 Interactive Interview Prep (Levels 1–3)
+          </button>
+        </div>
+
+        <!-- Subtab Content 1: Books & Resources -->
+        <div id="subtab-ds-resources" class="space-y-6">
+          
+          <!-- Master Study Plans -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Master Study Roadmap & Curated Guides</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              
+              <div class="action-card">
+                <div class="action-card-accent bg-emerald-500"></div>
+                <div class="action-icon-box text-emerald-400">📅</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">30-Day Data Science Master Plan</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono font-semibold">Study Plan</span>
+                  </div>
+                  <p class="text-xs text-slate-400 leading-relaxed">Comprehensive 4-week execution syllabus: Python structures, NumPy vectorization, advanced SQL (Window Functions/CTEs), Pandas EDA, and statistical hypothesis tests.</p>
+                  <div class="pt-2 flex items-center gap-2">
+                    <a href="https://github.com/Abhishek-Gali/career-learning-vault-web" target="_blank" class="btn-primary text-[11px] py-1 px-3">📖 View Curriculum</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-cyan-500"></div>
+                <div class="action-icon-box text-cyan-400">📕</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">100% Free Learning Resources Catalog</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-mono font-semibold">Catalog</span>
+                  </div>
+                  <p class="text-xs text-slate-400 leading-relaxed">Curated inventory of verified open-access books, cheat sheets, university video playlists, and platforms with zero payment walls.</p>
+                  <div class="pt-2 flex items-center gap-2">
+                    <a href="https://github.com/Abhishek-Gali/career-learning-vault-web" target="_blank" class="btn-secondary text-[11px] py-1 px-3">📑 Open Catalog</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Core Textbooks -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Core Open Textbooks & Code Repositories</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              
+              <div class="action-card">
+                <div class="action-card-accent bg-cyan-500"></div>
+                <div class="action-icon-box text-cyan-400">📘</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">UC Berkeley Data 8 Textbook</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-mono font-semibold">UC Berkeley</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Ani Adhikari & John DeNero — Computational and Inferential Thinking. Python for simulation, estimation, and hypothesis testing.</p>
+                  <div class="pt-2 flex items-center gap-2">
+                    <a href="https://inferentialthinking.com/chapters/intro.html" target="_blank" class="btn-primary text-[11px] py-1 px-3">📖 Read Online (Official)</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-blue-500"></div>
+                <div class="action-icon-box text-blue-400">📘</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">Python for Data Analysis (3rd Edition)</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 font-mono font-semibold">Creator of Pandas</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Wes McKinney — Practical data wrangling, DataFrame slicing, grouping, time-series, and aggregations with Pandas.</p>
+                  <div class="pt-2 flex items-center gap-2">
+                    <a href="https://wesmckinney.com/book/" target="_blank" class="btn-secondary text-[11px] py-1 px-3">📖 Read Online Book</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-cyan-500"></div>
+                <div class="action-icon-box text-cyan-400">📘</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">Think Stats (2nd Edition)</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-mono font-semibold">Green Tea Press</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Allen B. Downey — Practical statistics, probability distributions, cumulative distribution functions (CDFs), and hypothesis testing.</p>
+                  <div class="pt-2 flex items-center gap-2">
+                    <a href="https://greenteapress.com/wp/think-stats-2e/" target="_blank" class="btn-secondary text-[11px] py-1 px-3">📥 Download Official PDF</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-blue-500"></div>
+                <div class="action-icon-box text-blue-400">📘</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">Think Python (2nd Edition)</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 font-mono font-semibold">PDF Book</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Allen B. Downey — Clear conceptual introduction to Python data structures, algorithms, and modular object-oriented design.</p>
+                  <div class="pt-2 flex items-center gap-2">
+                    <a href="https://greenteapress.com/wp/think-python-2e/" target="_blank" class="btn-secondary text-[11px] py-1 px-3">📥 Download Official PDF</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Official Cheatsheets & Practice Games -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Official Cheat Sheets & Interactive SQL Drills</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📋</span>
+                  <h4 class="text-xs font-bold text-white">Official Pandas Cheatsheet</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Reshaping, grouping, window operations, and filtering syntax.</p>
+                <a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf" target="_blank" class="text-xs text-cyan-400 hover:underline pt-1">📥 View Official PDF ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📋</span>
+                  <h4 class="text-xs font-bold text-white">Advanced SQL Cheatsheet</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">SELECT, JOINs, GROUP BY, HAVING, subqueries, and window functions.</p>
+                <a href="https://www.sqltutorial.org/sql-cheat-sheet/" target="_blank" class="text-xs text-cyan-400 hover:underline pt-1">📥 View SQL Cheatsheet ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🎮</span>
+                  <h4 class="text-xs font-bold text-white">SQL Murder Mystery</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Interactive game to practice complex SQL queries and investigative joins.</p>
+                <a href="https://mystery.knightlab.com/" target="_blank" class="text-xs text-emerald-400 hover:underline pt-1">🎮 Play Game Online ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🏋️</span>
+                  <h4 class="text-xs font-bold text-white">100 NumPy Exercises</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Nicolas Rougier — Progressive drills testing mastery of NumPy arrays.</p>
+                <a href="https://github.com/rougier/numpy-100" target="_blank" class="text-xs text-cyan-400 hover:underline pt-1">💻 Open GitHub Repo ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📋</span>
+                  <h4 class="text-xs font-bold text-white">Official Git Cheatsheet</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Branching, staging, diffing, rebasing, and remote synchronization.</p>
+                <a href="https://education.github.com/git-cheat-sheet-education.pdf" target="_blank" class="text-xs text-cyan-400 hover:underline pt-1">📥 Download Git Sheet ↗</a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Verified Video Lecture Series -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Verified Free Video Lecture Bootcamps</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              
+              <div class="action-card">
+                <div class="action-card-accent bg-cyan-500"></div>
+                <div class="action-icon-box text-cyan-400">🎓</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">MIT 6.0002 Computational Thinking</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-mono font-semibold">MIT OCW</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Prof. John Guttag (15 Full Lectures) — Optimization problems, stochastic programs, Monte Carlo simulations, and data modeling.</p>
+                  <div class="pt-2">
+                    <a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP619EG1wp0kT-7rDE_w5DPW9" target="_blank" class="btn-primary text-[11px] py-1 px-3">▶ Watch Playlist on YouTube</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-emerald-500"></div>
+                <div class="action-icon-box text-emerald-400">💼</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">Alex The Analyst — Data Analyst Bootcamp</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono font-semibold">Full Bootcamp</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Comprehensive job-readiness playlist covering real-world SQL querying, data cleaning in Python, and portfolio dashboards.</p>
+                  <div class="pt-2">
+                    <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8FE_XZ87vPPSfHqb6OcM0cF" target="_blank" class="btn-secondary text-[11px] py-1 px-3">▶ Watch Bootcamp on YouTube</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Subtab Content 2: Interview Prep Engine -->
+        <div id="subtab-ds-prep" class="space-y-4 hidden">
+          <div class="flex flex-wrap items-center gap-2 pb-2" id="ds-level-selector">
+            <!-- Populated dynamically -->
+          </div>
+          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="ds-quiz-container">
+            <!-- Quiz Card -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 2: MACHINE LEARNING TRACK                                      -->
+      <!-- =================================================================== -->
+      <section id="view-ml" class="track-view space-y-6 hidden">
+        <div class="glass-panel p-6 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-purple-500/20">
+          <div class="space-y-2 max-w-2xl z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
+              <span>🧠 Supervised, Deep Learning & Mathematical Foundations</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Machine Learning & Deep Learning</h1>
+            <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+              Stanford's Introduction to Statistical Learning (ISLP), Cambridge's Mathematics for Machine Learning, D2L.ai interactive 1000-page deep learning, Stanford CS229/CS230 cheat sheets, and StatQuest visual breakdowns.
+            </p>
+            <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📘 Stanford ISLP</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📘 D2L.ai (1000+ Pages)</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📋 Stanford CS229/230</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🎓 60 Level Interview Qs</span>
+            </div>
+          </div>
+          <div class="w-full md:w-64 h-36 rounded-xl overflow-hidden border border-slate-700/60 shadow-xl flex-shrink-0">
+            <img src="/static/images/banner_ml.png" alt="Machine Learning Banner" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+          <button class="subtab-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-purple-500/15 text-purple-300 border border-purple-500/30" data-subtab="ml-resources">
+            📚 Textbooks, Math & Videos
+          </button>
+          <button class="subtab-btn px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white" data-subtab="ml-prep">
+            🎯 Interactive ML Prep (Levels 1–3)
+          </button>
+        </div>
+
+        <div id="subtab-ml-resources" class="space-y-6">
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Premier Open Textbooks & Deep Learning Books</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              
+              <div class="action-card">
+                <div class="action-card-accent bg-blue-500"></div>
+                <div class="action-icon-box text-blue-400">📘</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">ISLP — Statistical Learning with Python</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 font-mono font-semibold">Stanford Univ.</span>
+                  </div>
+                  <p class="text-xs text-slate-400">James, Witten, Hastie, Tibshirani — The definitive ML textbook on regression, classification, resampling, and tree models.</p>
+                  <div class="pt-2">
+                    <a href="https://www.statlearning.com/" target="_blank" class="btn-primary text-[11px] py-1 px-3">📥 Download Official PDF</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-purple-500"></div>
+                <div class="action-icon-box text-purple-400">📘</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">Mathematics for Machine Learning</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-400 font-mono font-semibold">Cambridge Univ.</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Deisenroth, Faisal, Ong — Rigorous linear algebra, matrix decompositions, vector calculus, and continuous optimization.</p>
+                  <div class="pt-2">
+                    <a href="https://mml-book.github.io/" target="_blank" class="btn-secondary text-[11px] py-1 px-3">📖 Read Online Book</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-amber-500"></div>
+                <div class="action-icon-box text-amber-400">📘</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">Dive into Deep Learning (D2L.ai)</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 font-mono font-semibold">1000+ Page Book</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Aston Zhang, Zack Lipton, Mu Li, Alex Smola — Interactive textbook with implementations from MLPs to Attention Transformers.</p>
+                  <div class="pt-2">
+                    <a href="https://d2l.ai/" target="_blank" class="btn-primary text-[11px] py-1 px-3">📖 Read Interactive Book</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-cyan-500"></div>
+                <div class="action-icon-box text-cyan-400">📘</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">Think Bayes (Bayesian Statistics in Python)</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-mono font-semibold">Green Tea Press</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Allen B. Downey — Practical computational Bayesian techniques, prior/posterior estimation, and hypothesis tests.</p>
+                  <div class="pt-2">
+                    <a href="https://greenteapress.com/wp/think-bayes/" target="_blank" class="btn-secondary text-[11px] py-1 px-3">📥 Download Official PDF</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Mathematics Foundations & Cheatsheets -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Stanford & Harvard Mathematics Cheat Sheets</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📋</span>
+                  <h4 class="text-xs font-bold text-white">Stanford CS229 ML Cheatsheet</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Supervised learning, SVMs, trees, neural nets, and regularization.</p>
+                <a href="https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-supervised-learning" target="_blank" class="text-xs text-purple-400 hover:underline pt-1">📥 View Stanford CS229 ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📋</span>
+                  <h4 class="text-xs font-bold text-white">Stanford Linear Algebra Review</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Matrices, eigenvalues, eigenvectors, trace, and SVD decomposition.</p>
+                <a href="https://see.stanford.edu/materials/aimlcs229/cs229-linalg.pdf" target="_blank" class="text-xs text-purple-400 hover:underline pt-1">📥 Download PDF Review ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📋</span>
+                  <h4 class="text-xs font-bold text-white">Stanford Probability Review</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Random variables, marginal distributions, conditional variance.</p>
+                <a href="https://see.stanford.edu/materials/aimlcs229/cs229-prob.pdf" target="_blank" class="text-xs text-purple-400 hover:underline pt-1">📥 Download PDF Review ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📋</span>
+                  <h4 class="text-xs font-bold text-white">Harvard Stat 110 Cheatsheet</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Joe Blitzstein & William Chen — Master reference for distributions.</p>
+                <a href="https://wzchen.github.io/probability_cheatsheet/" target="_blank" class="text-xs text-purple-400 hover:underline pt-1">📥 Download Stat 110 Sheet ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📋</span>
+                  <h4 class="text-xs font-bold text-white">Stanford CS230 Deep Learning</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">CNNs, RNNs, LSTM, transformers, and hyperparameter tuning.</p>
+                <a href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-deep-learning-tips-and-tricks" target="_blank" class="text-xs text-purple-400 hover:underline pt-1">📥 View Deep Learning Sheet ↗</a>
+              </div>
+
+              <div class="action-card flex-col items-start gap-2 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📊</span>
+                  <h4 class="text-xs font-bold text-white">100 Days of ML Infographics</h4>
+                </div>
+                <p class="text-[11px] text-slate-400">Avik Jain — Visual flowcharts, algorithm recipes, and diagrams.</p>
+                <a href="https://github.com/Avik-Jain/100-Days-Of-ML-Code" target="_blank" class="text-xs text-emerald-400 hover:underline pt-1">💻 Open Infographics Repo ↗</a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Video Series -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Visual Lectures & Intuition Series</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              
+              <div class="action-card">
+                <div class="action-card-accent bg-amber-500"></div>
+                <div class="action-icon-box text-amber-400">📊</div>
+                <div class="flex-1 space-y-1">
+                  <h4 class="text-sm font-bold text-white">StatQuest with Josh Starmer</h4>
+                  <p class="text-xs text-slate-400">Crystal-clear step-by-step visual breakdowns of machine learning, trees, gradient boosting, and neural networks.</p>
+                  <div class="pt-2">
+                    <a href="https://statquest.org/video-index/" target="_blank" class="btn-primary text-[11px] py-1 px-3">▶ Open StatQuest Video Index</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-blue-500"></div>
+                <div class="action-icon-box text-blue-400">📐</div>
+                <div class="flex-1 space-y-1">
+                  <h4 class="text-sm font-bold text-white">3Blue1Brown — Essence of Linear Algebra</h4>
+                  <p class="text-xs text-slate-400">16 Episodes — Iconic geometric visual intuitions for vectors, matrix transforms, determinants, and eigenvalues.</p>
+                  <div class="pt-2">
+                    <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab" target="_blank" class="btn-secondary text-[11px] py-1 px-3">▶ Watch on YouTube</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div id="subtab-ml-prep" class="space-y-4 hidden">
+          <div class="flex flex-wrap items-center gap-2 pb-2" id="ml-level-selector"></div>
+          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="ml-quiz-container"></div>
+        </div>
+
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 3: CYBER SECURITY TRACK                                        -->
+      <!-- =================================================================== -->
+      <section id="view-cyber" class="track-view space-y-6 hidden">
+        <div class="glass-panel p-6 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-rose-500/20">
+          <div class="space-y-2 max-w-2xl z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-semibold">
+              <span>🛡️ Defensive Operations & Incident Response</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Cyber Security & SOC Operations</h1>
+            <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+              Official ISC2 Certified in Cybersecurity (CC) exam preparation banks, NIST SP 800-61 Rev 2 incident handling guides, NIST CSF 2.0 frameworks, OWASP cheat sheets, and threat forensic playbooks.
+            </p>
+            <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🎓 128 ISC2 CC Exam Qs</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📕 NIST SP 800-61 / CSF 2.0</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📋 OWASP Series</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📦 3 Threat Scenarios</span>
+            </div>
+          </div>
+          <div class="w-full md:w-64 h-36 rounded-xl overflow-hidden border border-slate-700/60 shadow-xl flex-shrink-0">
+            <img src="/static/images/banner_cyber.png" alt="Cyber Security Banner" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+          <button class="subtab-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30" data-subtab="cyber-resources">
+            📕 Frameworks, Books & Lab Tools
+          </button>
+          <button class="subtab-btn px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white" data-subtab="cyber-prep">
+            📝 ISC2 CC Exam Simulator (5 Domains)
+          </button>
+        </div>
+
+        <div id="subtab-cyber-resources" class="space-y-6">
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">NIST Industry Frameworks & Open Standards</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              
+              <div class="action-card">
+                <div class="action-card-accent bg-rose-500"></div>
+                <div class="action-icon-box text-rose-400">📕</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">NIST SP 800-61 Rev 2</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-mono font-semibold">Official Standard</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Computer Security Incident Handling Guide: Preparation, Detection & Analysis, Containment, Eradication, and Recovery.</p>
+                  <div class="pt-2">
+                    <a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf" target="_blank" class="btn-primary text-[11px] py-1 px-3">📥 Download NIST PDF</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-orange-500"></div>
+                <div class="action-icon-box text-orange-400">📕</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">NIST Cybersecurity Framework (CSF) 2.0</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-orange-500/15 text-orange-400 font-mono font-semibold">Core Framework</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Core cybersecurity functions: Govern, Identify, Protect, Detect, Respond, and Recover.</p>
+                  <div class="pt-2">
+                    <a href="https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf" target="_blank" class="btn-secondary text-[11px] py-1 px-3">📥 Download CSF 2.0 PDF</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-amber-500"></div>
+                <div class="action-icon-box text-amber-400">📋</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">OWASP CheatSheetSeries</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 font-mono font-semibold">OWASP Org</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Authoritative developer cheat sheets for web security, SQL injection defense, XSS, and authentication.</p>
+                  <div class="pt-2">
+                    <a href="https://cheatsheetseries.owasp.org/" target="_blank" class="btn-secondary text-[11px] py-1 px-3">📖 Open OWASP Portal ↗</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-card">
+                <div class="action-card-accent bg-cyan-500"></div>
+                <div class="action-icon-box text-cyan-400">📋</div>
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-bold text-white">The Book of Secret Knowledge</h4>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-mono font-semibold">140k+ Stars</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Curated collection of CLI security tools, network utilities, forensics cheatsheets, and system hardening recipes.</p>
+                  <div class="pt-2">
+                    <a href="https://github.com/trimstray/the-book-of-secret-knowledge" target="_blank" class="btn-secondary text-[11px] py-1 px-3">💻 Open GitHub Guide ↗</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div id="subtab-cyber-prep" class="space-y-4 hidden">
+          <div class="flex flex-wrap items-center gap-2 pb-2" id="cyber-level-selector"></div>
+          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="cyber-quiz-container"></div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 4: DSA & ALGORITHMS TRACK                                      -->
+      <!-- =================================================================== -->
+      <section id="view-dsa" class="track-view space-y-6 hidden">
+        <div class="glass-panel p-6 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-amber-500/20">
+          <div class="space-y-2 max-w-2xl z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold">
+              <span>⚡ FAANG Curriculum & Algorithm Blueprint</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Data Structures & Algorithms (DSA)</h1>
+            <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+              NeetCode 150 & Blind 75 Master Roadmap, Python 3 Big-O Time & Space Complexity Reference Card, and Level 1–3 technical interview practice drills.
+            </p>
+            <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🗺️ Blind 75 / NeetCode 150</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📊 Big-O Python 3 Matrix</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🎓 60 Level Interview Qs</span>
+            </div>
+          </div>
+          <div class="w-full md:w-64 h-36 rounded-xl overflow-hidden border border-slate-700/60 shadow-xl flex-shrink-0">
+            <img src="/static/images/banner_dsa.png" alt="DSA Banner" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+          <button class="subtab-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30" data-subtab="dsa-resources">
+            📚 Blueprint & Complexity Matrix
+          </button>
+          <button class="subtab-btn px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white" data-subtab="dsa-prep">
+            🎯 Interactive DSA Drills (Levels 1–3)
+          </button>
+        </div>
+
+        <div id="subtab-dsa-resources" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+            <div class="glass-panel p-4 space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
+                <span>1. ARRAYS & HASHING</span>
+                <span>9 Problems</span>
+              </div>
+              <p class="text-xs text-slate-400">Two Sum, Valid Anagram, Group Anagrams, Top K Frequent, Product of Array Except Self.</p>
+            </div>
+            <div class="glass-panel p-4 space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
+                <span>2. TWO POINTERS</span>
+                <span>5 Problems</span>
+              </div>
+              <p class="text-xs text-slate-400">Valid Palindrome, Two Sum II, 3Sum, Container With Most Water, Trapping Rain Water.</p>
+            </div>
+            <div class="glass-panel p-4 space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
+                <span>3. SLIDING WINDOW</span>
+                <span>6 Problems</span>
+              </div>
+              <p class="text-xs text-slate-400">Best Time to Buy Stock, Longest Substring Without Repeating Characters, Min Window Substring.</p>
+            </div>
+            <div class="glass-panel p-4 space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
+                <span>4. STACK & QUEUE</span>
+                <span>7 Problems</span>
+              </div>
+              <p class="text-xs text-slate-400">Valid Parentheses, Min Stack, Evaluate Reverse Polish Notation, Daily Temperatures.</p>
+            </div>
+            <div class="glass-panel p-4 space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
+                <span>5. BINARY SEARCH</span>
+                <span>7 Problems</span>
+              </div>
+              <p class="text-xs text-slate-400">Binary Search, Search 2D Matrix, Koko Eating Bananas, Find Min in Rotated Array.</p>
+            </div>
+            <div class="glass-panel p-4 space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
+                <span>6. TREES & TRIES</span>
+                <span>15 Problems</span>
+              </div>
+              <p class="text-xs text-slate-400">Invert Binary Tree, Max Depth, Lowest Common Ancestor, Level Order Traversal, Word Search II.</p>
+            </div>
+          </div>
+
+          <!-- Big-O Matrix -->
+          <div class="glass-panel p-5 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Python 3 Data Structures Big-O Complexity Matrix</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs text-left text-slate-300 font-mono">
+                <thead class="bg-slate-900/80 text-emerald-400 uppercase text-[11px]">
+                  <tr>
+                    <th class="p-2.5">Structure</th>
+                    <th class="p-2.5">Indexing / Key</th>
+                    <th class="p-2.5">Search</th>
+                    <th class="p-2.5">Append / Push</th>
+                    <th class="p-2.5">Insert / Pop(0)</th>
+                    <th class="p-2.5">Space</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800">
+                  <tr>
+                    <td class="p-2.5 font-bold text-white">List (Array)</td>
+                    <td class="p-2.5 text-emerald-400">O(1)</td>
+                    <td class="p-2.5 text-amber-400">O(n)</td>
+                    <td class="p-2.5 text-emerald-400">O(1) amortized</td>
+                    <td class="p-2.5 text-rose-400">O(n)</td>
+                    <td class="p-2.5">O(n)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-bold text-white">Dict (Hash Map)</td>
+                    <td class="p-2.5 text-emerald-400">O(1) avg</td>
+                    <td class="p-2.5 text-emerald-400">O(1) avg</td>
+                    <td class="p-2.5 text-emerald-400">O(1) avg</td>
+                    <td class="p-2.5 text-emerald-400">O(1) avg</td>
+                    <td class="p-2.5">O(n)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-bold text-white">Set (Hash Set)</td>
+                    <td class="p-2.5 text-slate-500">N/A</td>
+                    <td class="p-2.5 text-emerald-400">O(1) avg</td>
+                    <td class="p-2.5 text-emerald-400">O(1) avg</td>
+                    <td class="p-2.5 text-emerald-400">O(1) avg</td>
+                    <td class="p-2.5">O(n)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-bold text-white">Deque (collections)</td>
+                    <td class="p-2.5 text-rose-400">O(n)</td>
+                    <td class="p-2.5 text-amber-400">O(n)</td>
+                    <td class="p-2.5 text-emerald-400">O(1) left/right</td>
+                    <td class="p-2.5 text-emerald-400">O(1) left/right</td>
+                    <td class="p-2.5">O(n)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="subtab-dsa-prep" class="space-y-4 hidden">
+          <div class="flex flex-wrap items-center gap-2 pb-2" id="dsa-level-selector"></div>
+          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="dsa-quiz-container"></div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 5: CODING SANDBOX (312 CHALLENGES FLEET)                       -->
+      <!-- =================================================================== -->
+      <section id="view-sandbox" class="track-view space-y-5 hidden">
+        <div class="glass-panel p-6 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-emerald-500/20">
+          <div class="space-y-2 max-w-2xl z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+              <span>🚀 10-Platform Coding Fleet</span>
+              <span>•</span>
+              <span>3.0s Isolated Subprocess Runner</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Interactive Python Coding Sandbox</h1>
+            <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+              312 curated, interview-grade coding challenges from Placement Prep, GUVI, HackerRank, LeetCode, GeeksforGeeks, Codewars, HackerEarth, CodeChef, Programiz, and W3Schools.
+            </p>
+          </div>
+          <div class="w-full md:w-64 h-36 rounded-xl overflow-hidden border border-slate-700/60 shadow-xl flex-shrink-0">
+            <img src="/static/images/banner_sandbox.png" alt="Coding Sandbox Banner" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- Platform Pills Strip -->
+        <div class="overflow-x-auto pb-1 -mx-1 px-1">
+          <div class="flex items-center gap-2 whitespace-nowrap" id="platform-pills"></div>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-1.5">
+            <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 active" data-diff="All">All</button>
+            <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Easy">Easy</button>
+            <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Medium">Medium</button>
+            <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Hard">Hard</button>
+            <span class="text-xs text-slate-500 ml-2 font-mono" id="challenge-count-badge">312 Available</span>
+          </div>
+
+          <div class="relative min-w-[260px]">
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Search 312 problems, tags..." 
+              class="w-full px-3.5 py-1.5 pl-9 text-xs rounded-lg bg-slate-900/80 border border-slate-700/60 text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+            >
+            <span class="absolute left-3 top-2 text-slate-400 text-xs">🔍</span>
+          </div>
+        </div>
+
+        <!-- 2-Column Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <div class="lg:col-span-4 glass-panel p-3 flex flex-col h-[750px]">
+            <div class="flex justify-between items-center px-2 py-1 mb-2 border-b border-slate-800">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Problem Catalog</span>
+              <span class="text-xs text-emerald-400 font-mono">Python 3.13</span>
+            </div>
+            <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="challenge-list"></div>
+          </div>
+
+          <div class="lg:col-span-8 space-y-4">
+            <div class="glass-panel p-5 space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span id="ch-difficulty" class="text-xs px-2.5 py-0.5 rounded-full font-semibold badge-easy">Easy</span>
+                  <span id="ch-platform" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">Platform</span>
+                  <span id="ch-category" class="text-xs text-slate-400">Category</span>
+                </div>
+                <span id="ch-function" class="text-xs font-mono text-cyan-300 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800">def solution()</span>
+              </div>
+
+              <h2 id="ch-title" class="text-base md:text-xl font-bold text-white">Select a problem from the catalog</h2>
+              <div id="ch-description" class="text-xs md:text-sm text-slate-300 leading-relaxed space-y-2"></div>
+              <div id="ch-constraints"></div>
+            </div>
+
+            <div class="glass-panel overflow-hidden">
+              <div class="editor-header">
+                <div class="flex items-center gap-2 text-xs font-mono text-slate-300">
+                  <span>🐍</span>
+                  <span>solution.py</span>
+                  <span class="text-slate-500">•</span>
+                  <span class="text-emerald-400">Subprocess Isolated</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button id="btn-reset-code" class="btn-secondary text-xs py-1 px-2.5">↺ Reset</button>
+                  <button id="btn-reveal-solution" class="btn-secondary text-xs py-1 px-2.5 text-amber-300 border-amber-900/50 hover:bg-amber-950/40">💡 Solution</button>
+                  <button id="btn-run-code" class="btn-primary text-xs py-1.5 px-4">
+                    <span>⚡</span> <span>Run Test Suite</span>
+                  </button>
+                </div>
+              </div>
+              <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="# Write your Python solution here..."></textarea>
+            </div>
+
+            <div class="results-terminal">
+              <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Execution Telemetry & Validation</span>
+                <span class="text-xs text-slate-500 font-mono">Timeout Limit: 3.00s</span>
+              </div>
+              <div id="results-container">
+                <div class="text-slate-500 text-xs font-mono py-4 text-center">
+                  Click "Run Test Suite" to execute your Python solution against test cases.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 6: VAULT LIBRARY (ALL PDFS & CHEATSHEETS)                      -->
+      <!-- =================================================================== -->
+      <section id="view-library" class="track-view space-y-6 hidden">
+        <div class="glass-panel p-6 space-y-2 border border-cyan-500/20">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold">
+            <span>📁 Centralized Resource Repository</span>
+            <span>•</span>
+            <span>100% Free & Legal</span>
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Vault Library: Textbooks & Cheat Sheets</h1>
+          <p class="text-xs md:text-sm text-slate-300">
+            Instant 1-click access to all 28+ open textbooks, cheat sheets, official documentation, and curated study guides.
           </p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2 z-10">
-          <div class="glass-panel-elevated px-4 py-2 text-center">
-            <div class="text-lg font-bold text-emerald-400 font-mono">312</div>
-            <div class="text-[11px] text-slate-400">Total Problems</div>
-          </div>
-          <div class="glass-panel-elevated px-4 py-2 text-center">
-            <div class="text-lg font-bold text-rose-400 font-mono">10</div>
-            <div class="text-[11px] text-slate-400">Platforms</div>
-          </div>
-          <div class="glass-panel-elevated px-4 py-2 text-center">
-            <div class="text-lg font-bold text-cyan-400 font-mono">2h/day</div>
-            <div class="text-[11px] text-slate-400">Daily Target</div>
+        <div class="space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Complete Document Catalog</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5" id="library-cards">
+            <!-- Populated dynamically -->
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Platform Filter Pills Strip -->
-      <div class="overflow-x-auto pb-2 -mx-1 px-1">
-        <div class="flex items-center gap-2 whitespace-nowrap" id="platform-pills">
-          <!-- Populated by app.js -->
-        </div>
-      </div>
+    </main>
 
-      <!-- Difficulty & Search Toolbar -->
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-        <div class="flex items-center gap-1.5">
-          <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 active" data-diff="All">All</button>
-          <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Easy">Easy</button>
-          <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Medium">Medium</button>
-          <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Hard">Hard</button>
-          <span class="text-xs text-slate-500 ml-2 font-mono" id="challenge-count-badge">Loading...</span>
-        </div>
-
-        <div class="relative min-w-[260px]">
-          <input 
-            type="text" 
-            id="search-input" 
-            placeholder="Search 312 problems, tags..." 
-            class="w-full px-3.5 py-1.5 pl-9 text-xs rounded-lg bg-slate-900/80 border border-slate-700/60 text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
-          >
-          <span class="absolute left-3 top-2 text-slate-400 text-xs">🔍</span>
-        </div>
-      </div>
-
-      <!-- Workspace 2-Column Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        
-        <!-- Left Column: Challenge List -->
-        <div class="lg:col-span-4 glass-panel p-3 flex flex-col h-[750px]">
-          <div class="flex justify-between items-center px-2 py-1 mb-2 border-b border-slate-800">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Problem Catalog</span>
-            <span class="text-xs text-emerald-400 font-mono">Python 3.13</span>
-          </div>
-          <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="challenge-list">
-            <!-- Populated by app.js -->
-          </div>
-        </div>
-
-        <!-- Right Column: Code Editor & Execution Terminal -->
-        <div class="lg:col-span-8 space-y-4">
-          
-          <!-- Problem Detail Card -->
-          <div class="glass-panel p-5 space-y-3">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
-                <span id="ch-difficulty" class="text-xs px-2.5 py-0.5 rounded-full font-semibold badge-easy">Easy</span>
-                <span id="ch-platform" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">Platform</span>
-                <span id="ch-category" class="text-xs text-slate-400">Category</span>
-              </div>
-              <span id="ch-function" class="text-xs font-mono text-cyan-300 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800">def solution()</span>
-            </div>
-
-            <h2 id="ch-title" class="text-base md:text-xl font-bold text-white">Select a problem from the catalog</h2>
-            
-            <div id="ch-description" class="text-xs md:text-sm text-slate-300 leading-relaxed space-y-2">
-              Select a coding challenge on the left to review the problem statement, constraints, and test suite.
-            </div>
-
-            <div id="ch-constraints"></div>
-          </div>
-
-          <!-- Code Editor Panel -->
-          <div class="glass-panel overflow-hidden">
-            <div class="editor-header">
-              <div class="flex items-center gap-2 text-xs font-mono text-slate-300">
-                <span>🐍</span>
-                <span>solution.py</span>
-                <span class="text-slate-500">•</span>
-                <span class="text-emerald-400">Subprocess Isolated</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <button id="btn-reset-code" class="btn-secondary text-xs py-1 px-2.5">↺ Reset</button>
-                <button id="btn-reveal-solution" class="btn-secondary text-xs py-1 px-2.5 text-amber-300 border-amber-900/50 hover:bg-amber-950/40">💡 Solution</button>
-                <button id="btn-run-code" class="btn-primary text-xs py-1.5 px-4">
-                  <span>⚡</span> <span>Run Test Suite</span>
-                </button>
-              </div>
-            </div>
-
-            <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="# Write your Python solution here..."></textarea>
-          </div>
-
-          <!-- Results & Diff Terminal -->
-          <div class="results-terminal">
-            <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Execution Telemetry & Validation</span>
-              <span class="text-xs text-slate-500 font-mono">Timeout Limit: 3.00s</span>
-            </div>
-            <div id="results-container">
-              <div class="text-slate-500 text-xs font-mono py-4 text-center">
-                Click "Run Test Suite" to execute your Python solution against test cases.
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 2: TECHNICAL INTERVIEW DRILLS -->
-    <section id="interviews-view" class="space-y-6 hidden">
-      <!-- Hero Banner -->
-      <div class="glass-panel p-6 space-y-2 border border-rose-500/20">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-semibold">
-          <span>🎯 Pedagogical Technical Interview Engine</span>
-          <span>•</span>
-          <span>Curated by Abhishek Gali</span>
-        </div>
-        <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">Level-Based Technical Interview Drills</h1>
-        <p class="text-xs md:text-sm text-slate-300">
-          Master high-yield technical interview questions across Cyber Security (ISC2 CC), Data Science, Machine Learning, and DSA with option-by-option pedagogical rationales.
-        </p>
-      </div>
-
-      <!-- Track Selector Buttons -->
-      <div class="space-y-2">
-        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">1. Select Subject Track</div>
-        <div class="flex flex-wrap items-center gap-2.5" id="interview-track-selector">
-          <!-- Populated by app.js -->
-        </div>
-      </div>
-
-      <!-- Set Selector Pills -->
-      <div class="space-y-2">
-        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">2. Select Question Bank / Domain</div>
-        <div class="flex flex-wrap items-center gap-2" id="interview-set-selector">
-          <!-- Populated by app.js -->
-        </div>
-      </div>
-
-      <!-- Quiz Workspace Card -->
-      <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="quiz-question-container">
-        <!-- Populated by app.js -->
-      </div>
-    </section>
-
-    <!-- VIEW 3: DSA ROADMAP & CHEAT SHEET -->
-    <section id="roadmap-view" class="space-y-5 hidden">
-      <div class="glass-panel p-6 space-y-2 border border-cyan-500/20">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold">
-          <span>🗺️ FAANG Curriculum & Algorithm Blueprint</span>
-        </div>
-        <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">NeetCode 150 & Blind 75 Master Roadmap</h1>
-        <p class="text-xs md:text-sm text-slate-300">
-          Systematic high-yield algorithmic breakdown with Big-O Python 3 complexity reference card.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="glass-panel p-4 space-y-2">
-          <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
-            <span>1. ARRAYS & HASHING</span>
-            <span>9 Problems</span>
-          </div>
-          <p class="text-xs text-slate-400">Two Sum, Valid Anagram, Group Anagrams, Top K Frequent, Product of Array Except Self.</p>
-        </div>
-
-        <div class="glass-panel p-4 space-y-2">
-          <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
-            <span>2. TWO POINTERS</span>
-            <span>5 Problems</span>
-          </div>
-          <p class="text-xs text-slate-400">Valid Palindrome, Two Sum II, 3Sum, Container With Most Water, Trapping Rain Water.</p>
-        </div>
-
-        <div class="glass-panel p-4 space-y-2">
-          <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
-            <span>3. SLIDING WINDOW</span>
-            <span>6 Problems</span>
-          </div>
-          <p class="text-xs text-slate-400">Best Time to Buy and Sell Stock, Longest Substring Without Repeating Characters, Min Window Substring.</p>
-        </div>
-
-        <div class="glass-panel p-4 space-y-2">
-          <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
-            <span>4. STACK & QUEUE</span>
-            <span>7 Problems</span>
-          </div>
-          <p class="text-xs text-slate-400">Valid Parentheses, Min Stack, Evaluate Reverse Polish Notation, Daily Temperatures.</p>
-        </div>
-
-        <div class="glass-panel p-4 space-y-2">
-          <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
-            <span>5. BINARY SEARCH</span>
-            <span>7 Problems</span>
-          </div>
-          <p class="text-xs text-slate-400">Binary Search, Search a 2D Matrix, Koko Eating Bananas, Find Minimum in Rotated Sorted Array.</p>
-        </div>
-
-        <div class="glass-panel p-4 space-y-2">
-          <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
-            <span>6. TREES & TRIES</span>
-            <span>15 Problems</span>
-          </div>
-          <p class="text-xs text-slate-400">Invert Binary Tree, Max Depth, Lowest Common Ancestor, Binary Tree Level Order Traversal, Word Search II.</p>
-        </div>
-      </div>
-
-      <!-- Big-O Table Card -->
-      <div class="glass-panel p-5 space-y-3">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Python 3 Data Structures Big-O Complexity Matrix</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-xs text-left text-slate-300 font-mono">
-            <thead class="bg-slate-900/80 text-emerald-400 uppercase text-[11px]">
-              <tr>
-                <th class="p-2.5">Structure</th>
-                <th class="p-2.5">Indexing / Key</th>
-                <th class="p-2.5">Search</th>
-                <th class="p-2.5">Append / Push</th>
-                <th class="p-2.5">Insert / Pop(0)</th>
-                <th class="p-2.5">Space</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800">
-              <tr>
-                <td class="p-2.5 font-bold text-white">List (Array)</td>
-                <td class="p-2.5 text-emerald-400">O(1)</td>
-                <td class="p-2.5 text-amber-400">O(n)</td>
-                <td class="p-2.5 text-emerald-400">O(1) amortized</td>
-                <td class="p-2.5 text-rose-400">O(n)</td>
-                <td class="p-2.5">O(n)</td>
-              </tr>
-              <tr>
-                <td class="p-2.5 font-bold text-white">Dict (Hash Map)</td>
-                <td class="p-2.5 text-emerald-400">O(1) avg</td>
-                <td class="p-2.5 text-emerald-400">O(1) avg</td>
-                <td class="p-2.5 text-emerald-400">O(1) avg</td>
-                <td class="p-2.5 text-emerald-400">O(1) avg</td>
-                <td class="p-2.5">O(n)</td>
-              </tr>
-              <tr>
-                <td class="p-2.5 font-bold text-white">Set (Hash Set)</td>
-                <td class="p-2.5 text-slate-500">N/A</td>
-                <td class="p-2.5 text-emerald-400">O(1) avg</td>
-                <td class="p-2.5 text-emerald-400">O(1) avg</td>
-                <td class="p-2.5 text-emerald-400">O(1) avg</td>
-                <td class="p-2.5">O(n)</td>
-              </tr>
-              <tr>
-                <td class="p-2.5 font-bold text-white">Deque (collections)</td>
-                <td class="p-2.5 text-rose-400">O(n)</td>
-                <td class="p-2.5 text-amber-400">O(n)</td>
-                <td class="p-2.5 text-emerald-400">O(1) left/right</td>
-                <td class="p-2.5 text-emerald-400">O(1) left/right</td>
-                <td class="p-2.5">O(n)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 4: 24/7 CRON & SERVER TELEMETRY -->
-    <section id="monitor-view" class="space-y-6 hidden">
-      <div class="glass-panel p-6 space-y-2 border border-emerald-500/20">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
-          <span>🛰️ Zero-Cost 24/7 Deployment Telemetry</span>
-          <span>•</span>
-          <span>cron-job.org Integration</span>
-        </div>
-        <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">24/7 Keep-Alive Architecture & Cron Monitor</h1>
-        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-          Render.com free tier spins down services after 15 minutes of inactivity. Pinging your <code class="text-emerald-300 bg-slate-800 px-1 py-0.5 rounded">/api/health</code> endpoint every 10 minutes prevents sleep permanently.
-        </p>
-      </div>
-
-      <!-- Real-time metrics cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="glass-panel p-4 space-y-1 border border-emerald-500/30">
-          <div class="text-xs text-slate-400">Service Health</div>
-          <div class="text-base font-bold text-emerald-400 flex items-center gap-2">
-            <span class="pulse-dot"></span> <span id="mon-cron-status">AWAKE</span>
-          </div>
-        </div>
-
-        <div class="glass-panel p-4 space-y-1">
-          <div class="text-xs text-slate-400">Instance Uptime</div>
-          <div class="text-xl font-bold text-white font-mono" id="mon-uptime">--</div>
-        </div>
-
-        <div class="glass-panel p-4 space-y-1">
-          <div class="text-xs text-slate-400">Healthcheck Pings</div>
-          <div class="text-xl font-bold text-cyan-400 font-mono" id="mon-pings">--</div>
-        </div>
-
-        <div class="glass-panel p-4 space-y-1">
-          <div class="text-xs text-slate-400">API Latency</div>
-          <div class="text-xl font-bold text-emerald-400 font-mono" id="mon-latency">--</div>
-        </div>
-      </div>
-
-      <!-- Copyable URL Box -->
-      <div class="glass-panel p-6 space-y-4 border border-slate-700">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Your 24/7 Keep-Alive URL</h3>
-        <p class="text-xs text-slate-300">
-          Enter this exact URL into your cron job on <a href="https://console.cron-job.org/jobs" target="_blank" class="text-emerald-400 underline">cron-job.org</a>:
-        </p>
-        
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-          <input 
-            type="text" 
-            readonly 
-            value="" 
-            id="health-url-display"
-            class="flex-1 px-4 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-xs font-mono text-emerald-300 select-all focus:outline-none"
-          >
-          <button id="btn-copy-health-url" class="btn-primary text-xs py-2.5 px-4" onclick="App.copyHealthUrl()">
-            <span>📋 Copy URL for cron-job.org</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Step-by-Step Cron Job Instructions -->
-      <div class="glass-panel p-6 space-y-4">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Exact Instructions for cron-job.org</h3>
-        <div class="space-y-3 text-xs md:text-sm text-slate-300 leading-relaxed">
-          <div class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
-            <span class="font-bold text-emerald-400">Step 1:</span>
-            <span>Go to your <a href="https://console.cron-job.org/jobs" target="_blank" class="text-emerald-400 underline font-semibold">cron-job.org Console</a> and click <strong>"CREATE CRONJOB"</strong>.</span>
-          </div>
-          <div class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
-            <span class="font-bold text-emerald-400">Step 2:</span>
-            <span>Paste your URL from the box above: <code class="text-emerald-300 bg-black/40 px-1 py-0.5 rounded font-mono">https://&lt;your-app&gt;.onrender.com/api/health</code></span>
-          </div>
-          <div class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
-            <span class="font-bold text-emerald-400">Step 3:</span>
-            <span>Under <strong>Execution Schedule</strong>, select <strong>"Every 10 minutes"</strong> (`*/10 * * * *`).</span>
-          </div>
-          <div class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
-            <span class="font-bold text-emerald-400">Step 4:</span>
-            <span>Click <strong>"CREATE"</strong>. Your cloud service will now remain active 24/7/365 with zero sleeping and zero cold starts!</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer with Credits -->
-  <footer class="mt-auto border-t border-slate-800/80 py-5 px-6 text-center text-xs text-slate-400 space-y-1">
-    <div>
-      Career Learning Vault Cloud Hub • Architecture & Engineering by <strong class="text-white">Abhishek Gali</strong>
-    </div>
-    <div class="text-[11px] text-slate-500">
-      Refero Design System & Watermelon UI • 100% Free Hosting on Render.com • 24/7 Zero Sleep via cron-job.org
-    </div>
-  </footer>
+  </div>
 
   <!-- App Scripts -->
   <script src="/static/js/timer.js"></script>
   <script src="/static/js/app.js"></script>
-  <script>
-    // Set the dynamic health URL in the display input
-    window.addEventListener('DOMContentLoaded', () => {
-      const el = document.getElementById('health-url-display');
-      if (el) {
-        el.value = `${window.location.origin}/api/health`;
-      }
-    });
-  </script>
 </body>
 </html>
