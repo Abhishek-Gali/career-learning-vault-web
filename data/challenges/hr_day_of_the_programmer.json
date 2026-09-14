@@ -1,0 +1,47 @@
+{
+  "id": "hr_day_of_the_programmer",
+  "title": "HackerRank: Day of the Programmer",
+  "platform": "HackerRank",
+  "difficulty": "Medium",
+  "category": "Implementation & Dates",
+  "description": "Marie invented a Time Machine and wants to test it on Russia's Day of the Programmer (the 256th day of the year) between 1700 and 2700. Before 1918, Russia used the Julian calendar (leap year if year % 4 == 0). In 1918, the next day after Jan 31 was Feb 14. From 1919 onward, the Gregorian calendar is used. Return the 256th day as 'dd.mm.yyyy'.",
+  "constraints": "1700 <= year <= 2700\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "day_of_programmer",
+  "starter_code": "def day_of_programmer(year: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "year": 2017
+      },
+      "expected": "13.09.2017"
+    },
+    {
+      "input": {
+        "year": 2016
+      },
+      "expected": "12.09.2016"
+    },
+    {
+      "input": {
+        "year": 1800
+      },
+      "expected": "12.09.1800"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "year": 1918
+      },
+      "expected": "26.09.1918"
+    },
+    {
+      "input": {
+        "year": 1900
+      },
+      "expected": "12.09.1900"
+    }
+  ],
+  "solution": "def day_of_programmer(year: int) -> str:\n    if year == 1918:\n        return f'26.09.{year}'\n    elif year < 1918:\n        is_leap = (year % 4 == 0)\n    else:\n        is_leap = (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)\n    day = 12 if is_leap else 13\n    return f'{day:02d}.09.{year}'\n",
+  "explanation": "Accounts for Julian calendar leap years (<1918), 13 missing days transition in 1918, and Gregorian rules (>1918)."
+}

@@ -1,0 +1,53 @@
+{
+  "id": "placement_reverse_integer",
+  "title": "Placement: Reverse 32-bit Signed Integer",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Numbers",
+  "description": "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1], return `0`.",
+  "constraints": "-2^31 <= x <= 2^31 - 1\n\u2022 Time: O(log10(x)) | Space: O(1)",
+  "function_name": "reverse_integer",
+  "starter_code": "def reverse_integer(x: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 123
+      },
+      "expected": 321
+    },
+    {
+      "input": {
+        "x": -123
+      },
+      "expected": -321
+    },
+    {
+      "input": {
+        "x": 120
+      },
+      "expected": 21
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 0
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "x": 1534236469
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "x": -2147483648
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def reverse_integer(x: int) -> int:\n    sign = -1 if x < 0 else 1\n    rev = int(str(abs(x))[::-1]) * sign\n    if rev < -2**31 or rev > 2**31 - 1:\n        return 0\n    return rev\n",
+  "explanation": "Reverse digits while preserving sign, then clamp strictly within [-2^31, 2^31 - 1]."
+}

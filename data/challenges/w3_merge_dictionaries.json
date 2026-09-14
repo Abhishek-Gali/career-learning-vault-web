@@ -1,0 +1,69 @@
+{
+  "id": "w3_merge_dictionaries",
+  "title": "W3Schools: Merge Dictionaries (Override)",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Dictionaries",
+  "description": "Given two dictionaries `d1` and `d2`, merge them into a single dictionary. If a key exists in both, the value in `d2` overrides `d1`.",
+  "constraints": "0 <= len(d1), len(d2) <= 10^4\n\u2022 Time: O(N + M) | Space: O(N + M)",
+  "function_name": "merge_dicts",
+  "starter_code": "def merge_dicts(d1: dict, d2: dict) -> dict:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "d1": {
+          "a": 1,
+          "b": 2
+        },
+        "d2": {
+          "b": 3,
+          "c": 4
+        }
+      },
+      "expected": {
+        "a": 1,
+        "b": 3,
+        "c": 4
+      }
+    },
+    {
+      "input": {
+        "d1": {},
+        "d2": {
+          "x": 10
+        }
+      },
+      "expected": {
+        "x": 10
+      }
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "d1": {
+          "k": 1
+        },
+        "d2": {}
+      },
+      "expected": {
+        "k": 1
+      }
+    },
+    {
+      "input": {
+        "d1": {
+          "a": 1
+        },
+        "d2": {
+          "a": 2
+        }
+      },
+      "expected": {
+        "a": 2
+      }
+    }
+  ],
+  "solution": "def merge_dicts(d1: dict, d2: dict) -> dict:\n    res = dict(d1)\n    res.update(d2)\n    return res\n",
+  "explanation": "Dictionary union / update merges pairs with d2 override in O(N + M) time."
+}

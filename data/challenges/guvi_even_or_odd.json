@@ -1,0 +1,47 @@
+{
+  "id": "guvi_even_or_odd",
+  "title": "GUVI: Even or Odd Number",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Easy",
+  "category": "Basic Math",
+  "description": "Given an integer `n`, return 'Even' if the number is even, and 'Odd' if it is odd. (0 is Even).",
+  "constraints": "-10^9 <= n <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "even_or_odd",
+  "starter_code": "def even_or_odd(n: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": "Even"
+    },
+    {
+      "input": {
+        "n": 7
+      },
+      "expected": "Odd"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": "Even"
+    },
+    {
+      "input": {
+        "n": -3
+      },
+      "expected": "Odd"
+    },
+    {
+      "input": {
+        "n": 1000000000
+      },
+      "expected": "Even"
+    }
+  ],
+  "solution": "def even_or_odd(n: int) -> str:\n    return 'Even' if n % 2 == 0 else 'Odd'\n",
+  "explanation": "Modulo by 2 checks remainder in O(1) time."
+}

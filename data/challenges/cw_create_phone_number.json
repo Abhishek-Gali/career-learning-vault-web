@@ -1,0 +1,85 @@
+{
+  "id": "cw_create_phone_number",
+  "title": "Codewars 6kyu: Create Phone Number",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Strings & Formatting",
+  "description": "Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number: '(XXX) XXX-XXXX'.",
+  "constraints": "len(n) == 10\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "create_phone_number",
+  "starter_code": "def create_phone_number(n: list[int]) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          0
+        ]
+      },
+      "expected": "(123) 456-7890"
+    },
+    {
+      "input": {
+        "n": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": "(111) 111-1111"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": [
+          0,
+          2,
+          3,
+          0,
+          5,
+          6,
+          0,
+          8,
+          9,
+          0
+        ]
+      },
+      "expected": "(023) 056-0890"
+    },
+    {
+      "input": {
+        "n": [
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1,
+          0
+        ]
+      },
+      "expected": "(987) 654-3210"
+    }
+  ],
+  "solution": "def create_phone_number(n: list[int]) -> str:\n    s = ''.join(str(x) for x in n)\n    return f'({s[:3]}) {s[3:6]}-{s[6:]}'\n",
+  "explanation": "Formats 10-digit sequence into phone notation in O(1) time."
+}

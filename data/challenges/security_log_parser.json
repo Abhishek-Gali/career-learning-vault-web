@@ -1,0 +1,52 @@
+{
+  "id": "security_log_parser",
+  "title": "11. SSH Brute-Force Log Detection (Cyber Security Sim)",
+  "difficulty": "Medium",
+  "category": "Cybersecurity & RegEx",
+  "description": "Given a list of Linux authentication log lines strings in the standard format:\n`'Oct 10 14:32:10 server sshd[1234]: Failed password for invalid user admin from 192.168.1.50 port 44210 ssh2'`\nor\n`'Oct 10 14:32:15 server sshd[1235]: Accepted password for root from 192.168.1.10 port 44212 ssh2'`\n\nWrite a function `detect_brute_force(logs: list[str], threshold: int) -> list[str]` that extracts all unique IP addresses that generated `>= threshold` 'Failed password' attempts.\n\nReturn the list of malicious IPs sorted in alphabetical order.",
+  "constraints": "\u2022 0 <= len(logs) <= 10^4\n\u2022 1 <= threshold <= 100\n\u2022 Optimal Time: O(N) | Optimal Space: O(IPs)",
+  "function_name": "detect_brute_force",
+  "starter_code": "def detect_brute_force(logs: list[str], threshold: int) -> list[str]:\n    # Write regex parser and threshold aggregator here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "logs": [
+          "Oct 10 14:32:10 server sshd[123]: Failed password for invalid user admin from 192.168.1.50 port 44210 ssh2",
+          "Oct 10 14:32:11 server sshd[124]: Failed password for invalid user root from 192.168.1.50 port 44211 ssh2",
+          "Oct 10 14:32:12 server sshd[125]: Failed password for invalid user test from 192.168.1.50 port 44212 ssh2",
+          "Oct 10 14:32:15 server sshd[126]: Accepted password for root from 192.168.1.10 port 44213 ssh2"
+        ],
+        "threshold": 3
+      },
+      "expected": [
+        "192.168.1.50"
+      ]
+    },
+    {
+      "input": {
+        "logs": [],
+        "threshold": 5
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "logs": [
+          "Oct 10 14:00:01 srv sshd[1]: Failed password for root from 10.0.0.1 port 22",
+          "Oct 10 14:00:02 srv sshd[2]: Failed password for root from 10.0.0.2 port 22",
+          "Oct 10 14:00:03 srv sshd[3]: Failed password for root from 10.0.0.1 port 22",
+          "Oct 10 14:00:04 srv sshd[4]: Failed password for root from 10.0.0.2 port 22"
+        ],
+        "threshold": 2
+      },
+      "expected": [
+        "10.0.0.1",
+        "10.0.0.2"
+      ]
+    }
+  ],
+  "solution": "import re\nfrom collections import Counter\n\ndef detect_brute_force(logs: list[str], threshold: int) -> list[str]:\n    pattern = re.compile(r'Failed password.*?from\\s+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})')\n    counts = Counter()\n    for line in logs:\n        match = pattern.search(line)\n        if match:\n            ip = match.group(1)\n            counts[ip] += 1\n    flagged = [ip for ip, cnt in counts.items() if cnt >= threshold]\n    return sorted(flagged)\n",
+  "explanation": "Compiled regular expression extracts IPv4 addresses directly following 'Failed password ... from'. A `Counter` aggregates failure frequency per IP. Any IP meeting the threshold is returned in sorted order, matching real-world SIEM intrusion detection heuristics."
+}

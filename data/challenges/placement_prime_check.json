@@ -1,0 +1,59 @@
+{
+  "id": "placement_prime_check",
+  "title": "Placement: Prime Number Check",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Numbers",
+  "description": "Given an integer `n`, determine whether `n` is a prime number. Return `True` if prime, `False` otherwise. (Numbers <= 1 are not prime).",
+  "constraints": "0 <= n <= 10^9\n\u2022 Time: O(sqrt(N)) | Space: O(1)",
+  "function_name": "is_prime",
+  "starter_code": "def is_prime(n: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 17
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "n": 97
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 1000000007
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_prime(n: int) -> bool:\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True\n",
+  "explanation": "Trial division up to sqrt(N) skipping multiples of 2 and 3 runs in O(sqrt(N)) time and O(1) auxiliary space."
+}

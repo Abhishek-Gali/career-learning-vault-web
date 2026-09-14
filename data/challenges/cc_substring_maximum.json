@@ -1,0 +1,47 @@
+{
+  "id": "cc_substring_maximum",
+  "title": "CodeChef: Maximum Binary Substring Sum",
+  "platform": "CodeChef",
+  "difficulty": "Hard",
+  "category": "Kadane & Dynamic Programming",
+  "description": "Given a binary string `s`, find the maximum contiguous substring sum where '1' is counted as +1 and '0' is counted as -1. If all characters are '0', return -1.",
+  "constraints": "1 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "max_binary_substring",
+  "starter_code": "def max_binary_substring(s: str) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "1101"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "s": "0000"
+      },
+      "expected": -1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "1"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "s": "010101"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "s": "100111"
+      },
+      "expected": 3
+    }
+  ],
+  "solution": "def max_binary_substring(s: str) -> int:\n    arr = [1 if ch == '1' else -1 for ch in s]\n    max_so_far = max_ending = arr[0]\n    for x in arr[1:]:\n        max_ending = max(x, max_ending + x)\n        max_so_far = max(max_so_far, max_ending)\n    return max_so_far\n",
+  "explanation": "Maps binary characters to {+1, -1} and runs Kadane's algorithm in O(N) time."
+}

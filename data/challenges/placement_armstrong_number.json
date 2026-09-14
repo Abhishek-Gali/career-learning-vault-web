@@ -1,0 +1,53 @@
+{
+  "id": "placement_armstrong_number",
+  "title": "Placement: Armstrong Number",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Numbers",
+  "description": "An Armstrong number (or Narcissistic number) is a number that is equal to the sum of its own digits each raised to the power of the number of digits. Given an integer `n`, return `True` if it is an Armstrong number, and `False` otherwise.",
+  "constraints": "1 <= n <= 10^9\n\u2022 Time: O(log10(N)) | Space: O(1)",
+  "function_name": "is_armstrong_number",
+  "starter_code": "def is_armstrong_number(n: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 153
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 370
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 123
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 9474
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 9475
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def is_armstrong_number(n: int) -> bool:\n    s = str(n)\n    power = len(s)\n    return sum(int(ch) ** power for ch in s) == n\n",
+  "explanation": "Count total digits K. Compute the sum of each digit raised to power K. If sum equals n, it is an Armstrong number."
+}

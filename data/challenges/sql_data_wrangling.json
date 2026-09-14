@@ -1,0 +1,83 @@
+{
+  "id": "sql_data_wrangling",
+  "title": "10. Tabular Customer Churn Analysis (Data Science Sim)",
+  "difficulty": "Medium",
+  "category": "Data Science & Pandas",
+  "description": "You are given a list of user transaction records represented as dictionaries: `{'user_id': int, 'amount': float, 'days_active': int}`.\n\nA user is categorized as 'High-Value Active' if `amount >= 100.0` and `days_active >= 30`.\n\nWrite a function `analyze_customers(records)` that returns a dictionary containing:\n1. `'total_users'`: total number of unique user IDs.\n2. `'high_value_count'`: number of distinct users who qualify as 'High-Value Active'.\n3. `'high_value_pct'`: percentage of total users who are High-Value Active rounded to 2 decimal places (e.g. 25.0). Return 0.0 if total_users is 0.",
+  "constraints": "\u2022 0 <= len(records) <= 10^4\n\u2022 Optimal Time: O(N) single-pass | Optimal Space: O(U)",
+  "function_name": "analyze_customers",
+  "starter_code": "def analyze_customers(records: list[dict]) -> dict:\n    # Write your tabular data transformation here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "records": [
+          {
+            "user_id": 1,
+            "amount": 150.0,
+            "days_active": 45
+          },
+          {
+            "user_id": 2,
+            "amount": 50.0,
+            "days_active": 10
+          },
+          {
+            "user_id": 3,
+            "amount": 200.0,
+            "days_active": 60
+          },
+          {
+            "user_id": 4,
+            "amount": 80.0,
+            "days_active": 90
+          }
+        ]
+      },
+      "expected": {
+        "total_users": 4,
+        "high_value_count": 2,
+        "high_value_pct": 50.0
+      }
+    },
+    {
+      "input": {
+        "records": []
+      },
+      "expected": {
+        "total_users": 0,
+        "high_value_count": 0,
+        "high_value_pct": 0.0
+      }
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "records": [
+          {
+            "user_id": 10,
+            "amount": 100.0,
+            "days_active": 30
+          },
+          {
+            "user_id": 10,
+            "amount": 20.0,
+            "days_active": 10
+          },
+          {
+            "user_id": 20,
+            "amount": 99.9,
+            "days_active": 35
+          }
+        ]
+      },
+      "expected": {
+        "total_users": 2,
+        "high_value_count": 1,
+        "high_value_pct": 50.0
+      }
+    }
+  ],
+  "solution": "def analyze_customers(records: list[dict]) -> dict:\n    if not records:\n        return {'total_users': 0, 'high_value_count': 0, 'high_value_pct': 0.0}\n    all_users = set()\n    high_value_users = set()\n    for r in records:\n        uid = r['user_id']\n        all_users.add(uid)\n        if r['amount'] >= 100.0 and r['days_active'] >= 30:\n            high_value_users.add(uid)\n    total = len(all_users)\n    hv_count = len(high_value_users)\n    pct = round((hv_count / total * 100.0), 2) if total > 0 else 0.0\n    return {'total_users': total, 'high_value_count': hv_count, 'high_value_pct': pct}\n",
+  "explanation": "Simulates SQL `COUNT(DISTINCT user_id)` and conditional aggregation `CASE WHEN amount >= 100 AND days_active >= 30 THEN 1 END`. Using hash sets tracks distinct users in O(N) time and O(U) space."
+}

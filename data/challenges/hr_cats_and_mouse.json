@@ -1,0 +1,49 @@
+{
+  "id": "hr_cats_and_mouse",
+  "title": "HackerRank: Cats and a Mouse",
+  "platform": "HackerRank",
+  "difficulty": "Hard",
+  "category": "Logic & Math",
+  "description": "Two cats and a mouse are at positions `x` (Cat A), `y` (Cat B), and `z` (Mouse C). If Cat A catches mouse first, return 'Cat A'. If Cat B catches mouse first, return 'Cat B'. If both cats arrive at the same time, the mouse escapes, return 'Mouse C'.",
+  "constraints": "1 <= x, y, z <= 100\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "cat_and_mouse",
+  "starter_code": "def cat_and_mouse(x: int, y: int, z: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 1,
+        "y": 2,
+        "z": 3
+      },
+      "expected": "Cat B"
+    },
+    {
+      "input": {
+        "x": 1,
+        "y": 3,
+        "z": 2
+      },
+      "expected": "Mouse C"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 5,
+        "y": 10,
+        "z": 6
+      },
+      "expected": "Cat A"
+    },
+    {
+      "input": {
+        "x": 20,
+        "y": 20,
+        "z": 50
+      },
+      "expected": "Mouse C"
+    }
+  ],
+  "solution": "def cat_and_mouse(x: int, y: int, z: int) -> str:\n    dist_a = abs(x - z)\n    dist_b = abs(y - z)\n    if dist_a < dist_b:\n        return 'Cat A'\n    elif dist_b < dist_a:\n        return 'Cat B'\n    return 'Mouse C'\n",
+  "explanation": "Calculates Euclidean distance to target on 1D number line in O(1) time."
+}

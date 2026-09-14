@@ -1,0 +1,131 @@
+{
+  "id": "prog_matrix_multiplication",
+  "title": "Programiz: Multiply Two Matrices",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Matrix",
+  "description": "Given matrix `a` (dimensions M x K) and matrix `b` (dimensions K x N), compute and return the matrix product `a x b` (dimensions M x N).",
+  "constraints": "1 <= M, K, N <= 50\n\u2022 Time: O(M * K * N) | Space: O(M * N)",
+  "function_name": "multiply_matrices",
+  "starter_code": "def multiply_matrices(a: list[list[int]], b: list[list[int]]) -> list[list[int]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "b": [
+          [
+            5,
+            6
+          ],
+          [
+            7,
+            8
+          ]
+        ]
+      },
+      "expected": [
+        [
+          19,
+          22
+        ],
+        [
+          43,
+          50
+        ]
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "b": [
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [
+          [
+            2
+          ]
+        ],
+        "b": [
+          [
+            3
+          ]
+        ]
+      },
+      "expected": [
+        [
+          6
+        ]
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "b": [
+          [
+            4
+          ],
+          [
+            5
+          ],
+          [
+            6
+          ]
+        ]
+      },
+      "expected": [
+        [
+          32
+        ]
+      ]
+    }
+  ],
+  "solution": "def multiply_matrices(a: list[list[int]], b: list[list[int]]) -> list[list[int]]:\n    m, k, n = len(a), len(a[0]), len(b[0])\n    res = [[0] * n for _ in range(m)]\n    for i in range(m):\n        for j in range(n):\n            res[i][j] = sum(a[i][p] * b[p][j] for p in range(k))\n    return res\n",
+  "explanation": "Computes standard dot product of row i and column j in O(M * K * N) time."
+}

@@ -1,0 +1,53 @@
+{
+  "id": "w3_abs_and_round",
+  "title": "W3Schools: Math Absolute and Rounding",
+  "platform": "W3Schools",
+  "difficulty": "Easy",
+  "category": "Math",
+  "description": "Given a float `x`, return a list `[abs_val, round_val]` where `abs_val` is the absolute value and `round_val` is `x` rounded to 2 decimal places.",
+  "constraints": "-10^6 <= x <= 10^6\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "math_helpers",
+  "starter_code": "def math_helpers(x: float) -> list[float]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": -3.14159
+      },
+      "expected": [
+        3.14159,
+        -3.14
+      ]
+    },
+    {
+      "input": {
+        "x": 5.678
+      },
+      "expected": [
+        5.678,
+        5.68
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 0.0
+      },
+      "expected": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "x": -10.0
+      },
+      "expected": [
+        10.0,
+        -10.0
+      ]
+    }
+  ],
+  "solution": "def math_helpers(x: float) -> list[float]:\n    return [abs(x), round(x, 2)]\n",
+  "explanation": "Applies abs() and round(x, 2) in O(1) time."
+}

@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "ML-L2-001",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Random Forest vs Gradient Boosting",
+    "stem": "What is the architectural difference between how Random Forest reduces error versus how Gradient Boosting (GBDT / XGBoost) reduces error?",
+    "options": {
+      "A": "Random Forest is a single deep tree, while Gradient Boosting uses linear regression",
+      "B": "Random Forest uses Bagging (Bootstrap Aggregation) on deep, unpruned trees to reduce Variance; Gradient Boosting builds shallow trees sequentially to reduce Bias by fitting pseudo-residuals of prior trees",
+      "C": "Random Forest only works on text, while Gradient Boosting only works on images",
+      "D": "Gradient Boosting trains trees in parallel; Random Forest must train sequentially"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Random Forest trains independent, deep decision trees (low bias, high variance) in parallel on bootstrap samples and averages their outputs to slash variance. Gradient Boosting builds an additive ensemble sequentially: each new shallow tree (high bias, low variance) fits the negative gradient (residuals) of the loss function with respect to the previous ensemble output, driving down bias.",
+      "A": "Both are tree ensemble methods; neither is a single tree or linear regression.",
+      "B": "Correct: Bagging reduces variance via independent parallel tree averaging; Boosting reduces bias via sequential residual fitting.",
+      "C": "Both operate primarily on structured tabular data.",
+      "D": "Inverted: Random Forest trees can be trained completely in parallel, whereas standard boosting iterations are inherently sequential."
+    }
+  },
+  {
+    "item_id": "ML-L2-002",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "ROC-AUC vs PR-AUC",
+    "stem": "In severe class imbalance scenarios (e.g. Credit Card Fraud with 99.9% legitimate transactions and 0.1% fraud), why is the Precision-Recall AUC (PR-AUC) preferred over the ROC-AUC?",
+    "options": {
+      "A": "ROC-AUC cannot be plotted with floating point numbers",
+      "B": "ROC-AUC plots True Positive Rate against False Positive Rate (FPR = FP / (FP + TN)). Because the True Negative count (TN) is massive, a large spike in False Positives barely changes the FPR, giving an overly optimistic assessment of model quality",
+      "C": "PR-AUC is always equal to 1.0",
+      "D": "ROC-AUC requires neural networks to compute"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In ROC curves, $\\text{FPR} = \\frac{\\text{FP}}{\\text{FP} + \\text{TN}}$. When TN is enormous (e.g. 1,000,000), accumulating 5,000 False Positives only produces an FPR of $0.005$, making the ROC curve look fantastic (e.g. AUC 0.98). PR curves evaluate $\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}$, which does not include TN. A surge in false positives drops precision immediately, accurately exposing poor fraud detection.",
+      "A": "Both curves use continuous probability decision thresholds.",
+      "B": "Correct: The massive True Negative majority masks high false alarm rates in ROC-AUC; PR-AUC focuses exclusively on minority class precision and recall.",
+      "C": "PR-AUC baseline for a random classifier equals the positive class prevalence (e.g. 0.001 in fraud).",
+      "D": "ROC-AUC evaluates any thresholded probabilistic binary classifier."
+    }
+  },
+  {
+    "item_id": "ML-L2-003",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Decision Tree Split Criteria",
+    "stem": "What is the mathematical difference between Gini Impurity and Information Gain (Entropy) when selecting the best split in a Classification Tree?",
+    "options": {
+      "A": "Gini Impurity evaluates $1 - \\sum p_i^2$ (computationally faster without logarithms), while Entropy evaluates $-\\sum p_i \\log_2(p_i)$ (computationally heavier with logs); in practice, they select identical splits over 98% of the time",
+      "B": "Gini Impurity only works on binary classification, while Entropy only works on multi-class",
+      "C": "Entropy cannot handle continuous features",
+      "D": "Gini Impurity always ranges from 0 to 100"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Gini Impurity measures the probability of misclassifying a randomly chosen element from the set: $I_G(p) = 1 - \\sum_{i=1}^C p_i^2$. Entropy stems from information theory: $H(p) = -\\sum p_i \\log_2 p_i$. Because Gini avoids costly transcendental logarithm evaluations, it is default in Scikit-Learn. Their empirical split choices are almost indistinguishable.",
+      "A": "Correct: Gini uses quadratic polynomials (faster), while Entropy requires log computations; performance is practically equivalent in production.",
+      "B": "Both metrics naturally generalize across any number of categorical classes $C$.",
+      "C": "Continuous features are evaluated identically by sorting values and testing midpoint split thresholds for both metrics.",
+      "D": "For binary classification, Gini Impurity reaches its maximum of 0.5 at equal class distribution ($p = 0.5$)."
+    }
+  },
+  {
+    "item_id": "ML-L2-004",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Precision and Recall Tradeoff",
+    "stem": "In cancer detection screening, which metric should medical diagnostic systems strictly prioritize, and what does this imply for the classification probability threshold?",
+    "options": {
+      "A": "Prioritize Precision by raising the decision threshold to 0.95 to avoid false alarms",
+      "B": "Prioritize Recall (Sensitivity) by lowering the decision threshold below 0.50 to ensure malignant tumors are not missed (minimizing False Negatives)",
+      "C": "Set the threshold to 1.0 to guarantee zero errors",
+      "D": "Prioritize Accuracy because accuracy is immune to class imbalance"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In medical screening, a False Negative (telling a cancer patient they are healthy) is catastrophic or fatal. A False Positive (flagging a healthy patient for follow-up biopsy) carries far lower asymmetric cost. Therefore, models prioritize Recall by lowering the decision threshold (e.g. classifying as positive if predicted probability $> 0.20$).",
+      "A": "High precision minimizes false alarms at the cost of missing real cancers (high false negatives), which is unacceptable in healthcare.",
+      "B": "Correct: Asymmetric risk dictates maximizing Recall to minimize lethal False Negatives by lowering the positive classification cutoff.",
+      "C": "A threshold of 1.0 predicts negative for almost everyone, missing malignant tumors.",
+      "D": "Accuracy is misleading in medical diagnostics: a model predicting 'no cancer' on a 99% healthy population achieves 99% accuracy while having zero clinical utility."
+    }
+  },
+  {
+    "item_id": "ML-L2-005",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "XGBoost Innovations",
+    "stem": "What algorithmic enhancement contributed significantly to XGBoost's speed and regularization advantage over traditional Friedman Gradient Boosting?",
+    "options": {
+      "A": "It removed the tree structure and replaced it with linear regression",
+      "B": "It uses a second-order Taylor expansion of the loss function (utilizing both first-order gradients and second-order Hessians) and incorporates explicit L1/L2 leaf weight regularization into the objective function",
+      "C": "It requires all datasets to be stored in SQLite format",
+      "D": "It runs exclusively on quantum processors"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Tianqi Chen's XGBoost introduced a second-order Taylor approximation $\\mathcal{L} \\approx \\sum [g_i f_t(x_i) + \\frac{1}{2} h_i f_t^2(x_i)] + \\gamma T + \\frac{1}{2} \\lambda \\sum w_j^2$. Using the Hessian ($h_i$) allows exact closed-form calculation of optimal leaf weights and split gains with built-in regularization.",
+      "A": "XGBoost is fundamentally a gradient boosted decision tree algorithm.",
+      "B": "Correct: Second-order Taylor expansion (gradients and Hessians) combined with built-in tree complexity penalties ($\\gamma T$ and $\\lambda \\|w\\|^2$) enables precise, regularized tree growth.",
+      "C": "XGBoost uses compressed columnar DMatrix formats, not SQLite.",
+      "D": "XGBoost runs efficiently on standard x86/ARM CPUs and NVIDIA GPUs."
+    }
+  },
+  {
+    "item_id": "ML-L2-006",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "F1-Score Formulation",
+    "stem": "Why is the F1-score computed as the Harmonic Mean of Precision and Recall rather than their simple Arithmetic Mean?",
+    "options": {
+      "A": "Harmonic mean is faster to compute on modern CPUs",
+      "B": "The harmonic mean penalizes extreme imbalances heavily: if either Precision or Recall is near zero, the F1-score collapses toward zero",
+      "C": "Arithmetic mean produces complex imaginary numbers for percentages",
+      "D": "To force the result to be greater than 1.0"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "$F_1 = \\frac{2}{\\frac{1}{P} + \\frac{1}{R}} = 2 \\frac{P \\cdot R}{P + R}$. If a dummy model predicts positive for every record, its Recall is 1.0, but its Precision might be 0.01. An arithmetic mean would report $(1.0 + 0.01)/2 = 0.505$ (misleadingly moderate). The harmonic mean evaluates to $2(1 \\times 0.01)/(1 + 0.01) \\approx 0.0198$, correctly signaling failure.",
+      "A": "Harmonic mean requires division, which is slightly slower than addition.",
+      "B": "Correct: Harmonic mean punishes severe discrepancies between Precision and Recall, requiring both metrics to be substantial to achieve a high score.",
+      "C": "Arithmetic mean of real numbers is always real.",
+      "D": "F1-score is strictly bounded between 0.0 and 1.0."
+    }
+  },
+  {
+    "item_id": "ML-L2-007",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Principal Component Analysis (PCA)",
+    "stem": "In Principal Component Analysis (PCA), how are the principal directions geometrically determined from the centered feature data matrix?",
+    "options": {
+      "A": "By sorting features alphabetically by column name",
+      "B": "By computing the eigenvectors of the feature covariance matrix $\\Sigma = \\frac{1}{N} X^T X$, where the eigenvector corresponding to the largest eigenvalue captures the direction of maximum variance",
+      "C": "By fitting a deep neural network with 10 hidden layers",
+      "D": "By deleting all columns that have non-zero means"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "PCA seeks orthogonal linear projections that maximize the variance of projected data. Mathematically, the first principal component aligns with the eigenvector of the empirical covariance matrix $X^T X$ corresponding to the largest eigenvalue $\\lambda_1$. Successive orthogonal eigenvectors capture decreasing proportions of the remaining variance.",
+      "A": "Alphabetical column sorting has zero mathematical meaning.",
+      "B": "Correct: Eigen-decomposition (or SVD) of the centered covariance matrix identifies the orthogonal axes of maximum variance.",
+      "C": "PCA is a linear algebraic algorithm with an exact closed-form solution via SVD, requiring no neural training.",
+      "D": "PCA requires centering data ($E[X] = 0$), but this is done by subtracting the mean, not deleting columns."
+    }
+  },
+  {
+    "item_id": "ML-L2-008",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "K-Means Clustering",
+    "stem": "What objective function (loss) does Lloyd's algorithm iteratively minimize in K-Means clustering?",
+    "options": {
+      "A": "Cross-Entropy loss between cluster IDs",
+      "B": "Inertia (Within-Cluster Sum of Squares / WCSS): $\\sum_{k=1}^K \\sum_{x_i \\in C_k} \\|x_i - \\mu_k\\|^2$",
+      "C": "The number of clusters $K$",
+      "D": "The determinant of the covariance matrix"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "K-Means seeks to partition $N$ observations into $K$ clusters such that each point belongs to the cluster with the nearest mean (centroid). The optimization objective is minimizing Within-Cluster Sum of Squares (WCSS / Inertia): $\\mathcal{J} = \\sum_{k=1}^K \\sum_{x \\in C_k} \\|x - \\mu_k\\|^2$.",
+      "A": "Cross-entropy requires known ground-truth supervised labels, which are absent in unsupervised clustering.",
+      "B": "Correct: K-Means minimizes WCSS, iteratively alternating between assigning points to the nearest centroid and updating centroids to the mean of assigned points.",
+      "C": "$K$ is a fixed hyperparameter chosen by the analyst prior to clustering, not an optimized variable.",
+      "D": "Determinant of covariance is minimized in Gaussian Mixture Models via maximum likelihood, not standard K-Means."
+    }
+  },
+  {
+    "item_id": "ML-L2-009",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "K-Means Limitations",
+    "stem": "Under which of the following geometric data distributions will K-Means clustering fundamentally fail to recover the true underlying clusters?",
+    "options": {
+      "A": "Spherical, well-separated Gaussian blobs with equal variance",
+      "B": "Non-convex shapes such as concentric circles, elongated ribbons, or intertwined spirals",
+      "C": "Data scaled using StandardScaler",
+      "D": "Low-dimensional 2D datasets"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "K-Means partitions space using Voronoi cells bounded by linear hyperplanes, implicitly assuming clusters are convex, spherical, and of similar size. For non-linear geometries (concentric rings, moons, spirals), K-Means fails completely. Density-based algorithms (DBSCAN) or spectral clustering are required.",
+      "A": "Spherical Gaussian blobs are the ideal textbook scenario for K-Means.",
+      "B": "Correct: Voronoi tessellations cannot separate non-convex, manifold geometries like concentric rings or density-connected ribbons.",
+      "C": "StandardScaler improves K-Means convergence by ensuring uniform metric scales.",
+      "D": "K-Means operates effectively in 2D provided clusters are spherical."
+    }
+  },
+  {
+    "item_id": "ML-L2-010",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Feature Importance in Random Forest",
+    "stem": "Why is 'Permutation Feature Importance' considered superior to default 'MDI' (Mean Decrease in Impurity / Gini Importance) in Random Forest models?",
+    "options": {
+      "A": "Permutation importance runs faster because it does not require test data",
+      "B": "MDI is heavily biased toward continuous features and high-cardinality categorical features because they have more opportunities for split points; permutation importance measures out-of-sample prediction degradation neutrally",
+      "C": "Permutation importance works without training the model",
+      "D": "MDI is only supported in Python 2"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "MDI calculates impurity drops at training time. High-cardinality features (like unique IDs or noisy floats) provide many potential threshold splits, artificially inflating their MDI score even if they contain zero true predictive signal. Permutation importance shuffles values on validation data; if a feature is genuine noise, shuffling it causes zero loss in test performance.",
+      "A": "Permutation importance is computationally slower because it must evaluate test predictions for each shuffled column.",
+      "B": "Correct: MDI over-attributes importance to high-cardinality features and evaluates on training data; Permutation importance measures true generalization drop on validation sets.",
+      "C": "Permutation importance requires a fully trained model to score shuffled predictions.",
+      "D": "MDI is available in modern Scikit-Learn but accompanied by official warnings regarding its cardinality bias."
+    }
+  },
+  {
+    "item_id": "ML-L2-011",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Out-of-Bag (OOB) Error",
+    "stem": "In Random Forest models, what is the 'Out-of-Bag' (OOB) error and what theoretical advantage does it offer?",
+    "options": {
+      "A": "An error code returned when disk space is exhausted",
+      "B": "Because each tree is trained on a bootstrap sample that leaves out approximately 36.8% of the data, those left-out samples can serve as a built-in validation set without needing a separate train-test split",
+      "C": "The percentage of trees that failed to converge",
+      "D": "The loss incurred when features are one-hot encoded"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "When sampling with replacement from $N$ items, the probability of an item not being chosen in $N$ draws is $(1 - 1/N)^N \\approx 1/e \\approx 36.8\\%$. Each tree has ~37% of observations that were never used in its construction ('out of bag'). Aggregating predictions across trees where a sample was OOB provides an unbiased validation estimate for free.",
+      "A": "OOB is an ensemble learning validation concept, unrelated to filesystem errors.",
+      "B": "Correct: The ~36.8% unselected bootstrap observations provide an intrinsic out-of-sample validation mechanism, eliminating the requirement for a separate validation split.",
+      "C": "Decision trees always construct terminal leaves; they do not experience numerical non-convergence.",
+      "D": "OOB is specific to bagging ensembles, unrelated to encoding."
+    }
+  },
+  {
+    "item_id": "ML-L2-012",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Gradient Boosting Learning Rate",
+    "stem": "In Gradient Boosting algorithms (such as LightGBM, CatBoost, XGBoost), what is the role of the 'learning rate' (shrinkage parameter $\\eta$) and its interaction with the number of trees (estimators)?",
+    "options": {
+      "A": "It scales the raw feature values before splitting",
+      "B": "It scales down the contribution of each tree ($F_m(x) = F_{m-1}(x) + \\eta h_m(x)$); smaller learning rates prevent overfitting but require proportionally more trees to achieve convergence",
+      "C": "It sets the maximum depth of every decision tree to $\\eta$",
+      "D": "It forces trees to be evaluated in reverse order"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Jerome Friedman introduced shrinkage $\\eta \\in (0, 1]$ as regularization. Multiplying each newly added tree's leaf predictions by $\\eta$ reduces its individual impact, leaving remaining residual variance for subsequent trees. Lower learning rates (e.g. 0.01 vs 0.1) consistently yield superior generalization, but require more trees and computation.",
+      "A": "Feature scaling has zero impact on decision tree split thresholds.",
+      "B": "Correct: Shrinkage scales each added tree's output, curbing individual tree variance and requiring a corresponding increase in the number of estimators.",
+      "C": "Tree depth is controlled by `max_depth` or `max_leaves`, independent of $\\eta$.",
+      "D": "Ensemble predictions are commutative additions; order of summation does not alter final output."
+    }
+  },
+  {
+    "item_id": "ML-L2-013",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "DBSCAN Clustering",
+    "stem": "What core advantage does DBSCAN (Density-Based Spatial Clustering of Applications with Noise) possess over K-Means?",
+    "options": {
+      "A": "DBSCAN requires users to guess the exact number of clusters $K$ in advance",
+      "B": "DBSCAN discovers clusters of arbitrary non-convex shapes, determines the number of clusters automatically from density parameters ($\\epsilon, \\text{MinPts}$), and explicitly identifies noise/outliers",
+      "C": "DBSCAN executes in O(1) time complexity",
+      "D": "DBSCAN only works on text strings"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "DBSCAN defines clusters as continuous areas of high point density separated by areas of low density. It does not require specifying $K$, recovers arbitrary winding/concentric non-convex topologies, and labels points in sparse regions as noise (-1) rather than forcing them into an ill-fitting cluster.",
+      "A": "Specifying $K$ is K-Means' major drawback; DBSCAN determines cluster count automatically.",
+      "B": "Correct: DBSCAN discovers non-spherical clusters, isolates noise points, and bypasses the need to predetermine cluster count.",
+      "C": "DBSCAN scales as $O(N \\log N)$ with spatial indexing (k-d tree), or $O(N^2)$ worst case.",
+      "D": "DBSCAN operates on metric vector spaces (Euclidean, Haversine, cosine)."
+    }
+  },
+  {
+    "item_id": "ML-L2-014",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Class Imbalance Resampling",
+    "stem": "How does SMOTE (Synthetic Minority Over-sampling Technique) generate synthetic observations for the minority class?",
+    "options": {
+      "A": "It duplicates existing minority samples identically with zero modification",
+      "B": "It selects k-nearest neighbors for a minority sample and generates new synthetic samples along the line segments connecting the sample to its neighbors in feature space",
+      "C": "It deletes majority class instances randomly until counts are balanced",
+      "D": "It uses a convolutional neural network to dream up fake tabular images"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Chawla et al. designed SMOTE to avoid the overfitting caused by simple random oversampling (exact copying). For each minority sample $x$, it finds its $k$ minority nearest neighbors, picks one $x_{\\text{zi}}$, and synthesizes a new point: $x_{\\text{new}} = x + \\lambda (x_{\\text{zi}} - x)$ where $\\lambda \\in [0, 1]$.",
+      "A": "Exact duplication is Random Over-Sampling, which causes decision trees to memorize specific points.",
+      "B": "Correct: SMOTE interpolates convex combinations along the vector difference between neighboring minority observations.",
+      "C": "Deleting majority points is Random Under-Sampling.",
+      "D": "Generative adversarial image generation is unrelated to the k-nearest vector interpolation of SMOTE."
+    }
+  },
+  {
+    "item_id": "ML-L2-015",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Stratified K-Fold",
+    "stem": "Why should a data scientist use `StratifiedKFold` instead of standard `KFold` when validating a classification model?",
+    "options": {
+      "A": "StratifiedKFold only works on image datasets",
+      "B": "StratifiedKFold ensures that each fold contains roughly the same percentage of samples of each target class as the complete dataset, preventing folds with zero positive cases",
+      "C": "StratifiedKFold automatically normalizes feature distributions to zero mean",
+      "D": "Standard KFold is deprecated in Python 3.13"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In imbalanced datasets (e.g. 98% class 0, 2% class 1), random partitioning can produce a fold with zero positive instances, rendering validation metrics (Precision, Recall) mathematically undefined. `StratifiedKFold` enforces proportional class representation across all folds.",
+      "A": "Stratification applies to any tabular, text, or multimodal classification problem.",
+      "B": "Correct: Stratification guarantees equal class proportion distributions across all training and testing splits, eliminating sampling bias in validation.",
+      "C": "Data scaling is performed by feature transformers, not split generators.",
+      "D": "Standard KFold is maintained for regression tasks where labels are continuous."
+    }
+  },
+  {
+    "item_id": "ML-L2-016",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Log-Loss Calibration",
+    "stem": "A model predicts a probability of 0.99 for an instance whose true label is 0. Why does Log-Loss penalize this prediction far more severely than an incorrect prediction with probability 0.51?",
+    "options": {
+      "A": "Log-loss multiplies probabilities by 1000",
+      "B": "The logarithmic function $-\\log(1 - \\hat{y})$ approaches positive infinity as the predicted probability $\\hat{y}$ approaches 1 for a true class of 0, heavily punishing confident incorrect predictions",
+      "C": "Log-loss is mathematically identical to 0-1 classification accuracy",
+      "D": "Because 0.99 is an odd number"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Binary cross-entropy loss is $-[y \\log(\\hat{y}) + (1 - y)\\log(1 - \\hat{y})]$. For $y = 0$, the loss is $-\\log(1 - \\hat{y})$. As $\\hat{y} \\to 0.99$, $-\\log(0.01) \\approx 4.60$. If $\\hat{y} \\to 0.9999$, loss surges to $9.21$, and as $\\hat{y} \\to 1.0$, loss approaches $\\infty$. Confident false assertions are penalized exponentially.",
+      "A": "Log-loss uses the natural logarithm $\\ln$, not scaling constants.",
+      "B": "Correct: The negative natural log explodes toward infinity as the assigned probability moves toward absolute confidence in the wrong outcome.",
+      "C": "0-1 accuracy treats all incorrect predictions identically regardless of predicted confidence.",
+      "D": "Parity of numbers has no relevance to probability theory."
+    }
+  },
+  {
+    "item_id": "ML-L2-017",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "PCA Reconstruction Error",
+    "stem": "How do you determine the optimal number of principal components $k$ to retain when performing dimensionality reduction with PCA?",
+    "options": {
+      "A": "Always retain exactly 1 component",
+      "B": "Plot the Cumulative Explained Variance Ratio against the number of components and select $k$ where the curve reaches an acceptable threshold (e.g. 90% or 95% total variance explained, or using the elbow of a scree plot)",
+      "C": "Set $k$ equal to the number of rows in the dataset",
+      "D": "Choose $k$ such that the determinant of the covariance matrix equals 0"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Each principal component accounts for a fraction of total dataset variance equal to its eigenvalue divided by the trace: $\\lambda_i / \\sum \\lambda_j$. Analysts plot the cumulative explained variance ratio vs. $k$ and pick the elbow point that preserves the vast majority of information (typically 85%\u201395%) while discarding noise dimensions.",
+      "A": "Retaining 1 component usually discards the vast majority of information.",
+      "B": "Correct: Scree plots and cumulative variance curves visualize the trade-off between dimensionality compression and information retention.",
+      "C": "Setting components equal to rows does not achieve compression.",
+      "D": "Zero determinant signifies singularity, not dimensionality selection."
+    }
+  },
+  {
+    "item_id": "ML-L2-018",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "Decision Tree Pruning",
+    "stem": "What is Cost-Complexity Pruning (Minimal Cost-Complexity Pruning, parameterized by $\\alpha$) in decision trees?",
+    "options": {
+      "A": "A method to delete all trees that cost more than $5 on cloud servers",
+      "B": "It adds a penalty term $\\alpha |T|$ proportional to the number of terminal leaf nodes $|T|$ to the tree's impurity score, pruning subtrees that do not provide sufficient impurity reduction relative to their complexity",
+      "C": "A technique to convert decision trees into random forests",
+      "D": "Pruning only branches that have odd numbers of samples"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Cost-complexity pruning minimizes $R_\\alpha(T) = R(T) + \\alpha |T|$, where $R(T)$ is the total leaf impurity and $|T|$ is the number of terminal leaves. A higher $\\alpha$ penalizes complex trees with many leaves, collapsing non-essential branches back into parent nodes to control overfitting.",
+      "A": "This confuses computational financial cost with algorithmic tree complexity.",
+      "B": "Correct: Cost-complexity pruning penalizes tree size through $\\alpha |T|$, pruning weak leaves to balance accuracy against complexity.",
+      "C": "Random forest uses bagging of multiple unpruned trees; cost-complexity is a pruning method for individual trees.",
+      "D": "Pruning decisions are driven by impurity reduction, not sample parity."
+    }
+  },
+  {
+    "item_id": "ML-L2-019",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "t-SNE vs PCA",
+    "stem": "What is the primary difference between t-SNE (t-Distributed Stochastic Neighbor Embedding) and PCA for data visualization?",
+    "options": {
+      "A": "PCA is non-linear; t-SNE is strictly linear",
+      "B": "PCA is a linear technique that preserves global pairwise variance; t-SNE is a non-linear, non-parametric probabilistic technique that preserves local neighborhood structure, making it ideal for visualizing complex clusters in 2D",
+      "C": "t-SNE can be used to transform new out-of-sample test points with `.transform()`; PCA cannot",
+      "D": "PCA cannot reduce dimensions below 10"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "PCA applies a linear orthogonal projection preserving global variance. t-SNE converts Euclidean distances into conditional probabilities in high-dimensional space, models low-dimensional distances with a Student-t distribution, and minimizes KL-divergence. It excels at disentangling non-linear manifolds in 2D/3D, but does not preserve global distances or support out-of-sample projection.",
+      "A": "Inverted: PCA is linear; t-SNE is non-linear.",
+      "B": "Correct: PCA preserves global linear variance; t-SNE preserves local manifold neighborhoods, creating visually distinct cluster separations.",
+      "C": "Inverted: Standard t-SNE cannot project new unseen points (no parametric mapping); PCA has an exact linear projection matrix $W$.",
+      "D": "PCA can project down to any arbitrary number of components (including 2 or 3)."
+    }
+  },
+  {
+    "item_id": "ML-L2-020",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Ensembles, Metrics & Dimensionality Reduction)",
+    "topic": "LightGBM Histogram Binning",
+    "stem": "How does LightGBM achieve up to 10x faster training speeds compared to traditional exact-split gradient boosted trees?",
+    "options": {
+      "A": "By ignoring all categorical variables",
+      "B": "By binning continuous feature values into discrete integer buckets (histogram-based algorithm) and using Gradient-based One-Side Sampling (GOSS) and Exclusive Feature Bundling (EFB)",
+      "C": "By running exclusively on TPU clusters",
+      "D": "By setting all tree depths to 1"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Exact GBDT sorts continuous features per split ($O(N \\log N)$). LightGBM quantifies continuous values into 256 discrete bins ($O(N)$ histogram construction, cache-friendly $O(K)$ split finding). Furthermore, GOSS retains samples with large gradients while sub-sampling small gradients, and EFB bundles mutually exclusive sparse features together.",
+      "A": "LightGBM has native, state-of-the-art categorical partitioning without one-hot expansion.",
+      "B": "Correct: Histogram binning replaces continuous sorting with discrete histograms, dramatically reducing memory consumption and CPU instruction cycles.",
+      "C": "LightGBM was engineered specifically for ultra-fast multi-core x86 CPU performance.",
+      "D": "LightGBM uses deep leaf-wise (best-first) tree growth, not depth-1 stumps."
+    }
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "id": "cc_slow_solution",
+  "title": "CodeChef: Slow Solution",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Greedy & Math",
+  "description": "Chef can run at most `max_t` test cases. Each test case has size at most `max_n`. Total sum of sizes across all test cases cannot exceed `sum_n`. Worst-case complexity is sum of N^2. Find maximum total operations.",
+  "constraints": "1 <= max_t, max_n, sum_n <= 10^4\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "max_sum_squares",
+  "starter_code": "def max_sum_squares(max_t: int, max_n: int, sum_n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "max_t": 10,
+        "max_n": 100,
+        "sum_n": 200
+      },
+      "expected": 20000
+    },
+    {
+      "input": {
+        "max_t": 3,
+        "max_n": 10,
+        "sum_n": 100
+      },
+      "expected": 300
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "max_t": 10,
+        "max_n": 10,
+        "sum_n": 25
+      },
+      "expected": 225
+    },
+    {
+      "input": {
+        "max_t": 1,
+        "max_n": 50,
+        "sum_n": 100
+      },
+      "expected": 2500
+    }
+  ],
+  "solution": "def max_sum_squares(max_t: int, max_n: int, sum_n: int) -> int:\n    full_cases = sum_n // max_n\n    rem = sum_n % max_n\n    if full_cases >= max_t:\n        return max_t * (max_n ** 2)\n    else:\n        return full_cases * (max_n ** 2) + (rem ** 2)\n",
+  "explanation": "Greedy allocation maximizes quadratic function by creating as many full-size max_n test cases as possible."
+}

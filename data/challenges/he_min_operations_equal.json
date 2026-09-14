@@ -1,0 +1,56 @@
+{
+  "id": "he_min_operations_equal",
+  "title": "HackerEarth: Minimum Operations to Make Equal",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Math & Greedy",
+  "description": "Given an array `arr`, return the minimum number of increments or decrements required to make all elements equal. (Equivalent to distance to median).",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(N log N) | Space: O(1)",
+  "function_name": "min_ops_equal",
+  "starter_code": "def min_ops_equal(arr: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          10,
+          2,
+          9
+        ]
+      },
+      "expected": 16
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          5
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def min_ops_equal(arr: list[int]) -> int:\n    s = sorted(arr)\n    median = s[len(s) // 2]\n    return sum(abs(x - median) for x in s)\n",
+  "explanation": "Median minimizes L1 distance sum in O(N log N) time."
+}

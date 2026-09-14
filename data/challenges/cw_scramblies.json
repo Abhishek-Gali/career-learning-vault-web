@@ -1,0 +1,52 @@
+{
+  "id": "cw_scramblies",
+  "title": "Codewars 5kyu: Scramblies",
+  "platform": "Codewars",
+  "difficulty": "Hard",
+  "category": "Hash Tables & Strings",
+  "description": "Complete the function `scramble(str1, str2)` that returns `True` if a portion of `str1` characters can be rearranged to match `str2`, otherwise returns `False`.",
+  "constraints": "1 <= len(str1), len(str2) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "scramble",
+  "starter_code": "def scramble(s1: str, s2: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s1": "rkqodlw",
+        "s2": "world"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s1": "cedewaraaossoqqyt",
+        "s2": "codewars"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s1": "katas",
+        "s2": "steak"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s1": "scriptingjava",
+        "s2": "javascript"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s1": "javscripts",
+        "s2": "javascript"
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def scramble(s1: str, s2: str) -> bool:\n    from collections import Counter\n    c1 = Counter(s1)\n    c2 = Counter(s2)\n    return all(c1[ch] >= count for ch, count in c2.items())\n",
+  "explanation": "Compares character frequencies of target against pool in O(N) time."
+}

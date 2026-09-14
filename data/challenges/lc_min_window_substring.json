@@ -1,0 +1,52 @@
+{
+  "id": "lc_min_window_substring",
+  "title": "LeetCode 76: Minimum Window Substring",
+  "platform": "LeetCode",
+  "difficulty": "Hard",
+  "category": "Sliding Window",
+  "description": "Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such substring, return the empty string ''.",
+  "constraints": "1 <= len(s), len(t) <= 10^5\n\u2022 Time: O(M + N) | Space: O(Total unique chars)",
+  "function_name": "min_window",
+  "starter_code": "def min_window(s: str, t: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "ADOBECODEBANC",
+        "t": "ABC"
+      },
+      "expected": "BANC"
+    },
+    {
+      "input": {
+        "s": "a",
+        "t": "a"
+      },
+      "expected": "a"
+    },
+    {
+      "input": {
+        "s": "a",
+        "t": "aa"
+      },
+      "expected": ""
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "ab",
+        "t": "b"
+      },
+      "expected": "b"
+    },
+    {
+      "input": {
+        "s": "bdab",
+        "t": "ab"
+      },
+      "expected": "ab"
+    }
+  ],
+  "solution": "def min_window(s: str, t: str) -> str:\n    from collections import Counter\n    if not s or not t:\n        return ''\n    t_counts = Counter(t)\n    required = len(t_counts)\n    window_counts = {}\n    formed = 0\n    ans = (float('inf'), None, None)\n    l = 0\n    for r, char in enumerate(s):\n        window_counts[char] = window_counts.get(char, 0) + 1\n        if char in t_counts and window_counts[char] == t_counts[char]:\n            formed += 1\n        while l <= r and formed == required:\n            if (r - l + 1) < ans[0]:\n                ans = (r - l + 1, l, r)\n            char_l = s[l]\n            window_counts[char_l] -= 1\n            if char_l in t_counts and window_counts[char_l] < t_counts[char_l]:\n                formed -= 1\n            l += 1\n    return '' if ans[0] == float('inf') else s[ans[1]:ans[2] + 1]\n",
+  "explanation": "Two-pointer sliding window expands right until all characters of t are matched, then contracts left to find minimum substring in O(M + N) time."
+}

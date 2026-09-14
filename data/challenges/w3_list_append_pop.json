@@ -1,0 +1,73 @@
+{
+  "id": "w3_list_append_pop",
+  "title": "W3Schools: List Append and Pop",
+  "platform": "W3Schools",
+  "difficulty": "Easy",
+  "category": "Lists",
+  "description": "Given a list `lst` and an item `item_to_add`, append `item_to_add` to the end of the list, then remove and discard the first element (index 0). Return the modified list.",
+  "constraints": "1 <= len(lst) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "list_ops",
+  "starter_code": "def list_ops(lst: list[int], item_to_add: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3
+        ],
+        "item_to_add": 4
+      },
+      "expected": [
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "input": {
+        "lst": [
+          10
+        ],
+        "item_to_add": 20
+      },
+      "expected": [
+        20
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "lst": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "item_to_add": 9
+      },
+      "expected": [
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "input": {
+        "lst": [
+          0,
+          0
+        ],
+        "item_to_add": 1
+      },
+      "expected": [
+        0,
+        1
+      ]
+    }
+  ],
+  "solution": "def list_ops(lst: list[int], item_to_add: int) -> list[int]:\n    res = list(lst)\n    res.append(item_to_add)\n    res.pop(0)\n    return res\n",
+  "explanation": "Appends to end and removes front element (FIFO queue step) in O(N) time."
+}

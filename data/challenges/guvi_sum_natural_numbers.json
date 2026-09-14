@@ -1,0 +1,47 @@
+{
+  "id": "guvi_sum_natural_numbers",
+  "title": "GUVI: Sum of First N Natural Numbers",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Easy",
+  "category": "Basic Math",
+  "description": "Given a positive integer `n`, calculate the sum of all natural numbers from 1 to `n`.",
+  "constraints": "1 <= n <= 10^8\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "sum_natural",
+  "starter_code": "def sum_natural(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 5
+      },
+      "expected": 15
+    },
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": 55
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 100
+      },
+      "expected": 5050
+    },
+    {
+      "input": {
+        "n": 1000
+      },
+      "expected": 500500
+    }
+  ],
+  "solution": "def sum_natural(n: int) -> int:\n    return n * (n + 1) // 2\n",
+  "explanation": "Gaussian formula n * (n + 1) // 2 computes the sum in O(1) arithmetic steps."
+}

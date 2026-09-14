@@ -1,0 +1,82 @@
+{
+  "id": "lc_remove_duplicates_sorted",
+  "title": "LeetCode 26: Remove Duplicates from Sorted Array",
+  "platform": "LeetCode",
+  "difficulty": "Easy",
+  "category": "Two Pointers",
+  "description": "Given an integer array `nums` sorted in non-decreasing order, remove duplicates in-place such that each unique element appears only once. Return the list of unique elements.",
+  "constraints": "0 <= len(nums) <= 3 * 10^4\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "remove_duplicates",
+  "starter_code": "def remove_duplicates(nums: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          2
+        ]
+      },
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "solution": "def remove_duplicates(nums: list[int]) -> list[int]:\n    if not nums:\n        return []\n    unique = [nums[0]]\n    for x in nums[1:]:\n        if x != unique[-1]:\n            unique.append(x)\n    return unique\n",
+  "explanation": "Comparing each element to the last stored unique element compresses the sorted list in O(N) time."
+}

@@ -1,0 +1,67 @@
+{
+  "id": "gfg_triplet_sum_in_array",
+  "title": "GFG: Triplet Sum in Array",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Two Pointers",
+  "description": "Given an array `arr` of `n` integers and an integer `x`, find if there's a triplet in the array which sums up to the given integer `x`. Return `True` if found, `False` otherwise.",
+  "constraints": "3 <= len(arr) <= 1000\n\u2022 Time: O(N^2) | Space: O(1)",
+  "function_name": "has_triplet_sum",
+  "starter_code": "def has_triplet_sum(arr: list[int], x: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          4,
+          45,
+          6,
+          10,
+          8
+        ],
+        "x": 13
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          4,
+          3,
+          6
+        ],
+        "x": 10
+      },
+      "expected": true
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "x": 100
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "arr": [
+          -1,
+          2,
+          1,
+          -4
+        ],
+        "x": 1
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def has_triplet_sum(arr: list[int], x: int) -> bool:\n    a = sorted(arr)\n    n = len(a)\n    for i in range(n - 2):\n        l, r = i + 1, n - 1\n        while l < r:\n            s = a[i] + a[l] + a[r]\n            if s == x:\n                return True\n            elif s < x:\n                l += 1\n            else:\n                r -= 1\n    return False\n",
+  "explanation": "Sorting and two-pointer scan detects triplet sum in O(N^2) time."
+}

@@ -1,0 +1,91 @@
+{
+  "id": "he_oliver_and_the_battle",
+  "title": "HackerEarth: Oliver and the Battle (Connected Components)",
+  "platform": "HackerEarth",
+  "difficulty": "Hard",
+  "category": "Graphs & DFS",
+  "description": "Oliver is in a battle. The battlefield is an M x N grid with 1 representing enemy soldiers and 0 empty ground. Soldiers form a troop if they are connected in 8 directions. Return `[total_troops, max_troop_size]`.",
+  "constraints": "1 <= M, N <= 100\n\u2022 Time: O(M * N) | Space: O(M * N)",
+  "function_name": "max_battle_component",
+  "starter_code": "def max_battle_component(grid: list[list[int]]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        5
+      ]
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        1
+      ]
+    }
+  ],
+  "solution": "def max_battle_component(grid: list[list[int]]) -> list[int]:\n    m, n = len(grid), len(grid[0])\n    visited = [[False] * n for _ in range(m)]\n    troops = 0\n    max_sz = 0\n    def dfs(r, c):\n        visited[r][c] = True\n        sz = 1\n        for dr in [-1, 0, 1]:\n            for dc in [-1, 0, 1]:\n                nr, nc = r + dr, c + dc\n                if 0 <= nr < m and 0 <= nc < n and not visited[nr][nc] and grid[nr][nc] == 1:\n                    sz += dfs(nr, nc)\n        return sz\n    for r in range(m):\n        for c in range(n):\n            if grid[r][c] == 1 and not visited[r][c]:\n                troops += 1\n                max_sz = max(max_sz, dfs(r, c))\n    return [troops, max_sz]\n",
+  "explanation": "8-directional DFS visits connected component clusters in O(M*N) time."
+}

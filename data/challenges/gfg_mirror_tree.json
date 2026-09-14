@@ -1,0 +1,69 @@
+{
+  "id": "gfg_mirror_tree",
+  "title": "GFG: Mirror Inversion of Binary Tree",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Easy",
+  "category": "Trees",
+  "description": "Given a binary tree represented as a level-order array of nodes, create its mirror image (invert left and right subtrees) and return the resulting level-order array.",
+  "constraints": "0 <= len(nodes) <= 100\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "mirror_tree",
+  "starter_code": "def mirror_tree(nodes: list) -> list:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "expected": [
+        1,
+        3,
+        2,
+        7,
+        6,
+        5,
+        4
+      ]
+    },
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        3,
+        2
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nodes": [
+          1
+        ]
+      },
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "solution": "def mirror_tree(nodes: list) -> list:\n    if not nodes:\n        return []\n    # In a full binary tree level order, each level is reversed\n    res = []\n    idx = 0\n    level_size = 1\n    while idx < len(nodes):\n        level = nodes[idx:idx + level_size]\n        res.extend(reversed(level))\n        idx += level_size\n        level_size *= 2\n    return res\n",
+  "explanation": "Mirroring a binary tree reverses each horizontal depth level in O(N) time."
+}

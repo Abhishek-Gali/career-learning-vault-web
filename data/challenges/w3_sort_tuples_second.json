@@ -1,0 +1,111 @@
+{
+  "id": "w3_sort_tuples_second",
+  "title": "W3Schools: Sort Records by Score Descending",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Sorting & Lambdas",
+  "description": "Given a list of student records `records` where each record is `[name, score]`, sort the records in descending order of score. If scores are equal, preserve alphabetical order of name.",
+  "constraints": "0 <= len(records) <= 10^4\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "sort_by_score",
+  "starter_code": "def sort_by_score(records: list[list]) -> list[list]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "records": [
+          [
+            "Alice",
+            85
+          ],
+          [
+            "Bob",
+            92
+          ],
+          [
+            "Charlie",
+            78
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "Bob",
+          92
+        ],
+        [
+          "Alice",
+          85
+        ],
+        [
+          "Charlie",
+          78
+        ]
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          [
+            "A",
+            50
+          ],
+          [
+            "B",
+            50
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          50
+        ],
+        [
+          "B",
+          50
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "records": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "records": [
+          [
+            "Z",
+            10
+          ],
+          [
+            "A",
+            20
+          ],
+          [
+            "M",
+            20
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          20
+        ],
+        [
+          "M",
+          20
+        ],
+        [
+          "Z",
+          10
+        ]
+      ]
+    }
+  ],
+  "solution": "def sort_by_score(records: list[list]) -> list[list]:\n    return sorted(records, key=lambda x: (-x[1], x[0]))\n",
+  "explanation": "Custom sorting with key (-score, name) in O(N log N) time."
+}

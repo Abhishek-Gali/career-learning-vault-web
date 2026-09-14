@@ -1,0 +1,41 @@
+{
+  "id": "w3_string_methods",
+  "title": "W3Schools: Clean and Lowercase String",
+  "platform": "W3Schools",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Given a string `s`, strip leading/trailing whitespace and convert the entire string to lowercase.",
+  "constraints": "0 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "clean_string",
+  "starter_code": "def clean_string(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "  Hello World!  "
+      },
+      "expected": "hello world!"
+    },
+    {
+      "input": {
+        "s": "PYTHON"
+      },
+      "expected": "python"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "\t\nData Science\n"
+      },
+      "expected": "data science"
+    },
+    {
+      "input": {
+        "s": "   "
+      },
+      "expected": ""
+    }
+  ],
+  "solution": "def clean_string(s: str) -> str:\n    return s.strip().lower()\n",
+  "explanation": "Strips whitespace and converts casing in O(N) time."
+}

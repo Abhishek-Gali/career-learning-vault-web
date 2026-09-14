@@ -1,0 +1,47 @@
+{
+  "id": "cw_vowel_count",
+  "title": "Codewars 7kyu: Vowel Count",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Strings",
+  "description": "Return the number (count) of vowels in the given string `sentence`. We consider a, e, i, o, u as vowels for this Kata (but not y).",
+  "constraints": "0 <= len(sentence) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "get_count",
+  "starter_code": "def get_count(sentence: str) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "sentence": "aeiou"
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "sentence": "y"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "sentence": "bcdfghjklmnpqrstvwxz y"
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "sentence": ""
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "sentence": "abracadabra"
+      },
+      "expected": 5
+    }
+  ],
+  "solution": "def get_count(sentence: str) -> int:\n    return sum(1 for ch in sentence if ch in 'aeiou')\n",
+  "explanation": "Iterates through characters checking membership in 'aeiou' in O(N) time."
+}

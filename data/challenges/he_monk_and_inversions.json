@@ -1,0 +1,79 @@
+{
+  "id": "he_monk_and_inversions",
+  "title": "HackerEarth: Monk and Inversions",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Matrix & Implementation",
+  "description": "Monk's teacher gave him an `M x M` matrix. An inversion occurs at two pairs `(i, j)` and `(p, q)` if `i <= p` and `j <= q` and `M[i][j] > M[p][q]`. Find the total number of inversions.",
+  "constraints": "1 <= M <= 20\n\u2022 Time: O(M^4) | Space: O(1)",
+  "function_name": "count_matrix_inversions",
+  "starter_code": "def count_matrix_inversions(m: list[list[int]]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "m": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "m": [
+          [
+            4,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "m": [
+          [
+            1
+          ]
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "m": [
+          [
+            9,
+            8
+          ],
+          [
+            7,
+            6
+          ]
+        ]
+      },
+      "expected": 5
+    }
+  ],
+  "solution": "def count_matrix_inversions(m: list[list[int]]) -> int:\n    n = len(m)\n    invs = 0\n    for i in range(n):\n        for j in range(n):\n            for p in range(i, n):\n                for q in range(j, n):\n                    if m[i][j] > m[p][q]:\n                        invs += 1\n    return invs\n",
+  "explanation": "Iterates all subgrid quadrants (p >= i, q >= j) counting strictly greater elements in O(M^4) time."
+}

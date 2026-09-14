@@ -1,0 +1,64 @@
+{
+  "id": "gfg_kadanes_algorithm",
+  "title": "GFG: Kadane's Algorithm (Max Subarray Sum)",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "description": "Given an array `arr` of `N` integers. Find the contiguous sub-array(containing at least one number) which has the maximum sum and return its sum.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "max_subarray_sum",
+  "starter_code": "def max_subarray_sum(arr: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          -2,
+          5
+        ]
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "arr": [
+          -1,
+          -2,
+          -3,
+          -4
+        ]
+      },
+      "expected": -1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          5
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "arr": [
+          -2,
+          1,
+          -3,
+          4,
+          -1,
+          2,
+          1,
+          -5,
+          4
+        ]
+      },
+      "expected": 6
+    }
+  ],
+  "solution": "def max_subarray_sum(arr: list[int]) -> int:\n    max_so_far = max_ending_here = arr[0]\n    for x in arr[1:]:\n        max_ending_here = max(x, max_ending_here + x)\n        max_so_far = max(max_so_far, max_ending_here)\n    return max_so_far\n",
+  "explanation": "Kadane's algorithm keeps running max contiguous sum, resetting whenever extending a subarray hurts total value in O(N) time."
+}

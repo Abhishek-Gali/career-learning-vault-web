@@ -1,0 +1,53 @@
+{
+  "id": "hr_number_line_jumps",
+  "title": "HackerRank: Number Line Jumps (Kangaroo)",
+  "platform": "HackerRank",
+  "difficulty": "Medium",
+  "category": "Implementation & Math",
+  "description": "You are choreographing a circus show with two kangaroos on a number line. Kangaroo 1 starts at `x1` and moves at `v1` meters per jump. Kangaroo 2 starts at `x2` and moves at `v2`. Return 'YES' if they ever land on the same location at the same time, otherwise 'NO'.",
+  "constraints": "0 <= x1 < x2 <= 10000, 1 <= v1, v2 <= 10000\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "kangaroo",
+  "starter_code": "def kangaroo(x1: int, v1: int, x2: int, v2: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x1": 0,
+        "v1": 3,
+        "x2": 4,
+        "v2": 2
+      },
+      "expected": "YES"
+    },
+    {
+      "input": {
+        "x1": 0,
+        "v1": 2,
+        "x2": 5,
+        "v2": 3
+      },
+      "expected": "NO"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x1": 21,
+        "v1": 6,
+        "x2": 47,
+        "v2": 3
+      },
+      "expected": "NO"
+    },
+    {
+      "input": {
+        "x1": 14,
+        "v1": 4,
+        "x2": 98,
+        "v2": 2
+      },
+      "expected": "YES"
+    }
+  ],
+  "solution": "def kangaroo(x1: int, v1: int, x2: int, v2: int) -> str:\n    if v1 <= v2:\n        return 'NO'\n    return 'YES' if (x2 - x1) % (v1 - v2) == 0 else 'NO'\n",
+  "explanation": "Kangaroo 1 must jump faster (v1 > v2). If relative distance divides relative speed cleanly, they meet in O(1) time."
+}

@@ -1,0 +1,49 @@
+{
+  "id": "cc_chef_and_chocolates",
+  "title": "CodeChef: Chef and Chocolates",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Basic Math",
+  "description": "Chef has `x` 5-rupee coins and `y` 10-rupee coins. Each chocolate costs `z` rupees. Determine the maximum number of chocolates Chef can buy.",
+  "constraints": "1 <= x, y, z <= 100\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "buy_chocolates",
+  "starter_code": "def buy_chocolates(x: int, y: int, z: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 2,
+        "y": 4,
+        "z": 10
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "x": 10,
+        "y": 0,
+        "z": 2
+      },
+      "expected": 25
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 1,
+        "y": 1,
+        "z": 20
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "x": 5,
+        "y": 5,
+        "z": 5
+      },
+      "expected": 15
+    }
+  ],
+  "solution": "def buy_chocolates(x: int, y: int, z: int) -> int:\n    total_money = (5 * x) + (10 * y)\n    return total_money // z\n",
+  "explanation": "Total money divided by unit cost gives total chocolates in O(1) time."
+}

@@ -1,0 +1,47 @@
+{
+  "id": "lc_sqrt_integer",
+  "title": "LeetCode 69: Sqrt(x)",
+  "platform": "LeetCode",
+  "difficulty": "Easy",
+  "category": "Binary Search",
+  "description": "Given a non-negative integer `x`, return the square root of `x` rounded down to the nearest integer. The returned integer should be non-negative as well. Do not use built-in exponent functions.",
+  "constraints": "0 <= x <= 2^31 - 1\n\u2022 Time: O(log X) | Space: O(1)",
+  "function_name": "my_sqrt",
+  "starter_code": "def my_sqrt(x: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 4
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "x": 8
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 0
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "x": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "x": 2147395599
+      },
+      "expected": 46339
+    }
+  ],
+  "solution": "def my_sqrt(x: int) -> int:\n    if x < 2:\n        return x\n    low, high = 1, x // 2\n    ans = 1\n    while low <= high:\n        mid = (low + high) // 2\n        if mid * mid <= x:\n            ans = mid\n            low = mid + 1\n        else:\n            high = mid - 1\n    return ans\n",
+  "explanation": "Binary search in range [1, x // 2] identifies floor(sqrt(x)) in O(log X) time."
+}

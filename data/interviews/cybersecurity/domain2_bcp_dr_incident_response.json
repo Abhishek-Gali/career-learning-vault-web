@@ -1,0 +1,577 @@
+[
+  {
+    "item_id": "CC-D2-001",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.1 Business Continuity (BC)",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary objective of performing a Business Impact Analysis (BIA) in a Business Continuity planning process?",
+    "options": {
+      "A": "To benchmark the CPU and memory performance of physical servers",
+      "B": "To identify critical business functions (CBFs), assess the operational and financial impact of disruptions, and establish recovery priorities",
+      "C": "To negotiate lower insurance premiums with cybersecurity underwriters",
+      "D": "To configure firewall state tables and intrusion prevention rules"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The BIA identifies mission-critical business processes, quantifies the quantitative and qualitative impacts of outages over time, and determines maximum allowable downtime.",
+      "A": "Hardware benchmarking is a systems engineering task, not the purpose of a BIA.",
+      "B": "Correct. A BIA evaluates critical business functions, loss impact, and establishes recovery time and point thresholds.",
+      "C": "Insurance negotiation may be informed by risk posture, but is not the core objective of a BIA.",
+      "D": "Firewall configuration is a technical operational task."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-002",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.1 Business Continuity (BC)",
+    "cognitive_level": "SCENARIO",
+    "stem": "An online payment gateway determines that if transactions cannot be processed for more than 4 hours, the business will suffer irreparable regulatory fines and bankruptcy. In business continuity terminology, what does this 4-hour threshold represent?",
+    "options": {
+      "A": "Recovery Point Objective (RPO)",
+      "B": "Maximum Tolerable Downtime (MTD)",
+      "C": "Mean Time to Detect (MTTD)",
+      "D": "Work Recovery Time (WRT)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Maximum Tolerable Downtime (MTD)—also known as Maximum Allowable Outage (MAO)—is the total time a business process can be disrupted before the organization suffers unacceptable, catastrophic harm.",
+      "A": "RPO is the maximum acceptable data loss measured in time, not total service downtime.",
+      "B": "Correct. MTD is the absolute longest time the organization can endure an outage before business failure.",
+      "C": "MTTD is an operational security metric measuring how quickly an incident is recognized.",
+      "D": "WRT is the time needed to verify system integrity and catch up on backlogged work after systems are restored."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-003",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.1 Business Continuity (BC)",
+    "cognitive_level": "SCENARIO",
+    "stem": "A hospital's electronic health record system requires that in the event of a storage array failure, the organization must not lose more than 15 minutes of patient vital signs and prescription orders. What metric does this requirement define?",
+    "options": {
+      "A": "Recovery Point Objective (RPO)",
+      "B": "Recovery Time Objective (RTO)",
+      "C": "Maximum Tolerable Downtime (MTD)",
+      "D": "Annualized Rate of Occurrence (ARO)"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Recovery Point Objective (RPO) dictates the maximum acceptable age of files or transactions that must be recovered from backup storage for normal operations to resume (i.e., acceptable data loss measured backwards in time).",
+      "A": "Correct. RPO defines the allowable data loss threshold in time units (15 minutes).",
+      "B": "RTO defines the target duration within which the system must be restored and running.",
+      "C": "MTD is the ultimate limit of outage time the organization can survive.",
+      "D": "ARO measures the frequency of an event per year."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-004",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.1 Business Continuity (BC)",
+    "cognitive_level": "RECALL",
+    "stem": "Which statement accurately describes the relationship between Recovery Time Objective (RTO) and Maximum Tolerable Downtime (MTD)?",
+    "options": {
+      "A": "RTO must always be greater than MTD to provide safety margins.",
+      "B": "RTO must always be less than or equal to MTD to prevent fatal business disruption.",
+      "C": "RTO and MTD are mutually exclusive metrics used only in physical security.",
+      "D": "MTD is derived from RTO by dividing RTO by the number of active servers."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The target time to restore service (RTO) plus work recovery time must fit within the Maximum Tolerable Downtime (MTD); otherwise, the disruption exceeds business survivability limits.",
+      "A": "If RTO exceeds MTD, the business will collapse before services are brought back online.",
+      "B": "Correct. RTO must always be set less than or equal to MTD to ensure business survival.",
+      "C": "Both are core Business Continuity / BIA metrics.",
+      "D": "MTD is determined by business impact analysis, not server math."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-005",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.2 Disaster Recovery (DR)",
+    "cognitive_level": "RECALL",
+    "stem": "Which alternate disaster recovery processing site provides pre-configured hardware, operational networking, and real-time or near real-time data replication, enabling failover within minutes or hours?",
+    "options": {
+      "A": "Cold site",
+      "B": "Warm site",
+      "C": "Hot site",
+      "D": "Reciprocal agreement site"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "A Hot Site is a fully redundant, fully equipped data center maintained with live power, HVAC, running servers, telecommunications, and synchronized copies of production data for near-instantaneous cutover.",
+      "A": "A cold site has power and HVAC but no pre-installed computing hardware or live data.",
+      "B": "A warm site has hardware in place but requires loading software and restoring data from backup tapes/drives (days).",
+      "C": "Correct. A hot site is fully operational and continuously updated with data.",
+      "D": "A reciprocal agreement is a mutual sharing pact between companies, typically lacking dedicated failover hardware."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-006",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.2 Disaster Recovery (DR)",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization requires an alternate recovery facility that balances cost and availability. They need servers and network switches already installed and wired in the facility, but are willing to wait 24 to 48 hours to restore data backups before resuming operations. Which site model fits this requirement?",
+    "options": {
+      "A": "Cold site",
+      "B": "Warm site",
+      "C": "Hot site",
+      "D": "Mobile cloud bunker"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A Warm Site possesses the necessary environmental controls, networking, and pre-staged server hardware, but data is not continuously synchronized; data must be restored from backups before activating production.",
+      "A": "A cold site has no computing equipment staged.",
+      "B": "Correct. A warm site features pre-installed hardware but requires manual backup restoration, taking 1 to 3 days.",
+      "C": "A hot site maintains live mirrored data and is much more expensive.",
+      "D": "A mobile bunker is a specialized trailer/container solution."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-007",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.2 Disaster Recovery (DR)",
+    "cognitive_level": "RECALL",
+    "stem": "What are the primary characteristics of a Cold Site recovery location?",
+    "options": {
+      "A": "Equipped with live clustered database nodes and optical fiber links",
+      "B": "Physical building with power, HVAC, and raised flooring, but no computing hardware or pre-staged customer data",
+      "C": "A mobile data center van parked outside the primary corporate headquarters",
+      "D": "An active-active cloud availability zone"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A Cold Site provides empty shell space with power, cooling, water, and basic connectivity, but contains no server hardware, operating systems, or backed-up data; it requires weeks to make operational.",
+      "A": "Describes a hot site.",
+      "B": "Correct. A cold site provides basic space and utilities with zero pre-staged computing assets.",
+      "C": "Describes a mobile facility.",
+      "D": "Describes a high-availability cloud architecture."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-008",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.2 Disaster Recovery (DR)",
+    "cognitive_level": "SCENARIO",
+    "stem": "A system administrator runs a Full backup on Sunday evening. On Monday, Tuesday, and Wednesday evenings, the administrator runs Differential backups. If a catastrophic disk failure occurs on Thursday morning, what backup sets are required to restore the server?",
+    "options": {
+      "A": "Sunday's Full backup and Wednesday's Differential backup only",
+      "B": "Sunday's Full backup and all three Differential backups (Monday, Tuesday, Wednesday)",
+      "C": "Wednesday's Differential backup only",
+      "D": "Sunday's Full backup and Monday's Differential backup only"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A Differential backup captures all changes made since the last FULL backup (cumulative). To restore, you only need the baseline Full backup plus the most recent Differential backup.",
+      "A": "Correct. Sunday Full + Wednesday Differential contains all data through Wednesday evening.",
+      "B": "Restoring all intermediate backups is only required when using Incremental backups, not Differential.",
+      "C": "A differential backup contains only changed files and cannot restore the operating system and unchanged files without the full backup.",
+      "D": "Omitting Wednesday leaves out all changes made on Tuesday and Wednesday."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-009",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.2 Disaster Recovery (DR)",
+    "cognitive_level": "SCENARIO",
+    "stem": "An engineer performs a Full backup on Sunday, followed by nightly Incremental backups on Monday, Tuesday, and Wednesday. To recover from a storage failure on Thursday morning, which media sets must be restored and in what order?",
+    "options": {
+      "A": "Sunday Full + Wednesday Incremental only",
+      "B": "Sunday Full, followed sequentially by Monday Incremental, Tuesday Incremental, and Wednesday Incremental",
+      "C": "Wednesday Incremental only",
+      "D": "Any single Incremental backup set chosen at random"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "An Incremental backup captures only files modified since the last backup of ANY type (clearing the archive bit). Restoring requires the last Full backup and every subsequent Incremental backup applied in chronological sequence.",
+      "A": "This applies to Differential backups; using only Wednesday Incremental would miss Monday and Tuesday changes.",
+      "B": "Correct. Incremental recovery mandates applying Sunday Full plus all sequential Incrementals up to the failure.",
+      "C": "An incremental backup is not self-contained.",
+      "D": "Incremental sets are sequential links in a chain; all links must be applied."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-010",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.2 Disaster Recovery (DR)",
+    "cognitive_level": "RECALL",
+    "stem": "What is the industry-standard '3-2-1 Backup Rule' recommended for enterprise resilience?",
+    "options": {
+      "A": "3 administrators, 2 passwords, 1 master encryption key",
+      "B": "3 copies of data, stored on 2 different media types, with 1 copy kept offsite",
+      "C": "3 hours RTO, 2 hours RPO, 1 hour MTD",
+      "D": "3 firewalls, 2 routers, 1 core switch"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The 3-2-1 backup rule dictates keeping 3 complete copies of critical data, across 2 different physical media types (e.g., SSD storage pool and magnetic tape or optical disk), with at least 1 copy preserved in an offsite or cloud location.",
+      "A": "Refers to key management policies, not backup architecture.",
+      "B": "Correct. 3 copies, 2 media types, 1 offsite copy constitutes the 3-2-1 rule.",
+      "C": "Mismatches RTO/RPO/MTD logic.",
+      "D": "Refers to network topology redundancy."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-011",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "RECALL",
+    "stem": "In information security terminology, what is the key distinction between an 'event' and an 'incident'?",
+    "options": {
+      "A": "Events are always malicious, whereas incidents are harmless system updates.",
+      "B": "An event is any observable occurrence in a system or network; an incident is an adverse event that compromises confidentiality, integrity, or availability.",
+      "C": "An event is reported to law enforcement, while an incident is internal only.",
+      "D": "Events occur on Windows operating systems; incidents occur on Linux distributions."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Per NIST SP 800-61 Rev 2, an event is any observable system change (e.g., user login, file save, firewall allow). An incident is an adverse event that violates security policies or compromises the CIA triad.",
+      "A": "Events are routine occurrences; incidents are the malicious or harmful subset.",
+      "B": "Correct. All incidents are events, but only events with negative security impact qualify as incidents.",
+      "C": "Law enforcement reporting depends on incident severity and legal mandates, not the term.",
+      "D": "Operating system has no bearing on event vs incident classification."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-012",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "RECALL",
+    "stem": "According to NIST SP 800-61 Rev 2, what are the four primary phases of the Incident Response Lifecycle in sequential order?",
+    "options": {
+      "A": "1. Identification, 2. Eradication, 3. Disaster Declaration, 4. Litigation",
+      "B": "1. Preparation, 2. Detection & Analysis, 3. Containment, Eradication & Recovery, 4. Post-Incident Activity",
+      "C": "1. BIA, 2. RTO Calculation, 3. Failover, 4. Failback",
+      "D": "1. Firewall Deployment, 2. Password Reset, 3. Forensic Imaging, 4. Media Sanitization"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "NIST SP 800-61 Rev 2 structures incident response into 4 distinct phases: 1. Preparation; 2. Detection and Analysis; 3. Containment, Eradication, and Recovery; 4. Post-Incident Activity (Lessons Learned).",
+      "A": "Omits preparation and post-incident phases; mixes non-standard terms.",
+      "B": "Correct. These are the canonical four phases codified in NIST SP 800-61 Rev 2.",
+      "C": "These are BCP/DR steps.",
+      "D": "These are tactical technical tasks, not the NIST lifecycle phases."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-013",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "SCENARIO",
+    "stem": "A SOC analyst detects an active reverse TCP shell beaconing from an internal database server to a command-and-control (C2) server in another country. The analyst immediately isolates the server's network port and revokes active API tokens. In which NIST incident response phase is the analyst operating?",
+    "options": {
+      "A": "Preparation",
+      "B": "Detection & Analysis",
+      "C": "Containment, Eradication & Recovery",
+      "D": "Post-Incident Activity"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Isolating the compromised host and revoking active credentials stops the spread of the attack and limits attacker lateral movement, which is the Containment step of Phase 3.",
+      "A": "Preparation involves developing policies, toolkits, and training before an attack.",
+      "B": "Detection & Analysis covers identifying the alert and scoping the compromise.",
+      "C": "Correct. Isolating the machine and revoking tokens is active containment within Phase 3.",
+      "D": "Post-Incident Activity is the retrospective lessons-learned phase conducted after recovery."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-014",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "RECALL",
+    "stem": "During a digital forensics investigation, which data source must be acquired FIRST according to the RFC 3227 Order of Volatility?",
+    "options": {
+      "A": "Physical hard drive disk sectors",
+      "B": "CPU registers and processor cache memory",
+      "C": "Archival optical backup discs",
+      "D": "Remote syslog server log archives"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "RFC 3227 specifies the Order of Volatility from most volatile (lost in nanoseconds upon power loss) to least volatile: 1. CPU registers/cache, 2. Routing tables, ARP cache, process table, RAM, 3. Temp files, 4. Disk, 5. Remote logs, 6. Archival media.",
+      "A": "Hard drive sectors are persistent non-volatile media.",
+      "B": "Correct. CPU registers and cache are the most ephemeral and volatile data on a computer system.",
+      "C": "Archival backups are near-permanent and least volatile.",
+      "D": "Remote syslog records are preserved on separate storage."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-015",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "SCENARIO",
+    "stem": "Two weeks after resolving a major corporate data breach, the CSIRT team lead convenes the security team, IT operations, legal counsel, and business managers to review incident metrics, evaluate procedural shortcomings, and update the incident playbook. What is this meeting called?",
+    "options": {
+      "A": "A Business Impact Analysis (BIA)",
+      "B": "A Lessons Learned / Hot Wash Review",
+      "C": "A Change Advisory Board (CAB) meeting",
+      "D": "An Annual General Meeting (AGM)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A Lessons Learned meeting (or 'hot wash') is the critical final phase of NIST SP 800-61 (Post-Incident Activity), where stakeholders dissect what happened, why it happened, how response actions fared, and how to prevent recurrence.",
+      "A": "A BIA is part of Business Continuity planning prior to disruptions.",
+      "B": "Correct. Post-incident review meetings evaluate performance and update response plans.",
+      "C": "A CAB evaluates proposed IT changes for operational risk.",
+      "D": "An AGM is a shareholder meeting."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-016",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.1 Business Continuity (BC)",
+    "cognitive_level": "SCENARIO",
+    "stem": "During a BIA, the payroll department reports that missing month-end direct deposits will trigger employee walkouts within 48 hours, while the customer feedback portal can remain offline for 14 days without material harm. How should the BCP coordinator prioritize these services?",
+    "options": {
+      "A": "Assign lower recovery priority to payroll because internal employees can wait.",
+      "B": "Assign higher recovery priority and a shorter RTO to payroll than to the feedback portal.",
+      "C": "Assign identical RTO and RPO to both services to treat all departments equally.",
+      "D": "Prioritize the customer feedback portal because external clients always outrank internal operations."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Critical business functions with severe operational impacts and short maximum tolerable downtimes (such as payroll with 48h limit) must receive higher recovery priority and shorter RTOs than non-critical services.",
+      "A": "Ignoring severe internal failure risks business collapse.",
+      "B": "Correct. Payroll has a critical MTD of 48h and requires a shorter RTO and top recovery priority.",
+      "C": "Resource constraints prevent equal recovery speed for all systems; prioritization is mandatory.",
+      "D": "The feedback portal has a 14-day tolerance and does not outweigh vital business functions."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-017",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.2 Disaster Recovery (DR)",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary operational trade-off between choosing a Hot Site versus a Cold Site for enterprise disaster recovery?",
+    "options": {
+      "A": "Hot sites take weeks to restore but are very inexpensive, while cold sites are instant and costly.",
+      "B": "Hot sites offer near-zero recovery time (RTO) but incur very high recurring operational costs, whereas cold sites are economical but require extensive time to stage equipment and restore data.",
+      "C": "Cold sites are only for cloud providers, while hot sites are exclusively on-premises.",
+      "D": "Hot sites do not require network connectivity, while cold sites require dedicated dark fiber."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Hot sites duplicate production infrastructure with synchronous/asynchronous data replication, offering rapid recovery at high ongoing expenditure. Cold sites minimize cost but require procurement, hardware setup, and data restoration (weeks).",
+      "A": "Inverts the characteristics of hot and cold sites.",
+      "B": "Correct. Hot sites minimize downtime at high financial cost; cold sites minimize cost at the expense of prolonged recovery duration.",
+      "C": "Both models can be physical colocation or cloud-based.",
+      "D": "Hot sites require substantial continuous network bandwidth to replicate data."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-018",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "RECALL",
+    "stem": "Which of the following documents is legally essential to establish the integrity, custody, and chronological possession of digital evidence collected during an incident?",
+    "options": {
+      "A": "Service Level Agreement (SLA)",
+      "B": "Chain of Custody form",
+      "C": "Business Impact Analysis (BIA)",
+      "D": "Non-Disclosure Agreement (NDA)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A Chain of Custody form records every individual who collected, handled, transferred, analyzed, and secured physical or digital evidence, ensuring evidence admissibility in court.",
+      "A": "An SLA governs vendor uptime and performance obligations.",
+      "B": "Correct. Chain of custody documents the chronological record of evidence handling.",
+      "C": "A BIA assesses operational disruption impacts.",
+      "D": "An NDA protects proprietary trade secrets between parties."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-019",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "SCENARIO",
+    "stem": "A security analyst discovers that an attacker gained access to a web server by exploiting an unpatched Apache vulnerability, installed a persistence script in /etc/cron.hourly, and created a backdoor user account. During which phase should the analyst delete the cron script, remove the backdoor user, and patch Apache?",
+    "options": {
+      "A": "Preparation",
+      "B": "Detection & Analysis",
+      "C": "Eradication",
+      "D": "Recovery"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Eradication involves identifying and purging all malicious artifacts (malware, rootkits, cron jobs, rogue accounts) and patching the underlying vulnerability that permitted ingress.",
+      "A": "Preparation occurs before an incident happens.",
+      "B": "Detection & Analysis discovers and confirms the presence of the threat.",
+      "C": "Correct. Removing malicious artifacts and fixing the vulnerability constitutes Eradication.",
+      "D": "Recovery restores clean systems to production and validates normal operational state."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D2-020",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "RECALL",
+    "stem": "In NIST SP 800-61 Rev 2, what is the distinction between a 'precursor' and an 'indicator' of an incident?",
+    "options": {
+      "A": "Precursors occur only after an attack finishes, while indicators occur before.",
+      "B": "A precursor is a sign that an incident may occur in the future (e.g., port scan activity); an indicator is a sign that an incident is happening or has occurred (e.g., antivirus alert).",
+      "C": "Precursors are false positives, while indicators are true attacks.",
+      "D": "Precursors relate only to hardware failures, while indicators relate only to software bugs."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A precursor indicates future threat activity (such as vulnerability scanning or threat intel announcements), while an indicator confirms that an attack has succeeded or is actively executing.",
+      "A": "Inverts the chronological relationship.",
+      "B": "Correct. Precursors warn of impending or potential future attacks; indicators signal present or past compromise.",
+      "C": "Both precursors and indicators can be genuine security signals.",
+      "D": "Both can encompass hardware, software, and human factors."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D2-021",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.1 Business Continuity (BC)",
+    "cognitive_level": "SCENARIO",
+    "stem": "A regional bank specifies an RTO of 2 hours and an RPO of 5 minutes for its core transaction processing engine. Which technology architecture is essential to satisfy this RPO requirement?",
+    "options": {
+      "A": "Weekly offline LTO tape backups mailed to a salt mine repository",
+      "B": "Synchronous database replication to a geographically separated hot site",
+      "C": "Nightly batch export scripts to an on-premises USB external hard drive",
+      "D": "Monthly optical Blu-ray disc archiving"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "An RPO of 5 minutes means no more than 5 minutes of transactional data can be lost upon failure. Only continuous, near-real-time synchronous/asynchronous data replication satisfies this strict recovery point.",
+      "A": "Weekly tape backups yield an RPO of up to 7 days.",
+      "B": "Correct. Synchronous or low-latency continuous replication ensures data loss is well under 5 minutes.",
+      "C": "Nightly exports yield an RPO of up to 24 hours.",
+      "D": "Monthly archiving yields an RPO of up to 30 days."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D2-022",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.2 Disaster Recovery (DR)",
+    "cognitive_level": "RECALL",
+    "stem": "Why does an Incremental backup strategy typically require less storage space and a shorter backup window than a Differential backup strategy?",
+    "options": {
+      "A": "Because incremental backups compress files with proprietary quantum algorithms.",
+      "B": "Because incremental backups copy only data changed since the last backup of any type, whereas differential backups copy all cumulative changes since the last full backup.",
+      "C": "Because incremental backups only backup operating system files and skip user documents.",
+      "D": "Because incremental backups erase the source data upon completion."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Incremental backups reset the archive bit, so each daily incremental only stores files modified in the preceding 24 hours. Differential backups do not reset the archive bit, so each day's backup grows progressively larger by including all cumulative changes since the last full backup.",
+      "A": "Incremental backups use standard compression algorithms, not quantum tools.",
+      "B": "Correct. Incrementals capture only the delta since the previous backup, minimizing storage volume and backup duration.",
+      "C": "Incremental backups evaluate all files targeted in the backup policy.",
+      "D": "Erasing source data would destroy production operations."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D2-023",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "SCENARIO",
+    "stem": "A Tier-1 SOC analyst observes an alert indicating an attacker is attempting a brute force attack against an SSH server. The analyst immediately checks the CSIRT escalation playbook to determine who should be notified and what authorization is needed before blocking the IP address. Which NIST phase prepared this playbook?",
+    "options": {
+      "A": "Preparation",
+      "B": "Detection & Analysis",
+      "C": "Eradication",
+      "D": "Recovery"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The Preparation phase establishes policies, response plans, playbooks, communication protocols, jump kits, and team rosters before an incident ever occurs.",
+      "A": "Correct. Developing incident response playbooks and escalation paths is a core activity of the Preparation phase.",
+      "B": "Detection & Analysis uses the playbook to recognize and triage the event.",
+      "C": "Eradication removes the threat after detection and containment.",
+      "D": "Recovery restores services to normal operation."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D2-024",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.3 Incident Response (IR)",
+    "cognitive_level": "RECALL",
+    "stem": "In the RFC 3227 Order of Volatility, between physical RAM and hard disk drives, which component must be captured first to avoid permanent loss of critical forensic evidence?",
+    "options": {
+      "A": "Hard disk drives must be captured first because they contain larger volumes of files.",
+      "B": "Physical RAM must be captured first because its contents are volatile and lost upon powering down or rebooting.",
+      "C": "Both can be captured in any order without consequence.",
+      "D": "Archival backup tapes must be captured prior to both RAM and disk."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Physical RAM is volatile memory that requires electrical power to maintain state. Turning off the host or rebooting instantly destroys in-memory forensic artifacts (keys, injected code, open sockets), whereas disk data persists.",
+      "A": "Non-volatile disk storage persists even when powered down.",
+      "B": "Correct. RAM is higher in volatility order than disk and must be acquired before powering off the host.",
+      "C": "Order of volatility is strictly ordered to prevent evidence destruction.",
+      "D": "Archival tapes are least volatile."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D2-025",
+    "domain_number": 2,
+    "domain_name": "Business Continuity (BC), Disaster Recovery (DR) & Incident Response Concepts",
+    "sub_objective": "2.1 Business Continuity (BC)",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary role of a Business Continuity Plan (BCP) as compared to a Disaster Recovery Plan (DRP)?",
+    "options": {
+      "A": "BCP focuses on keeping the business operational during and immediately following an interruption, whereas DRP focuses specifically on restoring technical IT infrastructure and data.",
+      "B": "BCP is strictly for natural weather disasters, while DRP is for cyber attacks.",
+      "C": "BCP is created by software developers, while DRP is created by the Board of Directors.",
+      "D": "BCP and DRP are identical terms with no operational distinction."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "BCP is broad and business-centric: it ensures that critical business processes and people continue operating during disruptions. DRP is technical: it focuses on restoring servers, networks, data, and data center facilities.",
+      "A": "Correct. BCP sustains ongoing business operations; DRP restores IT infrastructure and systems after a disaster.",
+      "B": "Both address natural and anthropogenic threats.",
+      "C": "BCP and DRP involve cross-functional executive and technical management.",
+      "D": "They address different scopes (business continuity vs. technical disaster recovery)."
+    },
+    "is_pretest": true
+  }
+]

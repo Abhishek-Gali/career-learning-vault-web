@@ -1,0 +1,109 @@
+{
+  "id": "lc_merge_k_sorted_lists",
+  "title": "LeetCode 23: Merge k Sorted Lists",
+  "platform": "LeetCode",
+  "difficulty": "Hard",
+  "category": "Heaps & Priority Queues",
+  "description": "You are given an array of `k` linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+  "constraints": "0 <= k <= 10^4, 0 <= total_nodes <= 10^4\n\u2022 Time: O(N log K) | Space: O(N)",
+  "function_name": "merge_k_lists",
+  "starter_code": "def merge_k_lists(lists: list[list[int]]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "lists": [
+          [
+            1,
+            4,
+            5
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            2,
+            6
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        2,
+        3,
+        4,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "input": {
+        "lists": []
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "lists": [
+          []
+        ]
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "lists": [
+          [
+            1
+          ],
+          [
+            0
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        1
+      ]
+    },
+    {
+      "input": {
+        "lists": [
+          [
+            2,
+            5,
+            8
+          ],
+          [
+            1,
+            3,
+            7
+          ],
+          [
+            4,
+            6,
+            9
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  ],
+  "solution": "def merge_k_lists(lists: list[list[int]]) -> list[int]:\n    import heapq\n    flat = []\n    for l in lists:\n        flat.extend(l)\n    return sorted(flat)\n",
+  "explanation": "Collects elements across all K lists and sorts them in O(N log N) time."
+}

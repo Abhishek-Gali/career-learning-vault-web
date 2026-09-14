@@ -1,0 +1,45 @@
+{
+  "id": "cc_roller_coaster",
+  "title": "CodeChef: Roller Coaster",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Logic",
+  "description": "Chef's son wants to ride a rollercoaster. The minimum height requirement is `h`. If his son's height `x >= h`, return 'YES', else 'NO'.",
+  "constraints": "1 <= x, h <= 100\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "can_ride",
+  "starter_code": "def can_ride(x: int, h: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 15,
+        "h": 20
+      },
+      "expected": "NO"
+    },
+    {
+      "input": {
+        "x": 50,
+        "h": 30
+      },
+      "expected": "YES"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 40,
+        "h": 40
+      },
+      "expected": "YES"
+    },
+    {
+      "input": {
+        "x": 1,
+        "h": 2
+      },
+      "expected": "NO"
+    }
+  ],
+  "solution": "def can_ride(x: int, h: int) -> str:\n    return 'YES' if x >= h else 'NO'\n",
+  "explanation": "Checks condition x >= h in O(1) time."
+}

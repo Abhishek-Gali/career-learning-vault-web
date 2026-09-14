@@ -1,0 +1,57 @@
+{
+  "id": "cc_vaccine_dates",
+  "title": "CodeChef: Vaccine Dates",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Logic",
+  "description": "Chef took his first vaccine dose. He should take his second dose between day `l` and `r` (inclusive). Today is day `d`. Output: 'Too Early' if d < l, 'Too Late' if d > r, or 'Take second dose now' if l <= d <= r.",
+  "constraints": "1 <= d, l, r <= 10^9, l <= r\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "vaccine_timing",
+  "starter_code": "def vaccine_timing(d: int, l: int, r: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "d": 10,
+        "l": 8,
+        "r": 12
+      },
+      "expected": "Take second dose now"
+    },
+    {
+      "input": {
+        "d": 14,
+        "l": 2,
+        "r": 10
+      },
+      "expected": "Too Late"
+    },
+    {
+      "input": {
+        "d": 5,
+        "l": 10,
+        "r": 20
+      },
+      "expected": "Too Early"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "d": 8,
+        "l": 8,
+        "r": 12
+      },
+      "expected": "Take second dose now"
+    },
+    {
+      "input": {
+        "d": 12,
+        "l": 8,
+        "r": 12
+      },
+      "expected": "Take second dose now"
+    }
+  ],
+  "solution": "def vaccine_timing(d: int, l: int, r: int) -> str:\n    if d < l:\n        return 'Too Early'\n    elif d > r:\n        return 'Too Late'\n    return 'Take second dose now'\n",
+  "explanation": "Range interval test in O(1) time."
+}

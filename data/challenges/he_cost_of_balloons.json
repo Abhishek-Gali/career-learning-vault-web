@@ -1,0 +1,125 @@
+{
+  "id": "he_cost_of_balloons",
+  "title": "HackerEarth: Cost of Balloons",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Basic Programming",
+  "description": "You are conducting a contest with two problems. Green balloons cost `cost_g` and purple cost `cost_p`. Each participant solved problem 1 or 2 as recorded in `participants` (list of [p1, p2] where 1 is solved). Determine the minimum total cost to award balloons.",
+  "constraints": "1 <= cost_g, cost_p <= 1000, 1 <= len(participants) <= 10\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "min_balloon_cost",
+  "starter_code": "def min_balloon_cost(cost_g: int, cost_p: int, participants: list[list[int]]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "cost_g": 9,
+        "cost_p": 6,
+        "participants": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": 42
+    },
+    {
+      "input": {
+        "cost_g": 1,
+        "cost_p": 9,
+        "participants": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": 13
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "cost_g": 5,
+        "cost_p": 5,
+        "participants": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "cost_g": 10,
+        "cost_p": 2,
+        "participants": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": 12
+    }
+  ],
+  "solution": "def min_balloon_cost(cost_g: int, cost_p: int, participants: list[list[int]]) -> int:\n    p1_solves = sum(p[0] for p in participants)\n    p2_solves = sum(p[1] for p in participants)\n    opt1 = p1_solves * cost_g + p2_solves * cost_p\n    opt2 = p1_solves * cost_p + p2_solves * cost_g\n    return min(opt1, opt2)\n",
+  "explanation": "Calculates both balloon-to-problem assignments and takes minimum cost in O(N) time."
+}

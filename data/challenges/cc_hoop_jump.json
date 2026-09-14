@@ -1,0 +1,41 @@
+{
+  "id": "cc_hoop_jump",
+  "title": "CodeChef: Hoop Jump",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "You and your friend are jumping through `n` hoops (n is odd) from opposite ends (you from 1, friend from n). Both jump 1 step at a time. The game ends when both reach the same hoop. Which hoop is that?",
+  "constraints": "1 <= n <= 10^5, n is odd\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "last_hoop",
+  "starter_code": "def last_hoop(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 5
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "n": 99999
+      },
+      "expected": 50000
+    }
+  ],
+  "solution": "def last_hoop(n: int) -> int:\n    return (n // 2) + 1\n",
+  "explanation": "Midpoint of odd sequence [1, n] is (n // 2) + 1 in O(1) time."
+}

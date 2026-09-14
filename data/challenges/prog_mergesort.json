@@ -1,0 +1,73 @@
+{
+  "id": "prog_mergesort",
+  "title": "Programiz: MergeSort Algorithm",
+  "platform": "Programiz",
+  "difficulty": "Hard",
+  "category": "Sorting Algorithms",
+  "description": "Implement the MergeSort algorithm to sort an array of integers `arr` in ascending order.",
+  "constraints": "0 <= len(arr) <= 10^4\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "mergesort",
+  "starter_code": "def mergesort(arr: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          6,
+          5,
+          12,
+          10,
+          9,
+          1
+        ]
+      },
+      "expected": [
+        1,
+        5,
+        6,
+        9,
+        10,
+        12
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "arr": [
+          10,
+          -5,
+          20,
+          0
+        ]
+      },
+      "expected": [
+        -5,
+        0,
+        10,
+        20
+      ]
+    }
+  ],
+  "solution": "def mergesort(arr: list[int]) -> list[int]:\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = mergesort(arr[:mid])\n    right = mergesort(arr[mid:])\n    merged = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            merged.append(left[i])\n            i += 1\n        else:\n            merged.append(right[j])\n            j += 1\n    merged.extend(left[i:])\n    merged.extend(right[j:])\n    return merged\n",
+  "explanation": "Stable divide-and-conquer mergesort runs in guaranteed O(N log N) time."
+}

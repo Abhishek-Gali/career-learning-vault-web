@@ -1,0 +1,58 @@
+{
+  "id": "cc_end_sorted",
+  "title": "CodeChef: End Sorted",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Arrays & Logic",
+  "description": "Given a permutation `p` of numbers 1 to N, an operation allows swapping adjacent elements. What is the minimum operations to place 1 at index 0 and N at index N - 1?",
+  "constraints": "2 <= len(p) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "end_sorted_moves",
+  "starter_code": "def end_sorted_moves(p: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "p": [
+          1,
+          3,
+          2,
+          4
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "p": [
+          4,
+          2,
+          3,
+          1
+        ]
+      },
+      "expected": 5
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "p": [
+          2,
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "p": [
+          3,
+          1,
+          2
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def end_sorted_moves(p: list[int]) -> int:\n    n = len(p)\n    idx_1 = p.index(1)\n    idx_n = p.index(n)\n    moves = idx_1 + (n - 1 - idx_n)\n    return moves - 1 if idx_1 > idx_n else moves\n",
+  "explanation": "Indices to move 1 left and n right cross each other if 1 was originally to the right of n, saving 1 swap."
+}

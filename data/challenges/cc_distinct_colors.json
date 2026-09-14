@@ -1,0 +1,54 @@
+{
+  "id": "cc_distinct_colors",
+  "title": "CodeChef: Distinct Colors",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Arrays",
+  "description": "There are `n` different colors of balls. Array `a` contains counts of balls of each color. What is the maximum number of balls of any single color (i.e. minimum boxes needed to ensure distinct colors)?",
+  "constraints": "1 <= len(a) <= 1000\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "distinct_colors",
+  "starter_code": "def distinct_colors(a: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          2,
+          1,
+          4
+        ]
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "a": [
+          8,
+          5
+        ]
+      },
+      "expected": 8
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "a": [
+          10,
+          10,
+          10
+        ]
+      },
+      "expected": 10
+    }
+  ],
+  "solution": "def distinct_colors(a: list[int]) -> int:\n    return max(a)\n",
+  "explanation": "By Pigeonhole principle, max frequency dictates necessary partition boxes in O(N) time."
+}

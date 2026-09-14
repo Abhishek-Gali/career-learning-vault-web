@@ -1,0 +1,91 @@
+{
+  "id": "search_rotated_array",
+  "title": "6. Search in Rotated Sorted Array",
+  "difficulty": "Medium",
+  "category": "Binary Search",
+  "description": "There is an integer array `nums` sorted in ascending order (with distinct values) that has been rotated at an unknown pivot index. Given the array `nums` and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`.\n\nYou must write an algorithm with O(log N) runtime complexity.",
+  "constraints": "\u2022 1 <= len(nums) <= 5000\n\u2022 All values in `nums` are unique.\n\u2022 Optimal Time: O(log N) | Optimal Space: O(1)",
+  "function_name": "search_rotated",
+  "starter_code": "def search_rotated(nums: list[int], target: int) -> int:\n    # Write your O(log N) binary search here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ],
+        "target": 0
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "nums": [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ],
+        "target": 3
+      },
+      "expected": -1
+    },
+    {
+      "input": {
+        "nums": [
+          1
+        ],
+        "target": 0
+      },
+      "expected": -1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          3
+        ],
+        "target": 3
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [
+          5,
+          1,
+          3
+        ],
+        "target": 5
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "nums": [
+          6,
+          7,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "target": 3
+      },
+      "expected": 4
+    }
+  ],
+  "solution": "def search_rotated(nums: list[int], target: int) -> int:\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = left + (right - left) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[left] <= nums[mid]:\n            if nums[left] <= target < nums[mid]:\n                right = mid - 1\n            else:\n                left = mid + 1\n        else:\n            if nums[mid] < target <= nums[right]:\n                left = mid + 1\n            else:\n                right = mid - 1\n    return -1\n",
+  "explanation": "At any pivot split, at least one half of the array is guaranteed to be normally sorted. By checking whether `target` falls inside the endpoints of the sorted half, the algorithm deterministically discards half the array on each step in O(log N) time."
+}

@@ -1,0 +1,58 @@
+{
+  "id": "gfg_max_path_sum_tree",
+  "title": "GFG: Binary Tree Maximum Path Sum",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Hard",
+  "category": "Trees & Dynamic Programming",
+  "description": "A path in a binary tree is a sequence of nodes where each pair of adjacent nodes has an edge. Find the maximum path sum of any non-empty path in tree `nodes`.",
+  "constraints": "1 <= len(nodes) <= 1000\n\u2022 Time: O(N) | Space: O(H)",
+  "function_name": "max_path_sum",
+  "starter_code": "def max_path_sum(nodes: list) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "nodes": [
+          -10,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      },
+      "expected": 42
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": [
+          -3
+        ]
+      },
+      "expected": -3
+    },
+    {
+      "input": {
+        "nodes": [
+          2,
+          -1
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def max_path_sum(nodes: list) -> int:\n    if not nodes or nodes[0] is None:\n        return 0\n    max_sum = -float('inf')\n    def post_order(idx):\n        nonlocal max_sum\n        if idx >= len(nodes) or nodes[idx] is None:\n            return 0\n        left = max(0, post_order(2 * idx + 1))\n        right = max(0, post_order(2 * idx + 2))\n        max_sum = max(max_sum, nodes[idx] + left + right)\n        return nodes[idx] + max(left, right)\n    post_order(0)\n    return max_sum\n",
+  "explanation": "Post-order tree traversal computes max gain per subtree and updates global apex maximum in O(N) time."
+}

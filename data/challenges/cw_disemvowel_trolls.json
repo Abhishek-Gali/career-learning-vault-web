@@ -1,0 +1,41 @@
+{
+  "id": "cw_disemvowel_trolls",
+  "title": "Codewars 7kyu: Disemvowel Trolls",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Strings",
+  "description": "Trolls are attacking your comment section! A common way to deal with this situation is to remove all of the vowels from the trolls' comments, neutralizing the threat. Return a new string with all vowels (a, e, i, o, u, case-insensitive) removed.",
+  "constraints": "0 <= len(string_) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "disemvowel",
+  "starter_code": "def disemvowel(string_: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "string_": "This website is for losers LOL!"
+      },
+      "expected": "Ths wbst s fr lsrs LL!"
+    },
+    {
+      "input": {
+        "string_": "No offense but,\\nYour writing is among the worst I've ever read"
+      },
+      "expected": "N ffns bt,\\nYr wrtng s mng th wrst 'v vr rd"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "string_": "aeiouAEIOU"
+      },
+      "expected": ""
+    },
+    {
+      "input": {
+        "string_": "rhythm"
+      },
+      "expected": "rhythm"
+    }
+  ],
+  "solution": "def disemvowel(string_: str) -> str:\n    vowels = set('aeiouAEIOU')\n    return ''.join(ch for ch in string_ if ch not in vowels)\n",
+  "explanation": "Filters characters not belonging to the vowel set in O(N) time."
+}

@@ -1,0 +1,84 @@
+{
+  "id": "he_monk_and_welcome",
+  "title": "HackerEarth: Monk and Welcome Problem",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Arrays",
+  "description": "Given two integer arrays `a` and `b` of identical length, return a new array where each element is the sum of corresponding elements of `a` and `b`.",
+  "constraints": "1 <= len(a) == len(b) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "add_arrays",
+  "starter_code": "def add_arrays(a: list[int], b: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          1,
+          2,
+          3
+        ],
+        "b": [
+          4,
+          5,
+          6
+        ]
+      },
+      "expected": [
+        5,
+        7,
+        9
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          10
+        ],
+        "b": [
+          20
+        ]
+      },
+      "expected": [
+        30
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [
+          0,
+          -1
+        ],
+        "b": [
+          0,
+          1
+        ]
+      },
+      "expected": [
+        0,
+        0
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          1,
+          1,
+          1
+        ],
+        "b": [
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": [
+        3,
+        3,
+        3
+      ]
+    }
+  ],
+  "solution": "def add_arrays(a: list[int], b: list[int]) -> list[int]:\n    return [x + y for x, y in zip(a, b)]\n",
+  "explanation": "Zips arrays and adds element-wise in O(N) time."
+}

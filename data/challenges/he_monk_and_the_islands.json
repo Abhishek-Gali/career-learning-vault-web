@@ -1,0 +1,93 @@
+{
+  "id": "he_monk_and_the_islands",
+  "title": "HackerEarth: Monk and the Islands (BFS Shortest Path)",
+  "platform": "HackerEarth",
+  "difficulty": "Hard",
+  "category": "Graphs & BFS",
+  "description": "Monk visits a country with `N` islands connected by bidirectional bridges. Find the minimum number of bridges he must cross to travel from island 1 to island `N`. (1-indexed nodes).",
+  "constraints": "2 <= n <= 10^4, 1 <= len(edges) <= 10^5\n\u2022 Time: O(V + E) | Space: O(V + E)",
+  "function_name": "shortest_path_islands",
+  "starter_code": "def shortest_path_islands(n: int, edges: list[list[int]]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 3,
+        "edges": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "n": 4,
+        "edges": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 2,
+        "edges": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 5,
+        "edges": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "expected": 4
+    }
+  ],
+  "solution": "def shortest_path_islands(n: int, edges: list[list[int]]) -> int:\n    from collections import defaultdict, deque\n    adj = defaultdict(list)\n    for u, v in edges:\n        adj[u].append(v)\n        adj[v].append(u)\n    q = deque([(1, 0)])\n    visited = {1}\n    while q:\n        curr, dist = q.popleft()\n        if curr == n:\n            return dist\n        for nxt in adj[curr]:\n            if nxt not in visited:\n                visited.add(nxt)\n                q.append((nxt, dist + 1))\n    return -1\n",
+  "explanation": "BFS guarantees shortest path in unweighted graph in O(V + E) time."
+}

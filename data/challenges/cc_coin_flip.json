@@ -1,0 +1,57 @@
+{
+  "id": "cc_coin_flip",
+  "title": "CodeChef: Coin Flip Simulation",
+  "platform": "CodeChef",
+  "difficulty": "Hard",
+  "category": "Math",
+  "description": "Elephant starts with `n` coins all showing side `init_side` (1: Heads, 2: Tails). In step i, he flips the first i coins for i from 1 to n. Return count of coins showing side `final_side` at the end.",
+  "constraints": "1 <= n <= 10^9, init_side, final_side in {1, 2}\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "count_coin_flips",
+  "starter_code": "def count_coin_flips(init_side: int, n: int, final_side: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "init_side": 1,
+        "n": 5,
+        "final_side": 1
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "init_side": 1,
+        "n": 5,
+        "final_side": 2
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "init_side": 2,
+        "n": 4,
+        "final_side": 2
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "init_side": 1,
+        "n": 100,
+        "final_side": 1
+      },
+      "expected": 50
+    },
+    {
+      "input": {
+        "init_side": 2,
+        "n": 7,
+        "final_side": 1
+      },
+      "expected": 4
+    }
+  ],
+  "solution": "def count_coin_flips(init_side: int, n: int, final_side: int) -> int:\n    if n % 2 == 0:\n        return n // 2\n    return (n // 2) if init_side == final_side else (n // 2) + 1\n",
+  "explanation": "If n is even, exactly n//2 heads and n//2 tails. If odd, the flipped opposing side gains 1 extra coin in O(1) time."
+}

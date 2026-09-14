@@ -1,0 +1,75 @@
+{
+  "id": "w3_group_anagrams_list",
+  "title": "W3Schools: Group Anagrams",
+  "platform": "W3Schools",
+  "difficulty": "Hard",
+  "category": "Hash Tables & Strings",
+  "description": "Given an array of strings `words`, group the anagrams together into sublists. Return the groups sorted by their first element.",
+  "constraints": "0 <= len(words) <= 10^4\n\u2022 Time: O(N * K log K) | Space: O(N * K)",
+  "function_name": "group_anagrams_w3",
+  "starter_code": "def group_anagrams_w3(words: list[str]) -> list[list[str]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "words": [
+          "eat",
+          "tea",
+          "tan",
+          "ate",
+          "nat",
+          "bat"
+        ]
+      },
+      "expected": [
+        [
+          "bat"
+        ],
+        [
+          "eat",
+          "tea",
+          "ate"
+        ],
+        [
+          "tan",
+          "nat"
+        ]
+      ]
+    },
+    {
+      "input": {
+        "words": [
+          "a"
+        ]
+      },
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "words": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "words": [
+          "ab",
+          "ba"
+        ]
+      },
+      "expected": [
+        [
+          "ab",
+          "ba"
+        ]
+      ]
+    }
+  ],
+  "solution": "def group_anagrams_w3(words: list[str]) -> list[list[str]]:\n    from collections import defaultdict\n    groups = defaultdict(list)\n    for w in words:\n        groups[''.join(sorted(w))].append(w)\n    return sorted(list(groups.values()), key=lambda g: (len(g), g[0]))\n",
+  "explanation": "Sorted character signatures group anagrams into hash map in O(N * K log K) time."
+}

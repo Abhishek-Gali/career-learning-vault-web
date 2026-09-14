@@ -1,0 +1,76 @@
+{
+  "id": "lc_first_missing_positive",
+  "title": "LeetCode 41: First Missing Positive",
+  "platform": "LeetCode",
+  "difficulty": "Hard",
+  "category": "Arrays & In-Place Hashing",
+  "description": "Given an unsorted integer array `nums`, return the smallest missing positive integer. You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.",
+  "constraints": "1 <= len(nums) <= 10^5\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "first_missing_positive",
+  "starter_code": "def first_missing_positive(nums: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          0
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          4,
+          -1,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nums": [
+          7,
+          8,
+          9,
+          11,
+          12
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nums": [
+          2
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [
+          -1,
+          -2,
+          -3
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "solution": "def first_missing_positive(nums: list[int]) -> int:\n    arr = list(nums)\n    n = len(arr)\n    for i in range(n):\n        while 1 <= arr[i] <= n and arr[arr[i] - 1] != arr[i]:\n            idx = arr[i] - 1\n            arr[i], arr[idx] = arr[idx], arr[i]\n    for i in range(n):\n        if arr[i] != i + 1:\n            return i + 1\n    return n + 1\n",
+  "explanation": "Cyclic sort places each positive integer val at index val - 1 in O(N) time and O(1) space."
+}

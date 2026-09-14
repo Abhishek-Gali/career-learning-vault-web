@@ -1,0 +1,51 @@
+{
+  "id": "prog_multiplication_table",
+  "title": "Programiz: Display Multiplication Table",
+  "platform": "Programiz",
+  "difficulty": "Easy",
+  "category": "Formatting & Loops",
+  "description": "Given integer `n`, return a list of 10 formatted multiplication table strings from 1 to 10: ['n x 1 = ans', 'n x 2 = ans', ..., 'n x 10 = ans'].",
+  "constraints": "1 <= n <= 1000\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "mult_table",
+  "starter_code": "def mult_table(n: int) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": [
+        "2 x 1 = 2",
+        "2 x 2 = 4",
+        "2 x 3 = 6",
+        "2 x 4 = 8",
+        "2 x 5 = 10",
+        "2 x 6 = 12",
+        "2 x 7 = 14",
+        "2 x 8 = 16",
+        "2 x 9 = 18",
+        "2 x 10 = 20"
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 12
+      },
+      "expected": [
+        "12 x 1 = 12",
+        "12 x 2 = 24",
+        "12 x 3 = 36",
+        "12 x 4 = 48",
+        "12 x 5 = 60",
+        "12 x 6 = 72",
+        "12 x 7 = 84",
+        "12 x 8 = 96",
+        "12 x 9 = 108",
+        "12 x 10 = 120"
+      ]
+    }
+  ],
+  "solution": "def mult_table(n: int) -> list[str]:\n    return [f'{n} x {i} = {n * i}' for i in range(1, 11)]\n",
+  "explanation": "Generates formatted table strings for 1..10 in O(1) time."
+}

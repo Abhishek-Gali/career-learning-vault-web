@@ -1,0 +1,52 @@
+{
+  "id": "placement_valid_anagram",
+  "title": "Placement: Valid Anagram",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Strings & Hashing",
+  "description": "Given two strings `s` and `t`, return `True` if `t` is an anagram of `s`, and `False` otherwise.",
+  "constraints": "1 <= len(s), len(t) <= 5 * 10^4\n\u2022 Time: O(N) | Space: O(1) alphabet size",
+  "function_name": "is_anagram",
+  "starter_code": "def is_anagram(s: str, t: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "anagram",
+        "t": "nagaram"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "rat",
+        "t": "car"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "a",
+        "t": "a"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "ab",
+        "t": "a"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": "listen",
+        "t": "silent"
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_anagram(s: str, t: str) -> bool:\n    from collections import Counter\n    return Counter(s) == Counter(t)\n",
+  "explanation": "Comparing frequency hash maps runs in O(N) time and O(K) space where K is unique character count."
+}

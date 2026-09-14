@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "DSA_L2_001",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Binary Search Tree Validation",
+    "stem": "Why is verifying `node.left.val < node.val and node.right.val > node.val` locally at each node insufficient to validate whether a binary tree is a valid Binary Search Tree (BST)?",
+    "options": {
+      "A": "Because BST validity requires all nodes at the same level to be sorted in left-to-right order.",
+      "B": "Because it fails to check global boundary constraints: all nodes in the left subtree must be strictly less than the ancestor node, and all nodes in the right subtree must be strictly greater.",
+      "C": "Because BSTs only permit integer keys, and floats cause floating-point rounding errors during comparison.",
+      "D": "Because a valid BST must also be perfectly height-balanced like a Red-Black tree."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A node could satisfy the local condition with its immediate children, yet violate BST properties with respect to a grandparent or ancestor higher up in the tree (e.g. `root=10`, `right=15`, and `right.left=6`\u20146 is valid for 15 but invalid for root 10). Passing `(low, high)` ranges or verifying strictly increasing in-order traversal is required.",
+      "A": "Incorrect. BST properties apply to subtrees, not horizontal breadth levels.",
+      "B": "Correct. BST validity is a global property. Recursive validation must carry `(min_val, max_val)` bounds down the tree: `validate(node.left, low, node.val)` and `validate(node.right, node.val, high)`.",
+      "C": "Incorrect. BST logic applies to any comparable data type.",
+      "D": "Incorrect. A BST does not need to be height-balanced unless specifically defined as an AVL or Red-Black tree."
+    }
+  },
+  {
+    "item_id": "DSA_L2_002",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Binary Search (Rotated Sorted Array)",
+    "stem": "Given an integer array sorted in ascending order and then rotated at an unknown pivot with distinct values, how does modified binary search find a target in O(log N) time?",
+    "options": {
+      "A": "Find the minimum element first in O(N) linear time, then perform binary search.",
+      "B": "At each midpoint `mid`, at least one half (`[left, mid]` or `[mid, right]`) is guaranteed to be normally sorted; check if `target` falls inside the sorted half's range to decide which half to search.",
+      "C": "Sort the array back to original order using QuickSort in O(N log N) time, then binary search.",
+      "D": "Binary search works directly without any modifications because rotation does not alter monotonic direction."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "When an array is rotated at a single pivot, dividing it at `mid` always leaves at least one half strictly sorted. Comparing `nums[left] <= nums[mid]` identifies which half is sorted. Checking whether `nums[left] <= target < nums[mid]` determines if the target lies within that half, preserving O(log N) elimination.",
+      "A": "Incorrect. Searching for the pivot linearly takes O(N), destroying the O(log N) time complexity.",
+      "B": "Correct. This is the canonical LeetCode 33 pattern. By identifying the normally sorted half and checking if the target falls within its endpoints, half the array is discarded in O(1) on each iteration.",
+      "C": "Incorrect. Sorting takes O(N log N), which is much slower than O(log N).",
+      "D": "Incorrect. Standard binary search fails on rotated arrays because the global monotonicity is broken."
+    }
+  },
+  {
+    "item_id": "DSA_L2_003",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Lowest Common Ancestor (LCA) in BST vs Binary Tree",
+    "stem": "How does finding the Lowest Common Ancestor (LCA) of two nodes `p` and `q` in a Binary Search Tree (BST) differ from finding it in a generic Binary Tree?",
+    "options": {
+      "A": "In a BST, the LCA can be found in O(H) time without searching both subtrees: if both `p` and `q` are smaller than `curr`, go left; if both are greater, go right; the first node where they split is the LCA.",
+      "B": "In a BST, the LCA is always the root node of the entire tree.",
+      "C": "In a generic Binary Tree, LCA can be found in O(1) time using node hash codes.",
+      "D": "There is no difference; both require inspecting all N nodes using post-order traversal."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "In a BST, node values dictate subtree locations. If both `p.val` and `q.val` are less than `curr.val`, LCA must be in the left subtree. If both are greater, it must be in the right. The split point (where one is <= and the other >=) is the LCA, taking O(height) time. In a generic tree, both subtrees must be searched recursively (O(N)).",
+      "A": "Correct. BST node ordering allows deterministic directional descent in O(H) time and O(1) space, stopping at the split node.",
+      "B": "Incorrect. The LCA can be any ancestor node, not necessarily the root.",
+      "C": "Incorrect. Finding LCA in a generic binary tree requires O(N) traversal.",
+      "D": "Incorrect. BST property provides directional optimization, avoiding full tree traversal."
+    }
+  },
+  {
+    "item_id": "DSA_L2_004",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Min-Heap / Priority Queue Properties",
+    "stem": "When finding the K-th largest element in an unsorted stream of N numbers, why is maintaining a Min-Heap of size K optimal, and what is its time complexity?",
+    "options": {
+      "A": "Time: O(N log N); because heaps sort all elements upon insertion.",
+      "B": "Time: O(N log K); the min-heap holds the K largest elements seen so far; the root is the smallest among them (the K-th largest overall), and pushing/popping takes O(log K).",
+      "C": "Time: O(K log N); because elements are extracted from the bottom of the heap.",
+      "D": "Time: O(N); because heap insertion is always O(1)."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A Min-Heap of size K stores the K largest elements. Any incoming element smaller than the root is discarded. If larger, root is replaced and heapified in O(log K). At the end, the root holds the K-th largest element in O(N log K) time and O(K) space.",
+      "A": "Incorrect. Sorting all elements takes O(N log N), but a bounded heap of size K takes O(N log K). If K << N, this is significantly faster.",
+      "B": "Correct. Keeping the heap size bounded to K guarantees that every heap operation costs at most O(log K), leading to O(N log K) total runtime.",
+      "C": "Incorrect. The heap size is K, so each push/pop is O(log K), repeated N times.",
+      "D": "Incorrect. Heap insertion is O(log K) to restore the heap invariant, not O(1)."
+    }
+  },
+  {
+    "item_id": "DSA_L2_005",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Level-Order Traversal (BFS)",
+    "stem": "In Breadth-First Search (BFS) level-order traversal of a binary tree, how do you correctly group nodes level-by-level into separate lists?",
+    "options": {
+      "A": "Sort the visited nodes by depth in a post-processing step taking O(N log N).",
+      "B": "At the start of processing each level, capture `level_size = len(queue)` and run a loop exactly `level_size` times to pop current level nodes and enqueue their children.",
+      "C": "Use a stack instead of a queue and reverse the list when depth changes.",
+      "D": "Insert a `None` sentinel between every pair of adjacent sibling nodes."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "At any iteration of the outer BFS while loop, the queue contains precisely all the nodes of the current level. By freezing `level_size = len(queue)`, an inner for-loop consumes exactly that level's nodes while appending the next level's children to the back of the queue.",
+      "A": "Incorrect. Capturing `len(queue)` achieves level separation in O(N) linear time without sorting.",
+      "B": "Correct. Freezing `level_size = len(queue)` is the canonical interview idiom to batch-process all nodes at depth $D$ while buffering depth $D+1$ nodes.",
+      "C": "Incorrect. Stacks produce Depth-First Search (DFS), not level-order BFS.",
+      "D": "Incorrect. A single `None` delimiter was an older technique, but `len(queue)` is far cleaner and avoids sentinel edge cases."
+    }
+  },
+  {
+    "item_id": "DSA_L2_006",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Graph Representation (Adjacency List)",
+    "stem": "For a sparse graph with V vertices and E edges (where E << V^2), why is an Adjacency List representation (`dict[int, list[int]]`) preferred over an Adjacency Matrix (`list[list[int]]`)?",
+    "options": {
+      "A": "Adjacency List requires O(V + E) space and finds all neighbors of vertex u in O(deg(u)) time, whereas Adjacency Matrix requires O(V^2) space and O(V) time to scan neighbors.",
+      "B": "Adjacency Matrix does not support directed edges.",
+      "C": "Adjacency List allows O(1) edge existence checks between any two arbitrary vertices u and v.",
+      "D": "Adjacency Matrix causes recursion stack overflow in Breadth-First Search."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "In sparse graphs (e.g. V=100,000, E=200,000), a V x V matrix requires 10 billion entries (impractical / Out-Of-Memory). An adjacency list consumes only O(V + E) memory and iterates directly over actual existing neighbors.",
+      "A": "Correct. Space efficiency O(V + E) and linear neighbor iteration O(deg(u)) make adjacency lists the standard for graph interview algorithms (BFS, DFS, Dijkstra).",
+      "B": "Incorrect. Adjacency matrices easily represent directed graphs (matrix[u][v] = 1).",
+      "C": "Incorrect. Adjacency lists take O(deg(u)) to check edge existence; adjacency matrices take O(1).",
+      "D": "Incorrect. Matrix representations do not dictate call stack limits."
+    }
+  },
+  {
+    "item_id": "DSA_L2_007",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Cycle Detection in Directed Graphs",
+    "stem": "Why does the standard visited set used in undirected graph cycle detection fail on directed graphs, and what technique resolves it?",
+    "options": {
+      "A": "Directed graphs cannot contain cycles by definition.",
+      "B": "In directed graphs, reaching an already-visited node only indicates a cycle if that node is currently in the active recursion call stack (3-color state: UNVISITED=0, VISITING=1, VISITED=2).",
+      "C": "Cycle detection in directed graphs is NP-Complete and cannot be solved in polynomial time.",
+      "D": "Directed cycles can only be detected by reversing all edge arrows and checking if the graph is bipartite."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In directed graphs, two distinct paths can converge on the same node (a 'cross edge' or diamond shape `A -> B -> D` and `A -> C -> D`) without forming a cycle. A cycle only exists if a back-edge points to an active ancestor in the current recursion stack (state VISITING).",
+      "A": "Incorrect. Directed graphs frequently contain cycles (e.g. `A -> B -> C -> A`).",
+      "B": "Correct. The 3-color DFS approach (or tracking `rec_stack` set) distinguishes between cross-edges to previously finished branches and true back-edges to active ancestors.",
+      "C": "Incorrect. Directed cycle detection is solvable in O(V + E) linear time.",
+      "D": "Incorrect. Reversing edges does not detect cycles; that is part of Kosaraju's strongly connected components algorithm."
+    }
+  },
+  {
+    "item_id": "DSA_L2_008",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Backtracking (Subsets & State Restoration)",
+    "stem": "In backtracking problems (such as generating all subsets or permutations), what is the purpose of 'state restoration' (e.g., `path.append(x)`, recurse, then `path.pop()`)?",
+    "options": {
+      "A": "To rebalance the search tree into a red-black tree.",
+      "B": "To reuse a single shared array `path` across all branches of the recursion tree, avoiding the O(N) memory allocation and copying overhead of slicing on every call.",
+      "C": "To sort the elements before passing them to the base case.",
+      "D": "To prevent Python's garbage collector from deleting visited combinations."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Passing a copy like `path + [x]` copies the entire list on every recursive call, consuming significant memory. Mutating `path.append(x)` and undoing it with `path.pop()` reuses a single list across the entire DFS exploration.",
+      "A": "Incorrect. Backtracking builds combinatorial solutions, not balanced trees.",
+      "B": "Correct. State restoration (backtracking) maintains the invariant of a shared state container, keeping auxiliary space bounded to O(N) stack depth rather than creating O(2^N * N) temporary lists.",
+      "C": "Incorrect. Sorting is handled before recursion if pruning duplicates, not during pop.",
+      "D": "Incorrect. Garbage collection is unaffected."
+    }
+  },
+  {
+    "item_id": "DSA_L2_009",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Backtracking Deduplication (Subsets II)",
+    "stem": "When generating unique subsets from an array containing duplicates (LeetCode 90 'Subsets II'), how do you prune duplicate branches in the recursion tree after sorting the array?",
+    "options": {
+      "A": "Generate all subsets and insert them into a Python `set(tuple(x))` at the end.",
+      "B": "Inside the loop from `i = start` to `N-1`, skip the element if `i > start and nums[i] == nums[i - 1]`.",
+      "C": "Remove all duplicates from the input array before calling recursion.",
+      "D": "Stop recursion whenever the path length is greater than N // 2."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "After sorting, duplicate numbers are adjacent. The condition `i > start and nums[i] == nums[i-1]` ensures that a duplicate value is only used as the first occurrence at the current decision level (`i == start`). Any sibling branch trying to pick the identical value at the same depth is pruned.",
+      "A": "Incorrect. Using a hash set takes unnecessary time and extra memory generating redundant branches.",
+      "B": "Correct. Sorting followed by `if i > start and nums[i] == nums[i - 1]: continue` prunes duplicate sibling branches at the current recursive depth, generating only unique subsets.",
+      "C": "Incorrect. Subsets can validly include multiple copies of a number if the input had multiple copies (e.g. `[1, 2, 2]` has subset `[2, 2]`).",
+      "D": "Incorrect. Subsets can have length up to N."
+    }
+  },
+  {
+    "item_id": "DSA_L2_010",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Shortest Path in Unweighted Graph (BFS)",
+    "stem": "Why does Breadth-First Search (BFS) guarantee finding the shortest path (minimum number of edges) between two nodes in an unweighted graph, while Depth-First Search (DFS) does not?",
+    "options": {
+      "A": "BFS explores all vertices at distance D before exploring any vertex at distance D + 1, ensuring the first time the target is popped, it was reached via the minimum number of hops.",
+      "B": "BFS uses dynamic programming memoization tables.",
+      "C": "DFS only traverses backward edges.",
+      "D": "BFS sorts edges by weight in ascending order."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "BFS uses a FIFO queue, expanding outward in concentric frontiers of distance 0, 1, 2, ... D. Because it visits all nodes at distance D before distance D+1, the first discovery of target is guaranteed to have minimal edge count.",
+      "A": "Correct. The FIFO level-by-level expansion invariant of BFS guarantees that the first path discovered to any vertex is the shortest in terms of edge count.",
+      "B": "Incorrect. BFS relies on queue ordering, not DP memoization.",
+      "C": "Incorrect. DFS follows arbitrary deep paths first, which can find long winding paths to the target before exploring direct edges.",
+      "D": "Incorrect. The graph is unweighted (all edges cost 1)."
+    }
+  },
+  {
+    "item_id": "DSA_L2_011",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Binary Search on Answer Space",
+    "stem": "In optimization problems like 'Koko Eating Bananas' or 'Capacity To Ship Packages Within D Days', why is Binary Search applicable even though the input array is unsorted?",
+    "options": {
+      "A": "The array is internally sorted by Python's JIT compiler before runtime.",
+      "B": "Binary search is not applied to the input array; it is applied to the monotonic 'answer space' (the range of possible speeds/capacities), where a predicate function `can_finish(speed)` is monotonic (False, False, ..., True, True).",
+      "C": "Because the problem can be converted into a hash table lookup in O(1).",
+      "D": "Because the input array can be rotated into a binary search tree."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Binary search only requires a monotonic decision boundary $f(x)$. If speed $K$ is fast enough to finish within $H$ hours, any speed $> K$ is also guaranteed to finish. The binary search operates on the range $[\text{low}, \text{high}]$ of possible speeds, not the elements of the array.",
+      "A": "Incorrect. The input array remains unsorted.",
+      "B": "Correct. This is the 'Binary Search on Answer' pattern. As long as the feasibility function is monotonically boolean (all False up to optimal $K$, all True beyond), binary search finds the transition boundary in O(N log(max_ans)).",
+      "C": "Incorrect. Hash tables cannot search an infinite or continuous numerical answer space.",
+      "D": "Incorrect. Transforming to a BST is irrelevant and inefficient."
+    }
+  },
+  {
+    "item_id": "DSA_L2_012",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Tree Diameter (Longest Path)",
+    "stem": "What is the optimal time and space complexity to find the diameter (the length of the longest path between any two nodes) of a binary tree?",
+    "options": {
+      "A": "Time: O(N^2), Space: O(N) by computing the depth from every node as a root.",
+      "B": "Time: O(N), Space: O(H) using a bottom-up post-order DFS where each node returns its max depth to its parent while updating global diameter with `left_depth + right_depth`.",
+      "C": "Time: O(N log N), Space: O(1) using binary search on tree levels.",
+      "D": "Time: O(2^N), Space: O(N) using recursive permutation backtracking."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A bottom-up post-order traversal computes the height of each subtree in O(1) from its children. At each node, the longest path passing through it is `left_height + right_height`. Updating a global maximum during a single DFS visits all N nodes once (O(N) time, O(H) call stack).",
+      "A": "Incorrect. Recomputing depth top-down for every node takes O(N^2).",
+      "B": "Correct. Post-order DFS computes height and updates the maximum diameter simultaneously in a single pass, achieving O(N) time and O(H) space.",
+      "C": "Incorrect. Binary search cannot navigate arbitrary tree paths.",
+      "D": "Incorrect. Tree diameter is linear, not exponential."
+    }
+  },
+  {
+    "item_id": "DSA_L2_013",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Python `heapq` Module Invariants",
+    "stem": "In Python's standard `heapq` library, what type of heap is implemented, and how do you simulate a Max-Heap using it?",
+    "options": {
+      "A": "It is a Max-Heap by default; call `heapq.invert()` to simulate a Min-Heap.",
+      "B": "It is strictly a Min-Heap; to simulate a Max-Heap, invert the signs of numerical keys (multiply by -1) before pushing, and negate them again upon popping.",
+      "C": "It automatically switches between Min and Max heap based on whether numbers are positive or negative.",
+      "D": "Python `heapq` uses a Fibonacci heap that supports both modes via an `is_max=True` parameter."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Python's `heapq` implements a binary Min-Heap where `heap[0]` is always the smallest element. Because there is no native Max-Heap parameter, developers negate values (`-val`) so that the largest original number becomes the most negative (smallest) and floats to the root.",
+      "A": "Incorrect. `heapq` defaults to a Min-Heap, and no `heapq.invert()` function exists.",
+      "B": "Correct. Standard Python practice is to negate values on push and pop (or use custom tuple wrappers with inverted `__lt__`).",
+      "C": "Incorrect. Sign changes do not happen automatically.",
+      "D": "Incorrect. Python `heapq` is a binary heap implemented on a contiguous list, not a Fibonacci heap, and has no `is_max` parameter."
+    }
+  },
+  {
+    "item_id": "DSA_L2_014",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Bipartite Graph Verification",
+    "stem": "How do you determine if an undirected graph is Bipartite (can be partitioned into two independent sets such that every edge connects vertices of different sets)?",
+    "options": {
+      "A": "Check if the total number of edges is even.",
+      "B": "Run BFS or DFS coloring vertices with 2 alternating colors (e.g. 0 and 1); if any neighbor already has the same color as the current vertex, the graph is not bipartite (it contains an odd-length cycle).",
+      "C": "Check if the graph is a complete binary tree.",
+      "D": "Calculate the determinant of the adjacency matrix."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A graph is bipartite if and only if it contains no odd-length cycles. 2-coloring via BFS/DFS attempts to assign alternating colors to neighbors. If a conflict arises (neighbor has same color), an odd cycle exists, proving the graph is not bipartite.",
+      "A": "Incorrect. Total edge count does not dictate bipartiteness (a triangle with 3 vertices has 3 edges and is not bipartite; a square with 4 edges is bipartite).",
+      "B": "Correct. 2-coloring traversal in O(V + E) time is the standard algorithmic test for bipartiteness. Any color collision confirms an odd cycle.",
+      "C": "Incorrect. Trees are always bipartite, but graphs do not need to be trees to be bipartite (e.g. any even cycle).",
+      "D": "Incorrect. Matrix determinants do not classify bipartiteness."
+    }
+  },
+  {
+    "item_id": "DSA_L2_015",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Recursion to Iteration (In-Order Traversal)",
+    "stem": "When implementing an iterative In-Order traversal of a binary tree using an explicit stack, what is the correct pointer movement pattern?",
+    "options": {
+      "A": "Push the root; while stack is non-empty, pop and process, then push left and right children.",
+      "B": "Traverse to the leftmost node pushing all nodes along the path onto the stack; when reaching None, pop from stack, process the popped node, and set current to its right child.",
+      "C": "Enqueue nodes level by level using a queue.",
+      "D": "Reverse the left and right pointers of every node during the traversal."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In-Order requires Left -> Root -> Right. The iterative stack pattern pushes all left descendants until reaching `None`. Then it pops (the Leftmost unvisited node), processes it (Root), and moves to `curr = curr.right` to repeat the process on the right subtree.",
+      "A": "Incorrect. This describes a Pre-Order traversal or generic DFS, not In-Order.",
+      "B": "Correct. Pushing left until `None`, popping to visit, and setting `curr = node.right` mirrors the exact call stack behavior of recursive In-Order traversal.",
+      "C": "Incorrect. Queues produce BFS, not In-Order DFS.",
+      "D": "Incorrect. Modifying pointers alters tree structure (Morris traversal does thread pointers, but standard stack traversal does not)."
+    }
+  },
+  {
+    "item_id": "DSA_L2_016",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Connected Components in 2D Grids (Number of Islands)",
+    "stem": "In the classic 'Number of Islands' problem (LeetCode 200), an M x N grid contains '1's (land) and '0's (water). What are the time and auxiliary space complexities of counting islands using in-place sink DFS?",
+    "options": {
+      "A": "Time: O(M * N), Space: O(M * N) worst-case recursion stack depth.",
+      "B": "Time: O((M * N)^2), Space: O(1).",
+      "C": "Time: O(M + N), Space: O(M * N).",
+      "D": "Time: O(M * N log(M * N)), Space: O(M + N)."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Every cell is visited at most a constant number of times (checked by loop and sunk from '1' to '0'). Total time is O(M * N). If the entire grid is land ('1's), the DFS call stack can snake through all cells, reaching O(M * N) depth.",
+      "A": "Correct. Time is linear in grid cells O(M * N). In the worst-case scenario (a single snake-like island filling the grid), the recursion stack reaches O(M * N).",
+      "B": "Incorrect. Because each cell is sunk to '0' upon visit, it is never traversed again; runtime is O(M * N), not quadratic.",
+      "C": "Incorrect. Checking all cells in a 2D matrix requires inspecting M * N cells, which cannot be O(M + N).",
+      "D": "Incorrect. There is no sorting or binary search involved."
+    }
+  },
+  {
+    "item_id": "DSA_L2_017",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Merge K Sorted Lists Complexity",
+    "stem": "You have K sorted linked lists, each with an average of N elements. What is the optimal time complexity to merge them into a single sorted list?",
+    "options": {
+      "A": "O(N * K^2) by sequentially merging lists one by one.",
+      "B": "O(N * K * log K) using a Min-Heap of size K (or divide-and-conquer merge pairs).",
+      "C": "O(N * K) by comparing the heads of all K lists simultaneously in O(1).",
+      "D": "O(log(N * K)) using ternary search."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "There are total $N \times K$ elements. Inserting the head of each list into a Min-Heap of size K takes $O(K \\log K)$. For each of the $N \times K$ elements, extracting the minimum and inserting its next node takes $O(\\log K)$, yielding $O(N \\cdot K \\log K)$ total time.",
+      "A": "Incorrect. Merging sequentially takes $(2N) + (3N) + ... + (KN) = O(N \\cdot K^2)$, which is inefficient.",
+      "B": "Correct. Using a Min-Heap of size K or divide-and-conquer pairwise merge achieves the optimal $O(N \\cdot K \\log K)$ bound.",
+      "C": "Incorrect. Linearly comparing K heads at each step takes $O(K)$, resulting in $O(N \\cdot K^2)$ total time.",
+      "D": "Incorrect. Every element must be inspected, so sublinear time is impossible."
+    }
+  },
+  {
+    "item_id": "DSA_L2_018",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Binary Search Peak Finding",
+    "stem": "In an array where `nums[i] != nums[i+1]` and boundary elements are considered smaller than their neighbors (`nums[-1] = nums[n] = -inf`), why does Binary Search find a peak element in O(log N) time even if the array is unsorted?",
+    "options": {
+      "A": "Because the array must be sorted in bitonic order.",
+      "B": "If `nums[mid] < nums[mid + 1]`, an ascending slope exists toward the right, guaranteeing at least one local peak must exist in `[mid + 1, right]`; otherwise a peak exists in `[left, mid]`.",
+      "C": "Because the maximum element is always at the midpoint.",
+      "D": "Because Python optimizes peak finding using vectorization."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "If `nums[mid] < nums[mid + 1]`, the curve is rising to the right. Since `nums[n] = -\\infty`, the curve cannot rise forever; it must eventually drop, guaranteeing at least one peak exists in the right half. This enables discarding half the search space in O(1).",
+      "A": "Incorrect. The array can have multiple peaks and arbitrary values; it does not need to be bitonic.",
+      "B": "Correct. Following the upward slope guarantees entering a subsegment bounded by smaller values, which by the discrete Mean Value Theorem must contain at least one local maximum.",
+      "C": "Incorrect. Midpoint can be a valley or arbitrary slope.",
+      "D": "Incorrect. Algorithmic binary search logic, not vectorization, drives the logarithmic reduction."
+    }
+  },
+  {
+    "item_id": "DSA_L2_019",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Graph BFS Multi-Source Spread",
+    "stem": "In problems like 'Rotting Oranges' (LeetCode 994) or '01 Matrix' (LeetCode 542), where a condition spreads simultaneously from multiple starting points, what is the correct approach?",
+    "options": {
+      "A": "Run an independent BFS starting from each individual source sequentially and take the minimum distance across all runs.",
+      "B": "Multi-Source BFS: enqueue ALL initial sources into the BFS queue at time T = 0 simultaneously, then expand outward level-by-level in a single unified pass.",
+      "C": "Use DFS from the top-left corner and memoize distances.",
+      "D": "Run Dijkstra's algorithm from every cell."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Running individual BFS passes for K sources takes O(K * M * N), causing Time Limit Exceeded (TLE). Initializing the queue with all K sources at step 0 explores the grid in unified expanding wavefronts, visiting each cell once in O(M * N) time.",
+      "A": "Incorrect. Sequential BFS runs result in O(K * M * N) time, which times out on large grids.",
+      "B": "Correct. Multi-Source BFS initializes all sources at distance 0. The first wave to touch any cell is guaranteed to be from its closest source, finishing in a single O(M * N) pass.",
+      "C": "Incorrect. DFS cannot easily find shortest simultaneous arrival times without exhaustive exploration.",
+      "D": "Incorrect. Dijkstra is unnecessary because edge weights are uniform (cost = 1)."
+    }
+  },
+  {
+    "item_id": "DSA_L2_020",
+    "track": "DSA_CODING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate",
+    "topic": "Heaps: Build Heap Complexity",
+    "stem": "What is the time complexity of converting an unsorted array of N elements into a valid binary heap using `heapq.heapify(nums)` (bottom-up sift-down), and why is it faster than inserting elements one by one?",
+    "options": {
+      "A": "`heapify` is O(N) because the vast majority of nodes reside near the bottom of the tree where the sift-down height is small; N sequential insertions takes O(N log N).",
+      "B": "`heapify` is O(N log N) identical to N insertions.",
+      "C": "`heapify` is O(1) because it only sets pointer flags.",
+      "D": "`heapify` is O(log N) using divide-and-conquer matrix math."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "In a binary heap, half the nodes (N/2) are leaves (height 0, 0 swaps). A quarter (N/4) have height 1 (1 swap max). Summing $(N / 2^{h+1}) \times h$ converges to $\\sum h / 2^h = 2$, yielding $O(N)$ linear time. Inserting one by one sifts up from the bottom, costing $O(N \\log N)$.",
+      "A": "Correct. Floyd's bottom-up `heapify` algorithm runs in mathematically proven O(N) time because nodes with large depths have minimal sift-down heights.",
+      "B": "Incorrect. Repeated insertion is O(N log N), but bottom-up `heapify` is strictly linear O(N).",
+      "C": "Incorrect. Node values must be compared and swapped; it is not O(1).",
+      "D": "Incorrect. All N elements must be processed."
+    }
+  }
+]

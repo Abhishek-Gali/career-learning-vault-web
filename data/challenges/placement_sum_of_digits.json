@@ -1,0 +1,47 @@
+{
+  "id": "placement_sum_of_digits",
+  "title": "Placement: Digital Root (Single Digit Sum)",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Numbers",
+  "description": "Given an integer `n`, repeatedly add all its digits until the result has only one digit, and return it (also known as the Digital Root).",
+  "constraints": "0 <= n <= 10^9\n\u2022 Time: O(1) or O(log N) | Space: O(1)",
+  "function_name": "digital_root",
+  "starter_code": "def digital_root(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 38
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 9
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "n": 99999
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "n": 12345
+      },
+      "expected": 6
+    }
+  ],
+  "solution": "def digital_root(n: int) -> int:\n    if n == 0:\n        return 0\n    return 9 if n % 9 == 0 else n % 9\n",
+  "explanation": "Congruence formula: For any base 10 integer, digital root is n mod 9 (or 9 if non-zero multiple of 9)."
+}

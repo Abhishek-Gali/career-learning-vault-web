@@ -1,0 +1,53 @@
+{
+  "id": "guvi_circle_area_circumference",
+  "title": "GUVI: Circle Metrics (Area & Circumference)",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Easy",
+  "category": "Geometry",
+  "description": "Given the radius `r` of a circle, calculate its area and circumference using pi = 3.14159. Return a list `[area, circumference]` with both values rounded to 2 decimal places.",
+  "constraints": "0.1 <= r <= 1000\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "circle_metrics",
+  "starter_code": "def circle_metrics(r: float) -> list[float]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "r": 5.0
+      },
+      "expected": [
+        78.54,
+        31.42
+      ]
+    },
+    {
+      "input": {
+        "r": 1.0
+      },
+      "expected": [
+        3.14,
+        6.28
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "r": 10.0
+      },
+      "expected": [
+        314.16,
+        62.83
+      ]
+    },
+    {
+      "input": {
+        "r": 7.5
+      },
+      "expected": [
+        176.71,
+        47.12
+      ]
+    }
+  ],
+  "solution": "def circle_metrics(r: float) -> list[float]:\n    PI = 3.141592653589793\n    area = round(PI * r * r, 2)\n    circ = round(2 * PI * r, 2)\n    return [area, circ]\n",
+  "explanation": "Calculates circle dimensions in O(1) time."
+}

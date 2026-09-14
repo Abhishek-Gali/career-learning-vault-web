@@ -1,0 +1,59 @@
+{
+  "id": "he_little_monk_and_toy_story",
+  "title": "HackerEarth: Little Monk and Toy Story",
+  "platform": "HackerEarth",
+  "difficulty": "Hard",
+  "category": "Greedy",
+  "description": "Little Monk has toy boxes with given `weights`. He wants to build a pyramid where each higher tier has strictly fewer boxes and strictly less total weight than the tier below it. Return maximum number of tiers he can build.",
+  "constraints": "1 <= len(weights) <= 10^5\n\u2022 Time: O(N log N) | Space: O(1)",
+  "function_name": "max_toy_tiers",
+  "starter_code": "def max_toy_tiers(weights: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "weights": [
+          10,
+          20,
+          30,
+          50,
+          60,
+          70
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "weights": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "weights": [
+          5
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "weights": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def max_toy_tiers(weights: list[int]) -> int:\n    s = sorted(weights)\n    tiers = 0\n    prev_count = prev_weight = 0\n    curr_count = curr_weight = 0\n    for w in s:\n        curr_count += 1\n        curr_weight += w\n        if curr_count > prev_count and curr_weight > prev_weight:\n            tiers += 1\n            prev_count = curr_count\n            prev_weight = curr_weight\n            curr_count = curr_weight = 0\n    return tiers\n",
+  "explanation": "Greedy construction sorting weights and growing tier sizes sequentially in O(N log N) time."
+}

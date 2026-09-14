@@ -1,0 +1,58 @@
+{
+  "id": "cc_far_away",
+  "title": "CodeChef: Far Away (Max Manhattan Distance)",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Greedy",
+  "description": "Chef has an array `a` of `n` integers where 1 <= a[i] <= m. He chooses an array `b` with 1 <= b[i] <= m to maximize the total distance sum |a[i] - b[i]|. Return maximum distance.",
+  "constraints": "1 <= len(a) <= 10^5, 1 <= m <= 10^9\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "max_far_away",
+  "starter_code": "def max_far_away(m: int, a: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "m": 6,
+        "a": [
+          1,
+          2,
+          5
+        ]
+      },
+      "expected": 13
+    },
+    {
+      "input": {
+        "m": 10,
+        "a": [
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": 15
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "m": 1,
+        "a": [
+          1
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "m": 100,
+        "a": [
+          1,
+          100
+        ]
+      },
+      "expected": 198
+    }
+  ],
+  "solution": "def max_far_away(m: int, a: list[int]) -> int:\n    return sum(max(abs(x - 1), abs(x - m)) for x in a)\n",
+  "explanation": "Greedy choice: for each item, maximum difference occurs at boundary 1 or m."
+}

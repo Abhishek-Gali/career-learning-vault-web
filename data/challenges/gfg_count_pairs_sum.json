@@ -1,0 +1,67 @@
+{
+  "id": "gfg_count_pairs_sum",
+  "title": "GFG: Count Pairs with Given Sum",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Easy",
+  "category": "Hash Tables & Arrays",
+  "description": "Given an array of integers `arr` and a sum `k`, find the number of pairs of elements in the array whose sum is equal to `k`.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "count_pairs_with_sum",
+  "starter_code": "def count_pairs_with_sum(arr: list[int], k: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          5,
+          7,
+          1
+        ],
+        "k": 6
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 2
+      },
+      "expected": 6
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          10,
+          12,
+          10,
+          15,
+          -1
+        ],
+        "k": 125
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "k": 7
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def count_pairs_with_sum(arr: list[int], k: int) -> int:\n    from collections import Counter\n    counts = Counter()\n    pairs = 0\n    for x in arr:\n        pairs += counts[k - x]\n        counts[x] += 1\n    return pairs\n",
+  "explanation": "Hash table tracking prior frequencies counts complementary pairs in single pass O(N) time."
+}

@@ -1,0 +1,72 @@
+{
+  "id": "w3_max_min_without_builtins",
+  "title": "W3Schools: Find Min and Max Without Built-ins",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Algorithms",
+  "description": "Given a non-empty array of integers `nums`, find and return `[min_val, max_val]` without using Python's built-in min() or max() functions.",
+  "constraints": "1 <= len(nums) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "manual_min_max",
+  "starter_code": "def manual_min_max(nums: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          3,
+          1,
+          4,
+          1,
+          5,
+          9,
+          2,
+          6
+        ]
+      },
+      "expected": [
+        1,
+        9
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          10
+        ]
+      },
+      "expected": [
+        10,
+        10
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          -5,
+          -1,
+          -10
+        ]
+      },
+      "expected": [
+        -10,
+        -1
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": [
+        0,
+        0
+      ]
+    }
+  ],
+  "solution": "def manual_min_max(nums: list[int]) -> list[int]:\n    mn = mx = nums[0]\n    for x in nums[1:]:\n        if x < mn:\n            mn = x\n        if x > mx:\n            mx = x\n    return [mn, mx]\n",
+  "explanation": "Linear scan tracks smallest and largest values in O(N) time without builtins."
+}

@@ -1,0 +1,79 @@
+{
+  "id": "hr_diagonal_difference",
+  "title": "HackerRank: Diagonal Difference",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup & Matrix",
+  "description": "Given a square matrix `arr`, calculate the absolute difference between the sums of its primary and secondary diagonals.",
+  "constraints": "1 <= N <= 100\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "diagonal_difference",
+  "starter_code": "def diagonal_difference(arr: list[list[int]]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          [
+            11,
+            2,
+            4
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            10,
+            8,
+            -12
+          ]
+        ]
+      },
+      "expected": 15
+    },
+    {
+      "input": {
+        "arr": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          [
+            5
+          ]
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "arr": [
+          [
+            6,
+            8
+          ],
+          [
+            -6,
+            9
+          ]
+        ]
+      },
+      "expected": 13
+    }
+  ],
+  "solution": "def diagonal_difference(arr: list[list[int]]) -> int:\n    n = len(arr)\n    d1 = sum(arr[i][i] for i in range(n))\n    d2 = sum(arr[i][n - 1 - i] for i in range(n))\n    return abs(d1 - d2)\n",
+  "explanation": "Primary diagonal is arr[i][i]; secondary diagonal is arr[i][n-1-i]. Absolute difference takes O(N) time."
+}

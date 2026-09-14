@@ -1,0 +1,101 @@
+{
+  "id": "placement_next_permutation",
+  "title": "Placement: Next Permutation",
+  "platform": "Placement Preparation",
+  "difficulty": "Hard",
+  "category": "Arrays & Two Pointers",
+  "description": "A permutation of an array of integers is an arrangement of its members into a sequence. Given an array `nums`, rearrange numbers into the lexicographically next greater permutation. If no greater permutation exists, rearrange it as the lowest possible order (sorted ascending). Return the modified list.",
+  "constraints": "1 <= len(nums) <= 100\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "next_permutation",
+  "starter_code": "def next_permutation(nums: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        3,
+        2
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          5
+        ]
+      },
+      "expected": [
+        1,
+        5,
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          3,
+          2
+        ]
+      },
+      "expected": [
+        2,
+        1,
+        3
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          3,
+          1,
+          3,
+          3
+        ]
+      },
+      "expected": [
+        2,
+        3,
+        3,
+        1,
+        3
+      ]
+    }
+  ],
+  "solution": "def next_permutation(nums: list[int]) -> list[int]:\n    arr = list(nums)\n    n = len(arr)\n    i = n - 2\n    while i >= 0 and arr[i] >= arr[i + 1]:\n        i -= 1\n    if i >= 0:\n        j = n - 1\n        while arr[j] <= arr[i]:\n            j -= 1\n        arr[i], arr[j] = arr[j], arr[i]\n    arr[i + 1:] = reversed(arr[i + 1:])\n    return arr\n",
+  "explanation": "Find first pivot from right where arr[i] < arr[i+1], swap with smallest successor greater than arr[i], and reverse the trailing suffix in O(N) time."
+}

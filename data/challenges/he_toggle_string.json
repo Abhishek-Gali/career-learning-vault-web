@@ -1,0 +1,41 @@
+{
+  "id": "he_toggle_string",
+  "title": "HackerEarth: Toggle String",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "You have been given a String `s` consisting of uppercase and lowercase English alphabets. You need to change the case of each alphabet in this String (lowercase to uppercase and vice versa).",
+  "constraints": "1 <= len(s) <= 100\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "toggle_case",
+  "starter_code": "def toggle_case(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "abcdE"
+      },
+      "expected": "ABCDe"
+    },
+    {
+      "input": {
+        "s": "Hello World"
+      },
+      "expected": "hELLO wORLD"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "a"
+      },
+      "expected": "A"
+    },
+    {
+      "input": {
+        "s": "Z"
+      },
+      "expected": "z"
+    }
+  ],
+  "solution": "def toggle_case(s: str) -> str:\n    return s.swapcase()\n",
+  "explanation": "Toggles uppercase to lowercase and vice-versa in O(N) time."
+}

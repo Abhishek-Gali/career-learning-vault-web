@@ -1,0 +1,47 @@
+{
+  "id": "cw_return_negative",
+  "title": "Codewars 8kyu: Return Negative",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Fundamentals",
+  "description": "In this simple assignment you are given a number and have to make it negative. But maybe the number is already negative? Zero (0) is not checked for any specific sign.",
+  "constraints": "-10^9 <= number <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "make_negative",
+  "starter_code": "def make_negative(number: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "number": 1
+      },
+      "expected": -1
+    },
+    {
+      "input": {
+        "number": -5
+      },
+      "expected": -5
+    },
+    {
+      "input": {
+        "number": 0
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "number": 42
+      },
+      "expected": -42
+    },
+    {
+      "input": {
+        "number": -100
+      },
+      "expected": -100
+    }
+  ],
+  "solution": "def make_negative(number: int) -> int:\n    return -abs(number)\n",
+  "explanation": "-abs(x) guarantees non-positive integer return in O(1) time."
+}

@@ -1,0 +1,41 @@
+{
+  "id": "cc_fitness",
+  "title": "CodeChef: Fitness Tracker",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Basic Math",
+  "description": "Chef wants to become fit. His office is `x` km from his home. Chef goes to office 5 days a week (making one round-trip each day). Determine total km Chef travels in a week.",
+  "constraints": "1 <= x <= 10\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "fitness_distance",
+  "starter_code": "def fitness_distance(x: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 1
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "x": 3
+      },
+      "expected": 30
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 5
+      },
+      "expected": 50
+    },
+    {
+      "input": {
+        "x": 10
+      },
+      "expected": 100
+    }
+  ],
+  "solution": "def fitness_distance(x: int) -> int:\n    return 2 * x * 5\n",
+  "explanation": "5 days of round-trip (2 * x) totals 10 * x km in O(1) time."
+}

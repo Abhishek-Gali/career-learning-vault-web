@@ -1,0 +1,78 @@
+{
+  "id": "placement_container_most_water",
+  "title": "Placement: Container With Most Water",
+  "platform": "Placement Preparation",
+  "difficulty": "Hard",
+  "category": "Two Pointers & Greedy",
+  "description": "You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `i`th line are `(i, 0)` and `(i, height[i])`. Find two lines that together with the x-axis form a container that stores the most water. Return the maximum volume.",
+  "constraints": "2 <= len(height) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "max_area",
+  "starter_code": "def max_area(height: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "height": [
+          1,
+          8,
+          6,
+          2,
+          5,
+          4,
+          8,
+          3,
+          7
+        ]
+      },
+      "expected": 49
+    },
+    {
+      "input": {
+        "height": [
+          1,
+          1
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "height": [
+          4,
+          3,
+          2,
+          1,
+          4
+        ]
+      },
+      "expected": 16
+    },
+    {
+      "input": {
+        "height": [
+          1,
+          2,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "height": [
+          2,
+          3,
+          4,
+          5,
+          18,
+          17,
+          6
+        ]
+      },
+      "expected": 17
+    }
+  ],
+  "solution": "def max_area(height: list[int]) -> int:\n    left, right = 0, len(height) - 1\n    max_w = 0\n    while left < right:\n        w = (right - left) * min(height[left], height[right])\n        if w > max_w:\n            max_w = w\n        if height[left] < height[right]:\n            left += 1\n        else:\n            right -= 1\n    return max_w\n",
+  "explanation": "Two pointers from the outside move the shorter wall inward, maximizing the width-height tradeoff in O(N) time."
+}

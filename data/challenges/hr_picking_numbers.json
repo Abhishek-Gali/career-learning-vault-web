@@ -1,0 +1,64 @@
+{
+  "id": "hr_picking_numbers",
+  "title": "HackerRank: Picking Numbers",
+  "platform": "HackerRank",
+  "difficulty": "Hard",
+  "category": "Hash Tables & Arrays",
+  "description": "Given an array of integers `a`, find the maximum length of a subarray where the absolute difference between any two elements is less than or equal to 1.",
+  "constraints": "2 <= len(a) <= 100\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "picking_numbers",
+  "starter_code": "def picking_numbers(a: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          4,
+          6,
+          5,
+          3,
+          3,
+          1
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "a": [
+          1,
+          2,
+          2,
+          3,
+          1,
+          2
+        ]
+      },
+      "expected": 5
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "a": [
+          98,
+          99,
+          100
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def picking_numbers(a: list[int]) -> int:\n    from collections import Counter\n    counts = Counter(a)\n    max_len = 0\n    for k in counts:\n        max_len = max(max_len, counts[k] + counts[k + 1])\n    return max_len\n",
+  "explanation": "Any valid set can contain only numbers x and x + 1. Summing counts[k] + counts[k + 1] finds the longest subset in O(N) time."
+}

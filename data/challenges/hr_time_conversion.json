@@ -1,0 +1,47 @@
+{
+  "id": "hr_time_conversion",
+  "title": "HackerRank: Time Conversion (12h to 24h)",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup & Strings",
+  "description": "Given a time in 12-hour AM/PM format `s` (e.g. '07:05:45PM'), convert it to military (24-hour) time ('19:05:45'). Note: 12:00:00AM is 00:00:00 on a 24-hour clock, and 12:00:00PM is 12:00:00.",
+  "constraints": "Valid 12-hour time format hh:mm:ssAM or hh:mm:ssPM\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "time_conversion",
+  "starter_code": "def time_conversion(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "07:05:45PM"
+      },
+      "expected": "19:05:45"
+    },
+    {
+      "input": {
+        "s": "12:01:00PM"
+      },
+      "expected": "12:01:00"
+    },
+    {
+      "input": {
+        "s": "12:01:00AM"
+      },
+      "expected": "00:01:00"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "01:00:00AM"
+      },
+      "expected": "01:00:00"
+    },
+    {
+      "input": {
+        "s": "11:59:59PM"
+      },
+      "expected": "23:59:59"
+    }
+  ],
+  "solution": "def time_conversion(s: str) -> str:\n    period = s[-2:]\n    hh = int(s[:2])\n    rest = s[2:-2]\n    if period == 'AM':\n        hh_str = '00' if hh == 12 else f'{hh:02d}'\n    else:\n        hh_str = '12' if hh == 12 else f'{hh + 12:02d}'\n    return f'{hh_str}{rest}'\n",
+  "explanation": "Handles boundary hours 12 AM (00) and 12 PM (12) with O(1) parsing."
+}

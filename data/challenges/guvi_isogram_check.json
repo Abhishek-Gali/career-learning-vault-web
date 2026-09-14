@@ -1,0 +1,47 @@
+{
+  "id": "guvi_isogram_check",
+  "title": "GUVI: Isogram String Checker",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Strings & Sets",
+  "description": "An isogram is a word that has no repeating letters, consecutive or non-consecutive. Given a string `s`, return `True` if it is an isogram (case-insensitive), and `False` otherwise.",
+  "constraints": "0 <= len(s) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "is_isogram",
+  "starter_code": "def is_isogram(s: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "Dermatoglyphics"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "aba"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "moOse"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "thumbscrew-japingly"
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_isogram(s: str) -> bool:\n    cleaned = [ch.lower() for ch in s if ch.isalpha()]\n    return len(cleaned) == len(set(cleaned))\n",
+  "explanation": "Filtering alphabetic characters and comparing set length checks uniqueness in O(N) time."
+}

@@ -1,0 +1,71 @@
+{
+  "id": "lc_median_data_stream",
+  "title": "LeetCode 295: Find Median from Data Stream",
+  "platform": "LeetCode",
+  "difficulty": "Hard",
+  "category": "Heaps & Priority Queues",
+  "description": "Simulate finding the running median after each number is inserted into a data stream. Given an integer array `stream`, return a list of medians after inserting each number in order.",
+  "constraints": "1 <= len(stream) <= 10^4\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "find_medians",
+  "starter_code": "def find_medians(stream: list[int]) -> list[float]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "stream": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1.0,
+        1.5,
+        2.0
+      ]
+    },
+    {
+      "input": {
+        "stream": [
+          6,
+          10,
+          2,
+          6,
+          5
+        ]
+      },
+      "expected": [
+        6.0,
+        8.0,
+        6.0,
+        6.0,
+        6.0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "stream": [
+          5
+        ]
+      },
+      "expected": [
+        5.0
+      ]
+    },
+    {
+      "input": {
+        "stream": [
+          2,
+          3
+        ]
+      },
+      "expected": [
+        2.0,
+        2.5
+      ]
+    }
+  ],
+  "solution": "def find_medians(stream: list[int]) -> list[float]:\n    import bisect\n    sorted_list = []\n    medians = []\n    for x in stream:\n        bisect.insort(sorted_list, x)\n        n = len(sorted_list)\n        if n % 2 == 1:\n            medians.append(float(sorted_list[n // 2]))\n        else:\n            medians.append((sorted_list[n // 2 - 1] + sorted_list[n // 2]) / 2.0)\n    return medians\n",
+  "explanation": "Binary insertion into sorted stream allows computing current median after each addition in O(N log N) time."
+}

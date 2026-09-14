@@ -1,0 +1,47 @@
+{
+  "id": "gfg_n_queens_problem",
+  "title": "GFG: N-Queens Problem (Total Placements)",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Hard",
+  "category": "Backtracking",
+  "description": "The n-queens puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other. Given integer `n`, return the total number of distinct solutions.",
+  "constraints": "1 <= n <= 10\n\u2022 Time: O(N!) | Space: O(N)",
+  "function_name": "total_n_queens",
+  "starter_code": "def total_n_queens(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "n": 8
+      },
+      "expected": 92
+    }
+  ],
+  "solution": "def total_n_queens(n: int) -> int:\n    cols = set()\n    pos_diag = set()\n    neg_diag = set()\n    count = 0\n    def backtrack(r):\n        nonlocal count\n        if r == n:\n            count += 1\n            return\n        for c in range(n):\n            if c in cols or (r + c) in pos_diag or (r - c) in neg_diag:\n                continue\n            cols.add(c)\n            pos_diag.add(r + c)\n            neg_diag.add(r - c)\n            backtrack(r + 1)\n            cols.remove(c)\n            pos_diag.remove(r + c)\n            neg_diag.remove(r - c)\n    backtrack(0)\n    return count\n",
+  "explanation": "Backtracking row-by-row with column and diagonal sets prunes invalid queen collisions in O(N!) time."
+}

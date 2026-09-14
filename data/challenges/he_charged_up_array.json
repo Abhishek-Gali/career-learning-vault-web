@@ -1,0 +1,55 @@
+{
+  "id": "he_charged_up_array",
+  "title": "HackerEarth: Charged Up Array",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Bitwise & Math",
+  "description": "An array of size `N` is given. An element `arr[i]` is charged up if its value is greater than or equal to `2^(N - 1)`. Calculate the sum of all charged up elements modulo 10^9 + 7. If N >= 60, threshold is 2^59.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "charged_up_sum",
+  "starter_code": "def charged_up_sum(arr: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          6
+        ]
+      },
+      "expected": 6
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "arr": [
+          10
+        ]
+      },
+      "expected": 10
+    }
+  ],
+  "solution": "def charged_up_sum(arr: list[int]) -> int:\n    n = len(arr)\n    threshold = 1 << (min(n - 1, 59))\n    MOD = 10**9 + 7\n    return sum(x for x in arr if x >= threshold) % MOD\n",
+  "explanation": "Checks if element >= 2^(N - 1) and sums valid items mod 10^9+7 in O(N) time."
+}

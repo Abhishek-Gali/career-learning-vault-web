@@ -1,0 +1,61 @@
+{
+  "id": "cc_programming_languages",
+  "title": "CodeChef: Programming Languages",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Logic & Sets",
+  "description": "Chef needs features {a, b}. Language 1 has {a1, b1} and Language 2 has {a2, b2}. If Language 1 has both features, return 1. If Language 2 has both features, return 2. Otherwise return 0.",
+  "constraints": "1 <= a, b, a1, b1, a2, b2 <= 100\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "match_language",
+  "starter_code": "def match_language(a: int, b: int, a1: int, b1: int, a2: int, b2: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 1,
+        "b": 2,
+        "a1": 2,
+        "b1": 1,
+        "a2": 3,
+        "b2": 4
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "a": 1,
+        "b": 3,
+        "a1": 2,
+        "b1": 1,
+        "a2": 3,
+        "b2": 1
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": 1,
+        "b": 2,
+        "a1": 3,
+        "b1": 4,
+        "a2": 5,
+        "b2": 6
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "a": 2,
+        "b": 2,
+        "a1": 2,
+        "b1": 2,
+        "a2": 1,
+        "b2": 1
+      },
+      "expected": 1
+    }
+  ],
+  "solution": "def match_language(a: int, b: int, a1: int, b1: int, a2: int, b2: int) -> int:\n    req = {a, b}\n    if req == {a1, b1}:\n        return 1\n    elif req == {a2, b2}:\n        return 2\n    return 0\n",
+  "explanation": "Set equality checks feature pair match in O(1) time."
+}

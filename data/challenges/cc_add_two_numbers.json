@@ -1,0 +1,45 @@
+{
+  "id": "cc_add_two_numbers",
+  "title": "CodeChef: Add Two Numbers",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Basic Programming",
+  "description": "Compute and return the sum of two integers `a` and `b`.",
+  "constraints": "0 <= a, b <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "add_two_numbers",
+  "starter_code": "def add_two_numbers(a: int, b: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 1,
+        "b": 2
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "a": 100,
+        "b": 200
+      },
+      "expected": 300
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": 0,
+        "b": 0
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "a": 55,
+        "b": 45
+      },
+      "expected": 100
+    }
+  ],
+  "solution": "def add_two_numbers(a: int, b: int) -> int:\n    return a + b\n",
+  "explanation": "Calculates addition in O(1) time."
+}

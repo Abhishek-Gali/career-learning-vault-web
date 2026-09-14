@@ -1,0 +1,45 @@
+{
+  "id": "prog_gcd_hcf",
+  "title": "Programiz: Find GCD / HCF",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "Compute and return the Greatest Common Divisor (HCF) of two positive integers `a` and `b`.",
+  "constraints": "1 <= a, b <= 10^9\n\u2022 Time: O(log(min(a, b))) | Space: O(1)",
+  "function_name": "compute_gcd",
+  "starter_code": "def compute_gcd(a: int, b: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 54,
+        "b": 24
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "a": 12,
+        "b": 17
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": 100,
+        "b": 100
+      },
+      "expected": 100
+    },
+    {
+      "input": {
+        "a": 25,
+        "b": 5
+      },
+      "expected": 5
+    }
+  ],
+  "solution": "def compute_gcd(a: int, b: int) -> int:\n    import math\n    return math.gcd(a, b)\n",
+  "explanation": "Euclid's algorithm evaluates GCD in logarithmic time."
+}

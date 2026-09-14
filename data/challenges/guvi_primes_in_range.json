@@ -1,0 +1,66 @@
+{
+  "id": "guvi_primes_in_range",
+  "title": "GUVI: Prime Numbers in Given Range",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Number Theory",
+  "description": "Given two integers `low` and `high`, return a sorted list of all prime numbers in the inclusive range `[low, high]`.",
+  "constraints": "1 <= low <= high <= 10^5\n\u2022 Time: O(N log log N) | Space: O(N)",
+  "function_name": "primes_in_range",
+  "starter_code": "def primes_in_range(low: int, high: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "low": 10,
+        "high": 20
+      },
+      "expected": [
+        11,
+        13,
+        17,
+        19
+      ]
+    },
+    {
+      "input": {
+        "low": 1,
+        "high": 5
+      },
+      "expected": [
+        2,
+        3,
+        5
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "low": 20,
+        "high": 22
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "low": 30,
+        "high": 40
+      },
+      "expected": [
+        31,
+        37
+      ]
+    },
+    {
+      "input": {
+        "low": 2,
+        "high": 2
+      },
+      "expected": [
+        2
+      ]
+    }
+  ],
+  "solution": "def primes_in_range(low: int, high: int) -> list[int]:\n    if high < 2:\n        return []\n    sieve = [True] * (high + 1)\n    sieve[0] = sieve[1] = False\n    for i in range(2, int(high**0.5) + 1):\n        if sieve[i]:\n            for j in range(i * i, high + 1, i):\n                sieve[j] = False\n    return [p for p in range(max(2, low), high + 1) if sieve[p]]\n",
+  "explanation": "Sieve of Eratosthenes up to high finds all primes in O(high log log high) time."
+}

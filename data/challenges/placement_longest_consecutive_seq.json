@@ -1,0 +1,79 @@
+{
+  "id": "placement_longest_consecutive_seq",
+  "title": "Placement: Longest Consecutive Sequence",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Hash Tables & Arrays",
+  "description": "Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence in O(N) runtime.",
+  "constraints": "0 <= len(nums) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "longest_consecutive",
+  "starter_code": "def longest_consecutive(nums: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          100,
+          4,
+          200,
+          1,
+          3,
+          2
+        ]
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          3,
+          7,
+          2,
+          5,
+          8,
+          4,
+          6,
+          0,
+          1
+        ]
+      },
+      "expected": 9
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": []
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [
+          9,
+          1,
+          4,
+          7,
+          3,
+          -1,
+          0,
+          5,
+          8,
+          -1,
+          6
+        ]
+      },
+      "expected": 7
+    }
+  ],
+  "solution": "def longest_consecutive(nums: list[int]) -> int:\n    num_set = set(nums)\n    max_streak = 0\n    for num in num_set:\n        if num - 1 not in num_set:\n            curr = num\n            streak = 1\n            while curr + 1 in num_set:\n                curr += 1\n                streak += 1\n            max_streak = max(max_streak, streak)\n    return max_streak\n",
+  "explanation": "Hashing numbers in a set allows O(1) lookups. Only expand streaks from sequence start (num - 1 not in set) for strict O(N) overall runtime."
+}

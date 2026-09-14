@@ -1,0 +1,75 @@
+{
+  "id": "hr_birthday_cake_candles",
+  "title": "HackerRank: Birthday Cake Candles",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup",
+  "description": "You are in charge of the cake for a child's birthday. You have decided the cake will have one candle for each year of their total age. They will only be able to blow out the tallest of the candles. Given candle heights `candles`, return the count of candles that are tallest.",
+  "constraints": "1 <= len(candles) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "birthday_cake_candles",
+  "starter_code": "def birthday_cake_candles(candles: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "candles": [
+          4,
+          4,
+          1,
+          3
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "candles": [
+          3,
+          2,
+          1,
+          3
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "candles": [
+          5
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "candles": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "candles": [
+          82,
+          49,
+          82,
+          82,
+          41,
+          82,
+          15,
+          63,
+          38,
+          25
+        ]
+      },
+      "expected": 4
+    }
+  ],
+  "solution": "def birthday_cake_candles(candles: list[int]) -> int:\n    if not candles:\n        return 0\n    max_val = max(candles)\n    return sum(1 for c in candles if c == max_val)\n",
+  "explanation": "Finds maximum height and counts occurrences in O(N) single pass."
+}

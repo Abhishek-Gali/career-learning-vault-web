@@ -1,0 +1,41 @@
+{
+  "id": "cw_opposite_number",
+  "title": "Codewars 8kyu: Opposite Number",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Fundamentals",
+  "description": "Very simple, given a number (integer / decimal), find its opposite (additive inverse).",
+  "constraints": "-10^9 <= number <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "opposite",
+  "starter_code": "def opposite(number: float) -> float:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "number": 1.0
+      },
+      "expected": -1.0
+    },
+    {
+      "input": {
+        "number": -34.0
+      },
+      "expected": 34.0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "number": 0.0
+      },
+      "expected": 0.0
+    },
+    {
+      "input": {
+        "number": 4.25
+      },
+      "expected": -4.25
+    }
+  ],
+  "solution": "def opposite(number: float) -> float:\n    return -number\n",
+  "explanation": "Negates numerical value in O(1) time."
+}

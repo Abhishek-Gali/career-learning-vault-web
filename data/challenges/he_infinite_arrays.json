@@ -1,0 +1,64 @@
+{
+  "id": "he_infinite_arrays",
+  "title": "HackerEarth: Cyclic Array Range Sum",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Prefix Sums & Math",
+  "description": "An infinite array is formed by repeating array `arr` indefinitely. Given 1-based indices `l` and `r`, return the sum of elements from index `l` to `r` inclusive modulo 10^9 + 7.",
+  "constraints": "1 <= len(arr) <= 10^5, 1 <= l <= r <= 10^12\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "cyclic_range_sum",
+  "starter_code": "def cyclic_range_sum(arr: list[int], l: int, r: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "l": 1,
+        "r": 5
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "arr": [
+          5
+        ],
+        "l": 1,
+        "r": 3
+      },
+      "expected": 15
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          2,
+          4,
+          6
+        ],
+        "l": 2,
+        "r": 2
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "l": 4,
+        "r": 7
+      },
+      "expected": 10
+    }
+  ],
+  "solution": "def cyclic_range_sum(arr: list[int], l: int, r: int) -> int:\n    MOD = 10**9 + 7\n    n = len(arr)\n    prefix = [0] * (n + 1)\n    for i in range(n):\n        prefix[i + 1] = prefix[i] + arr[i]\n    def get_sum(k):\n        if k <= 0:\n            return 0\n        full_cycles = k // n\n        rem = k % n\n        return full_cycles * prefix[n] + prefix[rem]\n    return (get_sum(r) - get_sum(l - 1)) % MOD\n",
+  "explanation": "Computes cycle counts in O(1) using prefix sums array in O(N) setup time."
+}

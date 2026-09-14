@@ -1,0 +1,99 @@
+{
+  "id": "gfg_rat_in_a_maze",
+  "title": "GFG: Rat in a Maze Problem",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Hard",
+  "category": "Backtracking",
+  "description": "Consider a rat placed at (0, 0) in a square matrix `m` of order `n`. It has to reach destination at (n - 1, n - 1). Its directions are 'U'(up), 'D'(down), 'L'(left), 'R'(right). Value 0 means blocked, 1 means open. Return all sorted path strings.",
+  "constraints": "2 <= n <= 5\n\u2022 Time: O(4^(N^2)) | Space: O(N^2)",
+  "function_name": "find_paths",
+  "starter_code": "def find_paths(m: list[list[int]]) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "m": [
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        "DDRDRR",
+        "DRDDRR"
+      ]
+    },
+    {
+      "input": {
+        "m": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "m": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "m": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        "DR",
+        "RD"
+      ]
+    }
+  ],
+  "solution": "def find_paths(m: list[list[int]]) -> list[str]:\n    n = len(m)\n    if m[0][0] == 0 or m[n - 1][n - 1] == 0:\n        return []\n    paths = []\n    visited = [[False] * n for _ in range(n)]\n    dirs = [('D', 1, 0), ('L', 0, -1), ('R', 0, 1), ('U', -1, 0)]\n    def dfs(r, c, curr):\n        if r == n - 1 and c == n - 1:\n            paths.append(curr)\n            return\n        visited[r][c] = True\n        for d, dr, dc in dirs:\n            nr, nc = r + dr, c + dc\n            if 0 <= nr < n and 0 <= nc < n and not visited[nr][nc] and m[nr][nc] == 1:\n                dfs(nr, nc, curr + d)\n        visited[r][c] = False\n    dfs(0, 0, '')\n    return sorted(paths)\n",
+  "explanation": "Backtracking with visited 2D matrix explores D, L, R, U movements in sorted lexicographical order."
+}

@@ -1,0 +1,47 @@
+{
+  "id": "lc_longest_valid_parentheses",
+  "title": "LeetCode 32: Longest Valid Parentheses",
+  "platform": "LeetCode",
+  "difficulty": "Hard",
+  "category": "Stacks & Dynamic Programming",
+  "description": "Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed) parentheses substring.",
+  "constraints": "0 <= len(s) <= 3 * 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "longest_valid_parentheses",
+  "starter_code": "def longest_valid_parentheses(s: str) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "(()"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "s": ")()())"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "()(()"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "s": "()(())"
+      },
+      "expected": 6
+    }
+  ],
+  "solution": "def longest_valid_parentheses(s: str) -> int:\n    stack = [-1]\n    max_len = 0\n    for i, ch in enumerate(s):\n        if ch == '(':\n            stack.append(i)\n        else:\n            stack.pop()\n            if not stack:\n                stack.append(i)\n            else:\n                max_len = max(max_len, i - stack[-1])\n    return max_len\n",
+  "explanation": "Stack keeps index boundaries of invalid components, calculating contiguous valid parentheses runs in O(N) time."
+}

@@ -1,0 +1,41 @@
+{
+  "id": "hr_extra_long_factorials",
+  "title": "HackerRank: Extra Long Factorials",
+  "platform": "HackerRank",
+  "difficulty": "Hard",
+  "category": "Math & BigInt",
+  "description": "Calculate and return the factorial of a given integer `n` as a string.",
+  "constraints": "1 <= n <= 100\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "extra_long_factorials",
+  "starter_code": "def extra_long_factorials(n: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 25
+      },
+      "expected": "15511210043330985984000000"
+    },
+    {
+      "input": {
+        "n": 5
+      },
+      "expected": "120"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": "1"
+    },
+    {
+      "input": {
+        "n": 30
+      },
+      "expected": "265252859812191058636308480000000"
+    }
+  ],
+  "solution": "def extra_long_factorials(n: int) -> str:\n    import math\n    return str(math.factorial(n))\n",
+  "explanation": "Python handles arbitrary-precision integers natively with math.factorial in O(N) time."
+}

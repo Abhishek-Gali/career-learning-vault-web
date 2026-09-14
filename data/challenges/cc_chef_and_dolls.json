@@ -1,0 +1,63 @@
+{
+  "id": "cc_chef_and_dolls",
+  "title": "CodeChef: Chef and Dolls (Odd Doll Finder)",
+  "platform": "CodeChef",
+  "difficulty": "Hard",
+  "category": "Bit Manipulation",
+  "description": "Chef has a collection of dolls. Each doll has a type id. Every type occurs an even number of times, except one type which occurs an odd number of times. Find that odd doll type id using bitwise XOR in O(N) time and O(1) space.",
+  "constraints": "1 <= len(types) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "find_missing_doll",
+  "starter_code": "def find_missing_doll(types: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "types": [
+          1,
+          2,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "types": [
+          1,
+          1,
+          2,
+          2,
+          3
+        ]
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "types": [
+          42
+        ]
+      },
+      "expected": 42
+    },
+    {
+      "input": {
+        "types": [
+          5,
+          4,
+          3,
+          2,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "solution": "def find_missing_doll(types: list[int]) -> int:\n    res = 0\n    for t in types:\n        res ^= t\n    return res\n",
+  "explanation": "XOR cancels pairs, isolating odd frequency element in O(N) time and O(1) space."
+}

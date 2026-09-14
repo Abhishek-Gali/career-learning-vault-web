@@ -1,0 +1,65 @@
+{
+  "id": "cw_rgb_to_hex_conversion",
+  "title": "Codewars 5kyu: RGB To Hex Conversion",
+  "platform": "Codewars",
+  "difficulty": "Hard",
+  "category": "Bitwise & Formatting",
+  "description": "The rgb function is incomplete. Complete it so that passing in RGB decimal values will result in a hexadecimal representation being returned. Valid decimal values for RGB are 0 - 255. Any values that fall out of that range must be rounded to the closest valid value.",
+  "constraints": "-500 <= r, g, b <= 500\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "rgb",
+  "starter_code": "def rgb(r: int, g: int, b: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "r": 255,
+        "g": 255,
+        "b": 255
+      },
+      "expected": "FFFFFF"
+    },
+    {
+      "input": {
+        "r": 255,
+        "g": 255,
+        "b": 300
+      },
+      "expected": "FFFFFF"
+    },
+    {
+      "input": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "expected": "000000"
+    },
+    {
+      "input": {
+        "r": 148,
+        "g": 0,
+        "b": 211
+      },
+      "expected": "9400D3"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "r": -20,
+        "g": 275,
+        "b": 125
+      },
+      "expected": "00FF7D"
+    },
+    {
+      "input": {
+        "r": 1,
+        "g": 2,
+        "b": 3
+      },
+      "expected": "010203"
+    }
+  ],
+  "solution": "def rgb(r: int, g: int, b: int) -> str:\n    def clamp(x):\n        return max(0, min(255, x))\n    return f'{clamp(r):02X}{clamp(g):02X}{clamp(b):02X}'\n",
+  "explanation": "Clamps values into [0, 255] and formats each channel with 2 uppercase hexadecimal digits."
+}

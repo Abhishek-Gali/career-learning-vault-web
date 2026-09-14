@@ -1,0 +1,85 @@
+{
+  "id": "w3_flatten_arbitrary_list",
+  "title": "W3Schools: Flatten Arbitrary Nested List",
+  "platform": "W3Schools",
+  "difficulty": "Hard",
+  "category": "Recursion",
+  "description": "Given an arbitrarily nested list `lst` containing integers and lists, return a flat 1D list of all numbers.",
+  "constraints": "0 <= total elements <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "flatten_arbitrary",
+  "starter_code": "def flatten_arbitrary(lst: list) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "lst": [
+          1,
+          [
+            2,
+            [
+              3,
+              4
+            ],
+            5
+          ],
+          6
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "input": {
+        "lst": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "lst": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "lst": [
+          [
+            [
+              [
+                [
+                  10
+                ]
+              ]
+            ]
+          ]
+        ]
+      },
+      "expected": [
+        10
+      ]
+    }
+  ],
+  "solution": "def flatten_arbitrary(lst: list) -> list[int]:\n    flat = []\n    def dfs(item):\n        if isinstance(item, list):\n            for sub in item:\n                dfs(sub)\n        else:\n            flat.append(item)\n    dfs(lst)\n    return flat\n",
+  "explanation": "Depth-first recursive extraction flattens arbitrary nesting in O(N) time."
+}

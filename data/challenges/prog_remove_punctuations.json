@@ -1,0 +1,41 @@
+{
+  "id": "prog_remove_punctuations",
+  "title": "Programiz: Remove Punctuations From String",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Strings",
+  "description": "Given string `s`, remove all punctuation marks (characters in string.punctuation) and return the cleaned string.",
+  "constraints": "0 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "remove_punctuation",
+  "starter_code": "def remove_punctuation(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "Hello!!!, he said ---and went."
+      },
+      "expected": "Hello he said and went"
+    },
+    {
+      "input": {
+        "s": "No punctuation here"
+      },
+      "expected": "No punctuation here"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "!@#$%^&*()"
+      },
+      "expected": ""
+    },
+    {
+      "input": {
+        "s": "python_3.13"
+      },
+      "expected": "python313"
+    }
+  ],
+  "solution": "def remove_punctuation(s: str) -> str:\n    import string\n    punc = set(string.punctuation)\n    return ''.join(ch for ch in s if ch not in punc)\n",
+  "explanation": "Filters characters against string.punctuation in O(N) time."
+}

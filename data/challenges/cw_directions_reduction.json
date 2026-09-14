@@ -1,0 +1,64 @@
+{
+  "id": "cw_directions_reduction",
+  "title": "Codewars 5kyu: Directions Reduction",
+  "platform": "Codewars",
+  "difficulty": "Hard",
+  "category": "Stacks",
+  "description": "Write a function `dir_reduc` which will take an array of strings and returns an array of strings with the needless directions removed (W<->E, S<->N directly adjacent).",
+  "constraints": "0 <= len(arr) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "dir_reduc",
+  "starter_code": "def dir_reduc(arr: list[str]) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          "NORTH",
+          "SOUTH",
+          "SOUTH",
+          "EAST",
+          "WEST",
+          "NORTH",
+          "WEST"
+        ]
+      },
+      "expected": [
+        "WEST"
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          "NORTH",
+          "WEST",
+          "SOUTH",
+          "EAST"
+        ]
+      },
+      "expected": [
+        "NORTH",
+        "WEST",
+        "SOUTH",
+        "EAST"
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "arr": [
+          "NORTH",
+          "SOUTH"
+        ]
+      },
+      "expected": []
+    }
+  ],
+  "solution": "def dir_reduc(arr: list[str]) -> list[str]:\n    opp = {'NORTH': 'SOUTH', 'SOUTH': 'NORTH', 'EAST': 'WEST', 'WEST': 'EAST'}\n    stack = []\n    for d in arr:\n        if stack and opp.get(stack[-1]) == d:\n            stack.pop()\n        else:\n            stack.append(d)\n    return stack\n",
+  "explanation": "Stack cancels out immediately opposing adjacent vectors in O(N) time."
+}

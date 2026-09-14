@@ -1,0 +1,68 @@
+{
+  "id": "hr_non_divisible_subset",
+  "title": "HackerRank: Non-Divisible Subset",
+  "platform": "HackerRank",
+  "difficulty": "Hard",
+  "category": "Number Theory & Greedy",
+  "description": "Given a set of distinct integers `s` and an integer `k`, determine the maximum number of elements of `s` such that the sum of any 2 elements in the subset is NOT evenly divisible by `k`.",
+  "constraints": "1 <= len(s) <= 10^5, 1 <= k <= 100\n\u2022 Time: O(N + k) | Space: O(k)",
+  "function_name": "non_divisible_subset",
+  "starter_code": "def non_divisible_subset(k: int, s: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "k": 3,
+        "s": [
+          1,
+          7,
+          2,
+          4
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "k": 4,
+        "s": [
+          19,
+          10,
+          12,
+          10,
+          24,
+          25,
+          22
+        ]
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "k": 5,
+        "s": [
+          2,
+          7,
+          12,
+          17,
+          22
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "k": 1,
+        "s": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "solution": "def non_divisible_subset(k: int, s: list[int]) -> int:\n    rems = [0] * k\n    for x in s:\n        rems[x % k] += 1\n    count = min(1, rems[0])\n    for i in range(1, (k // 2) + 1):\n        if i != k - i:\n            count += max(rems[i], rems[k - i])\n        else:\n            count += min(1, rems[i])\n    return count\n",
+  "explanation": "Two numbers sum to a multiple of k if their remainders sum to k. Greedy choice picks max(rems[i], rems[k - i]) in O(N + k) time."
+}

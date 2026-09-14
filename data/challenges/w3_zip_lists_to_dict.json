@@ -1,0 +1,72 @@
+{
+  "id": "w3_zip_lists_to_dict",
+  "title": "W3Schools: Zip Lists to Dictionary",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Built-ins & Dictionaries",
+  "description": "Given a list of string `keys` and a list of integer `values` of equal length, combine them into a dictionary using zip.",
+  "constraints": "0 <= len(keys) == len(values) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "zip_to_dict",
+  "starter_code": "def zip_to_dict(keys: list[str], values: list[int]) -> dict:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "keys": [
+          "Ten",
+          "Twenty",
+          "Thirty"
+        ],
+        "values": [
+          10,
+          20,
+          30
+        ]
+      },
+      "expected": {
+        "Ten": 10,
+        "Twenty": 20,
+        "Thirty": 30
+      }
+    },
+    {
+      "input": {
+        "keys": [],
+        "values": []
+      },
+      "expected": {}
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "keys": [
+          "x"
+        ],
+        "values": [
+          1
+        ]
+      },
+      "expected": {
+        "x": 1
+      }
+    },
+    {
+      "input": {
+        "keys": [
+          "a",
+          "b"
+        ],
+        "values": [
+          1,
+          2
+        ]
+      },
+      "expected": {
+        "a": 1,
+        "b": 2
+      }
+    }
+  ],
+  "solution": "def zip_to_dict(keys: list[str], values: list[int]) -> dict:\n    return dict(zip(keys, values))\n",
+  "explanation": "Zips parallel iterables into dictionary in O(N) time."
+}

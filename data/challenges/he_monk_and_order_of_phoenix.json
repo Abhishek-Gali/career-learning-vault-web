@@ -1,0 +1,79 @@
+{
+  "id": "he_monk_and_order_of_phoenix",
+  "title": "HackerEarth: Monk and Order of Phoenix (Army Heights)",
+  "platform": "HackerEarth",
+  "difficulty": "Hard",
+  "category": "Binary Search & Greedy",
+  "description": "Monk needs to choose one fighter from each row in `stacks` such that their heights are strictly increasing from top row to bottom row. Return `True` if possible, `False` otherwise.",
+  "constraints": "1 <= len(stacks) <= 1000\n\u2022 Time: O(R log C) | Space: O(1)",
+  "function_name": "voldi_vulnerable",
+  "starter_code": "def voldi_vulnerable(stacks: list[list[int]]) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "stacks": [
+          [
+            3,
+            5,
+            9
+          ],
+          [
+            4,
+            6,
+            8
+          ],
+          [
+            7,
+            10
+          ]
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "stacks": [
+          [
+            10
+          ],
+          [
+            5
+          ]
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "stacks": [
+          [
+            1
+          ]
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "stacks": [
+          [
+            2,
+            4
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            5
+          ]
+        ]
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def voldi_vulnerable(stacks: list[list[int]]) -> bool:\n    import bisect\n    curr = min(stacks[0])\n    for row in stacks[1:]:\n        s = sorted(row)\n        idx = bisect.bisect_right(s, curr)\n        if idx == len(s):\n            return False\n        curr = s[idx]\n    return True\n",
+  "explanation": "Greedy choice: at each row, select smallest element strictly greater than prior row's selection using binary search in O(R log C) time."
+}

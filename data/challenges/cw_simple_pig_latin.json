@@ -1,0 +1,41 @@
+{
+  "id": "cw_simple_pig_latin",
+  "title": "Codewars 5kyu: Simple Pig Latin",
+  "platform": "Codewars",
+  "difficulty": "Hard",
+  "category": "Strings",
+  "description": "Move the first letter of each word to the end of it, then add 'ay' to the end of the word. Leave punctuation marks untouched.",
+  "constraints": "1 <= len(text) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "pig_it",
+  "starter_code": "def pig_it(text: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "text": "Pig latin is cool"
+      },
+      "expected": "igPay atinlay siay oolcay"
+    },
+    {
+      "input": {
+        "text": "Hello world !"
+      },
+      "expected": "elloHay orldway !"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "text": "O tempora o mores !"
+      },
+      "expected": "Oay emporatay oay oresmay !"
+    },
+    {
+      "input": {
+        "text": "Quis custodiet ipsos custodes ?"
+      },
+      "expected": "uisQay ustodietcay psosiay ustodescay ?"
+    }
+  ],
+  "solution": "def pig_it(text: str) -> str:\n    words = text.split(' ')\n    res = []\n    for w in words:\n        if w.isalpha():\n            res.append(w[1:] + w[0] + 'ay')\n        else:\n            res.append(w)\n    return ' '.join(res)\n",
+  "explanation": "Rearranges alphabetic tokens to pig latin form in O(N) time."
+}

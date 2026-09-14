@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "DSA_L3_001",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Dynamic Programming (Coin Change - Unbounded Knapsack)",
+    "stem": "In the Coin Change problem (LeetCode 322), you are given coins of different denominations and an integer amount. What is the difference between iterating outer loop over coins vs outer loop over amounts, and which one solves minimum coin count?",
+    "options": {
+      "A": "Looping coins outer computes combinations (order does not matter); looping amount outer computes permutations (order matters). For minimum coins, both produce the correct numerical minimum because min(a, b) is commutative.",
+      "B": "Looping coins outer is strictly O(N), while looping amount outer is strictly O(N^2).",
+      "C": "Looping amount outer causes an infinite loop when coin denominations are odd.",
+      "D": "Only looping coins outer is mathematically valid; looping amount outer causes integer overflow."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "When counting the number of ways to make change, `for coin in coins:` outer avoids double counting permutations (e.g. [1, 2] vs [2, 1]), yielding combinations. In contrast, `for a in range(amount):` counts permutations. However, for finding the *minimum* number of coins `dp[a] = min(dp[a], 1 + dp[a - c])`, the order of transitions does not alter the minimum value.",
+      "A": "Correct. In count-of-ways problems, loop order distinguishes combinations vs permutations. For optimization (min/max), the commutative property of `min()` ensures both loop orders find the identical optimal value.",
+      "B": "Incorrect. Both nestings execute `len(coins) * amount` iterations, with identical O(C * A) time complexity.",
+      "C": "Incorrect. Coin parity does not cause infinite loops in bounded DP arrays.",
+      "D": "Incorrect. Both loop structures operate on identical 1D DP arrays."
+    }
+  },
+  {
+    "item_id": "DSA_L3_002",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Longest Increasing Subsequence (LIS) Optimization",
+    "stem": "Standard Dynamic Programming solves Longest Increasing Subsequence (LIS) in O(N^2) time. How does the Patience Sorting algorithm with Binary Search reduce this to O(N log N) time?",
+    "options": {
+      "A": "By sorting the array first using Timsort and computing Longest Common Subsequence with the original array.",
+      "B": "By maintaining an array `tails` where `tails[i]` stores the smallest tail element of all increasing subsequences of length i + 1; for each element, binary search finds its insertion point via `bisect_left`.",
+      "C": "By converting the array into a Fibonacci Heap and repeatedly extracting the maximum element.",
+      "D": "By running Dijkstra's shortest path algorithm on an implicit DAG."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Patience Sorting maintains a monotonic array `tails`. For each number `x`, if `x` is greater than all tails, it extends the LIS length. Otherwise, it replaces the first element in `tails` that is >= `x` via binary search (`bisect_left`). This keeps tail values as small as possible in O(log N) per element -> O(N log N) total.",
+      "A": "Incorrect. LCS on sorted array takes O(N^2) time and O(N^2) space unless using Hirschberg/Patience sorting.",
+      "B": "Correct. The `tails` array remains strictly sorted at all times. Using `bisect_left` finds the insertion/replacement index in O(log N), yielding O(N log N) total time and O(N) space.",
+      "C": "Incorrect. Heaps do not maintain subsequence order.",
+      "D": "Incorrect. Building the DAG explicitly takes O(N^2) edges."
+    }
+  },
+  {
+    "item_id": "DSA_L3_003",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Topological Sort (Kahn's Algorithm)",
+    "stem": "In Course Schedule II (LeetCode 210), why does Kahn's algorithm (BFS using in-degrees) correctly find a valid topological ordering or detect a cycle in O(V + E) time?",
+    "options": {
+      "A": "It initializes a queue with all vertices having in-degree 0 (no prerequisites). Popping a node appends it to order and decrements its neighbors' in-degrees; if fewer than V vertices are processed, a directed cycle exists.",
+      "B": "It repeatedly finds vertices with out-degree 0 and pushes them to a priority queue sorted by vertex ID.",
+      "C": "It colors vertices using 2-coloring to verify if the graph is bipartite.",
+      "D": "It runs Bellman-Ford to find negative weight cycles."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Nodes with in-degree 0 have all prerequisites met. Processing a node effectively 'removes' it from the graph, decrementing its outgoing neighbors' in-degrees. If any cycle exists, nodes in the cycle will never drop to in-degree 0, causing the queue to empty with processed count < V.",
+      "A": "Correct. Kahn's BFS algorithm provides linear O(V + E) ordering and automatically detects cycles if `len(order) != V`.",
+      "B": "Incorrect. Kahn's algorithm operates on in-degrees (incoming prerequisites), not out-degrees.",
+      "C": "Incorrect. Bipartiteness is unrelated to directed acyclic topological orderings.",
+      "D": "Incorrect. Topological sort only applies to unweighted or general DAGs; Bellman-Ford is for shortest paths with negative edges."
+    }
+  },
+  {
+    "item_id": "DSA_L3_004",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Dijkstra's Algorithm with Priority Queue",
+    "stem": "What is the exact time complexity of Dijkstra's algorithm implemented with a binary min-heap for a graph with V vertices and E non-negative weighted edges?",
+    "options": {
+      "A": "O(V * E)",
+      "B": "O((V + E) log V)",
+      "C": "O(V^3)",
+      "D": "O(E * log E) without any dependence on V"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Every vertex is extracted from the min-heap at most once (V * log V). Every edge can relax a neighbor and push a new distance candidate into the heap (E * log V). The combined time complexity is O((V + E) log V) (or O(E log V) in connected graphs where E >= V).",
+      "A": "Incorrect. O(V * E) is Bellman-Ford's complexity.",
+      "B": "Correct. With a binary heap, each of the V extract-min operations costs O(log V), and each of the E edge relaxations costs O(log V), totaling O((V + E) log V).",
+      "C": "Incorrect. O(V^3) is Floyd-Warshall's all-pairs shortest path complexity.",
+      "D": "Incorrect. While E log E == E log(V^2) = 2E log V, the formal bound is O((V + E) log V)."
+    }
+  },
+  {
+    "item_id": "DSA_L3_005",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Dijkstra Failure on Negative Edge Weights",
+    "stem": "Why does Dijkstra's greedy algorithm fail to find the correct shortest path when edges can have negative weights, and what algorithm should be used instead?",
+    "options": {
+      "A": "Dijkstra divides by edge weight, leading to division by zero; use Kruskal's algorithm.",
+      "B": "Dijkstra assumes that once a vertex is popped from the min-heap, its shortest path is permanently finalized (greedy choice property). A negative edge later in the graph can reduce an already 'finalized' distance; use Bellman-Ford (O(V * E)).",
+      "C": "Negative edges invert the min-heap into a max-heap; use Prim's algorithm.",
+      "D": "Dijkstra works fine on negative edges as long as there are no negative cycles."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Dijkstra's correctness proof relies on the invariant that path distances are monotonically non-decreasing as edges are added. A negative edge breaks this assumption: a longer path could become shorter via a large negative weight edge encountered later. Bellman-Ford or SPFA handles negative edge weights.",
+      "A": "Incorrect. Dijkstra only adds weights; it never divides.",
+      "B": "Correct. The greedy finalization invariant fails when negative weights exist. Bellman-Ford relaxes all E edges V-1 times, correctly handling negative weights and detecting negative cycles.",
+      "C": "Incorrect. Prim's algorithm is for Minimum Spanning Trees, not shortest paths.",
+      "D": "Incorrect. Even without negative cycles, a single negative edge can cause Dijkstra to return incorrect path costs."
+    }
+  },
+  {
+    "item_id": "DSA_L3_006",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Disjoint Set Union (DSU / Union-Find) Optimization",
+    "stem": "In Disjoint Set Union (Union-Find), combining 'Path Compression' with 'Union by Rank/Size' reduces the amortized time complexity per `find()` or `union()` operation to:",
+    "options": {
+      "A": "O(log N)",
+      "B": "O(alpha(N)), where alpha is the Inverse Ackermann function (effectively <= 4 for all practical universe-scale N, i.e. nearly O(1)).",
+      "C": "Strictly O(1) worst-case without amortization.",
+      "D": "O(N^0.5)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Path compression flattens the tree during `find()`, pointing every traversed node directly to root. Union by rank attaches the shallower tree under the deeper tree. Tarjan proved that combining both yields O(alpha(N)) amortized time, where alpha(N) < 5 for any N < 10^80.",
+      "A": "Incorrect. Union by rank alone gives O(log N), but combining with path compression achieves the nearly constant Inverse Ackermann bound.",
+      "B": "Correct. The combination achieves O(alpha(N)) amortized time, making DSU one of the most efficient data structures in computer science.",
+      "C": "Incorrect. It is amortized, not strictly O(1) in the absolute worst-case single operation.",
+      "D": "Incorrect. O(N^0.5) is square root decomposition, not DSU."
+    }
+  },
+  {
+    "item_id": "DSA_L3_007",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Trie (Prefix Tree) Time & Space Tradeoffs",
+    "stem": "When implementing a Trie (Prefix Tree) storing W words of maximum length L over an alphabet of size Sigma (e.g. 26 lowercase English letters), what is the time complexity of searching a word of length L, and what is the primary drawback of a Trie?",
+    "options": {
+      "A": "Search Time: O(L); Drawback: High memory overhead due to multiple sparse pointer allocations per node (Sigma pointers per TrieNode).",
+      "B": "Search Time: O(W * L); Drawback: Tries do not support prefix matching.",
+      "C": "Search Time: O(log W); Drawback: Words cannot be deleted once inserted.",
+      "D": "Search Time: O(Sigma^L); Drawback: Hash collisions in node buckets."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A Trie searches a word of length L in exact O(L) time by following character links. However, each node allocates an array or dict of size Sigma (up to 26 pointers), consuming substantial memory compared to a flat hash set.",
+      "A": "Correct. Lookup is independent of the number of words W (strictly O(L)). The main trade-off is memory overhead from allocating tree nodes and child pointers.",
+      "B": "Incorrect. Search is O(L), independent of W, and prefix matching is the primary strength of Tries.",
+      "C": "Incorrect. Search is O(L), not O(log W).",
+      "D": "Incorrect. Search follows a single path of length L, not exponential."
+    }
+  },
+  {
+    "item_id": "DSA_L3_008",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "2D Dynamic Programming (0/1 Knapsack Space Optimization)",
+    "stem": "In the 0/1 Knapsack problem with N items and capacity W, standard DP uses a 2D table `dp[i][w]`. When optimizing to a 1D array `dp[w]`, why MUST the capacity loop iterate in reverse from W down to `weight[i]`?",
+    "options": {
+      "A": "To ensure cache locality on modern CPU L1 caches.",
+      "B": "To prevent an item from being included multiple times; iterating forward would use the newly updated value `dp[w - weight[i]]` from the *current* item iteration, turning it into Unbounded Knapsack.",
+      "C": "Because Python arrays only support negative index lookups efficiently.",
+      "D": "To prevent index out-of-range errors when weight exceeds capacity."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In 0/1 Knapsack, each item can be used at most once. `dp[w]` depends on `dp[prev_item][w - weight]`. If you iterate forward (0 to W), `dp[w - weight]` was already updated using the *current* item, allowing it to be reused multiple times. Reversing (W down to weight) guarantees reading values from the *previous* item iteration.",
+      "A": "Incorrect. Cache locality is not the reason for reversing the loop.",
+      "B": "Correct. Backward iteration preserves the 0/1 invariant: `dp[w - weight]` represents the state before considering item `i`. Forward iteration turns the logic into Unbounded Knapsack.",
+      "C": "Incorrect. Reverse looping uses standard positive indices.",
+      "D": "Incorrect. Stopping at `weight[i]` handles the boundary; the reverse direction prevents duplicate item reuse."
+    }
+  },
+  {
+    "item_id": "DSA_L3_009",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Sliding Window Maximum (Monotonic Deque)",
+    "stem": "In LeetCode 239 ('Sliding Window Maximum'), what invariant does the Monotonic Deque maintain to find the maximum in every window of size K in O(N) total time?",
+    "options": {
+      "A": "The deque stores elements in strictly increasing order; the minimum is at `deque[0]`.",
+      "B": "The deque stores indices of array elements in monotonically decreasing order of their values; the window maximum is always at `deque[0]`, and smaller elements at the back are popped before appending a larger new element.",
+      "C": "The deque sorts elements using QuickSelect in O(K) time per slide.",
+      "D": "The deque operates as a round-robin circular buffer holding exactly K elements."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The deque maintains indices with values in strictly decreasing order. When a new number `x` arrives, any indices at the back with values `<= x` are useless (they are smaller AND will expire earlier than `x`), so they are popped. The front `deque[0]` is always the maximum of the current window. Each index is pushed and popped at most once -> O(N) total.",
+      "A": "Incorrect. Decreasing order is required so that the maximum is at the front.",
+      "B": "Correct. Monotonically decreasing values ensure `deque[0]` is the current max. Pruning smaller elements from the back achieves amortized O(1) per step.",
+      "C": "Incorrect. QuickSelect is not used with a monotonic deque.",
+      "D": "Incorrect. The deque can contain fewer than K elements because smaller elements are actively purged."
+    }
+  },
+  {
+    "item_id": "DSA_L3_010",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Bit Manipulation: Brian Kernighan's Algorithm",
+    "stem": "What does the bitwise expression `n = n & (n - 1)` accomplish, and what is its primary interview application?",
+    "options": {
+      "A": "It doubles the integer `n` by shifting bits left.",
+      "B": "It clears the lowest (least significant) set bit of `n` in O(1) time; used to count the number of 1-bits (Hamming weight) in O(number of set bits) rather than O(32).",
+      "C": "It checks if `n` is an odd number.",
+      "D": "It swaps the highest and lowest bits of `n`."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Subtracting 1 flips all bits after the lowest set bit (and the lowest set bit itself). ANDing with `n` zeroes out that lowest set bit while leaving higher bits untouched. Repeating this loop counts the set bits in exactly `popcount(n)` iterations.",
+      "A": "Incorrect. Left shift `n << 1` doubles an integer.",
+      "B": "Correct. Brian Kernighan's algorithm drops the lowest set bit in a single bitwise operation. It is also used to test powers of two: `n > 0 and (n & (n - 1)) == 0`.",
+      "C": "Incorrect. Parity is checked via `n & 1`.",
+      "D": "Incorrect. It does not swap bits."
+    }
+  },
+  {
+    "item_id": "DSA_L3_011",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Bit Manipulation: XOR Properties (Single Number)",
+    "stem": "Given an array where every element appears exactly twice except for one unique element that appears once, why does XORing all elements together (`res ^= x`) isolate the unique element in O(N) time and O(1) space?",
+    "options": {
+      "A": "XOR addition is equivalent to arithmetic summation modulo 2.",
+      "B": "XOR is commutative ($a \\oplus b = b \\oplus a$), associative ($a \\oplus (b \\oplus c) = (a \\oplus b) \\oplus c$), self-inverting ($x \\oplus x = 0$), and has identity 0 ($x \\oplus 0 = x$). All duplicate pairs cancel to 0, leaving only the unique element.",
+      "C": "XOR sorts elements in binary order before applying bitwise masks.",
+      "D": "XOR compresses the array into a 32-bit hash value."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Because XOR is commutative and associative, the order of elements does not matter. Since $x \\oplus x = 0$, every paired number cancels itself out. Since $0 \\oplus \text{unique} = \text{unique}$, the final accumulated value is guaranteed to be the solitary number.",
+      "A": "Incorrect. While XOR is addition without carry in GF(2), option B details the exact algebraic cancellation properties that solve the problem.",
+      "B": "Correct. Self-inversion $x \\oplus x = 0$ and identity $x \\oplus 0 = x$ ensure all duplicate pairs eliminate each other, leaving only the unique integer in O(N) time and O(1) space.",
+      "C": "Incorrect. Bitwise XOR does not perform any sorting.",
+      "D": "Incorrect. It is an exact bitwise operation, not a lossy hash."
+    }
+  },
+  {
+    "item_id": "DSA_L3_012",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Edit Distance (Levenshtein) DP Transitions",
+    "stem": "In the Edit Distance problem (LeetCode 72), when calculating `dp[i][j]` (minimum operations to convert `word1[0..i-1]` to `word2[0..j-1]`) and `word1[i-1] != word2[j-1]`, what does each term in `1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])` represent?",
+    "options": {
+      "A": "`dp[i-1][j]` is Delete, `dp[i][j-1]` is Insert, and `dp[i-1][j-1]` is Replace.",
+      "B": "`dp[i-1][j]` is Insert, `dp[i][j-1]` is Delete, and `dp[i-1][j-1]` is Transpose.",
+      "C": "`dp[i-1][j]` is Replace, `dp[i][j-1]` is Delete, and `dp[i-1][j-1]` is Insert.",
+      "D": "`dp[i-1][j]` is Match, `dp[i][j-1]` is Skip, and `dp[i-1][j-1]` is Delete."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "1. Delete from word1: remove `word1[i-1]`, matching `word1[0..i-2]` to `word2[0..j-1]` -> `dp[i-1][j] + 1`.\n2. Insert into word1: insert matching character, matching `word1[0..i-1]` to `word2[0..j-2]` -> `dp[i][j-1] + 1`.\n3. Replace character: change `word1[i-1]` to match `word2[j-1]`, matching prefixes `dp[i-1][j-1] + 1`.",
+      "A": "Correct. This is the canonical Wagner-Fischer Levenshtein distance formulation.",
+      "B": "Incorrect. Transposition is Damerau-Levenshtein distance, not standard Levenshtein.",
+      "C": "Incorrect. The matrix indices map to Delete (i-1), Insert (j-1), and Replace (i-1, j-1).",
+      "D": "Incorrect. When characters don't match, an edit operation (cost 1) must be performed."
+    }
+  },
+  {
+    "item_id": "DSA_L3_013",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Graph MST: Kruskal's vs Prim's Algorithm",
+    "stem": "What are the core algorithmic differences between Kruskal's algorithm and Prim's algorithm for finding a Minimum Spanning Tree (MST)?",
+    "options": {
+      "A": "Kruskal's is edge-based: sorts all E edges and adds them using Disjoint Set Union (DSU) to avoid cycles (best for sparse graphs O(E log E)). Prim's is vertex-based: grows a single tree using a Min-Heap of edges from visited vertices (best for dense graphs).",
+      "B": "Kruskal's uses dynamic programming; Prim's uses backtracking.",
+      "C": "Kruskal's only works on directed graphs; Prim's only works on DAGs.",
+      "D": "Kruskal's finds maximum spanning trees; Prim's finds minimum spanning trees."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Kruskal's greedily adds the cheapest available global edge that doesn't create a cycle (using DSU), running in O(E log E). Prim's greedily adds the cheapest edge connecting the growing tree to an unvisited vertex (using a Priority Queue), running in O(E log V).",
+      "A": "Correct. Kruskal's is edge-centric (sort + DSU), while Prim's is vertex-centric (priority queue frontier expansion).",
+      "B": "Incorrect. Both algorithms are greedy algorithms.",
+      "C": "Incorrect. Both MST algorithms operate on undirected weighted graphs.",
+      "D": "Incorrect. Both algorithms compute Minimum Spanning Trees."
+    }
+  },
+  {
+    "item_id": "DSA_L3_014",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Largest Rectangle in Histogram (Monotonic Stack)",
+    "stem": "In LeetCode 84 ('Largest Rectangle in Histogram'), how does a Monotonic Increasing Stack compute the maximum area in O(N) linear time?",
+    "options": {
+      "A": "It tests all N^2 pairs of left and right boundaries and computes the minimum height.",
+      "B": "When a bar of height $H$ is smaller than the top of the stack, the stack is popped. The popped bar is treated as the limiting height; its right boundary is the current index $i$, and its left boundary is the new stack top, determining width in O(1).",
+      "C": "It sorts the bars by height and multiplies the median by N.",
+      "D": "It uses divide-and-conquer binary search on the average height."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A bar in the stack can extend rightward until a shorter bar is encountered (the current index $i$), and leftward until the next shorter bar below it in the stack. When popped, both boundaries are known in O(1): `width = i - stack[-1] - 1`. Every bar is pushed and popped once -> O(N) total time.",
+      "A": "Incorrect. Checking all pairs is O(N^2) brute force.",
+      "B": "Correct. Maintaining an increasing monotonic stack reveals the exact left and right limits for each bar at the moment it is popped, calculating its maximal rectangle in O(1).",
+      "C": "Incorrect. Sorting destroys adjacent bar spatial continuity.",
+      "D": "Incorrect. Divide and conquer takes O(N log N) average and O(N^2) worst case."
+    }
+  },
+  {
+    "item_id": "DSA_L3_015",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Bit Manipulation: Two Single Numbers (Bitmask Partition)",
+    "stem": "In an array where every number appears twice except for TWO distinct numbers that appear once (LeetCode 260), how do you find both numbers in O(N) time and O(1) space?",
+    "options": {
+      "A": "Sort the array and check adjacent pairs in O(N log N).",
+      "B": "XOR all elements to get `diff = a ^ b`. Find a set bit in `diff` (e.g. `diff & (-diff)`). Partition all array elements into two groups based on whether that specific bit is set, and XOR each group independently to isolate `a` and `b`.",
+      "C": "Insert all elements into a hash table and iterate through keys.",
+      "D": "Sum all elements and solve a quadratic equation."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "XORing all numbers gives $X = a \\oplus b$. Since $a \neq b$, $X$ has at least one bit set to 1. That bit indicates that $a$ and $b$ differ at that bit position. Dividing the input into two groups based on whether that bit is 1 or 0 separates $a$ and $b$ into different groups, while matching pairs fall into the same group and cancel out.",
+      "A": "Incorrect. Sorting takes O(N log N) time and does not meet the O(N) constraint.",
+      "B": "Correct. Using `diff & (-diff)` isolates the lowest differing bit, dividing the problem into two independent single-number subproblems in O(N) time and O(1) space.",
+      "C": "Incorrect. A hash table requires O(N) auxiliary space; the problem specifies O(1) space.",
+      "D": "Incorrect. Arithmetic sums can overflow and cannot distinguish two arbitrary distinct values."
+    }
+  },
+  {
+    "item_id": "DSA_L3_016",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Trapping Rain Water (Two Pointers vs Stack)",
+    "stem": "Why does the Two-Pointer approach solve 'Trapping Rain Water' (LeetCode 42) in O(N) time and O(1) auxiliary space without pre-computing prefix and suffix max arrays?",
+    "options": {
+      "A": "Water volume depends strictly on the *lower* of the two boundaries. If `left_max < right_max`, the water trapped at `left` is determined solely by `left_max - height[left]`, regardless of how tall the right side grows, allowing `left` to advance safely.",
+      "B": "Because water only pools at the exact center index of the array.",
+      "C": "Because the array can be compressed using run-length encoding.",
+      "D": "Two pointers sorts the elevation heights during the traversal."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Water trapped at any index $i$ is $\\min(\text{left\\_max}, \text{right\\_max}) - \text{height}[i]$. If `left_max < right_max`, we know with 100% certainty that the right side has a boundary at least as tall as `left_max`. Thus, the bottleneck is `left_max`, allowing us to compute water and advance `left` without knowing the exact future right peaks.",
+      "A": "Correct. The bottleneck principle allows processing the smaller boundary inward, eliminating the need for O(N) prefix/suffix memory arrays.",
+      "B": "Incorrect. Water pools anywhere there is a depression between peaks.",
+      "C": "Incorrect. Run-length encoding is irrelevant to terrain elevation.",
+      "D": "Incorrect. The array is not sorted; pointers move along original terrain coordinates."
+    }
+  },
+  {
+    "item_id": "DSA_L3_017",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "String Pattern Matching (KMP Algorithm)",
+    "stem": "What is the key idea behind the Knuth-Morris-Pratt (KMP) pattern matching algorithm that achieves O(N + M) worst-case time compared to O(N * M) brute-force search?",
+    "options": {
+      "A": "KMP hashes substrings using rolling polynomial hashes.",
+      "B": "KMP precomputes a Longest Prefix Suffix (LPS / pi) table of the pattern. When a character mismatch occurs, the pattern pointer jumps to `lps[j - 1]` instead of backtracking the text pointer, never re-examining previously matched text characters.",
+      "C": "KMP converts strings into suffix trees using Ukkonen's algorithm.",
+      "D": "KMP sorts the pattern characters by frequency before searching."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The LPS array stores the length of the longest proper prefix that is also a suffix for each pattern prefix. When a mismatch occurs after matching $J$ characters, the LPS array tells us how many characters of the text are already known to match the start of the pattern, allowing the text pointer to move strictly forward.",
+      "A": "Incorrect. Rolling polynomial hashing is the Rabin-Karp algorithm.",
+      "B": "Correct. The LPS table allows the text pointer `i` to advance monotonically without ever backtracking, bounding the runtime to O(text_len + pattern_len).",
+      "C": "Incorrect. Ukkonen's algorithm is for suffix trees, which is a different data structure.",
+      "D": "Incorrect. KMP does not sort characters."
+    }
+  },
+  {
+    "item_id": "DSA_L3_018",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Dynamic Programming with Bitmask",
+    "stem": "In NP-Hard problems like the Traveling Salesperson Problem (TSP) or LeetCode 847 ('Shortest Path Visiting All Nodes') for small N (e.g. N <= 16), why is Bitmask DP optimal, and what does the state `dp[mask][u]` represent?",
+    "options": {
+      "A": "`mask` represents an integer whose i-th bit indicates whether vertex i has been visited (1) or not (0), and `u` is the current vertex; reducing O(N!) brute force permutations to O(2^N * N^2) time.",
+      "B": "`mask` represents the floating-point probability of visiting vertex u in a Markov chain.",
+      "C": "`mask` is an encryption hash key for memoizing recursive call stack frames.",
+      "D": "Bitmask DP is used to simulate quantum superposition across graph vertices."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "With N <= 16, a subset of visited nodes can be compactly encoded as an integer bitmask from 0 to $2^N - 1$. The state `(mask, u)` memoizes the minimum cost to visit the set of nodes in `mask` ending at node `u`, eliminating redundant sub-permutations.",
+      "A": "Correct. Bitmask DP maps subsets to integer bits, enabling $O(2^N \\cdot N^2)$ dynamic programming solutions for small combinatorial problems.",
+      "B": "Incorrect. Bitmasks are discrete integer sets, not continuous probability vectors.",
+      "C": "Incorrect. Bitmasks are not cryptographic hashes.",
+      "D": "Incorrect. Classical bitwise operations are purely deterministic."
+    }
+  },
+  {
+    "item_id": "DSA_L3_019",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Tarjan's Strongly Connected Components (Bridges & Articulation Points)",
+    "stem": "In Tarjan's bridge-finding algorithm on an undirected graph (LeetCode 1192 'Critical Connections in a Network'), what condition confirms that an edge `u -> v` is a critical bridge (removing it disconnects the graph)?",
+    "options": {
+      "A": "If `low[v] > discovery[u]`, meaning vertex v and its entire subtree have no back-edges connecting to u or any ancestor of u.",
+      "B": "If the edge weight is strictly greater than the average edge weight.",
+      "C": "If vertex v has in-degree equal to 0.",
+      "D": "If u and v belong to different bipartite sets."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "`discovery[u]` is the time step node `u` was first visited. `low[v]` is the earliest discovery time reachable from `v` using subtree edges and at most one back-edge. If `low[v] > discovery[u]`, `v` cannot reach `u` or any node above `u` without the edge `(u, v)`. Thus, removing `(u, v)` leaves `v` stranded, making it a critical bridge.",
+      "A": "Correct. `low[v] > discovery[u]` is the exact mathematical bridge invariant in Tarjan's DFS algorithm.",
+      "B": "Incorrect. The graph is unweighted (network topology only).",
+      "C": "Incorrect. Undirected graph vertices do not have directed in-degrees.",
+      "D": "Incorrect. Bridges exist in general graphs, not just bipartite graphs."
+    }
+  },
+  {
+    "item_id": "DSA_L3_020",
+    "track": "DSA_CODING",
+    "level": 3,
+    "level_name": "Level 3: Advanced",
+    "topic": "Segment Tree vs Fenwick Tree (Binary Indexed Tree)",
+    "stem": "What is the primary practical difference between a Fenwick Tree (Binary Indexed Tree / BIT) and a Segment Tree for range query problems?",
+    "options": {
+      "A": "Fenwick Tree only supports point updates and prefix range sums (invertible operations) with minimal code (~15 lines) and O(N) memory; Segment Tree is more complex (~60 lines) but supports arbitrary range updates (lazy propagation) and non-invertible queries like Range Minimum Query (RMQ).",
+      "B": "Fenwick Tree runs in O(1) query time, while Segment Tree runs in O(N).",
+      "C": "Segment Tree is only applicable to balanced binary search trees, whereas Fenwick Tree works on hash maps.",
+      "D": "Fenwick Tree requires O(2^N) memory overhead."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Fenwick trees use bit manipulation `i += (i & -i)` to update and query prefix sums in O(log N) time with 1D array storage `O(N)`. Segment trees take `4N` space and more code, but support arbitrary associative range queries (Range Minimum, Maximum, GCD) and range updates using Lazy Propagation.",
+      "A": "Correct. Fenwick trees excel at point updates and prefix sums with minimal boilerplate. Segment trees are the complete general-purpose framework supporting range updates and arbitrary associative operations.",
+      "B": "Incorrect. Both achieve O(log N) point update and range query times.",
+      "C": "Incorrect. Both operate on 1D arrays.",
+      "D": "Incorrect. Fenwick trees use exactly N+1 integers of memory (O(N)), not exponential."
+    }
+  }
+]

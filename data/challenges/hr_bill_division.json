@@ -1,0 +1,65 @@
+{
+  "id": "hr_bill_division",
+  "title": "HackerRank: Bill Division (Bon Appetit)",
+  "platform": "HackerRank",
+  "difficulty": "Medium",
+  "category": "Implementation",
+  "description": "Two friends Anna and Brian eat at a restaurant. Brian orders an item at index `k` which Anna didn't eat. Bill array contains item costs. Brian calculates Anna's share as `b`. If Brian charged her correctly (sum excluding k divided by 2), return 'Bon Appetit'. Otherwise, return the integer string amount Brian owes her.",
+  "constraints": "2 <= len(bill) <= 10^5, 0 <= k < len(bill)\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "bon_appetit",
+  "starter_code": "def bon_appetit(bill: list[int], k: int, b: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "bill": [
+          3,
+          10,
+          2,
+          9
+        ],
+        "k": 1,
+        "b": 12
+      },
+      "expected": "5"
+    },
+    {
+      "input": {
+        "bill": [
+          3,
+          10,
+          2,
+          9
+        ],
+        "k": 1,
+        "b": 7
+      },
+      "expected": "Bon Appetit"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "bill": [
+          10,
+          20
+        ],
+        "k": 0,
+        "b": 10
+      },
+      "expected": "Bon Appetit"
+    },
+    {
+      "input": {
+        "bill": [
+          10,
+          20
+        ],
+        "k": 0,
+        "b": 15
+      },
+      "expected": "5"
+    }
+  ],
+  "solution": "def bon_appetit(bill: list[int], k: int, b: int) -> str:\n    actual = (sum(bill) - bill[k]) // 2\n    return 'Bon Appetit' if b == actual else str(b - actual)\n",
+  "explanation": "Compares charged amount against actual fair share in O(N) time."
+}

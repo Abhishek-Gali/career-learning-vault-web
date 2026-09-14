@@ -1,0 +1,52 @@
+{
+  "id": "cc_the_two_dishes",
+  "title": "CodeChef: The Two Dishes",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Math & Logic",
+  "description": "Chef will prepare two dishes with tastiness T1 and T2 each between 0 and `n`. The sum of tastiness T1 + T2 = `s`. Find the maximum possible absolute difference |T1 - T2|.",
+  "constraints": "1 <= n, s <= 10^5, s <= 2 * n\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "max_taste_diff",
+  "starter_code": "def max_taste_diff(n: int, s: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 3,
+        "s": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 4,
+        "s": 4
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "n": 2,
+        "s": 3
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 5,
+        "s": 8
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "n": 10,
+        "s": 0
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def max_taste_diff(n: int, s: int) -> int:\n    if s <= n:\n        return s\n    else:\n        return n - (s - n)\n",
+  "explanation": "If s <= n, set T1 = s, T2 = 0 (diff = s). If s > n, set T1 = n, T2 = s - n (diff = 2n - s)."
+}

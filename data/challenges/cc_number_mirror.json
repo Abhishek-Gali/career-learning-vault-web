@@ -1,0 +1,41 @@
+{
+  "id": "cc_number_mirror",
+  "title": "CodeChef: Number Mirror",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Basic Programming",
+  "description": "Write a program that accepts the number `n` and outputs the same.",
+  "constraints": "0 <= n <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "number_mirror",
+  "starter_code": "def number_mirror(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 123
+      },
+      "expected": 123
+    },
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 99999
+      },
+      "expected": 99999
+    },
+    {
+      "input": {
+        "n": 42
+      },
+      "expected": 42
+    }
+  ],
+  "solution": "def number_mirror(n: int) -> int:\n    return n\n",
+  "explanation": "Returns input integer."
+}

@@ -1,0 +1,47 @@
+{
+  "id": "cc_compilers_and_parsers",
+  "title": "CodeChef: Compilers and Parsers",
+  "platform": "CodeChef",
+  "difficulty": "Hard",
+  "category": "Stacks",
+  "description": "Given an expression string `s` containing only '<' and '>', find the length of the longest prefix that is a valid well-formed bracket sequence.",
+  "constraints": "1 <= len(s) <= 10^6\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "longest_valid_prefix",
+  "starter_code": "def longest_valid_prefix(s: str) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "<<>>"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "s": "><"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "s": "<>>>"
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "<<<<>>>>><"
+      },
+      "expected": 8
+    },
+    {
+      "input": {
+        "s": "<<<"
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def longest_valid_prefix(s: str) -> int:\n    balance = 0\n    max_len = 0\n    for i, ch in enumerate(s):\n        if ch == '<':\n            balance += 1\n        else:\n            balance -= 1\n            if balance < 0:\n                break\n            if balance == 0:\n                max_len = i + 1\n    return max_len\n",
+  "explanation": "Tracks open/close balance: prefix is valid whenever balance resets to 0, breaking immediately if balance < 0 in O(N) time."
+}

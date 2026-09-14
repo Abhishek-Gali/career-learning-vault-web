@@ -1,0 +1,75 @@
+{
+  "id": "hr_electronic_shop",
+  "title": "HackerRank: Electronics Shop",
+  "platform": "HackerRank",
+  "difficulty": "Hard",
+  "category": "Search & Two Pointers",
+  "description": "A person wants to buy one keyboard and one USB drive from Electronics Shop with budget `b`. Given prices `keyboards` and `drives`, find the maximum amount of money they can spend. If it is not possible to buy both items within budget, return -1.",
+  "constraints": "1 <= len(keyboards), len(drives) <= 1000, 1 <= b <= 10^6\n\u2022 Time: O(N log N + M log M) | Space: O(1)",
+  "function_name": "get_money_spent",
+  "starter_code": "def get_money_spent(keyboards: list[int], drives: list[int], b: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "keyboards": [
+          3,
+          1
+        ],
+        "drives": [
+          5,
+          2,
+          8
+        ],
+        "b": 10
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "keyboards": [
+          4
+        ],
+        "drives": [
+          5
+        ],
+        "b": 5
+      },
+      "expected": -1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "keyboards": [
+          40,
+          50,
+          60
+        ],
+        "drives": [
+          5,
+          8,
+          12
+        ],
+        "b": 60
+      },
+      "expected": 58
+    },
+    {
+      "input": {
+        "keyboards": [
+          10,
+          20,
+          30
+        ],
+        "drives": [
+          1,
+          2
+        ],
+        "b": 100
+      },
+      "expected": 32
+    }
+  ],
+  "solution": "def get_money_spent(keyboards: list[int], drives: list[int], b: int) -> int:\n    k_sorted = sorted(keyboards)\n    d_sorted = sorted(drives, reverse=True)\n    max_spent = -1\n    j = 0\n    for k in k_sorted:\n        while j < len(d_sorted) and k + d_sorted[j] > b:\n            j += 1\n        if j < len(d_sorted):\n            max_spent = max(max_spent, k + d_sorted[j])\n    return max_spent\n",
+  "explanation": "Sorting keyboards ascending and drives descending allows a two-pointer scan in O(N log N + M log M) time."
+}

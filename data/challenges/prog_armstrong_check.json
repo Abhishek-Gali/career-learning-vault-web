@@ -1,0 +1,41 @@
+{
+  "id": "prog_armstrong_check",
+  "title": "Programiz: Check Armstrong Number",
+  "platform": "Programiz",
+  "difficulty": "Easy",
+  "category": "Math",
+  "description": "Given an integer `n`, return `True` if it is an Armstrong number (sum of digits each raised to power of digit count equals n), else `False`.",
+  "constraints": "1 <= n <= 10^9\n\u2022 Time: O(log N) | Space: O(1)",
+  "function_name": "is_armstrong",
+  "starter_code": "def is_armstrong(n: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 153
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 120
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 1634
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 9
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_armstrong(n: int) -> bool:\n    s = str(n)\n    power = len(s)\n    return sum(int(ch) ** power for ch in s) == n\n",
+  "explanation": "Calculates digit power sum and compares with n in O(log N) time."
+}

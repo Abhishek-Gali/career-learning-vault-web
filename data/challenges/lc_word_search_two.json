@@ -1,0 +1,120 @@
+{
+  "id": "lc_word_search_two",
+  "title": "LeetCode 212: Word Search II (Boggle Board)",
+  "platform": "LeetCode",
+  "difficulty": "Hard",
+  "category": "Trie & Backtracking",
+  "description": "Given an `m x n` board of characters and a list of strings `words`, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells (horizontally or vertically neighboring). The same letter cell may not be used more than once in a word. Return sorted list of found words.",
+  "constraints": "m, n <= 12, 1 <= len(words) <= 100\n\u2022 Time: O(M*N * 4^L) | Space: O(Total Letters)",
+  "function_name": "find_words",
+  "starter_code": "def find_words(board: list[list[str]], words: list[str]) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "a",
+            "a",
+            "n"
+          ],
+          [
+            "e",
+            "t",
+            "a",
+            "e"
+          ],
+          [
+            "i",
+            "h",
+            "k",
+            "r"
+          ],
+          [
+            "i",
+            "f",
+            "l",
+            "v"
+          ]
+        ],
+        "words": [
+          "oath",
+          "pea",
+          "eat",
+          "rain"
+        ]
+      },
+      "expected": [
+        "eat",
+        "oath"
+      ]
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "words": [
+          "abcd"
+        ]
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "board": [
+          [
+            "a"
+          ]
+        ],
+        "words": [
+          "a"
+        ]
+      },
+      "expected": [
+        "a"
+      ]
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "a"
+          ]
+        ],
+        "words": [
+          "aba",
+          "baa",
+          "bab",
+          "aaab",
+          "aaa",
+          "aaaa",
+          "aaba"
+        ]
+      },
+      "expected": [
+        "aaa",
+        "aaab",
+        "aaba",
+        "aba",
+        "baa"
+      ]
+    }
+  ],
+  "solution": "def find_words(board: list[list[str]], words: list[str]) -> list[str]:\n    m, n = len(board), len(board[0])\n    found = set()\n    def dfs(r, c, word, idx, visited):\n        if idx == len(word):\n            return True\n        if r < 0 or r >= m or c < 0 or c >= n or (r, c) in visited or board[r][c] != word[idx]:\n            return False\n        visited.add((r, c))\n        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:\n            if dfs(r + dr, c + dc, word, idx + 1, visited):\n                visited.remove((r, c))\n                return True\n        visited.remove((r, c))\n        return False\n    for word in words:\n        word_found = False\n        for r in range(m):\n            if word_found:\n                break\n            for c in range(n):\n                if board[r][c] == word[0]:\n                    if dfs(r, c, word, 0, set()):\n                        found.add(word)\n                        word_found = True\n                        break\n    return sorted(list(found))\n",
+  "explanation": "DFS backtracking with visited coordinates explores adjacent cells in 4 cardinal directions."
+}

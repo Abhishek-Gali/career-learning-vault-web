@@ -1,0 +1,77 @@
+{
+  "id": "he_monk_and_nice_strings",
+  "title": "HackerEarth: Monk and Nice Strings",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Strings & Insertion",
+  "description": "Monk's teacher gives him `N` strings one by one. For each string at index `i`, count how many strings prior to it (indices 0 to i-1) are strictly lexicographically smaller.",
+  "constraints": "1 <= len(arr) <= 1000\n\u2022 Time: O(N^2) | Space: O(N)",
+  "function_name": "count_smaller_preceding",
+  "starter_code": "def count_smaller_preceding(arr: list[str]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          "b",
+          "a",
+          "c",
+          "d"
+        ]
+      },
+      "expected": [
+        0,
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          "z",
+          "y",
+          "x"
+        ]
+      },
+      "expected": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          "cat",
+          "bat",
+          "rat",
+          "dog"
+        ]
+      },
+      "expected": [
+        0,
+        0,
+        2,
+        2
+      ]
+    }
+  ],
+  "solution": "def count_smaller_preceding(arr: list[str]) -> list[int]:\n    res = []\n    for i, s in enumerate(arr):\n        res.append(sum(1 for j in range(i) if arr[j] < s))\n    return res\n",
+  "explanation": "Compares each string against all prior items in O(N^2) time."
+}

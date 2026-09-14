@@ -1,0 +1,67 @@
+{
+  "id": "he_monk_and_search",
+  "title": "HackerEarth: Monk and Search",
+  "platform": "HackerEarth",
+  "difficulty": "Hard",
+  "category": "Binary Search",
+  "description": "Monk is given an array `arr` of numbers. Query type 0: count numbers strictly greater than or equal to `x`. Query type 1: count numbers strictly greater than `x`.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(log N) | Space: O(1)",
+  "function_name": "monk_search_count",
+  "starter_code": "def monk_search_count(arr: list[int], query_type: int, x: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "query_type": 0,
+        "x": 3
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "query_type": 1,
+        "x": 3
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          5,
+          5,
+          5
+        ],
+        "query_type": 0,
+        "x": 5
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "arr": [
+          5,
+          5,
+          5
+        ],
+        "query_type": 1,
+        "x": 5
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def monk_search_count(arr: list[int], query_type: int, x: int) -> int:\n    import bisect\n    s = sorted(arr)\n    if query_type == 0:\n        idx = bisect.bisect_left(s, x)\n    else:\n        idx = bisect.bisect_right(s, x)\n    return len(s) - idx\n",
+  "explanation": "Binary search using bisect_left (>= x) and bisect_right (> x) counts matching suffix range in O(log N) time."
+}

@@ -1,0 +1,107 @@
+{
+  "id": "two_sum",
+  "title": "1. Two Sum (Hash Map Single-Pass)",
+  "difficulty": "Easy",
+  "category": "Arrays & Hash Tables",
+  "description": "Given an array of integers `nums` and an integer `target`, return the indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input has exactly one valid solution, and you may not use the same element twice. Return the indices in any order.",
+  "constraints": "\u2022 2 <= len(nums) <= 10^4\n\u2022 -10^9 <= nums[i] <= 10^9\n\u2022 -10^9 <= target <= 10^9\n\u2022 Optimal Time: O(N) | Optimal Space: O(N)",
+  "function_name": "two_sum",
+  "starter_code": "def two_sum(nums: list[int], target: int) -> list[int]:\n    # Write your O(N) hash map solution here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          2,
+          7,
+          11,
+          15
+        ],
+        "target": 9
+      },
+      "expected": [
+        0,
+        1
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          2,
+          4
+        ],
+        "target": 6
+      },
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          3
+        ],
+        "target": 6
+      },
+      "expected": [
+        0,
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          -3,
+          4,
+          3,
+          90
+        ],
+        "target": 0
+      },
+      "expected": [
+        0,
+        2
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1000000,
+          500,
+          -500,
+          2000000
+        ],
+        "target": 0
+      },
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          5,
+          8,
+          12,
+          19,
+          25,
+          33,
+          40
+        ],
+        "target": 52
+      },
+      "expected": [
+        4,
+        6
+      ]
+    }
+  ],
+  "solution": "def two_sum(nums: list[int], target: int) -> list[int]:\n    seen = {}\n    for i, num in enumerate(nums):\n        comp = target - num\n        if comp in seen:\n            return [seen[comp], i]\n        seen[num] = i\n    return []\n",
+  "explanation": "Using a hash table `seen` stores the value-to-index mapping. On each element `num`, checking if `target - num` already exists in `seen` takes O(1) average time, visiting each element once for O(N) total runtime and O(N) auxiliary space."
+}

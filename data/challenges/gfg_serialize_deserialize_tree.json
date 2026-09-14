@@ -1,0 +1,54 @@
+{
+  "id": "gfg_serialize_deserialize_tree",
+  "title": "GFG: Serialize and Deserialize Binary Tree",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Hard",
+  "category": "Trees & Design",
+  "description": "Serialization is converting a data structure into a sequence of bits so that it can be stored in a file or memory buffer. Implement a function to serialize level-order tree `nodes` to comma-separated string.",
+  "constraints": "0 <= len(nodes) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "serialize_tree",
+  "starter_code": "def serialize_tree(nodes: list) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3,
+          null,
+          null,
+          4,
+          5
+        ]
+      },
+      "expected": "1,2,3,null,null,4,5"
+    },
+    {
+      "input": {
+        "nodes": []
+      },
+      "expected": "null"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": [
+          1
+        ]
+      },
+      "expected": "1"
+    },
+    {
+      "input": {
+        "nodes": [
+          1,
+          2
+        ]
+      },
+      "expected": "1,2"
+    }
+  ],
+  "solution": "def serialize_tree(nodes: list) -> str:\n    if not nodes or nodes[0] is None:\n        return 'null'\n    return ','.join('null' if x is None else str(x) for x in nodes)\n",
+  "explanation": "Serializes tree structure into uniform string format."
+}

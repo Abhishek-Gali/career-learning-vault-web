@@ -1,0 +1,65 @@
+{
+  "id": "guvi_max_product_subarray",
+  "title": "GUVI: Maximum Product Subarray",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Hard",
+  "category": "Dynamic Programming",
+  "description": "Given an integer array `nums`, find a subarray that has the largest product, and return the product.",
+  "constraints": "1 <= len(nums) <= 2 * 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "max_product",
+  "starter_code": "def max_product(nums: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          2,
+          3,
+          -2,
+          4
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "nums": [
+          -2,
+          0,
+          -1
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          -2
+        ]
+      },
+      "expected": -2
+    },
+    {
+      "input": {
+        "nums": [
+          -2,
+          3,
+          -4
+        ]
+      },
+      "expected": 24
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          2
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def max_product(nums: list[int]) -> int:\n    if not nums:\n        return 0\n    max_prod = min_prod = ans = nums[0]\n    for x in nums[1:]:\n        if x < 0:\n            max_prod, min_prod = min_prod, max_prod\n        max_prod = max(x, max_prod * x)\n        min_prod = min(x, min_prod * x)\n        ans = max(ans, max_prod)\n    return ans\n",
+  "explanation": "Tracking both running maximum and minimum allows negative products to flip to maximums on encountering another negative in O(N) time."
+}

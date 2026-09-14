@@ -1,0 +1,45 @@
+{
+  "id": "cc_burgers",
+  "title": "CodeChef: Burgers",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Logic",
+  "description": "Chef is making burgers. Each burger requires 1 patty and 1 bun. Given `a` patties and `b` buns, determine maximum number of complete burgers Chef can make.",
+  "constraints": "1 <= a, b <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "max_burgers",
+  "starter_code": "def max_burgers(a: int, b: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 14,
+        "b": 10
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "a": 2,
+        "b": 3
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": 5,
+        "b": 5
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "a": 100,
+        "b": 1
+      },
+      "expected": 1
+    }
+  ],
+  "solution": "def max_burgers(a: int, b: int) -> int:\n    return min(a, b)\n",
+  "explanation": "Minimum of available components dictates burger count in O(1) time."
+}

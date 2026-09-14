@@ -1,0 +1,107 @@
+{
+  "id": "prog_matrix_transpose",
+  "title": "Programiz: Transpose a Matrix",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Matrix",
+  "description": "Given an `M x N` matrix `matrix`, return its transpose `N x M` matrix.",
+  "constraints": "1 <= M, N <= 100\n\u2022 Time: O(M*N) | Space: O(M*N)",
+  "function_name": "transpose",
+  "starter_code": "def transpose(matrix: list[list[int]]) -> list[list[int]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "matrix": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          2,
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "input": {
+        "matrix": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "matrix": [
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "input": {
+        "matrix": [
+          [
+            1,
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ]
+    }
+  ],
+  "solution": "def transpose(matrix: list[list[int]]) -> list[list[int]]:\n    return [list(col) for col in zip(*matrix)]\n",
+  "explanation": "Zip unpacking rotates matrix dimensions in O(M*N) time."
+}

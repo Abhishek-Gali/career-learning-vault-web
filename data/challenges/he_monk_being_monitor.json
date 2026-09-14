@@ -1,0 +1,62 @@
+{
+  "id": "he_monk_being_monitor",
+  "title": "HackerEarth: Monk being Monitor",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Hash Tables & Greedy",
+  "description": "Monk wants to find two distinct student heights `h1` and `h2` such that `h1 > h2` and the frequency of `h1` minus the frequency of `h2` is maximized. If no positive difference exists, return -1.",
+  "constraints": "1 <= len(heights) <= 10^5\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "max_frequency_diff",
+  "starter_code": "def max_frequency_diff(heights: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "heights": [
+          3,
+          1,
+          3,
+          2,
+          3,
+          2
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "heights": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": -1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "heights": [
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": -1
+    },
+    {
+      "input": {
+        "heights": [
+          4,
+          4,
+          4,
+          1
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def max_frequency_diff(heights: list[int]) -> int:\n    from collections import Counter\n    counts = Counter(heights)\n    sorted_heights = sorted(counts.keys())\n    if len(sorted_heights) < 2:\n        return -1\n    max_diff = -1\n    min_freq = counts[sorted_heights[0]]\n    for h in sorted_heights[1:]:\n        freq = counts[h]\n        if freq - min_freq > max_diff:\n            max_diff = freq - min_freq\n        min_freq = min(min_freq, freq)\n    return max_diff if max_diff > 0 else -1\n",
+  "explanation": "Sorting distinct heights ascending and tracking min frequency so far allows finding max frequency advantage in O(N log N) time."
+}

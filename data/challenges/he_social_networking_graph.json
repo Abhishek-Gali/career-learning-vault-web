@@ -1,0 +1,105 @@
+{
+  "id": "he_social_networking_graph",
+  "title": "HackerEarth: Social Networking Graph (Nodes at Distance T)",
+  "platform": "HackerEarth",
+  "difficulty": "Hard",
+  "category": "Graphs & BFS",
+  "description": "Given a social network with `n` people and friendship `edges`, find the number of people at exact distance `t` from user `start`.",
+  "constraints": "1 <= n <= 1000, 1 <= t <= 100\n\u2022 Time: O(V + E) | Space: O(V)",
+  "function_name": "nodes_at_distance",
+  "starter_code": "def nodes_at_distance(n: int, edges: list[list[int]], start: int, t: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 5,
+        "edges": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "start": 1,
+        "t": 2
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 5,
+        "edges": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "start": 1,
+        "t": 2
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 3,
+        "edges": [
+          [
+            1,
+            2
+          ]
+        ],
+        "start": 1,
+        "t": 3
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "n": 4,
+        "edges": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "start": 1,
+        "t": 1
+      },
+      "expected": 3
+    }
+  ],
+  "solution": "def nodes_at_distance(n: int, edges: list[list[int]], start: int, t: int) -> int:\n    from collections import defaultdict, deque\n    adj = defaultdict(list)\n    for u, v in edges:\n        adj[u].append(v)\n        adj[v].append(u)\n    q = deque([(start, 0)])\n    visited = {start}\n    count = 0\n    while q:\n        curr, dist = q.popleft()\n        if dist == t:\n            count += 1\n        elif dist < t:\n            for nxt in adj[curr]:\n                if nxt not in visited:\n                    visited.add(nxt)\n                    q.append((nxt, dist + 1))\n    return count\n",
+  "explanation": "BFS level exploration tallies all nodes at exact depth t in O(V + E) time."
+}

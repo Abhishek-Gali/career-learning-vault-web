@@ -1,0 +1,72 @@
+{
+  "id": "guvi_coin_change_ways",
+  "title": "GUVI: Coin Change II (Total Ways)",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Hard",
+  "category": "Dynamic Programming",
+  "description": "You are given an integer array `coins` representing coins of different denominations and an integer `amount`. Return the number of combinations that make up that amount. If that amount cannot be made up, return 0.",
+  "constraints": "1 <= len(coins) <= 300, 0 <= amount <= 5000\n\u2022 Time: O(N * amount) | Space: O(amount)",
+  "function_name": "change_combinations",
+  "starter_code": "def change_combinations(amount: int, coins: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "amount": 5,
+        "coins": [
+          1,
+          2,
+          5
+        ]
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "amount": 3,
+        "coins": [
+          2
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "amount": 10,
+        "coins": [
+          10
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "amount": 0,
+        "coins": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "amount": 500,
+        "coins": [
+          3,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "expected": 35502874
+    }
+  ],
+  "solution": "def change_combinations(amount: int, coins: list[int]) -> int:\n    dp = [0] * (amount + 1)\n    dp[0] = 1\n    for coin in coins:\n        for x in range(coin, amount + 1):\n            dp[x] += dp[x - coin]\n    return dp[amount]\n",
+  "explanation": "Unbounded knapsack tabulation outer-looping coins ensures unique combinations in O(coins * amount) time."
+}

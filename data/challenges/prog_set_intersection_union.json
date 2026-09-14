@@ -1,0 +1,102 @@
+{
+  "id": "prog_set_intersection_union",
+  "title": "Programiz: Set Operations (Union & Intersection)",
+  "platform": "Programiz",
+  "difficulty": "Hard",
+  "category": "Sets",
+  "description": "Given two lists `a` and `b`, return a dictionary `{'union': sorted_union_list, 'intersection': sorted_intersection_list}` of unique elements.",
+  "constraints": "0 <= len(a), len(b) <= 10^5\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "set_operations",
+  "starter_code": "def set_operations(a: list[int], b: list[int]) -> dict:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          0,
+          2,
+          4,
+          6,
+          8
+        ],
+        "b": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": {
+        "union": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8
+        ],
+        "intersection": [
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "input": {
+        "a": [
+          1,
+          2
+        ],
+        "b": [
+          3,
+          4
+        ]
+      },
+      "expected": {
+        "union": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "intersection": []
+      }
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [],
+        "b": []
+      },
+      "expected": {
+        "union": [],
+        "intersection": []
+      }
+    },
+    {
+      "input": {
+        "a": [
+          1,
+          1,
+          1
+        ],
+        "b": [
+          1
+        ]
+      },
+      "expected": {
+        "union": [
+          1
+        ],
+        "intersection": [
+          1
+        ]
+      }
+    }
+  ],
+  "solution": "def set_operations(a: list[int], b: list[int]) -> dict:\n    s_a, s_b = set(a), set(b)\n    return {\n        'union': sorted(list(s_a | s_b)),\n        'intersection': sorted(list(s_a & s_b))\n    }\n",
+  "explanation": "Set union and intersection operations formatted with sorted keys."
+}

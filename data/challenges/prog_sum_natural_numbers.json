@@ -1,0 +1,41 @@
+{
+  "id": "prog_sum_natural_numbers",
+  "title": "Programiz: Sum of Natural Numbers",
+  "platform": "Programiz",
+  "difficulty": "Easy",
+  "category": "Math",
+  "description": "Given positive integer `n`, find the sum of all natural numbers up to `n`.",
+  "constraints": "1 <= n <= 10^8\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "sum_natural",
+  "starter_code": "def sum_natural(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 16
+      },
+      "expected": 136
+    },
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": 55
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 100
+      },
+      "expected": 5050
+    }
+  ],
+  "solution": "def sum_natural(n: int) -> int:\n    return n * (n + 1) // 2\n",
+  "explanation": "Applies Gaussian summation formula n*(n+1)//2 in O(1) time."
+}

@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "ML-L1-001",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "L1 vs L2 Regularization",
+    "stem": "Why does L1 Regularization (Lasso) drive feature coefficients exactly to zero, while L2 Regularization (Ridge) merely shrinks them toward zero?",
+    "options": {
+      "A": "L1 regularization calculates derivatives using second-order Hessian matrices",
+      "B": "The L1 constraint region is a diamond with sharp corners aligned along the coordinate axes, where loss function contours are geometrically likely to intersect at corners (where coordinates equal zero)",
+      "C": "L2 regularization is mathematically unstable when features are correlated",
+      "D": "L1 regularization can only be trained with closed-form matrix inversion"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Geometrically, the L1 penalty $|w_1| + |w_2| \\le t$ forms a rhomboid (diamond) with vertices lying directly on the parameter axes. The elliptical error contours of OLS frequently contact the constraint boundary at these sharp corners, forcing coefficients to exactly 0. The L2 constraint is a smooth circle/hypersphere with no corners, which shrinks weights asymptotically without hitting exact zero.",
+      "A": "L1 has a non-differentiable singularity at $w = 0$; subgradient descent or coordinate descent is used, not second-order Hessians.",
+      "B": "Correct: The diamond constraint geometry produces corner intersections on parameter axes, yielding sparse solutions with exact zeros.",
+      "C": "L2 Ridge is specifically designed to stabilize ill-conditioned, multicollinear feature matrices by adding $\\lambda I$ to $X^T X$.",
+      "D": "L1 Lasso lacks a closed-form analytical solution due to absolute value non-differentiability at 0; coordinate descent is typically used."
+    }
+  },
+  {
+    "item_id": "ML-L1-002",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Bias-Variance Tradeoff",
+    "stem": "In the Bias-Variance decomposition of expected prediction error, what does 'High Variance' typically indicate about a model's behavior?",
+    "options": {
+      "A": "The model makes strong, erroneous assumptions about the data (underfitting)",
+      "B": "The model is excessively sensitive to the random fluctuations in the training dataset, learning noise instead of the underlying signal (overfitting)",
+      "C": "The model has zero training error and zero test error",
+      "D": "The training loss function is non-convex"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Variance measures how much the model's predictions would fluctuate if trained on a different sample from the same population. High variance means the model has memorized the idiosyncratic noise of the training data (overfitting), leading to low training error but poor test generalization.",
+      "A": "Strong, oversimplified assumptions characterize High Bias (underfitting), such as fitting a straight line to a quadratic curve.",
+      "B": "Correct: High variance signifies high model complexity that models training noise, leading to generalization failure on unseen test distributions.",
+      "C": "Zero test error is theoretical perfection, not a symptom of high variance.",
+      "D": "Convexity governs optimization convergence, not the bias-variance decomposition."
+    }
+  },
+  {
+    "item_id": "ML-L1-003",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Logistic Regression Loss",
+    "stem": "Why do machine learning engineers optimize Cross-Entropy Loss (Log-Loss) instead of Mean Squared Error (MSE) when training Logistic Regression with gradient descent?",
+    "options": {
+      "A": "MSE cannot be calculated for binary labels (0 and 1)",
+      "B": "When combined with the non-linear sigmoid activation $\\sigma(z)$, Cross-Entropy yields a convex loss surface with no local minima, whereas MSE produces a non-convex surface with vanishing gradients",
+      "C": "Cross-Entropy is 100x faster to compute in Python",
+      "D": "MSE requires all features to be normally distributed"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Plugging the non-linear sigmoid function $\\sigma(w^T x)$ into an MSE loss function produces a non-convex error surface with numerous local plateaus where the derivative $\\sigma'(z) = \\sigma(z)(1 - \\sigma(z))$ approaches zero for large errors, causing gradient descent to stall. Binary cross-entropy cancels the non-linearity in the gradient, ensuring guaranteed global convexity: $\\nabla_w J = (\\hat{y} - y)x$.",
+      "A": "MSE can be mathematically computed on any real numbers, including binary {0, 1}.",
+      "B": "Correct: Log-loss preserves convexity and guarantees that confident, incorrect predictions generate strong gradients, avoiding the saturation traps of MSE.",
+      "C": "Computational complexity is roughly equivalent; the issue is optimization surface geometry.",
+      "D": "Linear regression with MSE does not mandate Gaussian features for optimization."
+    }
+  },
+  {
+    "item_id": "ML-L1-004",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Ordinary Least Squares Assumptions",
+    "stem": "Which of the following is a fundamental assumption of the Gauss-Markov theorem for Ordinary Least Squares (OLS) to be the Best Linear Unbiased Estimator (BLUE)?",
+    "options": {
+      "A": "Homoscedasticity: The residuals have constant variance across all levels of the predictor variables",
+      "B": "The target variable $y$ must be an integer between 0 and 100",
+      "C": "The feature matrix $X$ must be perfectly collinear ($R^2 = 1.0$)",
+      "D": "Training must be performed using mini-batch gradient descent"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The Gauss-Markov theorem proves OLS is BLUE under conditions: strict exogeneity ($E[\\epsilon|X] = 0$), no multicollinearity, uncorrelated errors, and homoscedasticity ($\text{Var}(\\epsilon_i | X) = \\sigma^2$ constant for all $i$).",
+      "A": "Correct: Homoscedasticity requires error variance to remain uniform across all predicted values; violating it (heteroscedasticity) biases standard error estimates.",
+      "B": "OLS is designed for continuous real-valued targets, not bounded integers.",
+      "C": "Multicollinearity violates the requirement that $X^T X$ be invertible (full rank).",
+      "D": "OLS was derived analytically via closed-form normal equations centuries before mini-batch gradient descent."
+    }
+  },
+  {
+    "item_id": "ML-L1-005",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Linear Algebra Eigenvectors",
+    "stem": "What is the mathematical definition of an eigenvector $v$ and eigenvalue $\\lambda$ for a square transformation matrix $A$?",
+    "options": {
+      "A": "$A v = \\lambda v$ where $v \\ne 0$ (applying matrix $A$ to vector $v$ only scales it by factor $\\lambda$ without changing its direction)",
+      "B": "$A + v = \\lambda$",
+      "C": "$A v = 0$ for all possible vectors",
+      "D": "$\\lambda = \\text{det}(A) / v$"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "An eigenvector $v$ of linear transformation $A$ is a non-zero vector whose direction remains unchanged when $A$ is applied; the vector is only scaled by the scalar eigenvalue $\\lambda$: $A v = \\lambda v$. This is the mathematical cornerstone of Principal Component Analysis (PCA).",
+      "A": "Correct: $A v = \\lambda v$ defines linear scaling along invariant directional axes.",
+      "B": "Matrices and vectors cannot be directly added to produce a scalar.",
+      "C": "$Av = 0$ defines the null space (kernel), which is only a special case when $\\lambda = 0$.",
+      "D": "Vectors cannot divide scalar determinants."
+    }
+  },
+  {
+    "item_id": "ML-L1-006",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Cross-Validation",
+    "stem": "Why is K-Fold Cross-Validation preferred over a single random Train-Test split for model evaluation on moderate datasets (e.g. 2,000 samples)?",
+    "options": {
+      "A": "It guarantees that the model will achieve 100% accuracy",
+      "B": "It reduces the variance of the evaluation estimate by testing on all data points across K rotations, avoiding unlucky splits",
+      "C": "It eliminates the need for a separate hyperparameter tuning validation set",
+      "D": "It runs K times faster than a single split"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "On moderate datasets, a single test split can accidentally capture an unrepresentative distribution (high evaluation variance). K-Fold cross-validation ensures every single observation is used for testing exactly once across $K$ models, producing a stable mean and standard error of model performance.",
+      "A": "Cross-validation is an evaluation metric protocol; it does not guarantee accuracy improvements.",
+      "B": "Correct: K-Fold utilizes 100% of data for out-of-sample testing across rounds, significantly dampening test metric variance.",
+      "C": "Hyperparameter tuning still requires a distinct test holdout or nested cross-validation to prevent leakage.",
+      "D": "K-Fold trains K models, requiring approximately K times more computation time."
+    }
+  },
+  {
+    "item_id": "ML-L1-007",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Logistic Regression Interpretability",
+    "stem": "In a binary Logistic Regression model, if the learned coefficient for a feature $\\beta_1 = 0.693$, how does a 1-unit increase in that feature impact the odds of the positive class ($e^{0.693} \\approx 2.0$)?",
+    "options": {
+      "A": "The probability increases by exactly 69.3%",
+      "B": "The odds of the outcome double (multiplied by a factor of 2.0)",
+      "C": "The model becomes 69.3% less accurate",
+      "D": "The prediction is multiplied by 0.693"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Logistic regression models the log-odds (logit): $\\ln(\\text{odds}) = \\beta_0 + \\beta_1 x_1$. Exponentiating both sides yields $\\text{odds} = e^{\\beta_0} \\cdot (e^{\\beta_1})^{x_1}$. Thus, a 1-unit increase in $x_1$ multiplies the odds by the odds ratio $e^{\\beta_1} = e^{0.693} \\approx 2.0$ (doubling the odds).",
+      "A": "Coefficients represent changes in log-odds, NOT linear percentage changes in probability.",
+      "B": "Correct: Exponentiating the regression coefficient gives the odds ratio ($e^{0.693} \\approx 2.0$), meaning the odds of the positive outcome double.",
+      "C": "Coefficients reflect feature weights, not model error rates.",
+      "D": "Log-odds are linear in parameters, but raw probability curves are sigmoidal."
+    }
+  },
+  {
+    "item_id": "ML-L1-008",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Loss Functions",
+    "stem": "When training a regression model on data with severe target outliers, why is Mean Absolute Error (MAE / L1 Loss) more robust than Mean Squared Error (MSE / L2 Loss)?",
+    "options": {
+      "A": "MAE is differentiable everywhere, including at zero",
+      "B": "MSE squares the error terms, giving extreme outliers quadratically magnified leverage on parameter updates, whereas MAE scales linearly with error magnitude",
+      "C": "MAE always converges in exactly 1 epoch",
+      "D": "MSE cannot be optimized with gradient descent"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Because MSE squares residuals $(y - \\hat{y})^2$, a single outlier with error 100 contributes 10,000 to the loss, dominating parameter gradients and pulling the regression line toward itself. MAE penalizes $|y - \\hat{y}|$ linearly, ensuring gradient magnitude is constant ($\\pm 1$) regardless of how extreme the outlier is.",
+      "A": "MAE has a sharp vertex at 0 where the derivative is undefined (subgradients must be used).",
+      "B": "Correct: Squaring residuals in MSE amplifies the influence of extreme points quadratically; linear penalties in MAE preserve robustness.",
+      "C": "MAE convergence requires iterative gradient or subgradient steps.",
+      "D": "MSE is smooth and infinitely differentiable, making it trivial to optimize with gradient descent."
+    }
+  },
+  {
+    "item_id": "ML-L1-009",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Gradient Descent Variants",
+    "stem": "What is the primary computational and convergence difference between Batch Gradient Descent, Stochastic Gradient Descent (SGD), and Mini-Batch Gradient Descent?",
+    "options": {
+      "A": "SGD computes gradients using the full dataset; Batch uses 1 sample; Mini-batch uses GPUs only",
+      "B": "Batch GD computes gradients over the entire dataset (smooth but slow); SGD updates weights per single sample (noisy but fast); Mini-Batch updates over small batches (32-256), balancing vectorization and stability",
+      "C": "Batch GD only works on classification tasks",
+      "D": "SGD never converges because its learning rate must be zero"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Batch GD processes all $N$ records before taking one step (guaranteed monotonic loss reduction on convex surfaces, but infeasible for large data). SGD evaluates 1 random observation per step (high variance, noisy jumps that help escape saddle points). Mini-Batch strikes the optimal trade-off by leveraging SIMD/GPU tensor hardware across 32\u2013512 samples.",
+      "A": "Inverted: Batch uses all samples, while SGD uses 1 sample per step.",
+      "B": "Correct: Mini-batch balances hardware vectorization efficiency with stochastic gradient variance to deliver fast, stable convergence.",
+      "C": "Batch GD works across all regression, classification, and unsupervised objectives.",
+      "D": "SGD converges reliably to the neighborhood of a minimum with scheduled learning rate decay."
+    }
+  },
+  {
+    "item_id": "ML-L1-010",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Coefficient of Determination R-Squared",
+    "stem": "Can the Coefficient of Determination ($R^2$) ever be negative in a regression model?",
+    "options": {
+      "A": "No, because it is the square of a correlation coefficient and squares cannot be negative",
+      "B": "Yes, when evaluated on out-of-sample test data or when fitting a model without an intercept that performs worse than predicting the simple horizontal mean line $\\bar{y}$",
+      "C": "No, standard Python packages automatically clip negative values to 0",
+      "D": "Only when the target variable is negative"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "$R^2 = 1 - \\frac{\\text{SS}_{\\text{res}}}{\\text{SS}_{\\text{tot}}}$. $\\text{SS}_{\\text{tot}} = \\sum (y - \\bar{y})^2$ represents the error of a naive baseline model predicting the mean. If a model evaluated on test data fits so poorly that its squared errors exceed the variance of the data itself ($\\text{SS}_{\\text{res}} > \\text{SS}_{\\text{tot}}$), the ratio exceeds 1, yielding a negative $R^2$.",
+      "A": "In linear regression with an intercept on the training set, $R^2 = r^2 \\ge 0$. But on test holdouts, $R^2$ is defined by sum-of-squares ratios and can be arbitrarily negative.",
+      "B": "Correct: If a model produces predictions worse than predicting the baseline mean on test data, $R^2$ is negative.",
+      "C": "Scikit-Learn does not clip $R^2$; it returns real negative values for bad model fits.",
+      "D": "Negative target values do not cause negative $R^2$; deviations from the mean are squared."
+    }
+  },
+  {
+    "item_id": "ML-L1-011",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "K-Nearest Neighbors (KNN)",
+    "stem": "Why is feature standardization (e.g. StandardScaler) mandatory before training distance-based algorithms like K-Nearest Neighbors (KNN) or Support Vector Machines (SVM)?",
+    "options": {
+      "A": "Because KNN converts all values into hexadecimal strings",
+      "B": "Features with larger numerical magnitudes (e.g. Salary in thousands) will completely dominate Euclidean distance calculations, rendering features with smaller scales (e.g. Age in years) negligible",
+      "C": "KNN cannot execute on floating-point numbers",
+      "D": "Standardization forces all classes to have equal sample size"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Euclidean distance is $d(p, q) = \\sqrt{\\sum (p_i - q_i)^2}$. If Annual Income ranges from $20,000 to $200,000, differences in income will contribute hundreds of millions under the radical, while Age (20 to 60) differences will contribute at most 1,600. Unscaled features with large numbers effectively erase all other features from the distance metric.",
+      "A": "KNN operates strictly on continuous numerical distance metrics.",
+      "B": "Correct: Distance calculations are scale-variant; features with larger numeric scales dominate neighborhood distances unless standardized.",
+      "C": "KNN requires continuous numerical values.",
+      "D": "Standardization scales feature columns; it does not resample class label distributions."
+    }
+  },
+  {
+    "item_id": "ML-L1-012",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Curse of Dimensionality",
+    "stem": "What fundamental geometric phenomenon occurs to high-dimensional spaces as the number of features $D$ increases toward infinity (the Curse of Dimensionality)?",
+    "options": {
+      "A": "All data points cluster tightly into the exact center of the unit hypersphere",
+      "B": "The volume of space grows exponentially, data becomes extremely sparse, and the distance between any two randomly chosen points converges to the same uniform distance",
+      "C": "Matrix multiplication executes in O(1) time",
+      "D": "All eigenvalues become equal to 1"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In high dimensions, the volume of a hypercube grows as $L^D$, making sample points exponentially isolated and sparse. Furthermore, the ratio of the distance to the nearest neighbor versus the farthest neighbor approaches 1 ($\\lim_{D \\to \\infty} \\frac{d_{\\max} - d_{\\min}}{d_{\\min}} = 0$). As a result, distance-based algorithms (KNN, clustering) lose their discriminative power.",
+      "A": "Almost all volume in a high-dimensional sphere is concentrated near the surface crust, not the center.",
+      "B": "Correct: Hyper-dimensional space is overwhelmingly empty, making data sparse and causing Euclidean distances between pairs to become indistinguishable.",
+      "C": "Matrix operations scale worse with high dimensionality ($O(D^3)$ for inversion).",
+      "D": "Eigenvalues depend on the covariance structure of the data, not spatial dimensionality."
+    }
+  },
+  {
+    "item_id": "ML-L1-013",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Naive Bayes Assumptions",
+    "stem": "What is the 'naive' core assumption made by the Naive Bayes classifier, and why is it frequently effective in text classification despite being false?",
+    "options": {
+      "A": "It assumes that all training labels are 100% accurate",
+      "B": "It assumes that all features are conditionally independent given the class label ($P(x_1, x_2 | y) = P(x_1|y)P(x_2|y)$), which drastically simplifies calculation while often preserving rank ordering for classification",
+      "C": "It assumes that word counts are normally distributed with zero mean",
+      "D": "It assumes that the dataset has no missing values"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Naive Bayes assumes all features are conditionally independent given the class label. In reality, words in text are highly correlated (e.g. 'credit' and 'card'). Even though the conditional independence assumption is mathematically violated and produces miscalibrated probability magnitudes, the argmax relative rank order of the probabilities often remains correct, yielding strong classification accuracy.",
+      "A": "Label noise is independent of the model's structural feature assumptions.",
+      "B": "Correct: The conditional independence assumption simplifies computation from exponential joint tables to linear product terms, and rank order classification decisions frequently hold up.",
+      "C": "Multinomial Naive Bayes models text using multinomial word counts, not zero-mean Gaussians.",
+      "D": "Missing values are handled naturally in Bayesian estimation via marginalization."
+    }
+  },
+  {
+    "item_id": "ML-L1-014",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Learning Rate Schedule",
+    "stem": "What occurs if you set the learning rate $\\alpha$ in gradient descent too high versus setting it too low?",
+    "options": {
+      "A": "Too high causes vanishing gradients; too low causes immediate integer overflow",
+      "B": "Too high causes loss to oscillate or diverge to infinity; too low causes painfully slow convergence and risks getting stuck in local plateaus",
+      "C": "The learning rate only impacts the test set, not training",
+      "D": "Too high converts classification into regression"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Parameter updates take steps proportional to learning rate: $w \\leftarrow w - \\alpha \\nabla J$. If $\\alpha$ is too large, updates overshoot the minimum, causing the loss to explode ($NaN$ divergence). If $\\alpha$ is too small, updates are infinitesimal, requiring millions of iterations and trapping parameters in flat saddle plateaus.",
+      "A": "Vanishing gradients stem from repeated multiplication of small derivatives in deep networks, not high learning rates.",
+      "B": "Correct: Excessive learning rates overshoot the valley floor causing divergence; negligible rates result in stalled or agonizingly slow training.",
+      "C": "The learning rate is the fundamental hyperparameter of the training optimization loop.",
+      "D": "Task formulation is defined by output loss, not optimization step size."
+    }
+  },
+  {
+    "item_id": "ML-L1-015",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Linear Algebra Matrix Rank",
+    "stem": "What does it mean for a feature design matrix $X \\in \\mathbb{R}^{N \\times D}$ to be 'Rank Deficient' (not full column rank)?",
+    "options": {
+      "A": "The matrix has more columns than rows ($D > N$)",
+      "B": "One or more feature columns can be expressed as an exact linear combination of other feature columns (perfect multicollinearity), making $X^T X$ singular and non-invertible",
+      "C": "All entries in the matrix are negative",
+      "D": "The determinant of the matrix is equal to infinity"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Column rank is the number of linearly independent columns. If rank is less than $D$, at least one feature is redundant (collinear). In OLS regression, the analytical solution $\\hat{w} = (X^T X)^{-1} X^T y$ requires inverting $X^T X$. If $X$ is rank deficient, $X^T X$ has a zero determinant, making inversion mathematically impossible.",
+      "A": "When $D > N$, rank deficiency is guaranteed, but rank deficiency can also occur when $N \\ge D$ if columns are collinear.",
+      "B": "Correct: Rank deficiency implies linear dependency among columns, rendering $X^T X$ singular with no unique algebraic inverse.",
+      "C": "Negative entries do not cause rank deficiency.",
+      "D": "Singular matrices have a determinant equal to 0, not infinity."
+    }
+  },
+  {
+    "item_id": "ML-L1-016",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Support Vector Machines Margin",
+    "stem": "In a Hard-Margin Support Vector Machine (SVM), which training observations determine the orientation and position of the separating hyperplane?",
+    "options": {
+      "A": "All observations contribute equally with uniform weights",
+      "B": "Only the 'Support Vectors'\u2014the critical data points that lie directly on the margin boundaries",
+      "C": "Only the data points located farthest away from the boundary",
+      "D": "The centroid of each class"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "SVM optimizes the dual formulation $\\max_\\alpha \\sum \\alpha_i - \\frac{1}{2}\\sum \\alpha_i \\alpha_j y_i y_j x_i^T x_j$ subject to constraints. The KKT conditions dictate that $\\alpha_i > 0$ ONLY for points lying on the margin boundaries ($y_i(w^T x_i + b) = 1$). All other interior points have $\\alpha_i = 0$ and have zero influence on the decision boundary.",
+      "A": "Standard regression and Naive Bayes use all points; SVM decision boundaries are sparse in samples.",
+      "B": "Correct: Only support vectors have non-zero dual coefficients $\\alpha_i$; moving or removing non-support vectors does not alter the hyperplane.",
+      "C": "Points far from the boundary have $\\alpha_i = 0$ and exert no pull on the hyperplane.",
+      "D": "Centroid classification describes Nearest Centroid or Linear Discriminant Analysis, not SVM."
+    }
+  },
+  {
+    "item_id": "ML-L1-017",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Data Leakage in ML Pipelines",
+    "stem": "What is data leakage when fitting a preprocessing scaler (e.g. Scikit-Learn `StandardScaler`), and how is it properly prevented?",
+    "options": {
+      "A": "Leaking memory to disk; prevented by calling `gc.collect()`",
+      "B": "Fitting the scaler on the entire dataset (including test holdout) before splitting, leaking test distribution parameters into training; prevented by calling `.fit()` only on training data and `.transform()` on test data",
+      "C": "Training on encrypted features; prevented by removing passwords",
+      "D": "Using float32 instead of float64"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "If you call `scaler.fit_transform(X)` on the entire dataset prior to splitting, the mean $\\mu$ and standard deviation $\\sigma$ computed incorporate information from the test set. This produces overly optimistic test scores that fail in production. The proper protocol is: `scaler.fit(X_train)`, `scaler.transform(X_train)`, and `scaler.transform(X_test)` within a pipeline.",
+      "A": "This refers to RAM management, not statistical data leakage.",
+      "B": "Correct: Preprocessing transformers must learn their statistical parameters solely from training folds to maintain valid out-of-sample integrity.",
+      "C": "Encryption is cybersecurity at rest.",
+      "D": "Precision bit width does not introduce target leakage."
+    }
+  },
+  {
+    "item_id": "ML-L1-018",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Early Stopping",
+    "stem": "How does 'Early Stopping' act as a regularization technique during iterative model training?",
+    "options": {
+      "A": "It shuts down the computer to save electricity",
+      "B": "It halts optimization when the validation error begins to rise, preventing the model from continuing to optimize training loss at the expense of generalization",
+      "C": "It sets all model parameters to zero at epoch 10",
+      "D": "It forces weights to be strictly positive"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "As iterative gradient descent progresses, the model initially learns general patterns (reducing both training and validation error). Eventually, it starts fitting the idiosyncratic training noise, causing training loss to drop while validation loss begins to rise. Early stopping terminates training at the inflection point of minimal validation error.",
+      "A": "Hardware shutdown is not an algorithmic regularization mechanism.",
+      "B": "Correct: Early stopping restricts the effective capacity of the model by halting parameter updates at the point of optimal validation performance.",
+      "C": "Early stopping retains the best checkpoint weights, not zero weights.",
+      "D": "Non-negativity constraints require projected gradient descent or specific architectures."
+    }
+  },
+  {
+    "item_id": "ML-L1-019",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Dummy Variable Trap",
+    "stem": "When one-hot encoding a categorical feature with $K$ distinct categories for a Linear Regression model with an intercept $\\beta_0$, why must you drop one category ($K - 1$ columns)?",
+    "options": {
+      "A": "To save exactly 8 bytes of storage",
+      "B": "To avoid the Dummy Variable Trap: retaining all $K$ columns produces an exact linear dependency where the sum of columns equals the constant intercept column 1, causing perfect multicollinearity",
+      "C": "Because linear regression can only process up to 3 features",
+      "D": "To prevent underflow errors in floating point arithmetic"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "If all $K$ binary columns are retained, their sum is identical to the vector of ones used for the model intercept: $\\sum_{j=1}^K D_j = \\mathbf{1}$. This produces perfect multicollinearity, making the matrix $X^T X$ singular and preventing unique coefficient estimation. Dropping one category (reference level) resolves the linear dependency.",
+      "A": "Memory savings are negligible; the necessity is algebraic invertibility.",
+      "B": "Correct: The sum of all one-hot columns equals the intercept column vector, creating an exact linear combination that invalidates matrix inversion.",
+      "C": "Linear models scale to thousands of features.",
+      "D": "Floating point underflow occurs near zero, unrelated to categorical encoding rank."
+    }
+  },
+  {
+    "item_id": "ML-L1-020",
+    "track": "MACHINE_LEARNING",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Core Algorithms, Regularization & Math)",
+    "topic": "Elastic Net Regularization",
+    "stem": "What is Elastic Net regularization, and under what condition is it preferred over Lasso (L1) alone?",
+    "options": {
+      "A": "It is a regularizer that uses random numbers to adjust weights",
+      "B": "It combines both L1 (Lasso) and L2 (Ridge) penalties; it is preferred when there are multiple highly correlated features, allowing it to select groups of correlated variables rather than picking one arbitrarily like Lasso",
+      "C": "It only works on decision tree ensembles",
+      "D": "It guarantees that all model coefficients will be equal to 1.0"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Elastic Net combines both penalties: $\\lambda_1 \\|w\\|_1 + \\lambda_2 \\|w\\|_2^2$. When features are strongly correlated, Lasso tends to arbitrarily select one and zero out the rest. Elastic Net's quadratic L2 component encourages a 'grouping effect' where correlated features are retained together while still promoting sparsity via L1.",
+      "A": "Regularization penalties are deterministic convex penalty functions, not stochastic perturbations.",
+      "B": "Correct: Elastic Net overcomes Lasso's limitation with correlated features by balancing L1 sparsity with L2 grouped selection.",
+      "C": "Elastic Net is formulated for generalized linear models, not decision tree splits.",
+      "D": "Coefficients are penalized continuously, not forced to 1.0."
+    }
+  }
+]

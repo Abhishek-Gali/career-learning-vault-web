@@ -1,0 +1,47 @@
+{
+  "id": "guvi_balanced_brackets",
+  "title": "GUVI: Balanced Bracket Sequence",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Stacks",
+  "description": "Given a string `s` containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid and balanced.",
+  "constraints": "1 <= len(s) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "is_balanced",
+  "starter_code": "def is_balanced(s: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "()[]{}"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "(]"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "{[]}"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "([)]"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": "((("
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def is_balanced(s: str) -> bool:\n    pairs = {')': '(', '}': '{', ']': '['}\n    stack = []\n    for ch in s:\n        if ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n        else:\n            stack.append(ch)\n    return len(stack) == 0\n",
+  "explanation": "Stack LIFO pairing checks bracket closures in O(N) time and O(N) space."
+}

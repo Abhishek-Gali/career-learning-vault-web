@@ -1,0 +1,45 @@
+{
+  "id": "lc_add_binary",
+  "title": "LeetCode 67: Add Binary",
+  "platform": "LeetCode",
+  "difficulty": "Easy",
+  "category": "Bit Manipulation & Math",
+  "description": "Given two binary strings `a` and `b`, return their sum as a binary string.",
+  "constraints": "1 <= len(a), len(b) <= 10^4\n\u2022 Time: O(max(N, M)) | Space: O(max(N, M))",
+  "function_name": "add_binary",
+  "starter_code": "def add_binary(a: str, b: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": "11",
+        "b": "1"
+      },
+      "expected": "100"
+    },
+    {
+      "input": {
+        "a": "1010",
+        "b": "1011"
+      },
+      "expected": "10101"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": "0",
+        "b": "0"
+      },
+      "expected": "0"
+    },
+    {
+      "input": {
+        "a": "1111",
+        "b": "1111"
+      },
+      "expected": "11110"
+    }
+  ],
+  "solution": "def add_binary(a: str, b: str) -> str:\n    return bin(int(a, 2) + int(b, 2))[2:]\n",
+  "explanation": "Parses binary numbers to integer, adds them, and converts sum back to binary representation in O(N) time."
+}

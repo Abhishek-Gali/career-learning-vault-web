@@ -1,0 +1,97 @@
+{
+  "id": "w3_generate_powerset",
+  "title": "W3Schools: Generate Powerset of a List",
+  "platform": "W3Schools",
+  "difficulty": "Hard",
+  "category": "Combinatorics & Recursion",
+  "description": "Given a list of unique integers `nums`, return the powerset (all possible subsets). The returned list should be sorted by length of subset, then by elements.",
+  "constraints": "0 <= len(nums) <= 10\n\u2022 Time: O(2^N) | Space: O(2^N)",
+  "function_name": "generate_powerset",
+  "starter_code": "def generate_powerset(nums: list[int]) -> list[list[int]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2
+        ]
+      },
+      "expected": [
+        [],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": [
+        [],
+        [
+          0
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": []
+      },
+      "expected": [
+        []
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        [],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    }
+  ],
+  "solution": "def generate_powerset(nums: list[int]) -> list[list[int]]:\n    import itertools\n    res = []\n    for r in range(len(nums) + 1):\n        for combo in itertools.combinations(sorted(nums), r):\n            res.append(list(combo))\n    return res\n",
+  "explanation": "Generates all combinations of length r from 0 to N in O(2^N) time."
+}

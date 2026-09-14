@@ -1,0 +1,45 @@
+{
+  "id": "prog_lcm",
+  "title": "Programiz: Find LCM",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "Compute and return the Least Common Multiple (LCM) of two positive integers `a` and `b`.",
+  "constraints": "1 <= a, b <= 10^9\n\u2022 Time: O(log(min(a, b))) | Space: O(1)",
+  "function_name": "compute_lcm",
+  "starter_code": "def compute_lcm(a: int, b: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 54,
+        "b": 24
+      },
+      "expected": 216
+    },
+    {
+      "input": {
+        "a": 4,
+        "b": 6
+      },
+      "expected": 12
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": 7,
+        "b": 13
+      },
+      "expected": 91
+    },
+    {
+      "input": {
+        "a": 10,
+        "b": 20
+      },
+      "expected": 20
+    }
+  ],
+  "solution": "def compute_lcm(a: int, b: int) -> int:\n    import math\n    return (a * b) // math.gcd(a, b)\n",
+  "explanation": "LCM = (a * b) // GCD(a, b) computed in O(log(min(a, b))) time."
+}

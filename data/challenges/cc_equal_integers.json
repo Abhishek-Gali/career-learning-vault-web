@@ -1,0 +1,52 @@
+{
+  "id": "cc_equal_integers",
+  "title": "CodeChef: Equal Integers",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "Chef has integers `x` and `y`. In one step, he can add 1 to x, or subtract 2 from x. Find minimum steps to make x equal to y.",
+  "constraints": "1 <= x, y <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "min_ops_equal_xy",
+  "starter_code": "def min_ops_equal_xy(x: int, y: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 3,
+        "y": 6
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "x": 6,
+        "y": 3
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "x": 4,
+        "y": 4
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 10,
+        "y": 4
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "x": 5,
+        "y": 2
+      },
+      "expected": 3
+    }
+  ],
+  "solution": "def min_ops_equal_xy(x: int, y: int) -> int:\n    if x <= y:\n        return y - x\n    diff = x - y\n    return (diff // 2) if diff % 2 == 0 else (diff // 2) + 2\n",
+  "explanation": "If x < y, add 1 (y - x times). If x > y, subtract 2 (ceil division with parity adjustment)."
+}

@@ -1,0 +1,41 @@
+{
+  "id": "prog_harshad_number",
+  "title": "Programiz: Harshad Number Checker",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "An integer is a Harshad (or Niven) number if it is divisible by the sum of its digits (e.g. 18 -> 1 + 8 = 9; 18 is divisible by 9). Given integer `n`, return `True` if it is a Harshad number, else `False`.",
+  "constraints": "1 <= n <= 10^9\n\u2022 Time: O(log N) | Space: O(1)",
+  "function_name": "is_harshad",
+  "starter_code": "def is_harshad(n: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 18
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 15
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 21
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 100
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_harshad(n: int) -> bool:\n    digit_sum = sum(int(ch) for ch in str(n))\n    return n % digit_sum == 0\n",
+  "explanation": "Calculates sum of digits and verifies n % sum == 0 in O(log N) time."
+}

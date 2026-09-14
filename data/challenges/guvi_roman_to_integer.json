@@ -1,0 +1,53 @@
+{
+  "id": "guvi_roman_to_integer",
+  "title": "GUVI: Roman to Integer Conversion",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Strings & Hashing",
+  "description": "Given a Roman numeral string `s`, convert it to an integer. Symbol values: I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000. Subtraction rule applies when a smaller numeral precedes a larger one.",
+  "constraints": "1 <= len(s) <= 15\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "roman_to_int",
+  "starter_code": "def roman_to_int(s: str) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "III"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "s": "LVIII"
+      },
+      "expected": 58
+    },
+    {
+      "input": {
+        "s": "MCMXCIV"
+      },
+      "expected": 1994
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "IV"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "s": "IX"
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "s": "CDXLIV"
+      },
+      "expected": 444
+    }
+  ],
+  "solution": "def roman_to_int(s: str) -> int:\n    vals = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\n    total = 0\n    for i in range(len(s)):\n        if i + 1 < len(s) and vals[s[i]] < vals[s[i + 1]]:\n            total -= vals[s[i]]\n        else:\n            total += vals[s[i]]\n    return total\n",
+  "explanation": "If current value is less than subsequent value, subtract it; otherwise add it. Linear O(N) time and O(1) space."
+}

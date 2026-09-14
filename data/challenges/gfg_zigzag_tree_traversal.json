@@ -1,0 +1,75 @@
+{
+  "id": "gfg_zigzag_tree_traversal",
+  "title": "GFG: ZigZag Tree Traversal",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Trees & BFS",
+  "description": "Given a binary tree in level-order array `nodes`, return the zigzag level order traversal (left-to-right on level 1, right-to-left on level 2, alternating). Return a flat list of node values.",
+  "constraints": "0 <= len(nodes) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "zigzag_traversal",
+  "starter_code": "def zigzag_traversal(nodes: list) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "expected": [
+        1,
+        3,
+        2,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "input": {
+        "nodes": [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      },
+      "expected": [
+        3,
+        20,
+        9,
+        15,
+        7
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nodes": [
+          1
+        ]
+      },
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "solution": "def zigzag_traversal(nodes: list) -> list[int]:\n    if not nodes or nodes[0] is None:\n        return []\n    res = []\n    idx = 0\n    sz = 1\n    left_to_right = True\n    while idx < len(nodes):\n        level = [x for x in nodes[idx:idx + sz] if x is not None]\n        if level:\n            res.extend(level if left_to_right else reversed(level))\n            left_to_right = not left_to_right\n        idx += sz\n        sz *= 2\n    return res\n",
+  "explanation": "Alternating directional flag reverses every second depth level in O(N) time."
+}

@@ -1,0 +1,57 @@
+{
+  "id": "gfg_check_for_bst",
+  "title": "GFG: Check for Valid BST",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Easy",
+  "category": "Trees",
+  "description": "Given the level-order array representation of a binary tree `nodes`, return `True` if it is a valid Binary Search Tree (left < node < right for all subtrees), and `False` otherwise.",
+  "constraints": "0 <= len(nodes) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "is_bst",
+  "starter_code": "def is_bst(nodes: list) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          2,
+          1,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": []
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nodes": [
+          5,
+          1,
+          4,
+          null,
+          null,
+          3,
+          6
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def is_bst(nodes: list) -> bool:\n    if not nodes or nodes[0] is None:\n        return True\n    def validate(idx, low, high):\n        if idx >= len(nodes) or nodes[idx] is None:\n            return True\n        val = nodes[idx]\n        if not (low < val < high):\n            return False\n        return validate(2 * idx + 1, low, val) and validate(2 * idx + 2, val, high)\n    return validate(0, -float('inf'), float('inf'))\n",
+  "explanation": "Validates node values stay strictly bounded within (low, high) intervals in O(N) time."
+}

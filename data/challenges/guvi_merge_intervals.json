@@ -1,0 +1,121 @@
+{
+  "id": "guvi_merge_intervals",
+  "title": "GUVI: Merge Overlapping Intervals",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Intervals & Sorting",
+  "description": "Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+  "constraints": "1 <= len(intervals) <= 10^4\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "merge_intervals",
+  "starter_code": "def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "intervals": [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            15,
+            18
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          18
+        ]
+      ]
+    },
+    {
+      "input": {
+        "intervals": [
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          5
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "intervals": [
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          4
+        ]
+      ]
+    },
+    {
+      "input": {
+        "intervals": [
+          [
+            6,
+            8
+          ],
+          [
+            1,
+            9
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            4,
+            7
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          9
+        ]
+      ]
+    }
+  ],
+  "solution": "def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:\n    if not intervals:\n        return []\n    sorted_ivs = sorted(intervals, key=lambda x: x[0])\n    merged = [sorted_ivs[0]]\n    for start, end in sorted_ivs[1:]:\n        if start <= merged[-1][1]:\n            merged[-1][1] = max(merged[-1][1], end)\n        else:\n            merged.append([start, end])\n    return merged\n",
+  "explanation": "Sort by interval start time, then merge contiguous segments with max(end) in O(N log N) time."
+}

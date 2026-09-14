@@ -1,0 +1,77 @@
+{
+  "id": "gfg_lca_in_bst",
+  "title": "GFG: Lowest Common Ancestor in BST",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Binary Search Trees",
+  "description": "Given a BST in level-order array `nodes` and two node values `n1` and `n2`, find the lowest common ancestor (LCA) value of the two given nodes.",
+  "constraints": "2 <= len(nodes) <= 1000\n\u2022 Time: O(H) | Space: O(1)",
+  "function_name": "lca_bst",
+  "starter_code": "def lca_bst(nodes: list, n1: int, n2: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          5,
+          2,
+          10,
+          1,
+          3,
+          6,
+          12
+        ],
+        "n1": 1,
+        "n2": 3
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nodes": [
+          5,
+          2,
+          10,
+          1,
+          3,
+          6,
+          12
+        ],
+        "n1": 1,
+        "n2": 10
+      },
+      "expected": 5
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": [
+          2,
+          1,
+          3
+        ],
+        "n1": 1,
+        "n2": 3
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nodes": [
+          5,
+          2,
+          10,
+          1,
+          3,
+          6,
+          12
+        ],
+        "n1": 6,
+        "n2": 12
+      },
+      "expected": 10
+    }
+  ],
+  "solution": "def lca_bst(nodes: list, n1: int, n2: int) -> int:\n    idx = 0\n    while idx < len(nodes) and nodes[idx] is not None:\n        curr = nodes[idx]\n        if n1 < curr and n2 < curr:\n            idx = 2 * idx + 1\n        elif n1 > curr and n2 > curr:\n            idx = 2 * idx + 2\n        else:\n            return curr\n    return -1\n",
+  "explanation": "In a BST, if both values are smaller than root, traverse left; if larger, traverse right. The split point is the LCA in O(H) time."
+}

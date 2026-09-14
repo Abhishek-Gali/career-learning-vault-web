@@ -1,0 +1,58 @@
+{
+  "id": "hr_staircase",
+  "title": "HackerRank: Staircase",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup & Strings",
+  "description": "Given an integer `n`, generate a right-aligned staircase of size `n` using '#' symbols and spaces. Return the staircase as a list of `n` strings.",
+  "constraints": "1 <= n <= 100\n\u2022 Time: O(N^2) | Space: O(N^2)",
+  "function_name": "staircase",
+  "starter_code": "def staircase(n: int) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": [
+        "   #",
+        "  ##",
+        " ###",
+        "####"
+      ]
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": [
+        "#"
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": [
+        " #",
+        "##"
+      ]
+    },
+    {
+      "input": {
+        "n": 6
+      },
+      "expected": [
+        "     #",
+        "    ##",
+        "   ###",
+        "  ####",
+        " #####",
+        "######"
+      ]
+    }
+  ],
+  "solution": "def staircase(n: int) -> list[str]:\n    return [(' ' * (n - i) + '#' * i) for i in range(1, n + 1)]\n",
+  "explanation": "Right-aligns step i by prefixing (n - i) spaces and i hash symbols in O(N^2) time."
+}

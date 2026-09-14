@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "DS-L1-001",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "SQL Joins",
+    "stem": "In relational database queries, which JOIN returns all rows from the left table and the matched rows from the right table, populating with NULL when there is no match in the right table?",
+    "options": {
+      "A": "INNER JOIN",
+      "B": "LEFT OUTER JOIN",
+      "C": "CROSS JOIN",
+      "D": "FULL OUTER JOIN"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A LEFT OUTER JOIN guarantees all rows from the primary (left) table appear in the output. When no corresponding row satisfies the ON predicate in the right table, all columns from the right table are filled with NULL values.",
+      "A": "INNER JOIN discards any rows from the left table that lack a matching record in the right table.",
+      "B": "Correct: LEFT OUTER JOIN keeps every record from the left table and inserts NULLs for unmatched right-table attributes.",
+      "C": "CROSS JOIN calculates a Cartesian product (M \u00d7 N rows) combining every row of the first table with every row of the second, without an ON condition.",
+      "D": "FULL OUTER JOIN retains non-matching records from BOTH tables, which is broader than only preserving the left table."
+    }
+  },
+  {
+    "item_id": "DS-L1-002",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Python Complexity",
+    "stem": "What is the average time complexity of checking membership (`x in collection`) for a Python `dict` key versus a Python `list` containing N elements?",
+    "options": {
+      "A": "O(1) for dict vs O(N) for list",
+      "B": "O(N) for dict vs O(1) for list",
+      "C": "O(log N) for dict vs O(N) for list",
+      "D": "O(1) for dict vs O(log N) for list"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Python dictionaries are implemented using open-addressing hash tables, making key lookup and membership checks O(1) average time. Python lists are contiguous dynamic arrays where `in` requires a linear scan O(N).",
+      "A": "Correct: Dict uses hash-based indexing achieving O(1) average lookup, whereas a list requires examining elements sequentially, resulting in O(N) time.",
+      "B": "Inverted: Lists are not O(1) for membership search unless accessing an element by its numeric index.",
+      "C": "O(log N) is typical of balanced binary search trees (e.g., C++ std::map or bisect), not Python hash dicts.",
+      "D": "List membership is not O(log N) because lists are unsorted by default; binary search cannot be performed automatically."
+    }
+  },
+  {
+    "item_id": "DS-L1-003",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Descriptive Statistics",
+    "stem": "When analyzing a dataset of executive compensation where a few top executives earn hundreds of millions while median employees earn $60,000, which metric of central tendency is most appropriate to reflect the typical worker's pay?",
+    "options": {
+      "A": "Arithmetic Mean",
+      "B": "Median",
+      "C": "Midrange",
+      "D": "Standard Deviation"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The median is robust to extreme outliers and skewed distributions. In right-skewed data like income, the arithmetic mean is pulled dramatically upward by extreme values, misrepresenting the typical experience.",
+      "A": "The arithmetic mean sums all values, making it highly sensitive to extreme outliers, which inflates the apparent typical wage.",
+      "B": "Correct: The median represents the 50th percentile and remains stable regardless of how astronomically high the top outliers reach.",
+      "C": "Midrange is (min + max) / 2, which is even more sensitive to extreme maximum outliers than the mean.",
+      "D": "Standard deviation measures dispersion/spread around the mean, not central tendency."
+    }
+  },
+  {
+    "item_id": "DS-L1-004",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "SQL Execution Order",
+    "stem": "In SQL statement execution order, in which sequence does the database engine logically evaluate clauses?",
+    "options": {
+      "A": "SELECT -> FROM -> WHERE -> GROUP BY -> HAVING -> ORDER BY",
+      "B": "FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY",
+      "C": "WHERE -> FROM -> GROUP BY -> SELECT -> HAVING -> ORDER BY",
+      "D": "FROM -> GROUP BY -> WHERE -> HAVING -> SELECT -> ORDER BY"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The database must first establish the data source (FROM/JOIN), filter individual rows (WHERE), aggregate remaining rows (GROUP BY), filter aggregate groups (HAVING), evaluate output expressions/aliases (SELECT), and finally sort (ORDER BY).",
+      "A": "SELECT is written first syntactically, but logically executed near the end; column aliases defined in SELECT cannot be used in WHERE.",
+      "B": "Correct: Logical order is FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT.",
+      "C": "WHERE cannot run before FROM because the engine must know which tables to access and join first.",
+      "D": "WHERE must evaluate before GROUP BY to filter rows prior to expensive grouping computations."
+    }
+  },
+  {
+    "item_id": "DS-L1-005",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Outlier Detection",
+    "stem": "Using the standard Tukey boxplot rule based on Interquartile Range (IQR = Q3 - Q1), which interval defines the boundaries outside of which a data point is classified as an outlier?",
+    "options": {
+      "A": "[Mean - 2*StdDev, Mean + 2*StdDev]",
+      "B": "[Q1 - 1.5*IQR, Q3 + 1.5*IQR]",
+      "C": "[Q1 - 3.0*IQR, Q3 + 3.0*IQR]",
+      "D": "[Median - 1.5*IQR, Median + 1.5*IQR]"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "John Tukey's landmark fence rule defines mild outliers as points falling below Q1 - 1.5*IQR or above Q3 + 1.5*IQR. Points beyond 3.0*IQR are considered extreme outliers.",
+      "A": "This is the empirical 95% rule for Gaussian distributions, which is sensitive to the outliers it attempts to detect.",
+      "B": "Correct: Tukey's outer fences use 1.5 times the IQR added to Q3 and subtracted from Q1.",
+      "C": "3.0*IQR defines 'extreme' outliers, but standard outlier detection thresholds start at 1.5*IQR.",
+      "D": "The fences are anchored at the 25th percentile (Q1) and 75th percentile (Q3), not at the median (Q2)."
+    }
+  },
+  {
+    "item_id": "DS-L1-006",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Python Memory & Generators",
+    "stem": "What is the primary memory advantage of using a Python generator expression `(x*2 for x in large_sequence)` over a list comprehension `[x*2 for x in large_sequence]`?",
+    "options": {
+      "A": "Generators execute twice as fast on multi-core CPUs",
+      "B": "Generators yield elements lazily one-by-one, consuming O(1) memory instead of allocating the entire list in RAM",
+      "C": "Generators persist their contents to local NVMe storage automatically",
+      "D": "Generators support direct index slicing like `gen[5:10]`"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Generators implement the iterator protocol and yield items lazily on demand (`next()`). They do not construct or store the full sequence in memory, keeping space complexity at O(1) regardless of sequence size.",
+      "A": "Generators are single-threaded by default and do not automatically distribute work across CPU cores.",
+      "B": "Correct: Generators evaluate expressions on-the-fly and maintain only their internal state in memory, preventing Out-Of-Memory (OOM) crashes on large datasets.",
+      "C": "Generators exist entirely in Python runtime process memory; they do not write to disk unless explicitly coded to do so.",
+      "D": "Generators do not support random access or indexing; attempting `gen[0]` raises a TypeError."
+    }
+  },
+  {
+    "item_id": "DS-L1-007",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "SQL Aggregation",
+    "stem": "What is the critical semantic difference between `COUNT(*)` and `COUNT(column_name)` in SQL?",
+    "options": {
+      "A": "`COUNT(*)` is deprecated in modern ANSI SQL and raises a syntax error",
+      "B": "`COUNT(*)` counts all rows in the group including NULLs, whereas `COUNT(column_name)` excludes rows where `column_name` is NULL",
+      "C": "`COUNT(column_name)` automatically performs a `DISTINCT` count",
+      "D": "`COUNT(*)` only counts primary key columns"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In ANSI SQL, `COUNT(*)` counts the total number of table rows matching the query condition, regardless of NULL values. `COUNT(column_name)` specifically tallies non-NULL values present in that specified column.",
+      "A": "`COUNT(*)` is fully standard, highly optimized, and widely used across all relational database engines.",
+      "B": "Correct: `COUNT(*)` includes rows where specific fields are NULL; `COUNT(col)` ignores NULL values in that field.",
+      "C": "To count distinct entries, one must explicitly write `COUNT(DISTINCT column_name)`.",
+      "D": "`COUNT(*)` tallies physical rows, not restricted to primary key existence."
+    }
+  },
+  {
+    "item_id": "DS-L1-008",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Correlation",
+    "stem": "If the Pearson correlation coefficient between variable X (ice cream sales) and variable Y (swimming pool accidents) is r = +0.88, what is the valid conclusion?",
+    "options": {
+      "A": "Eating ice cream causes swimming accidents",
+      "B": "There is a strong positive linear association between X and Y, likely driven by a confounding variable such as outdoor temperature",
+      "C": "88% of all swimming pool accidents are directly caused by ice cream vendors",
+      "D": "The relationship between X and Y is strictly non-linear"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Pearson's r measures the strength and direction of a linear relationship. Correlation does NOT imply causation. Spurious correlations frequently arise from common confounding variables (e.g., hot summer weather increases both ice cream consumption and pool visits).",
+      "A": "Confuses correlation with causality; ice cream does not physically induce drowning accidents.",
+      "B": "Correct: High r (+0.88) indicates a strong positive co-movement, but causality requires controlled experimental isolation or causal graph identification.",
+      "C": "r = 0.88 means the coefficient of determination $R^2 \\approx 0.77$ (77% shared variance), not that 88% of accidents are caused by ice cream.",
+      "D": "Pearson's r specifically measures linear alignment; a high positive r indicates strong linear co-movement."
+    }
+  },
+  {
+    "item_id": "DS-L1-009",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Python Data Types",
+    "stem": "Which of the following Python data structures is mutable, ordered, and prohibits duplicate elements?",
+    "options": {
+      "A": "List",
+      "B": "Tuple",
+      "C": "Standard Set",
+      "D": "None of the standard built-ins (requires `dict.keys()` or a custom OrderedSet)"
+    },
+    "correct_key": "D",
+    "rationales": {
+      "correct": "A standard Python `set` is mutable and prohibits duplicates, but historically was unordered (and even now set iteration order is an implementation artifact, not guaranteed semantic ordering). A `list` is ordered and mutable, but allows duplicates. A `tuple` is immutable. Thus, an ordered, mutable unique collection requires a custom structure or inserting into a `dict` whose keys preserve insertion order.",
+      "A": "Lists permit duplicate elements.",
+      "B": "Tuples are immutable and allow duplicates.",
+      "C": "Standard sets do not guarantee indexed sequence ordering.",
+      "D": "Correct: In the core Python language specification, sets do not support sequence indexing; preserving insertion order while enforcing uniqueness is achieved via dict keys or collections."
+    }
+  },
+  {
+    "item_id": "DS-L1-010",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "SQL Filtering",
+    "stem": "Which SQL keyword must be used to filter aggregated metrics produced by a `GROUP BY` clause (such as `COUNT(order_id) > 5`)?",
+    "options": {
+      "A": "WHERE",
+      "B": "HAVING",
+      "C": "ORDER BY",
+      "D": "QUALIFY"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "`HAVING` filters rows AFTER the `GROUP BY` aggregation has taken place. `WHERE` filters individual rows BEFORE aggregation occurs, and cannot accept aggregate expressions like `COUNT()` or `SUM()` in standard SQL.",
+      "A": "`WHERE` filters source rows before grouping; writing `WHERE COUNT(x) > 5` raises a syntax error in SQL.",
+      "B": "Correct: `HAVING` specifically acts as the filter for aggregated group values.",
+      "C": "`ORDER BY` determines presentation sorting, not record filtering.",
+      "D": "`QUALIFY` is used in analytical databases (Snowflake, BigQuery) to filter window functions, not basic group aggregations."
+    }
+  },
+  {
+    "item_id": "DS-L1-011",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Variance and Standard Deviation",
+    "stem": "Why do statisticians apply Bessel's correction (dividing by $N - 1$ instead of $N$) when calculating sample variance $s^2$?",
+    "options": {
+      "A": "To account for computational rounding error in floating-point arithmetic",
+      "B": "Because sample values tend to be closer to the sample mean than to the true population mean, making $N$ an underestimate (biased)",
+      "C": "To make the standard deviation strictly equivalent to the interquartile range",
+      "D": "It is only required when the sample size exceeds 1,000,000 records"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Sample variance computed with division by N is a biased estimator that systematically underestimates the population variance $\\sigma^2$. Dividing by $N - 1$ degrees of freedom corrects this downward bias, producing an unbiased estimator.",
+      "A": "Bessel's correction is an analytical mathematical proof for unbiased estimation, unrelated to CPU floating-point rounding.",
+      "B": "Correct: Deviations from the sample mean are smaller than deviations from the true population mean; dividing by N-1 compensates for this lost degree of freedom.",
+      "C": "Standard deviation and IQR represent different statistical dispersion concepts.",
+      "D": "Bessel's correction is most impactful on small samples; as N grows very large, the difference between N and N-1 becomes negligible."
+    }
+  },
+  {
+    "item_id": "DS-L1-012",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Python Mutable Default Arguments",
+    "stem": "What unexpected bug occurs when defining a function in Python as `def append_to(item, target_list=[])`?",
+    "options": {
+      "A": "Python raises a `SyntaxError: mutable default disallowed` during compilation",
+      "B": "The default list is instantiated only once when the function is defined, causing subsequent calls without arguments to mutate the same shared list",
+      "C": "The list is garbage-collected immediately after each function invocation",
+      "D": "The function executes in read-only mode"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In Python, default parameter values are evaluated once at module load time when the function definition is executed, NOT each time the function is called. A mutable default like `[]` or `{}` becomes persistent shared state across all function calls.",
+      "A": "Python allows mutable defaults syntactically, but it is considered a major antipattern.",
+      "B": "Correct: Default objects persist across invocations; subsequent calls append into the identical list instance in memory.",
+      "C": "Because the function object holds a reference to its default argument tuple, it is never garbage collected.",
+      "D": "Python functions do not have a concept of 'read-only' execution mode."
+    }
+  },
+  {
+    "item_id": "DS-L1-013",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "SQL NULL Handling",
+    "stem": "What is the result of evaluating `SELECT * FROM users WHERE age != 25;` on a row where `age` is `NULL`?",
+    "options": {
+      "A": "The row is included in the output because NULL is not equal to 25",
+      "B": "The row is excluded because comparisons with NULL evaluate to UNKNOWN (three-valued logic), which WHERE filters out",
+      "C": "The database raises a runtime `NullPointerException`",
+      "D": "The database converts NULL to 0 before evaluating the predicate"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "SQL uses three-valued logic: TRUE, FALSE, and UNKNOWN. Any equality or inequality comparison with NULL (e.g. `NULL = 25` or `NULL != 25`) yields UNKNOWN. The `WHERE` clause only returns rows where the condition evaluates to TRUE.",
+      "A": "In SQL, NULL signifies missing or unknown information; you cannot assert that an unknown value is distinct from 25 without `IS NOT NULL`.",
+      "B": "Correct: Three-valued logic dictates that comparison with NULL results in UNKNOWN, and WHERE clauses strictly filter out UNKNOWN conditions.",
+      "C": "SQL engines do not crash on NULL comparisons; they handle them gracefully via ANSI three-valued logic.",
+      "D": "SQL does not implicitly cast NULL to 0 in comparison predicates unless wrapped with `COALESCE(age, 0)`."
+    }
+  },
+  {
+    "item_id": "DS-L1-014",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Skewness & Kurtosis",
+    "stem": "If a distribution of customer delivery times has a long right tail (positive skewness), what is the typical relationship between the Mode, Median, and Mean?",
+    "options": {
+      "A": "Mean < Median < Mode",
+      "B": "Mode < Median < Mean",
+      "C": "Mean = Median = Mode",
+      "D": "Median < Mode < Mean"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In a right-skewed (positively skewed) distribution, extreme positive values pull the arithmetic mean to the far right. The peak of the distribution is the Mode, the middle value is the Median, and the Mean is greatest: Mode < Median < Mean.",
+      "A": "This sequence (Mean < Median < Mode) characterizes a negatively (left-skewed) distribution.",
+      "B": "Correct: In positive skew, extreme high values inflate the Mean above the Median, while the Mode remains at the highest frequency peak.",
+      "C": "This equality occurs only in perfectly symmetric, unimodal distributions (such as a Gaussian bell curve).",
+      "D": "The Median is bounded between Mode and Mean in standard unimodal skewed curves."
+    }
+  },
+  {
+    "item_id": "DS-L1-015",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "SQL UNION vs UNION ALL",
+    "stem": "What is the crucial performance and functional difference between `UNION` and `UNION ALL` in relational SQL queries?",
+    "options": {
+      "A": "`UNION ALL` only works on numeric data types",
+      "B": "`UNION` performs an implicit sort and deduplication pass across combined results, whereas `UNION ALL` simply appends rows without checking duplicates, making it much faster",
+      "C": "`UNION` allows combining tables with differing column counts",
+      "D": "`UNION ALL` is an obsolete syntax removed in modern databases"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "`UNION` enforces distinct output by sorting and eliminating duplicate records across the two result sets. `UNION ALL` preserves duplicates and avoids sorting, providing vastly superior execution speed on large datasets.",
+      "A": "Both operators work across all compatible data types.",
+      "B": "Correct: `UNION` must sort and hash data to remove duplicate rows; `UNION ALL` performs a direct concatenation and is computationally much lighter.",
+      "C": "Both `UNION` and `UNION ALL` require identical column counts and matching data types.",
+      "D": "`UNION ALL` is an essential, actively used SQL standard construct."
+    }
+  },
+  {
+    "item_id": "DS-L1-016",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Python Lambda & Functional Tools",
+    "stem": "In Python, which built-in function or idiom takes an iterable and returns a new list containing only elements for which a supplied predicate function returns `True`?",
+    "options": {
+      "A": "map()",
+      "B": "filter()",
+      "C": "reduce()",
+      "D": "zip()"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "`filter(predicate, iterable)` yields only elements from the iterable for which `predicate(element)` evaluates to True. Alternatively, `[x for x in iterable if predicate(x)]` achieves the same result in idiomatic Python.",
+      "A": "`map()` applies a transformation function to EVERY element without filtering.",
+      "B": "Correct: `filter()` selectively retains elements based on a boolean predicate.",
+      "C": "`reduce()` (from `functools`) repeatedly applies a binary operator to aggregate a sequence into a single cumulative scalar.",
+      "D": "`zip()` pairs corresponding elements from multiple iterables into tuples."
+    }
+  },
+  {
+    "item_id": "DS-L1-017",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Probability Axioms",
+    "stem": "If event A (user clicks an ad) and event B (user makes a purchase) are mutually exclusive, what is the probability of both events occurring simultaneously, $P(A \\cap B)$?",
+    "options": {
+      "A": "P(A) * P(B)",
+      "B": "0",
+      "C": "1.0",
+      "D": "P(A) + P(B)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "By definition, mutually exclusive (disjoint) events cannot occur at the same time. The intersection of their sample space subsets is the empty set $\\emptyset$, so $P(A \\cap B) = 0$.",
+      "A": "$P(A) \\times P(B)$ is the probability of the intersection for INDEPENDENT events, not mutually exclusive events.",
+      "B": "Correct: Mutually exclusive events have zero overlap; they cannot both occur simultaneously.",
+      "C": "Probability 1.0 means certainty, which contradicts mutual exclusivity unless both events are impossible.",
+      "D": "$P(A) + P(B)$ is the probability of the UNION $P(A \\cup B)$ for disjoint events."
+    }
+  },
+  {
+    "item_id": "DS-L1-018",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Data Types & Missing Values",
+    "stem": "In standard Pandas, why did integer columns containing missing values (`NaN`) historically cast the entire column to `float64`?",
+    "options": {
+      "A": "Because floating-point numbers calculate faster on GPUs",
+      "B": "Because standard NumPy (on which Pandas was originally built) represented `NaN` as a IEEE 754 floating-point constant and lacked a native missing integer sentinel",
+      "C": "Because integers cannot exceed 32,767 in Python",
+      "D": "To prevent SQL injection vulnerabilities"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "NumPy uses IEEE 754 floating-point standard for `np.nan`. Because standard C integer primitives in NumPy do not have a bit pattern reserved for NaN, Pandas historically upcast any integer series with missing values to `float64` to accommodate the NaN constant (until nullable `Int64` was introduced).",
+      "A": "GPU execution is unrelated to Pandas' default CPU representation.",
+      "B": "Correct: Traditional NumPy integer arrays lacked a missing value sentinel; accommodating `np.nan` required converting the series to float64.",
+      "C": "Python integers support arbitrary precision and are not limited to 16 bits.",
+      "D": "In-memory data representation has no bearing on SQL injection."
+    }
+  },
+  {
+    "item_id": "DS-L1-019",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "SQL Subqueries",
+    "stem": "What is a correlated subquery in SQL?",
+    "options": {
+      "A": "A subquery that can be executed independently of the outer query once, caching the results",
+      "B": "A subquery that references one or more columns from the outer query, requiring it to be evaluated repeatedly for every candidate row of the outer query",
+      "C": "A subquery that only operates on correlated Pearson variables",
+      "D": "A query that executes simultaneously across multiple distributed nodes"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A correlated subquery contains references to columns belonging to tables in the enclosing outer query. Because its evaluation depends on the specific values in the current outer row, the database cannot simply execute it once ahead of time without optimization (like query unnesting).",
+      "A": "That describes an uncorrelated (independent) subquery, which can be evaluated once and substituted as a constant.",
+      "B": "Correct: Correlated subqueries rely on outer query attributes and logically re-execute for each outer record.",
+      "C": "This confuses relational database terminology with statistical correlation.",
+      "D": "Distributed query processing is an engine architecture feature, not the definition of correlation in SQL."
+    }
+  },
+  {
+    "item_id": "DS-L1-020",
+    "track": "DATA_SCIENCE",
+    "level": 1,
+    "level_name": "Level 1: Foundations (Python, Core SQL & Descriptive Stats)",
+    "topic": "Python String & Regex",
+    "stem": "In Python regular expressions (`re` module), what is the difference between `re.search()` and `re.match()`?",
+    "options": {
+      "A": "`re.search()` matches only at the beginning of the string, while `re.match()` searches anywhere",
+      "B": "`re.match()` only matches patterns starting strictly at the beginning of the string, while `re.search()` scans through the entire string to find a match",
+      "C": "`re.match()` is case-insensitive by default, while `re.search()` is case-sensitive",
+      "D": "There is no difference; `re.match` is an alias for `re.search`"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "`re.match(pattern, string)` checks for a match only at the beginning of the string (equivalent to having an implicit `^` anchor). `re.search(pattern, string)` scans the entire string looking for the first location where the pattern matches.",
+      "A": "Inverted: It is `re.match` that is restricted to the string start, while `re.search` looks throughout.",
+      "B": "Correct: `re.match()` requires the pattern to align with the first character of the string, while `re.search()` finds patterns anywhere in the string.",
+      "C": "Both functions are case-sensitive unless passed the `re.IGNORECASE` flag.",
+      "D": "They have distinctly different matching behaviors and return different results on non-leading substrings."
+    }
+  }
+]

@@ -1,0 +1,74 @@
+{
+  "id": "cw_array_diff",
+  "title": "Codewars 6kyu: Array.diff",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Arrays & Sets",
+  "description": "Your goal in this kata is to implement a difference function, which subtracts one list from another and returns the result. It should remove all values from list `a`, which are present in list `b` keeping their order.",
+  "constraints": "0 <= len(a), len(b) <= 10^5\n\u2022 Time: O(N + M) | Space: O(M)",
+  "function_name": "array_diff",
+  "starter_code": "def array_diff(a: list[int], b: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          1,
+          2
+        ],
+        "b": [
+          1
+        ]
+      },
+      "expected": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          1,
+          2,
+          2,
+          2,
+          3
+        ],
+        "b": [
+          2
+        ]
+      },
+      "expected": [
+        1,
+        3
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [],
+        "b": [
+          1,
+          2
+        ]
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "a": [
+          1,
+          2,
+          3
+        ],
+        "b": []
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "solution": "def array_diff(a: list[int], b: list[int]) -> list[int]:\n    b_set = set(b)\n    return [x for x in a if x not in b_set]\n",
+  "explanation": "HashSet exclusion filters list in O(N + M) time."
+}

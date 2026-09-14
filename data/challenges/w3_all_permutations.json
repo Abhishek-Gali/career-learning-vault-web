@@ -1,0 +1,88 @@
+{
+  "id": "w3_all_permutations",
+  "title": "W3Schools: Generate All Permutations",
+  "platform": "W3Schools",
+  "difficulty": "Hard",
+  "category": "Recursion & Backtracking",
+  "description": "Given a list of unique integers `nums`, return all possible permutations sorted in lexicographical order.",
+  "constraints": "1 <= len(nums) <= 6\n\u2022 Time: O(N! * N) | Space: O(N! * N)",
+  "function_name": "list_permutations",
+  "starter_code": "def list_permutations(nums: list[int]) -> list[list[int]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          3,
+          2
+        ],
+        [
+          2,
+          1,
+          3
+        ],
+        [
+          2,
+          3,
+          1
+        ],
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          3,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          1
+        ]
+      },
+      "expected": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": [
+        [
+          1
+        ]
+      ]
+    }
+  ],
+  "solution": "def list_permutations(nums: list[int]) -> list[list[int]]:\n    import itertools\n    return sorted([list(p) for p in itertools.permutations(nums)])\n",
+  "explanation": "Generates all N! permutations and sorts lexicographically in O(N! * N) time."
+}

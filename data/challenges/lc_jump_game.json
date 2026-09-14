@@ -1,0 +1,70 @@
+{
+  "id": "lc_jump_game",
+  "title": "LeetCode 55: Jump Game",
+  "platform": "LeetCode",
+  "difficulty": "Medium",
+  "category": "Greedy",
+  "description": "You are given an integer array `nums`. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position. Return `True` if you can reach the last index, or `False` otherwise.",
+  "constraints": "1 <= len(nums) <= 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "can_jump",
+  "starter_code": "def can_jump(nums: list[int]) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          2,
+          3,
+          1,
+          1,
+          4
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          2,
+          1,
+          0,
+          4
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          0,
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def can_jump(nums: list[int]) -> bool:\n    max_reach = 0\n    for i, jump in enumerate(nums):\n        if i > max_reach:\n            return False\n        max_reach = max(max_reach, i + jump)\n        if max_reach >= len(nums) - 1:\n            return True\n    return True\n",
+  "explanation": "Greedy tracking of maximum reachable index checks if the target endpoint is reachable in O(N) time."
+}

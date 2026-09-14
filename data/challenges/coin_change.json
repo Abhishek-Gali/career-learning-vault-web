@@ -1,0 +1,69 @@
+{
+  "id": "coin_change",
+  "title": "8. Coin Change (Minimum Coins)",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "description": "You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.",
+  "constraints": "\u2022 1 <= len(coins) <= 12\n\u2022 1 <= coins[i] <= 2^31 - 1\n\u2022 0 <= amount <= 10^4\n\u2022 Optimal Time: O(amount * len(coins)) | Space: O(amount)",
+  "function_name": "coin_change",
+  "starter_code": "def coin_change(coins: list[int], amount: int) -> int:\n    # Write 1D DP tabulation solution here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "coins": [
+          1,
+          2,
+          5
+        ],
+        "amount": 11
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "coins": [
+          2
+        ],
+        "amount": 3
+      },
+      "expected": -1
+    },
+    {
+      "input": {
+        "coins": [
+          1
+        ],
+        "amount": 0
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "coins": [
+          186,
+          419,
+          83,
+          408
+        ],
+        "amount": 6249
+      },
+      "expected": 20
+    },
+    {
+      "input": {
+        "coins": [
+          2,
+          5,
+          10,
+          1
+        ],
+        "amount": 27
+      },
+      "expected": 4
+    }
+  ],
+  "solution": "def coin_change(coins: list[int], amount: int) -> int:\n    dp = [float('inf')] * (amount + 1)\n    dp[0] = 0\n    for c in coins:\n        for a in range(c, amount + 1):\n            dp[a] = min(dp[a], dp[a - c] + 1)\n    return dp[amount] if dp[amount] != float('inf') else -1\n",
+  "explanation": "1D DP array `dp[a]` stores the minimum coins needed for amount `a`. For each coin `c`, `dp[a] = min(dp[a], dp[a - c] + 1)`. Unbounded coin reuse is supported by forward iteration from `c` to `amount`."
+}

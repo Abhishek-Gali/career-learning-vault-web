@@ -1,0 +1,41 @@
+{
+  "id": "cw_square_digits",
+  "title": "Codewars 7kyu: Square Every Digit",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Fundamentals & Math",
+  "description": "Welcome. In this kata, you are asked to square every digit of a number and concatenate them. For example, if we run 9119 through the function, 811181 will come out, because 9^2 is 81 and 1^2 is 1. (9119 -> 811181).",
+  "constraints": "0 <= num <= 10^9\n\u2022 Time: O(log N) | Space: O(log N)",
+  "function_name": "square_digits",
+  "starter_code": "def square_digits(num: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "num": 9119
+      },
+      "expected": 811181
+    },
+    {
+      "input": {
+        "num": 0
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "num": 765
+      },
+      "expected": 493625
+    },
+    {
+      "input": {
+        "num": 123
+      },
+      "expected": 149
+    }
+  ],
+  "solution": "def square_digits(num: int) -> int:\n    return int(''.join(str(int(ch)**2) for ch in str(num)))\n",
+  "explanation": "Squares each digit individually and joins the resulting string representations."
+}

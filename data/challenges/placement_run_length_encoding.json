@@ -1,0 +1,47 @@
+{
+  "id": "placement_run_length_encoding",
+  "title": "Placement: Run-Length String Compression",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Strings",
+  "description": "Given a string `s`, compress it using Run-Length Encoding where consecutive identical characters are replaced by the character followed by its count (e.g., 'aaabbc' -> 'a3b2c1'). If empty, return ''.",
+  "constraints": "0 <= len(s) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "compress_string",
+  "starter_code": "def compress_string(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "aaabbc"
+      },
+      "expected": "a3b2c1"
+    },
+    {
+      "input": {
+        "s": "abcd"
+      },
+      "expected": "a1b1c1d1"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": ""
+    },
+    {
+      "input": {
+        "s": "a"
+      },
+      "expected": "a1"
+    },
+    {
+      "input": {
+        "s": "wwwwaaadexxxxxx"
+      },
+      "expected": "w4a3d1e1x6"
+    }
+  ],
+  "solution": "def compress_string(s: str) -> str:\n    if not s:\n        return ''\n    res = []\n    curr_char = s[0]\n    count = 1\n    for char in s[1:]:\n        if char == curr_char:\n            count += 1\n        else:\n            res.append(f'{curr_char}{count}')\n            curr_char = char\n            count = 1\n    res.append(f'{curr_char}{count}')\n    return ''.join(res)\n",
+  "explanation": "Single-pass pointer aggregation accumulates run lengths in O(N) time."
+}

@@ -1,0 +1,64 @@
+{
+  "id": "lc_longest_common_prefix",
+  "title": "LeetCode 14: Longest Common Prefix",
+  "platform": "LeetCode",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string ''.",
+  "constraints": "1 <= len(strs) <= 200\n\u2022 Time: O(S) | Space: O(1)",
+  "function_name": "longest_common_prefix",
+  "starter_code": "def longest_common_prefix(strs: list[str]) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "strs": [
+          "flower",
+          "flow",
+          "flight"
+        ]
+      },
+      "expected": "fl"
+    },
+    {
+      "input": {
+        "strs": [
+          "dog",
+          "racecar",
+          "car"
+        ]
+      },
+      "expected": ""
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "strs": [
+          "interspecies",
+          "interstellar",
+          "interstate"
+        ]
+      },
+      "expected": "inters"
+    },
+    {
+      "input": {
+        "strs": [
+          "throne",
+          "throne"
+        ]
+      },
+      "expected": "throne"
+    },
+    {
+      "input": {
+        "strs": [
+          "a"
+        ]
+      },
+      "expected": "a"
+    }
+  ],
+  "solution": "def longest_common_prefix(strs: list[str]) -> str:\n    if not strs:\n        return ''\n    prefix = strs[0]\n    for s in strs[1:]:\n        while not s.startswith(prefix):\n            prefix = prefix[:-1]\n            if not prefix:\n                return ''\n    return prefix\n",
+  "explanation": "Horizontal scanning trims the candidate prefix until all strings match, taking O(S) total characters scanned."
+}

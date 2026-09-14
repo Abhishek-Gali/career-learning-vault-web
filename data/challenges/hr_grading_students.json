@@ -1,0 +1,77 @@
+{
+  "id": "hr_grading_students",
+  "title": "HackerRank: Grading Students",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Implementation & Math",
+  "description": "HackerLand University has the following grading policy: Every student receives a grade in range [0, 100]. Any grade < 40 is failing. If the difference between the grade and the next multiple of 5 is less than 3, round grade up to the next multiple of 5. If grade < 38, no rounding occurs. Return the rounded grades.",
+  "constraints": "1 <= len(grades) <= 60\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "grading_students",
+  "starter_code": "def grading_students(grades: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "grades": [
+          73,
+          67,
+          38,
+          33
+        ]
+      },
+      "expected": [
+        75,
+        67,
+        40,
+        33
+      ]
+    },
+    {
+      "input": {
+        "grades": [
+          84,
+          29,
+          57
+        ]
+      },
+      "expected": [
+        85,
+        29,
+        57
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "grades": [
+          37
+        ]
+      },
+      "expected": [
+        37
+      ]
+    },
+    {
+      "input": {
+        "grades": [
+          38
+        ]
+      },
+      "expected": [
+        40
+      ]
+    },
+    {
+      "input": {
+        "grades": [
+          100
+        ]
+      },
+      "expected": [
+        100
+      ]
+    }
+  ],
+  "solution": "def grading_students(grades: list[int]) -> list[int]:\n    rounded = []\n    for g in grades:\n        if g < 38:\n            rounded.append(g)\n        else:\n            next_mult = ((g // 5) + 1) * 5\n            rounded.append(next_mult if next_mult - g < 3 else g)\n    return rounded\n",
+  "explanation": "Calculates distance to next multiple of 5 for passing grades >= 38 in O(N) time."
+}

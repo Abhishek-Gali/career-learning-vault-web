@@ -1,0 +1,79 @@
+{
+  "id": "placement_trapping_rain_water",
+  "title": "Placement: Trapping Rain Water",
+  "platform": "Placement Preparation",
+  "difficulty": "Hard",
+  "category": "Two Pointers",
+  "description": "Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+  "constraints": "1 <= len(height) <= 2 * 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "trap_water",
+  "starter_code": "def trap_water(height: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "height": [
+          0,
+          1,
+          0,
+          2,
+          1,
+          0,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "height": [
+          4,
+          2,
+          0,
+          3,
+          2,
+          5
+        ]
+      },
+      "expected": 9
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "height": []
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "height": [
+          3,
+          0,
+          2,
+          0,
+          4
+        ]
+      },
+      "expected": 7
+    },
+    {
+      "input": {
+        "height": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def trap_water(height: list[int]) -> int:\n    if not height:\n        return 0\n    left, right = 0, len(height) - 1\n    left_max = right_max = 0\n    water = 0\n    while left < right:\n        if height[left] < height[right]:\n            if height[left] >= left_max:\n                left_max = height[left]\n            else:\n                water += left_max - height[left]\n            left += 1\n        else:\n            if height[right] >= right_max:\n                right_max = height[right]\n            else:\n                water += right_max - height[right]\n            right -= 1\n    return water\n",
+  "explanation": "Two pointers moving toward each other track left_max and right_max bounds, computing trapped water in O(N) time and O(1) space."
+}

@@ -1,0 +1,47 @@
+{
+  "id": "lc_length_of_last_word",
+  "title": "LeetCode 58: Length of Last Word",
+  "platform": "LeetCode",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Given a string `s` consisting of words and spaces, return the length of the last word in the string. A word is a maximal substring consisting of non-space characters only.",
+  "constraints": "1 <= len(s) <= 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "length_of_last_word",
+  "starter_code": "def length_of_last_word(s: str) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "Hello World"
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "s": "   fly me   to   the moon  "
+      },
+      "expected": 4
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "luffy is still joyboy"
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "s": "a"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "s": "    day    "
+      },
+      "expected": 3
+    }
+  ],
+  "solution": "def length_of_last_word(s: str) -> int:\n    words = s.strip().split()\n    return len(words[-1]) if words else 0\n",
+  "explanation": "Strips whitespace and takes the length of the terminal token in O(N) time."
+}

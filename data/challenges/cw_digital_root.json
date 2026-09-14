@@ -1,0 +1,47 @@
+{
+  "id": "cw_digital_root",
+  "title": "Codewars 6kyu: Sum of Digits / Digital Root",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "Digital root is the recursive sum of all the digits in a number. Given `n`, take the sum of the digits of `n`. If that value has more than one digit, continue reducing in this way until a single-digit number is produced.",
+  "constraints": "0 <= n <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "digital_root",
+  "starter_code": "def digital_root(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 16
+      },
+      "expected": 7
+    },
+    {
+      "input": {
+        "n": 942
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "n": 132189
+      },
+      "expected": 6
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "n": 493193
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def digital_root(n: int) -> int:\n    if n == 0:\n        return 0\n    return 9 if n % 9 == 0 else n % 9\n",
+  "explanation": "Calculates digital root using modulo 9 congruence formula in O(1) time."
+}

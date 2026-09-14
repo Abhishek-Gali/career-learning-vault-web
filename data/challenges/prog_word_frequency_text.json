@@ -1,0 +1,53 @@
+{
+  "id": "prog_word_frequency_text",
+  "title": "Programiz: Word Frequency in Text",
+  "platform": "Programiz",
+  "difficulty": "Hard",
+  "category": "Hash Tables & Strings",
+  "description": "Given a passage of text `text`, split it into words (removing punctuation, lowercase) and return a dictionary of word frequencies.",
+  "constraints": "0 <= len(text) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "word_frequency",
+  "starter_code": "def word_frequency(text: str) -> dict:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "text": "to be or not to be"
+      },
+      "expected": {
+        "to": 2,
+        "be": 2,
+        "or": 1,
+        "not": 1
+      }
+    },
+    {
+      "input": {
+        "text": "apple banana apple"
+      },
+      "expected": {
+        "apple": 2,
+        "banana": 1
+      }
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "text": ""
+      },
+      "expected": {}
+    },
+    {
+      "input": {
+        "text": "Hello, world! Hello Python."
+      },
+      "expected": {
+        "hello": 2,
+        "world": 1,
+        "python": 1
+      }
+    }
+  ],
+  "solution": "def word_frequency(text: str) -> dict:\n    import re\n    from collections import Counter\n    words = re.findall(r'\\b[a-zA-Z]+\\b', text.lower())\n    return dict(Counter(words))\n",
+  "explanation": "Regex word tokenization and Counter dictionary mapping in O(N) time."
+}

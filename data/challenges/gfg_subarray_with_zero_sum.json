@@ -1,0 +1,71 @@
+{
+  "id": "gfg_subarray_with_zero_sum",
+  "title": "GFG: Subarray with 0 Sum",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Prefix Sums & Hashing",
+  "description": "Given an array of integers `arr`, return `True` if there is a subarray with a sum of 0, and `False` otherwise.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "has_zero_sum_subarray",
+  "starter_code": "def has_zero_sum_subarray(arr: list[int]) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          4,
+          2,
+          -3,
+          1,
+          6
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "arr": [
+          4,
+          2,
+          0,
+          1,
+          6
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          -3,
+          2,
+          3,
+          1,
+          6
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "arr": [
+          0
+        ]
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def has_zero_sum_subarray(arr: list[int]) -> bool:\n    seen = set([0])\n    curr_sum = 0\n    for x in arr:\n        curr_sum += x\n        if curr_sum in seen:\n            return True\n        seen.add(curr_sum)\n    return False\n",
+  "explanation": "Prefix sum recurrence: if curr_sum repeats or equals 0, a subarray summing to 0 has been traversed in O(N) time."
+}

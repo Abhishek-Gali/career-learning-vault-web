@@ -1,0 +1,49 @@
+{
+  "id": "w3_dictionary_inversion",
+  "title": "W3Schools: Invert Dictionary Keys and Values",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Dictionaries",
+  "description": "Given a dictionary `d` where all values are unique strings, return a new dictionary with keys and values swapped.",
+  "constraints": "0 <= len(d) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "invert_dict_keys",
+  "starter_code": "def invert_dict_keys(d: dict) -> dict:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "d": {
+          "USA": "Washington",
+          "France": "Paris",
+          "Japan": "Tokyo"
+        }
+      },
+      "expected": {
+        "Washington": "USA",
+        "Paris": "France",
+        "Tokyo": "Japan"
+      }
+    },
+    {
+      "input": {
+        "d": {}
+      },
+      "expected": {}
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "d": {
+          "x": "1",
+          "y": "2"
+        }
+      },
+      "expected": {
+        "1": "x",
+        "2": "y"
+      }
+    }
+  ],
+  "solution": "def invert_dict_keys(d: dict) -> dict:\n    return {v: k for k, v in d.items()}\n",
+  "explanation": "Inverts keys and values in O(N) time."
+}

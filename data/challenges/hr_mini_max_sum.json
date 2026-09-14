@@ -1,0 +1,77 @@
+{
+  "id": "hr_mini_max_sum",
+  "title": "HackerRank: Mini-Max Sum",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup & Math",
+  "description": "Given five positive integers `arr`, find the minimum and maximum values that can be calculated by summing exactly four of the five integers. Return a list `[min_sum, max_sum]`.",
+  "constraints": "len(arr) == 5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "mini_max_sum",
+  "starter_code": "def mini_max_sum(arr: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": [
+        10,
+        14
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          7,
+          69,
+          2,
+          221,
+          8974
+        ]
+      },
+      "expected": [
+        299,
+        9271
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": [
+        20,
+        20
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          3,
+          5,
+          7,
+          9
+        ]
+      },
+      "expected": [
+        16,
+        24
+      ]
+    }
+  ],
+  "solution": "def mini_max_sum(arr: list[int]) -> list[int]:\n    total = sum(arr)\n    return [total - max(arr), total - min(arr)]\n",
+  "explanation": "Subtracting max element gives min 4-sum; subtracting min gives max 4-sum in O(1) time."
+}

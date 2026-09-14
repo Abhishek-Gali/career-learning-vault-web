@@ -1,0 +1,53 @@
+{
+  "id": "placement_palindrome_number",
+  "title": "Placement: Palindrome Number",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Numbers",
+  "description": "Given an integer `n`, return `True` if `n` is a palindrome (reads the same backwards as forwards), and `False` otherwise. Negative numbers are not palindromes.",
+  "constraints": "-2^31 <= n <= 2^31 - 1\n\u2022 Time: O(log10(N)) | Space: O(1)",
+  "function_name": "is_palindrome_number",
+  "starter_code": "def is_palindrome_number(n: int) -> bool:\n    # Write your solution here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 121
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": -121
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 12321
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 1000021
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def is_palindrome_number(n: int) -> bool:\n    if n < 0:\n        return False\n    s = str(n)\n    return s == s[::-1]\n",
+  "explanation": "A negative number cannot be a palindrome due to the leading minus sign. For non-negative integers, reversing the string representation and comparing yields O(log N) time complexity."
+}

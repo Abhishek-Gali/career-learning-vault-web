@@ -1,0 +1,53 @@
+{
+  "id": "placement_factorial",
+  "title": "Placement: Factorial of a Number",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Numbers",
+  "description": "Given a non-negative integer `n`, compute `n!` (factorial). 0! is defined as 1.",
+  "constraints": "0 <= n <= 20\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "factorial",
+  "starter_code": "def factorial(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 5
+      },
+      "expected": 120
+    },
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 6
+      },
+      "expected": 720
+    },
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": 3628800
+    },
+    {
+      "input": {
+        "n": 12
+      },
+      "expected": 479001600
+    }
+  ],
+  "solution": "def factorial(n: int) -> int:\n    res = 1\n    for i in range(2, n + 1):\n        res *= i\n    return res\n",
+  "explanation": "Iterative accumulation calculates n! in O(N) time without stack overflow risk."
+}

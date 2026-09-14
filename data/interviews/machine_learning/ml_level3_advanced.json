@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "ML-L3-001",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Transformer Self-Attention",
+    "stem": "In the Transformer architecture (Vaswani et al.), what is the mathematical formula for Scaled Dot-Product Attention?",
+    "options": {
+      "A": "$\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{Q K^T}{\\sqrt{d_k}}\\right) V$",
+      "B": "$\\text{Attention}(Q, K, V) = Q + K + V$",
+      "C": "$\\text{Attention}(Q, K, V) = \\text{sigmoid}(Q \\cdot K) \\times V$",
+      "D": "$\\text{Attention}(Q, K, V) = \\text{ReLU}(Q K V^T)$"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The scaled dot-product attention computes similarity between queries ($Q$) and keys ($K$) via matrix multiplication $Q K^T$, divides by the scaling factor $\\sqrt{d_k}$ to prevent gradient vanishing in the softmax under large dimensions, applies row-wise softmax to produce attention weights, and computes a weighted average over values ($V$).",
+      "A": "Correct: $\\text{softmax}\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right)V$ is the foundational self-attention equation.",
+      "B": "Element-wise addition does not calculate pairwise inter-token attention affinities.",
+      "C": "Softmax is required to normalize attention weights across the sequence length into a probability simplex summing to 1.",
+      "D": "ReLU does not produce normalized convex combination weights."
+    }
+  },
+  {
+    "item_id": "ML-L3-002",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Vanishing Gradient Problem",
+    "stem": "Why did deep neural networks trained with Sigmoid or Tanh activations suffer from severe 'Vanishing Gradients', and how did the Rectified Linear Unit (ReLU) mitigate this?",
+    "options": {
+      "A": "Sigmoid activations consume too much RAM; ReLU uses 1 byte",
+      "B": "The derivative of Sigmoid peaks at 0.25 (and Tanh at 1.0). In deep networks, repeated backpropagation chain rule multiplication of fractions $< 1$ causes gradients in early layers to decay exponentially toward zero; ReLU has a constant derivative of 1.0 for all positive inputs ($z > 0$), preserving gradient flow",
+      "C": "ReLU converts all negative numbers to positive numbers",
+      "D": "Sigmoid can only be trained with second-order Newton methods"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "By the chain rule, $\\frac{\\partial L}{\\partial W_1} = \\prod_{l=1}^L \\sigma'(z_l) W_l$. Because $\\sigma'(z) \\le 0.25$, multiplying across 10 layers yields an attenuation factor $< 0.25^{10} \\approx 10^{-6}$, virtually freezing early layer weights. ReLU's derivative is $\\frac{d}{dz}\\text{ReLU}(z) = 1$ for $z > 0$, eliminating saturating decay across arbitrary network depth.",
+      "A": "Memory footprints of scalar activations are identical in GPU tensor registers.",
+      "B": "Correct: The maximum gradient of Sigmoid is 0.25; repeated chaining causes exponential attenuation toward zero. ReLU maintains an unattenuated derivative of 1.0 on positive activations.",
+      "C": "ReLU zeroes out negative inputs ($\\max(0, z)$); it does not convert them to positive values.",
+      "D": "Sigmoid networks were historically trained with first-order backpropagation and SGD."
+    }
+  },
+  {
+    "item_id": "ML-L3-003",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Adam Optimizer Mechanics",
+    "stem": "What algorithmic components does the Adam (Adaptive Moment Estimation) optimizer combine to accelerate deep learning convergence?",
+    "options": {
+      "A": "Genetic algorithms and simulated annealing",
+      "B": "First-order momentum (exponential moving average of past gradients $m_t$) and RMSprop (exponential moving average of past squared gradients $v_t$), with bias-correction for initialization from zero",
+      "C": "Grid search and random search",
+      "D": "Batch normalization and dropout"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Kingma & Ba formulated Adam by tracking both the first raw moment $m_t = \\beta_1 m_{t-1} + (1 - \\beta_1) g_t$ (momentum/velocity) and the second uncentered moment $v_t = \\beta_2 v_{t-1} + (1 - \\beta_2) g_t^2$ (adaptive per-parameter learning rates). Bias corrections $\\hat{m}_t = \\frac{m_t}{1 - \\beta_1^t}$ prevent initial steps from shrinking toward zero.",
+      "A": "Adam is a gradient-based first-order stochastic optimizer, not an evolutionary metaheuristic.",
+      "B": "Correct: Adam integrates momentum (first moment) with adaptive learning rate scaling (second moment RMSprop) along with analytical origin bias corrections.",
+      "C": "Grid search is an external hyperparameter tuning loop, not a gradient optimizer.",
+      "D": "Batch normalization and dropout are network architectural regularization layers."
+    }
+  },
+  {
+    "item_id": "ML-L3-004",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Batch Normalization vs Layer Normalization",
+    "stem": "Why is Layer Normalization preferred over Batch Normalization in Transformer models and Natural Language Processing?",
+    "options": {
+      "A": "Batch Normalization is illegal under GDPR",
+      "B": "Batch Normalization normalizes across the batch dimension, making it dependent on batch size and problematic for variable-length sequences or small batch sizes; Layer Normalization computes mean and variance across the feature/hidden dimension for each token independently",
+      "C": "Layer Normalization is only compatible with convolutional layers",
+      "D": "Batch Normalization cannot be computed on GPUs"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "BatchNorm computes statistics across the mini-batch dimension $\\mathcal{B}$. In NLP, sentence lengths vary widely and batch sizes during generation or large LLM training may be 1 or 2 per device, causing BatchNorm statistics to become noisy and unstable. LayerNorm normalizes across the hidden dimension $d_{\\text{model}}$ for each token individually, functioning identically at training and inference time regardless of batch size.",
+      "A": "Normalization algorithms are mathematical equations with no privacy regulatory restrictions.",
+      "B": "Correct: LayerNorm normalizes across feature dimensions per sample, making it invariant to batch size and ideal for sequential NLP tokens.",
+      "C": "LayerNorm was developed for RNNs and Transformers, whereas BatchNorm originated in computer vision CNNs.",
+      "D": "BatchNorm has optimized cuDNN CUDA kernels."
+    }
+  },
+  {
+    "item_id": "ML-L3-005",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Residual Connections",
+    "stem": "Why do Residual Connections (Skip Connections: $y = F(x) + x$) in ResNets and Transformers allow networks to be trained up to hundreds or thousands of layers deep?",
+    "options": {
+      "A": "They double the number of parameters without adding computation",
+      "B": "The identity shortcut $+ x$ creates an unobstructed gradient highway during backpropagation ($\\frac{\\partial y}{\\partial x} = \\frac{\\partial F}{\\partial x} + 1$), preventing vanishing gradients and allowing layers to easily learn identity mappings",
+      "C": "They force the loss function to become strictly quadratic",
+      "D": "They eliminate the need for matrix multiplication"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In He et al.'s ResNet formulation, skipping layers via $x_{l+1} = x_l + F(x_l)$ gives $\\frac{\\partial L}{\\partial x_l} = \\frac{\\partial L}{\\partial x_{l+1}} (1 + \\frac{\\partial F}{\\partial x_l})$. Even if $\\frac{\\partial F}{\\partial x_l}$ vanishes toward zero, the $+1$ term guarantees that gradients pass backward unattenuated all the way to the initial input layers.",
+      "A": "Identity shortcut connections contain zero learnable weights; they add no parameters.",
+      "B": "Correct: The $+1$ additive gradient highway prevents signal attenuation across deep layers, allowing deep networks to optimize residual perturbations.",
+      "C": "Loss landscapes remain non-convex, though residual connections make the surface significantly smoother.",
+      "D": "Weight layers inside $F(x)$ still perform standard tensor matrix multiplications."
+    }
+  },
+  {
+    "item_id": "ML-L3-006",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "MLOps Data Drift vs Concept Drift",
+    "stem": "In production machine learning monitoring, what is the precise mathematical distinction between Data Drift (Covariate Shift) and Concept Drift?",
+    "options": {
+      "A": "Data drift only happens in SQL; concept drift only happens in NoSQL",
+      "B": "Data Drift occurs when the input feature distribution changes ($P(X)$ changes while $P(Y|X)$ remains constant); Concept Drift occurs when the underlying relationship between features and target changes ($P(Y|X)$ changes)",
+      "C": "Concept drift means the server CPU temperature is too high",
+      "D": "Data drift is detected with p-values; concept drift can never be detected"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Covariate Shift (Data Drift) means the distribution of inputs $P(X)$ shifts (e.g., users skew younger), but the rule predicting $Y$ from $X$ remains invariant. Concept Drift means the real-world ground truth relationship $P(Y|X)$ changes (e.g., macroeconomic inflation changes spending behavior, so the same salary $X$ no longer predicts creditworthiness $Y$).",
+      "A": "Both are fundamental statistical deployment degradation modes unrelated to database dialect.",
+      "B": "Correct: Data drift shifts $P(X)$ without altering conditional logic; concept drift alters the mapping $P(Y|X)$ itself.",
+      "C": "Hardware thermal throttling is infrastructure, not statistical drift.",
+      "D": "Concept drift is monitored by tracking degradation in production ground-truth performance metrics (e.g. F1-score) over time."
+    }
+  },
+  {
+    "item_id": "ML-L3-007",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Dying ReLU Problem",
+    "stem": "What is the 'Dying ReLU' problem in deep neural networks, and how does Leaky ReLU or GELU resolve it?",
+    "options": {
+      "A": "The CPU overheats and halts execution",
+      "B": "If a neuron's weights receive an update that causes it to output negative values for all training inputs, its gradient becomes permanently zero ($\\frac{d}{dz}=0$), preventing the neuron from ever recovering or learning again; Leaky ReLU provides a small non-zero slope ($\\alpha z$) for $z < 0$",
+      "C": "The activation value exceeds float32 maximum value",
+      "D": "The network automatically prunes all convolutional filters"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Standard $\\text{ReLU}(z) = \\max(0, z)$ has zero gradient for $z < 0$. If an aggressive gradient update shifts weights such that the neuron is negative across the entire dataset, the gradient is 0 for all samples. The neuron is mathematically 'dead' and can never update. Leaky ReLU introduces a small positive slope for negative inputs: $f(z) = z$ if $z > 0$ else $0.01 z$, guaranteeing non-zero gradient flow.",
+      "A": "This is a mathematical gradient stagnation issue, not a hardware fault.",
+      "B": "Correct: Zero gradients on negative activations can permanently deactivate neurons; Leaky ReLU and GELU maintain non-zero gradients across negative inputs.",
+      "C": "Activation overflow is exploding activations, mitigated by gradient clipping.",
+      "D": "Pruning is an explicit compression technique, not a failure mode of dead neurons."
+    }
+  },
+  {
+    "item_id": "ML-L3-008",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Population Stability Index (PSI)",
+    "stem": "In enterprise risk modeling and MLOps, what does a Population Stability Index (PSI) greater than 0.25 indicate when comparing production inference features against training baseline distributions?",
+    "options": {
+      "A": "The model is 25% faster than baseline",
+      "B": "Significant distributional shift / drift has occurred; the model must be reviewed and retrained immediately",
+      "C": "The model has achieved 100% accuracy",
+      "D": "Zero data drift has been detected"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "PSI quantifies divergence between expected and actual distributions: $\\text{PSI} = \\sum (\\% \\text{Actual} - \\% \\text{Expected}) \\times \\ln\\left(\\frac{\\% \\text{Actual}}{\\% \\text{Expected}}\\right)$. Standard industry benchmarks dictate: $\\text{PSI} < 0.10$ (negligible shift); $0.10 \\le \\text{PSI} < 0.25$ (moderate shift); $\\text{PSI} \\ge 0.25$ (major distributional shift requiring immediate model retraining).",
+      "A": "PSI measures statistical population shift, not inference throughput.",
+      "B": "Correct: PSI $\\ge 0.25$ indicates significant distributional divergence between training and inference populations.",
+      "C": "PSI is an input feature stability metric; it does not measure accuracy.",
+      "D": "Zero drift corresponds to $\\text{PSI} = 0.0$."
+    }
+  },
+  {
+    "item_id": "ML-L3-009",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Model Quantization",
+    "stem": "What is the primary benefit and mechanism of Post-Training Quantization (PTQ) from FP32 to INT8 in LLM and edge model deployment?",
+    "options": {
+      "A": "It converts text inputs into SQL queries",
+      "B": "It reduces model memory footprint by 4x (4 bytes per float to 1 byte per int) and accelerates inference by utilizing dedicated INT8 tensor cores, with negligible loss in accuracy",
+      "C": "It increases training time by 400%",
+      "D": "It eliminates the need for activation functions"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Standard 32-bit floating point weights consume 4 bytes each (a 7B model takes ~28 GB VRAM). Quantizing weights to 8-bit signed integers ($w_q = \\text{round}(w / S) + Z$) reduces memory usage to ~7 GB (4x reduction), fitting consumer GPUs and enabling fast integer arithmetic matrix multiplication units with minimal perplexity degradation.",
+      "A": "Quantization is numerical representation compression, unrelated to query translation.",
+      "B": "Correct: INT8 quantization slashes memory by 75% and utilizes fast integer matrix multiplication units with near-lossless precision.",
+      "C": "Post-training quantization is applied AFTER training completes; it takes minutes.",
+      "D": "Activation functions remain preserved in the quantized computational graph."
+    }
+  },
+  {
+    "item_id": "ML-L3-010",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Multi-Head Attention",
+    "stem": "In the Transformer architecture, why does Multi-Head Attention split queries, keys, and values into $h$ separate heads instead of computing a single large attention head?",
+    "options": {
+      "A": "To allow the model to jointly attend to information from different representation subspaces at different positions simultaneously (e.g. one head tracks syntactic agreement, another tracks coreference)",
+      "B": "To ensure the network executes only on single-core CPUs",
+      "C": "Because single-head attention cannot be implemented in PyTorch",
+      "D": "To force attention weights to become zero"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Single attention averages token interactions across all semantic dimensions simultaneously, washing out subtle relationships. Multi-Head Attention projects $Q, K, V$ into $h$ lower-dimensional subspaces ($d_k = d_{\\text{model}} / h$). Each head specializes in distinct linguistic dependencies (e.g., direct objects, antecedent pronouns, verbs) before concatenating back to $d_{\\text{model}}$.",
+      "A": "Correct: Multi-head projections allow the network to attend to multiple distinct linguistic relationships across different positions in parallel.",
+      "B": "Multi-head attention was designed to exploit parallel GPU tensor computing.",
+      "C": "Single-head attention is trivial to implement in PyTorch, but empirically performs worse.",
+      "D": "Attention weights remain valid softmax distributions across all heads."
+    }
+  },
+  {
+    "item_id": "ML-L3-011",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Dropout Mechanics",
+    "stem": "How does Dropout operate during neural network training versus inference (testing)?",
+    "options": {
+      "A": "Dropout randomly sets units to zero during testing, and turns off during training",
+      "B": "During training, each hidden unit is randomly zeroed out with probability $p$ to prevent co-adaptation of features; during inference, all units remain active and their activations are scaled by $(1 - p)$ (or inverted dropout scales by $1/(1-p)$ during training)",
+      "C": "Dropout permanently deletes weights from the model file on disk",
+      "D": "Dropout applies only to the output layer"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Srivastava et al. formulated Dropout as training an ensemble of $2^N$ thinned subnetworks. Randomly dropping activations with probability $p$ forces units to learn robust features without relying on specific neighboring activations (co-adaptation). At test time, dropout is turned off; Inverted Dropout pre-scales training activations by $1 / (1 - p)$ so test-time inference requires zero scaling operations.",
+      "A": "Inverted: Dropout is active strictly during training and disabled during test inference.",
+      "B": "Correct: Random deactivation during training prevents co-adaptation; test-time preserves all units with matched expectation scaling.",
+      "C": "Dropout temporarily zeros activations in the forward pass; it does not delete model parameters on disk.",
+      "D": "Dropout is applied across intermediate hidden layers, rarely on final output logits."
+    }
+  },
+  {
+    "item_id": "ML-L3-012",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Weight Initialization",
+    "stem": "Why does initializing all weights of a deep feedforward neural network to exact zero ($\\mathbf{W} = \\mathbf{0}$) cause training failure?",
+    "options": {
+      "A": "Because zero weights cause immediate division-by-zero exceptions in matrix multiplication",
+      "B": "Due to the Symmetry Problem: every hidden unit in a layer computes the identical activation and receives the identical backpropagation gradient, causing all neurons to update identically and preventing feature diversification",
+      "C": "Because the learning rate cannot be multiplied by zero",
+      "D": "Zero-initialized models cannot be saved to disk"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "If all weights start at zero, every neuron in hidden layer $l$ computes $z = 0 + b$ and produces identical activations. During backprop, every neuron computes the exact same derivative $\\frac{\\partial L}{\\partial W}$. Consequently, all neurons receive identical weight updates and remain clones forever. Random initialization (Xavier/He) breaks this symmetry.",
+      "A": "Matrix multiplication $X \\cdot 0$ yields 0 smoothly; no division occurs.",
+      "B": "Correct: Symmetry prevents hidden units from learning distinct representations; random initialization breaks symmetry so neurons specialize.",
+      "C": "Learning rate multiplication $0 - \\alpha g$ operates normally, but gradients across identical units are identical.",
+      "D": "Zero tensors are standard arrays easily serializable to disk."
+    }
+  },
+  {
+    "item_id": "ML-L3-013",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Positional Encoding in Transformers",
+    "stem": "Why do Transformer models require explicit Positional Encodings (sinusoidal or learned RoPE embeddings) added to input token embeddings?",
+    "options": {
+      "A": "Because Transformers cannot execute on string text",
+      "B": "Because the self-attention mechanism is permutation-equivariant: without positional encodings, the attention score between two tokens is completely invariant to their word order (e.g. 'dog bites man' has identical attention to 'man bites dog')",
+      "C": "To prevent GPU out-of-memory errors",
+      "D": "To encrypt token inputs for security compliance"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Unlike recurrent networks (RNNs) that process tokens sequentially $t_1, t_2, t_3$, self-attention operates over all tokens simultaneously via set operations. Matrix multiplication $Q K^T$ does not encode sequence position. Without positional embeddings added to or multiplied with token vectors, the network treats sentences as an unordered bag of words.",
+      "A": "Input strings are tokenized into vocabulary indices prior to embedding lookup.",
+      "B": "Correct: Self-attention is permutation-equivariant; positional encodings inject sequence order information into representation vectors.",
+      "C": "Positional vectors occupy identical memory footprint as standard token embeddings.",
+      "D": "Positional encoding provides sequence geometry, not cryptographic security."
+    }
+  },
+  {
+    "item_id": "ML-L3-014",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Contrastive Learning & Embeddings",
+    "stem": "In self-supervised representation learning (such as SimCLR or CLIP), what objective does the InfoNCE contrastive loss function optimize?",
+    "options": {
+      "A": "Minimizing the number of clusters in a dataset",
+      "B": "Maximizing agreement (cosine similarity) between positive pairs (different augmentations of the same sample) while pushing apart negative pairs (different samples) in the embedding space",
+      "C": "Converting images into sound files",
+      "D": "Predicting the next word using n-gram frequency"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "InfoNCE loss treats contrastive representation as multi-class classification: $\\mathcal{L} = -\\log \\frac{\\exp(\\text{sim}(z_i, z_j)/\\tau)}{\\sum_k \\exp(\\text{sim}(z_i, z_k)/\\tau)}$. It forces representations of semantic views of the same instance (positive pair) close together on the unit hypersphere while dispersing dissimilar representations (negatives) apart.",
+      "A": "InfoNCE maps continuous representations onto a hypersphere; it does not assign discrete cluster labels.",
+      "B": "Correct: InfoNCE maximizes mutual information by pulling positive augmented pairs together and repelling negative instances in latent space.",
+      "C": "CLIP maps vision and text to shared embeddings, not audio synthesis.",
+      "D": "Next-token prediction is causal autoregressive cross-entropy, distinct from contrastive dual-encoder objectives."
+    }
+  },
+  {
+    "item_id": "ML-L3-015",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Feature Store Architecture",
+    "stem": "In enterprise MLOps architecture (e.g. Feast, Tecton), what is the dual role of a 'Feature Store'?",
+    "options": {
+      "A": "An e-commerce storefront where customers buy software features",
+      "B": "Providing a unified interface for defining and serving features: an Offline Store (optimized for high-throughput batch historical joins for training without point-in-time leakage) and an Online Store (low-latency key-value store for real-time sub-10ms inference)",
+      "C": "A Git repository that stores Python comments",
+      "D": "A database that only stores one-hot encoded features"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Production ML suffers from 'train-serve skew' when online feature calculation differs from offline training pipelines. A feature store unifies feature definitions: it maintains an Offline Store (e.g. BigQuery, Snowflake) providing point-in-time correct historical feature joins for training, and continuously syncs an Online Store (e.g. Redis, DynamoDB) for sub-10ms low-latency inference lookups.",
+      "A": "A feature store is data engineering infrastructure, not a commercial retail store.",
+      "B": "Correct: Feature stores resolve train-serve skew by providing point-in-time correct batch data for training and ultra-low latency key-value retrieval for real-time inference.",
+      "C": "Code versioning is handled by Git, not feature stores.",
+      "D": "Feature stores ingest any numerical, categorical, tabular, or embedding representations."
+    }
+  },
+  {
+    "item_id": "ML-L3-016",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Gradient Clipping",
+    "stem": "Why is Gradient Clipping widely implemented when training Recurrent Neural Networks (RNNs) and deep Transformers?",
+    "options": {
+      "A": "To limit model file size to under 100 MB",
+      "B": "To prevent the Exploding Gradient problem: if the L2 norm of the gradient vector $\\|g\\|$ exceeds a threshold $c$, it is scaled down to $c \\frac{g}{\\|g\\|}$, stabilizing optimization and preventing $NaN$ loss divergence",
+      "C": "To convert continuous gradients into integers",
+      "D": "To force all gradients to be positive"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In recurrent networks or deep attention models, long backpropagation sequences can cause gradients to multiply repeatedly, resulting in exponential blow-ups (gradient explosion). This causes parameter weights to take massive steps, destroying learned representations and producing $NaN$ floating point overflow. Gradient clipping by norm caps the maximum update step while preserving gradient direction.",
+      "A": "Gradient clipping scales transient derivative vectors in memory; it does not truncate model weight files.",
+      "B": "Correct: Norm-based gradient clipping restricts step magnitude to a maximum threshold $c$, stabilizing optimization trajectories against catastrophic exploding gradients.",
+      "C": "Quantization converts numbers to integers, not gradient clipping.",
+      "D": "Clipping rescales magnitude; it does not alter coordinate signs."
+    }
+  },
+  {
+    "item_id": "ML-L3-017",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Model Pruning",
+    "stem": "What is Magnitude-Based Weight Pruning in neural network compression?",
+    "options": {
+      "A": "Deleting layers that have odd numbers of weights",
+      "B": "Setting weight parameters with the smallest absolute values ($|w| < \\epsilon$) to zero, creating a sparse network that can be compressed and accelerated without significant accuracy degradation",
+      "C": "Rounding all floating point numbers to the nearest integer",
+      "D": "Increasing model parameters by 200%"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In overparameterized deep networks, many weights have values very close to zero and contribute minimally to final predictions. Magnitude pruning sorts weights by $|w|$ and removes the lowest $P\\%$ (e.g. 50%\u201380%). Retraining/fine-tuning the remaining non-zero weights (the Lottery Ticket Hypothesis) recovers baseline accuracy while achieving major sparsity and compression.",
+      "A": "Pruning operates on individual weight magnitudes, not arbitrary layer indexing.",
+      "B": "Correct: Removing low-magnitude weights induces structural or unstructured sparsity, reducing storage and inference computational overhead.",
+      "C": "Rounding to integers is quantization, distinct from pruning.",
+      "D": "Pruning reduces parameters, never increases them."
+    }
+  },
+  {
+    "item_id": "ML-L3-018",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Knowledge Distillation",
+    "stem": "In Knowledge Distillation (Hinton et al.), how does a compact 'Student' model learn from a large, high-capacity 'Teacher' model?",
+    "options": {
+      "A": "By copying the Teacher's exact weights file",
+      "B": "By training the Student to match the soft probability distribution (soft targets generated via a high temperature $T$ softmax: $q_i = \\frac{\\exp(z_i/T)}{\\sum \\exp(z_j/T)}$) of the Teacher, transferring dark knowledge about relative class similarities",
+      "C": "By running both models in parallel on two separate GPUs without loss communication",
+      "D": "By deleting the Teacher model before training begins"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Hard one-hot labels (e.g. [1, 0, 0]) contain zero information about inter-class relationships. A trained teacher model outputs soft probabilities (e.g., [0.85, 0.14, 0.01]), revealing that a BMW looks somewhat like an Audi, but nothing like a Carrot ('dark knowledge'). Training the student with temperature-scaled softmax enables a tiny model to achieve performance close to the teacher.",
+      "A": "The student has a completely different, smaller architecture; weights cannot be copied.",
+      "B": "Correct: Temperature-softened teacher output logits provide rich probabilistic supervision that transfers generalized representations to compact student networks.",
+      "C": "Distillation relies explicitly on cross-entropy loss between student and teacher logits.",
+      "D": "The teacher must actively generate forward-pass predictions during distillation."
+    }
+  },
+  {
+    "item_id": "ML-L3-019",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Canary Deployments & Shadow Mode",
+    "stem": "In enterprise ML deployment, what is 'Shadow Mode' (Dark Launching)?",
+    "options": {
+      "A": "Deploying models exclusively to dark web marketplaces",
+      "B": "Routing live production traffic to both the existing legacy model and the new candidate model simultaneously, but returning only the legacy model's predictions to users while logging the candidate model's performance and latency in the background",
+      "C": "Running models with the monitor turned off",
+      "D": "Deleting user logs after 24 hours"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Shadow deployment is the safest deployment pattern for high-stakes ML systems. The new model receives actual live production inputs and executes inference under real hardware loads, but its outputs are purely logged for evaluation. Users never see its output until engineers verify that latency, accuracy, and edge cases meet strict production SLAs.",
+      "A": "Shadow mode is an enterprise software reliability pattern, unrelated to the dark web.",
+      "B": "Correct: Shadowing duplicates production requests to candidate models to monitor real-world behavior and compute latency without user-facing operational risk.",
+      "C": "Display monitor power states have no bearing on backend service architecture.",
+      "D": "Shadow mode relies heavily on logging candidate inferences for comparative audit."
+    }
+  },
+  {
+    "item_id": "ML-L3-020",
+    "track": "MACHINE_LEARNING",
+    "level": 3,
+    "level_name": "Level 3: Advanced (Deep Learning, Transformers & MLOps)",
+    "topic": "Causal Inference vs Pure Correlation",
+    "stem": "In production decision-making, why can a supervised ML model with 98% ROC-AUC give disastrously wrong recommendations when used for policy interventions (e.g. deciding whether to increase product discounts)?",
+    "options": {
+      "A": "Because ROC-AUC only applies to regression problems",
+      "B": "Supervised ML predicts correlations in observational data ($P(Y|X)$); it does not estimate the causal intervention effect ($P(Y | \\text{do}(X))$). If confounding exists (e.g. high-intent customers self-select discounts), intervening on the feature will not reproduce the observed outcome",
+      "C": "Because 98% ROC-AUC indicates an underfitted model",
+      "D": "Because Python models do not support arithmetic subtraction"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Pearl's Causal Hierarchy explains that standard machine learning is associational ($L_1$: observing). If price-insensitive customers buy luxury goods and happen to use promo codes, a predictive model learns 'discounts $\\to$ high spend'. Concluding that giving discounts causes people to spend more is false. Interventional decision-making requires causal graphs, instrumental variables, or randomized trials (A/B testing).",
+      "A": "ROC-AUC is standard for binary classification, not regression.",
+      "B": "Correct: Predictive correlation $P(Y|X)$ differs fundamentally from causal interventional effect $P(Y|\\text{do}(X))$; unmodeled confounders lead to disastrous policy decisions.",
+      "C": "98% ROC-AUC indicates high predictive discriminative capacity on the observational distribution, not underfitting.",
+      "D": "All scientific computing environments natively support subtraction."
+    }
+  }
+]

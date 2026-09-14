@@ -1,0 +1,47 @@
+{
+  "id": "guvi_celsius_to_fahrenheit",
+  "title": "GUVI: Celsius to Fahrenheit Converter",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Easy",
+  "category": "Basic Math",
+  "description": "Given a temperature in Celsius `c`, convert it to Fahrenheit using the formula F = (C * 9/5) + 32. Return the result rounded to 2 decimal places.",
+  "constraints": "-273.15 <= c <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "c_to_f",
+  "starter_code": "def c_to_f(c: float) -> float:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "c": 0.0
+      },
+      "expected": 32.0
+    },
+    {
+      "input": {
+        "c": 100.0
+      },
+      "expected": 212.0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "c": -40.0
+      },
+      "expected": -40.0
+    },
+    {
+      "input": {
+        "c": 37.0
+      },
+      "expected": 98.6
+    },
+    {
+      "input": {
+        "c": 25.5
+      },
+      "expected": 77.9
+    }
+  ],
+  "solution": "def c_to_f(c: float) -> float:\n    return round((c * 9.0 / 5.0) + 32.0, 2)\n",
+  "explanation": "Applies linear temperature transformation formula with precision rounding in O(1) time."
+}

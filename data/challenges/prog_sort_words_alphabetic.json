@@ -1,0 +1,61 @@
+{
+  "id": "prog_sort_words_alphabetic",
+  "title": "Programiz: Sort Words in Alphabetic Order",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Strings & Sorting",
+  "description": "Given a sentence `sentence`, split it into words and return the words sorted in alphabetical order (case-insensitive, returned in lowercase).",
+  "constraints": "1 <= len(sentence) <= 10^4\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "sort_words",
+  "starter_code": "def sort_words(sentence: str) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "sentence": "Hello this Is a Example With cased letters"
+      },
+      "expected": [
+        "a",
+        "cased",
+        "example",
+        "hello",
+        "is",
+        "letters",
+        "this",
+        "with"
+      ]
+    },
+    {
+      "input": {
+        "sentence": "zebra apple banana"
+      },
+      "expected": [
+        "apple",
+        "banana",
+        "zebra"
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "sentence": "single"
+      },
+      "expected": [
+        "single"
+      ]
+    },
+    {
+      "input": {
+        "sentence": "B a A b"
+      },
+      "expected": [
+        "a",
+        "a",
+        "b",
+        "b"
+      ]
+    }
+  ],
+  "solution": "def sort_words(sentence: str) -> list[str]:\n    words = [w.lower() for w in sentence.split()]\n    return sorted(words)\n",
+  "explanation": "Tokenizes words into lowercase and sorts alphabetically in O(N log N) time."
+}

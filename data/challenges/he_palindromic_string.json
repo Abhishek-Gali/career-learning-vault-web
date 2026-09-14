@@ -1,0 +1,41 @@
+{
+  "id": "he_palindromic_string",
+  "title": "HackerEarth: Palindromic String",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "You have been given a String `s`. You need to find whether it is a palindrome or not. Return 'YES' or 'NO'.",
+  "constraints": "1 <= len(s) <= 100\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "is_palindrome",
+  "starter_code": "def is_palindrome(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "aba"
+      },
+      "expected": "YES"
+    },
+    {
+      "input": {
+        "s": "abac"
+      },
+      "expected": "NO"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "racecar"
+      },
+      "expected": "YES"
+    },
+    {
+      "input": {
+        "s": "a"
+      },
+      "expected": "YES"
+    }
+  ],
+  "solution": "def is_palindrome(s: str) -> str:\n    return 'YES' if s == s[::-1] else 'NO'\n",
+  "explanation": "Checks if string equals its reverse in O(N) time."
+}

@@ -1,0 +1,63 @@
+{
+  "id": "w3_filter_words_by_length",
+  "title": "W3Schools: Filter Words by Length",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Strings & Lists",
+  "description": "Given a list of strings `words` and an integer `k`, return a new list containing only the words whose length is strictly greater than `k`.",
+  "constraints": "0 <= len(words) <= 10^4, k >= 0\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "filter_long_words",
+  "starter_code": "def filter_long_words(words: list[str], k: int) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "words": [
+          "apple",
+          "banana",
+          "fig",
+          "cherry",
+          "kiwi"
+        ],
+        "k": 4
+      },
+      "expected": [
+        "apple",
+        "banana",
+        "cherry"
+      ]
+    },
+    {
+      "input": {
+        "words": [
+          "a",
+          "bb",
+          "ccc"
+        ],
+        "k": 3
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "words": [],
+        "k": 2
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "words": [
+          "supercalifragilistic"
+        ],
+        "k": 10
+      },
+      "expected": [
+        "supercalifragilistic"
+      ]
+    }
+  ],
+  "solution": "def filter_long_words(words: list[str], k: int) -> list[str]:\n    return [w for w in words if len(w) > k]\n",
+  "explanation": "Filters words satisfying length condition in O(N) time."
+}

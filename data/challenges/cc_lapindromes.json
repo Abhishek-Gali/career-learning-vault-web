@@ -1,0 +1,47 @@
+{
+  "id": "cc_lapindromes",
+  "title": "CodeChef: Lapindromes",
+  "platform": "CodeChef",
+  "difficulty": "Hard",
+  "category": "Strings & Hashing",
+  "description": "Lapindrome is defined as a string which when split in the middle, gives two halves having the same characters and same frequency of each character (ignoring middle character if odd). Return 'YES' if lapindrome, else 'NO'.",
+  "constraints": "2 <= len(s) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "is_lapindrome",
+  "starter_code": "def is_lapindrome(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "gaga"
+      },
+      "expected": "YES"
+    },
+    {
+      "input": {
+        "s": "abcde"
+      },
+      "expected": "NO"
+    },
+    {
+      "input": {
+        "s": "rotor"
+      },
+      "expected": "YES"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "xyzxy"
+      },
+      "expected": "YES"
+    },
+    {
+      "input": {
+        "s": "abbaab"
+      },
+      "expected": "NO"
+    }
+  ],
+  "solution": "def is_lapindrome(s: str) -> str:\n    from collections import Counter\n    n = len(s)\n    half = n // 2\n    left = s[:half]\n    right = s[half + (1 if n % 2 == 1 else 0):]\n    return 'YES' if Counter(left) == Counter(right) else 'NO'\n",
+  "explanation": "Compares character frequencies of left and right halves in O(N) time."
+}

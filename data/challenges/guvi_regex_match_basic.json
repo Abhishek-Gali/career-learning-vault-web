@@ -1,0 +1,52 @@
+{
+  "id": "guvi_regex_match_basic",
+  "title": "GUVI: Regular Expression Matching ('.' and '*')",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Hard",
+  "category": "Dynamic Programming & Recursion",
+  "description": "Given an input string `s` and a pattern `p`, implement regular expression matching with support for '.' (matches any single character) and '*' (matches zero or more of the preceding element).",
+  "constraints": "1 <= len(s), len(p) <= 30\n\u2022 Time: O(S*P) | Space: O(S*P)",
+  "function_name": "is_match",
+  "starter_code": "def is_match(s: str, p: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "aa",
+        "p": "a"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": "aa",
+        "p": "a*"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "ab",
+        "p": ".*"
+      },
+      "expected": true
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "aab",
+        "p": "c*a*b"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "mississippi",
+        "p": "mis*is*p*."
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def is_match(s: str, p: str) -> bool:\n    memo = {}\n    def dp(i, j):\n        if (i, j) in memo:\n            return memo[(i, j)]\n        if j == len(p):\n            ans = i == len(s)\n        else:\n            first_match = i < len(s) and p[j] in {s[i], '.'}\n            if j + 1 < len(p) and p[j + 1] == '*':\n                ans = dp(i, j + 2) or (first_match and dp(i + 1, j))\n            else:\n                ans = first_match and dp(i + 1, j + 1)\n        memo[(i, j)] = ans\n        return ans\n    return dp(0, 0)\n",
+  "explanation": "Top-down memoized DP matches wildcard patterns handling '*' zero-or-more branches in O(S*P) time."
+}

@@ -1,0 +1,87 @@
+{
+  "id": "lc_group_anagrams",
+  "title": "LeetCode 49: Group Anagrams",
+  "platform": "LeetCode",
+  "difficulty": "Medium",
+  "category": "Hash Tables & Strings",
+  "description": "Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.",
+  "constraints": "1 <= len(strs) <= 10^4\n\u2022 Time: O(N * K log K) | Space: O(N * K)",
+  "function_name": "group_anagrams",
+  "starter_code": "def group_anagrams(strs: list[str]) -> list[list[str]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "strs": [
+          "eat",
+          "tea",
+          "tan",
+          "ate",
+          "nat",
+          "bat"
+        ]
+      },
+      "expected": [
+        [
+          "bat"
+        ],
+        [
+          "nat",
+          "tan"
+        ],
+        [
+          "ate",
+          "eat",
+          "tea"
+        ]
+      ]
+    },
+    {
+      "input": {
+        "strs": [
+          ""
+        ]
+      },
+      "expected": [
+        [
+          ""
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "strs": [
+          "a"
+        ]
+      },
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    },
+    {
+      "input": {
+        "strs": [
+          "ab",
+          "ba",
+          "abc",
+          "cba"
+        ]
+      },
+      "expected": [
+        [
+          "ab",
+          "ba"
+        ],
+        [
+          "abc",
+          "cba"
+        ]
+      ]
+    }
+  ],
+  "solution": "def group_anagrams(strs: list[str]) -> list[list[str]]:\n    from collections import defaultdict\n    groups = defaultdict(list)\n    for s in strs:\n        groups[''.join(sorted(s))].append(s)\n    return sorted([sorted(g) for g in groups.values()], key=lambda g: (len(g), g))\n",
+  "explanation": "Sorting each string's characters creates a canonical hash map key for grouping anagrams in O(N * K log K) time."
+}

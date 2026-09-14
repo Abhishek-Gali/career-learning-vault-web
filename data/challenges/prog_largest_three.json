@@ -1,0 +1,49 @@
+{
+  "id": "prog_largest_three",
+  "title": "Programiz: Find Largest Among Three Numbers",
+  "platform": "Programiz",
+  "difficulty": "Easy",
+  "category": "Basic Python",
+  "description": "Given three numbers `a`, `b`, and `c`, find and return the largest.",
+  "constraints": "-10^9 <= a, b, c <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "largest_among_three",
+  "starter_code": "def largest_among_three(a: int, b: int, c: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 10,
+        "b": 14,
+        "c": 12
+      },
+      "expected": 14
+    },
+    {
+      "input": {
+        "a": 5,
+        "b": 5,
+        "c": 2
+      },
+      "expected": 5
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": -1,
+        "b": -2,
+        "c": -3
+      },
+      "expected": -1
+    },
+    {
+      "input": {
+        "a": 100,
+        "b": 200,
+        "c": 300
+      },
+      "expected": 300
+    }
+  ],
+  "solution": "def largest_among_three(a: int, b: int, c: int) -> int:\n    return max(a, b, c)\n",
+  "explanation": "Compares 3 operands returning maximum in O(1) time."
+}

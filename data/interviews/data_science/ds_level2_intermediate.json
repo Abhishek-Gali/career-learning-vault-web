@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "DS-L2-001",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "SQL Window Functions",
+    "stem": "You need to rank salespeople by revenue within each sales region. If two representatives in the same region tie for 1st place ($100k), you want the next person to be ranked 2nd (no skipped numbers). Which window function must you use?",
+    "options": {
+      "A": "ROW_NUMBER()",
+      "B": "RANK()",
+      "C": "DENSE_RANK()",
+      "D": "NTILE(2)"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "`DENSE_RANK()` assigns consecutive rank integers without gaps after ties. In a tie for 1st, both get 1, and the next highest value receives 2. `RANK()` leaves gaps (1, 1, 3), while `ROW_NUMBER()` assigns arbitrary distinct sequential integers (1, 2, 3).",
+      "A": "`ROW_NUMBER()` arbitrarily breaks ties to assign distinct sequential integers (1, 2, 3), failing to assign equal rank to tied individuals.",
+      "B": "`RANK()` assigns equal rank to ties but leaves gaps corresponding to the number of tied rows (e.g. 1, 1, 3).",
+      "C": "Correct: `DENSE_RANK()` assigns equal ranks to tied values and advances to the immediate next consecutive integer (1, 1, 2).",
+      "D": "`NTILE(2)` splits the partition into 2 equal buckets (halves), not rank orderings."
+    }
+  },
+  {
+    "item_id": "DS-L2-002",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Hypothesis Testing",
+    "stem": "In formal statistical hypothesis testing, what is the exact definition of a p-value?",
+    "options": {
+      "A": "The probability that the null hypothesis ($H_0$) is true",
+      "B": "The probability of observing a test statistic as extreme as, or more extreme than, the observed data, assuming that the null hypothesis ($H_0$) is true",
+      "C": "The probability of committing a Type II error",
+      "D": "The probability that the experimental treatment caused the measured effect"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A p-value is calculated under the strict condition that the null hypothesis is true. It measures how surprising the observed sample data (or more extreme outcomes) are given chance variation alone. It is NOT $P(H_0 | \\text{Data})$.",
+      "A": "A frequentist p-value is NOT $P(H_0 \\text{ is true})$; computing the probability of a hypothesis requires Bayesian posterior calculation.",
+      "B": "Correct: The p-value quantifies $P(\\text{Data as or more extreme} | H_0 \\text{ is true})$.",
+      "C": "The probability of a Type II error is denoted by $\\beta$ (beta), which is distinct from the p-value.",
+      "D": "p-value does not compute causal probability; confounding variables can generate extreme test statistics under an invalid null."
+    }
+  },
+  {
+    "item_id": "DS-L2-003",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Statistical Error Types",
+    "stem": "A fraud detection team sets a threshold so sensitive that it flags 10,000 legitimate user accounts as fraudulent. In statistical decision theory, what type of error has predominantly occurred?",
+    "options": {
+      "A": "Type I Error (False Positive, $\\alpha$)",
+      "B": "Type II Error (False Negative, $\\beta$)",
+      "C": "Sampling Bias Error",
+      "D": "Standard Error of the Mean"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A Type I Error occurs when a statistical test incorrectly rejects a true null hypothesis ($H_0$: 'Account is legitimate'). In fraud detection, flagging an innocent account as fraudulent is a False Positive (Type I error).",
+      "A": "Correct: Rejecting $H_0$ when $H_0$ is actually true is a Type I error (False Positive).",
+      "B": "Type II error is failing to reject $H_0$ when it is false (letting a real fraudster go undetected, False Negative).",
+      "C": "Sampling bias arises from non-random sample collection, not decision threshold tradeoff.",
+      "D": "Standard Error of the Mean is the standard deviation of sample mean estimates, not a classification error."
+    }
+  },
+  {
+    "item_id": "DS-L2-004",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "SQL Lead and Lag",
+    "stem": "Which SQL window function allows you to retrieve a column value from the preceding row within a partitioned window without performing a self-join?",
+    "options": {
+      "A": "LEAD()",
+      "B": "LAG()",
+      "C": "FIRST_VALUE()",
+      "D": "PREV()"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "`LAG(column, offset, default)` reaches backward into previous rows within the partition defined by the `OVER (PARTITION BY ... ORDER BY ...)` clause. `LEAD()` looks forward into subsequent rows.",
+      "A": "`LEAD()` fetches values from the following (future) row.",
+      "B": "Correct: `LAG()` accesses data from preceding rows in the ordered window.",
+      "C": "`FIRST_VALUE()` retrieves the value from the very first row of the window frame, not specifically the immediately prior row.",
+      "D": "`PREV()` is not an ANSI SQL standard window function."
+    }
+  },
+  {
+    "item_id": "DS-L2-005",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Central Limit Theorem",
+    "stem": "What is the formal guarantee provided by the Central Limit Theorem (CLT) regarding sample means?",
+    "options": {
+      "A": "Any original population distribution will become normally distributed if the sample size is greater than 30",
+      "B": "As the sample size $N$ increases, the distribution of the sample mean $\\bar{X}$ approaches a normal distribution, regardless of the underlying population distribution shape (provided finite mean and variance)",
+      "C": "The sample median is always equal to the population mean for $N > 30$",
+      "D": "All outliers in the dataset disappear as $N \\to \\infty$"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The CLT states that the sum or average of a sufficiently large number of independent and identically distributed (i.i.d.) random variables will be approximately normally distributed, even if the underlying variable itself is heavily skewed, bimodal, or uniform.",
+      "A": "A common misconception: The underlying population distribution NEVER changes; only the sampling distribution of the MEAN becomes Gaussian.",
+      "B": "Correct: The sampling distribution of the sample mean converges to $\\mathcal{N}(\\mu, \\sigma^2/N)$ as sample size $N$ grows.",
+      "C": "The CLT applies to the sample mean, not the median, and sample median does not equal population mean under skew.",
+      "D": "Outliers do not vanish in raw data; they simply exert decreasing leverage on the sample mean as N increases."
+    }
+  },
+  {
+    "item_id": "DS-L2-006",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Missing Data Mechanisms",
+    "stem": "In Rubin's missing data taxonomy, if the probability that survey income data is missing depends directly on the unobserved income value itself (e.g. extremely wealthy individuals refuse to report income), what is the classification of this missingness?",
+    "options": {
+      "A": "Missing Completely at Random (MCAR)",
+      "B": "Missing at Random (MAR)",
+      "C": "Missing Not at Random (MNAR)",
+      "D": "Structurally Missing"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Missing Not at Random (MNAR) occurs when the reason for missingness is related to the value of the missing variable itself. Imputation techniques that ignore this non-random mechanism will produce systematically biased estimates.",
+      "A": "MCAR means missingness is entirely unrelated to any observed or unobserved variable (e.g., a dropped network packet).",
+      "B": "MAR means missingness depends on other OBSERVED variables (e.g., younger respondents are less likely to report income, but age is recorded).",
+      "C": "Correct: When missingness is directly correlated with the unobserved value itself, it is MNAR (non-ignorable non-response).",
+      "D": "Structurally missing refers to logical non-applicability (e.g., 'number of pregnancies' for male patients)."
+    }
+  },
+  {
+    "item_id": "DS-L2-007",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Statistical Tests",
+    "stem": "Which statistical test should you use to test whether there is a statistically significant association between two categorical variables (e.g., Device Type [Mobile, Desktop] and Conversion Status [Converted, Bounced])?",
+    "options": {
+      "A": "Independent Two-Sample Student's t-test",
+      "B": "Pearson Chi-Square ($\\chi^2$) Test of Independence",
+      "C": "Paired t-test",
+      "D": "One-Way ANOVA"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The Chi-Square ($\\chi^2$) Test of Independence evaluates whether observed frequencies in a contingency table differ significantly from the frequencies expected under the hypothesis of independence between two categorical variables.",
+      "A": "Two-sample t-test compares the means of a continuous numerical variable between two groups.",
+      "B": "Correct: Chi-Square compares observed vs. expected cell counts across contingency tables of categorical variables.",
+      "C": "Paired t-test compares means of the same subjects before and after an intervention (repeated measures numerical).",
+      "D": "ANOVA compares means of a continuous outcome variable across three or more categorical groups."
+    }
+  },
+  {
+    "item_id": "DS-L2-008",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "SQL Common Table Expressions",
+    "stem": "What is the primary architectural benefit of Common Table Expressions (CTEs) introduced with the `WITH` keyword in SQL?",
+    "options": {
+      "A": "They bypass transaction logs to achieve 10x write performance",
+      "B": "They improve query readability and modularity, allow self-referential recursive queries, and can be referenced multiple times in the subsequent query",
+      "C": "They automatically create physical clustered indexes on the underlying tables",
+      "D": "They force the database to execute queries using GPU shaders"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "CTEs (`WITH cte_name AS (...)`) structure complex multi-step queries into readable, sequential blocks. They eliminate deeply nested subquery pyramids and uniquely support recursive queries (e.g., traversing hierarchical trees or graphs).",
+      "A": "CTEs are logical query scopes; they do not bypass database transaction logging.",
+      "B": "Correct: CTEs drastically improve readability, enable modular abstraction, and support recursion for hierarchical data.",
+      "C": "Standard CTEs do not persist indexes to disk (unlike indexed materialized views).",
+      "D": "CTEs are relational logic constructs executed by standard CPU query planners."
+    }
+  },
+  {
+    "item_id": "DS-L2-009",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Feature Encoding",
+    "stem": "Why is One-Hot Encoding inappropriate for high-cardinality categorical features (such as US ZIP code with 40,000 distinct values) in standard linear models?",
+    "options": {
+      "A": "One-Hot Encoding only supports integer values",
+      "B": "It creates a massive, sparse matrix of 40,000 new columns, causing extreme memory consumption and the curse of dimensionality",
+      "C": "It introduces mathematical division-by-zero errors in the dot product",
+      "D": "It breaks the non-negativity constraint of gradient descent"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "One-hot encoding high-cardinality features explodes the dimensionality of the feature space ($D \\to D + 40,000$). This sparse matrix consumes excessive RAM and requires massive training data to avoid overfitting (the curse of dimensionality). Target encoding or embeddings are preferred.",
+      "A": "One-hot encoding was designed specifically for categorical string levels.",
+      "B": "Correct: Generating tens of thousands of indicator columns causes catastrophic dimensionality expansion and sparsity issues.",
+      "C": "One-hot encoding only yields 0s and 1s; no division operation is involved.",
+      "D": "Linear models do not require non-negative inputs; gradient descent functions with any bounded real numbers."
+    }
+  },
+  {
+    "item_id": "DS-L2-010",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "ANOVA vs Multiple t-tests",
+    "stem": "Why should a data scientist use One-Way Analysis of Variance (ANOVA) instead of running multiple pairwise two-sample t-tests when comparing the means of 5 independent groups?",
+    "options": {
+      "A": "ANOVA works on non-numerical text columns",
+      "B": "Running multiple pairwise t-tests exponentially inflates the family-wise Type I error rate (false positive accumulation)",
+      "C": "t-tests cannot calculate degrees of freedom",
+      "D": "ANOVA automatically balances missing sample sizes"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "With 5 groups, there are $\\binom{5}{2} = 10$ pairwise comparisons. If each test has $\\alpha = 0.05$, the overall probability of at least one false positive is $1 - (1 - 0.05)^{10} \\approx 40\\%$. ANOVA tests the omnibus null hypothesis that all group means are equal simultaneously at $\\alpha = 0.05$.",
+      "A": "ANOVA requires a continuous quantitative dependent variable.",
+      "B": "Correct: Pairwise testing compounds alpha error across iterations ($1 - (1-\\alpha)^k$), drastically elevating false discovery rates.",
+      "C": "Student's t-test explicitly calculates degrees of freedom ($N_1 + N_2 - 2$).",
+      "D": "Standard ANOVA does not automatically balance unequal sample sizes (unbalanced designs require Type III sums of squares)."
+    }
+  },
+  {
+    "item_id": "DS-L2-011",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "SQL Running Totals",
+    "stem": "Which SQL window specification computes a cumulative running total of `transaction_amount` ordered chronologically by `transaction_date`?",
+    "options": {
+      "A": "SUM(transaction_amount) OVER (ORDER BY transaction_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)",
+      "B": "SUM(transaction_amount) OVER (PARTITION BY transaction_date)",
+      "C": "CUMSUM(transaction_amount) BY transaction_date",
+      "D": "TOTAL(transaction_amount) OVER ()"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "`SUM(val) OVER (ORDER BY date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)` dynamically aggregates all rows from the start of the partition up to the current row, producing a proper cumulative sum.",
+      "A": "Correct: Ordering by transaction date and spanning from unbounded preceding to current row defines the cumulative window frame.",
+      "B": "Partitioning by date sums amounts within each individual calendar day, not cumulatively across time.",
+      "C": "`CUMSUM()` is not standard ANSI SQL syntax.",
+      "D": "`SUM(...) OVER ()` yields a single static grand total repeated on every row."
+    }
+  },
+  {
+    "item_id": "DS-L2-012",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Feature Scaling",
+    "stem": "What is the mathematical definition and range of Min-Max feature scaling (normalization)?",
+    "options": {
+      "A": "$z = \\frac{x - \\mu}{\\sigma}$ with range $(-\\infty, +\\infty)$",
+      "B": "$x_{\\text{scaled}} = \\frac{x - x_{\\min}}{x_{\\max} - x_{\\min}}$ with range $[0, 1]$",
+      "C": "$x_{\\text{scaled}} = \\log(x)$ with range $[0, +\\infty)$",
+      "D": "$x_{\\text{scaled}} = \\frac{x}{\\text{median}(x)}$ with range $[0, 100]$"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Min-Max scaling subtracts the minimum feature value and divides by the range ($x_{\\max} - x_{\\min}$). This guarantees that all transformed observations lie bounded strictly within $[0, 1]$.",
+      "A": "That is Standardization (Z-score scaling), which centers at mean 0 with unit variance and has an unbounded range.",
+      "B": "Correct: Min-Max scaling rescales raw numeric features into the fixed $[0, 1]$ interval.",
+      "C": "Log transformation handles heavy right-skewed tails, but does not bound data to $[0, 1]$.",
+      "D": "Dividing by median does not map values into the $[0, 1]$ interval."
+    }
+  },
+  {
+    "item_id": "DS-L2-013",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Confidence Intervals",
+    "stem": "What is the rigorous frequentist interpretation of a 95% Confidence Interval [10.2, 14.8] for a population mean $\\mu$?",
+    "options": {
+      "A": "There is a 95% probability that the true population mean lies between 10.2 and 14.8",
+      "B": "If we repeat the identical sampling and estimation procedure many times, 95% of the calculated intervals will contain the true population parameter $\\mu$",
+      "C": "95% of the raw data points fall between 10.2 and 14.8",
+      "D": "The sample mean will be between 10.2 and 14.8 in 95 out of 100 future experiments"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In frequentist statistics, the population mean $\\mu$ is a fixed (non-random) constant. The interval endpoints are the random variables. Therefore, the parameter is either in the specific interval or it is not (probability 0 or 1). The 95% confidence refers to the long-run coverage probability of the procedure itself.",
+      "A": "A frequentist cannot state $P(10.2 \\le \\mu \\le 14.8) = 0.95$ because $\\mu$ is not a random variable (that is the definition of a Bayesian Credible Interval).",
+      "B": "Correct: 95% confidence reflects the reliability of the method: across infinite hypothetical replications, 95% of generated intervals encompass $\\mu$.",
+      "C": "Confidence intervals estimate parameter uncertainty, not the spread of individual observations (which is a tolerance/prediction interval).",
+      "D": "The sample mean $\\bar{X}$ is by definition the center of the symmetric interval in simple z/t procedures; it does not predict future sample means directly."
+    }
+  },
+  {
+    "item_id": "DS-L2-014",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Target Encoding Data Leakage",
+    "stem": "When applying Target Encoding (Mean Encoding) to a categorical feature, what critical risk must data scientists mitigate, and how?",
+    "options": {
+      "A": "Memory overflow, mitigated by converting to float16",
+      "B": "Target data leakage and severe overfitting, mitigated by out-of-fold target encoding with smoothing",
+      "C": "Negative values, mitigated by taking the absolute value",
+      "D": "Non-invertibility, mitigated by matrix transposition"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Target encoding computes the mean of the target variable for each category. If computed naively on the entire dataset, target information leaks directly into training features, resulting in catastrophic overfitting where the model memorizes labels. Mitigations include k-fold out-of-fold calculation, smoothing priors, and additive Gaussian noise.",
+      "A": "Target encoding creates a single numeric column; memory overflow is not the primary vulnerability.",
+      "B": "Correct: Target encoding directly leaks label information into the feature space; out-of-fold target computing and empirical Bayes smoothing are mandatory.",
+      "C": "Target values in regression or classification are naturally signed; negativity is not a bug.",
+      "D": "Matrix inversion is not involved in categorical label mapping."
+    }
+  },
+  {
+    "item_id": "DS-L2-015",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "SQL Coalesce and Nullif",
+    "stem": "What is the output of the SQL expression `COALESCE(NULLIF(division_code, 'UNASSIGNED'), 'DEFAULT_DEPT')` if `division_code` currently holds the string `'UNASSIGNED'`?",
+    "options": {
+      "A": "'UNASSIGNED'",
+      "B": "NULL",
+      "C": "'DEFAULT_DEPT'",
+      "D": "An unhandled SQL syntax error"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "`NULLIF(a, b)` returns NULL if $a = b$, otherwise returns $a$. Because `division_code == 'UNASSIGNED'`, `NULLIF` evaluates to NULL. Then `COALESCE(NULL, 'DEFAULT_DEPT')` returns the first non-null argument, which is `'DEFAULT_DEPT'`.",
+      "A": "`NULLIF` turns `'UNASSIGNED'` into NULL, so it does not survive the expression.",
+      "B": "`COALESCE` intercepts the NULL output from `NULLIF` and falls back to `'DEFAULT_DEPT'`.",
+      "C": "Correct: Step 1: NULLIF('UNASSIGNED', 'UNASSIGNED') -> NULL. Step 2: COALESCE(NULL, 'DEFAULT_DEPT') -> 'DEFAULT_DEPT'.",
+      "D": "Both `NULLIF` and `COALESCE` are standard ANSI SQL functions supported by all relational engines."
+    }
+  },
+  {
+    "item_id": "DS-L2-016",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Bayes Theorem",
+    "stem": "A disease affects 1% of the population. A diagnostic test has a 99% Sensitivity (True Positive Rate) and a 95% Specificity (True Negative Rate). What is the probability that a randomly chosen patient who tests positive actually has the disease?",
+    "options": {
+      "A": "99.0%",
+      "B": "Approx. 16.6%",
+      "C": "50.0%",
+      "D": "95.0%"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "By Bayes' Theorem: $P(D|+) = \\frac{P(+|D)P(D)}{P(+|D)P(D) + P(+|\\neg D)P(\\neg D)}$. Here, $P(+|D)P(D) = 0.99 \\times 0.01 = 0.0099$. The false positive term is $(1 - 0.95) \\times 0.99 = 0.05 \\times 0.99 = 0.0495$. Total positive probability is $0.0099 + 0.0495 = 0.0594$. Thus, $P(D|+) = 0.0099 / 0.0594 \\approx 0.1667$ (16.7%).",
+      "A": "99% is Sensitivity (conditional on disease), ignoring the large pool of false positives from the 99% healthy majority.",
+      "B": "Correct: Because the base rate of the disease is low (1%), false positives outnumber true positives roughly 5 to 1, yielding ~16.6%.",
+      "C": "50% overlooks the specific false positive rate ($1 - 0.95 = 0.05$) across healthy individuals.",
+      "D": "95% is the test's Specificity, not the Positive Predictive Value (PPV)."
+    }
+  },
+  {
+    "item_id": "DS-L2-017",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Simpson's Paradox",
+    "stem": "What is Simpson's Paradox in exploratory data analysis?",
+    "options": {
+      "A": "When sample sizes are small, mean and variance become mathematically equal",
+      "B": "A trend or association that appears in several separate groups of data disappears or reverses when the groups are combined",
+      "C": "Standard deviation becomes negative when values are log-transformed",
+      "D": "A predictive model performs better on test data than on training data"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Simpson's Paradox occurs when an apparent statistical trend observed across sub-populations disappears or reverses direction when aggregating the groups together. It is caused by a confounding variable and unequal group sample weights.",
+      "A": "Poisson distributions have equal mean and variance, which is unrelated to Simpson's paradox.",
+      "B": "Correct: Aggregating across an unaddressed confounding variable can flip the apparent correlation or directional effect.",
+      "C": "Standard deviation is the square root of variance and is mathematically non-negative by definition.",
+      "D": "Test performance exceeding training performance is typically caused by regularized dropout or differing data distributions, not Simpson's paradox."
+    }
+  },
+  {
+    "item_id": "DS-L2-018",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Pandas Method Chaining & Performance",
+    "stem": "In Pandas data wrangling pipelines, what is the computational benefit of using the `.query()` method or vectorized boolean indexing instead of looping through DataFrame rows with `.iterrows()`?",
+    "options": {
+      "A": "`.iterrows()` creates a Python Series object for each row in an un-vectorized Python loop, incurring immense overhead; vectorized indexing runs compiled C-level loops",
+      "B": "`.query()` automatically distributes computation across a Hadoop cluster",
+      "C": "`.iterrows()` cannot handle string data types",
+      "D": "Vectorized indexing encrypts personal data on the fly"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Pandas `.iterrows()` instantiates a new Python Series object for every single row and iterates in pure Python, running up to 100x\u20131000x slower. Vectorized indexing and `.query()` operate directly on contiguous NumPy memory buffers using compiled C/C++ loops.",
+      "A": "Correct: Vectorized operations bypass Python object creation overhead by leveraging compiled contiguous C arrays in NumPy.",
+      "B": "`.query()` runs locally via `numexpr` or Python eval; it does not distribute across Hadoop.",
+      "C": "`.iterrows()` handles strings, but does so with extreme performance degradation.",
+      "D": "Vectorization is a performance optimization; it does not implement cryptographic encryption."
+    }
+  },
+  {
+    "item_id": "DS-L2-019",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "Statistical Power",
+    "stem": "What is the definition of Statistical Power in hypothesis testing, and what happens to power when you increase the sample size $N$?",
+    "options": {
+      "A": "Power is $1 - \\alpha$; increasing $N$ decreases power",
+      "B": "Power is $1 - \\beta$ (probability of rejecting $H_0$ when $H_0$ is false); increasing $N$ increases statistical power",
+      "C": "Power is the probability of obtaining $p = 0.05$; sample size has no effect",
+      "D": "Power is the ratio of variance to standard deviation"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Statistical power ($1 - \\beta$) is the probability that a test correctly rejects a false null hypothesis (detecting a true effect). Increasing sample size reduces the standard error of the estimate, narrowing the distribution and increasing the likelihood of detecting true effects.",
+      "A": "Power is $1 - \\beta$, not $1 - \\alpha$ (which is confidence level).",
+      "B": "Correct: Power measures sensitivity to detect real effects; higher sample sizes reduce variance and increase power.",
+      "C": "Power depends heavily on sample size, effect size, and significance level $\\alpha$.",
+      "D": "Power is a probability between 0 and 1, not a ratio of dispersion metrics."
+    }
+  },
+  {
+    "item_id": "DS-L2-020",
+    "track": "DATA_SCIENCE",
+    "level": 2,
+    "level_name": "Level 2: Intermediate (Advanced SQL, Inferential Stats & Wrangling)",
+    "topic": "SQL Self-Joins",
+    "stem": "When would a data analyst write a query that joins an `employees` table to itself (`FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.employee_id`)?",
+    "options": {
+      "A": "To deduplicate the table",
+      "B": "To model hierarchical relationships where both the employee and their manager are stored in the same table",
+      "C": "To convert the database from third normal form to first normal form",
+      "D": "To force the query to run in parallel threads"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A self-join connects rows within the same table. This is the standard relational design pattern for recursive or hierarchical structures (e.g., employee-to-manager, category-to-parent_category) where both parent and child entities share the same schema.",
+      "A": "Deduplication is achieved using `DISTINCT` or `ROW_NUMBER()`, not self-joins.",
+      "B": "Correct: Hierarchical adjacency lists (such as employee and manager in a single table) require a self-join to resolve the parent record.",
+      "C": "Self-joins are query constructs; they do not alter the physical database normalization schema.",
+      "D": "Self-joins do not dictate parallelism; in fact, unoptimized self-joins can be computationally expensive."
+    }
+  }
+]

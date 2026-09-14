@@ -1,0 +1,80 @@
+{
+  "id": "w3_tuple_indexing",
+  "title": "W3Schools: Tuple Endpoint Extraction",
+  "platform": "W3Schools",
+  "difficulty": "Easy",
+  "category": "Tuples",
+  "description": "Given a list of numbers `t` with at least 3 elements, return a list `[first, middle, last]` containing the first element, the middle element (integer index len(t)//2), and the last element.",
+  "constraints": "3 <= len(t) <= 10^4\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "tuple_endpoints",
+  "starter_code": "def tuple_endpoints(t: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "t": [
+          10,
+          20,
+          30,
+          40,
+          50
+        ]
+      },
+      "expected": [
+        10,
+        30,
+        50
+      ]
+    },
+    {
+      "input": {
+        "t": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "t": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": [
+        1,
+        3,
+        4
+      ]
+    },
+    {
+      "input": {
+        "t": [
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3
+        ]
+      },
+      "expected": [
+        9,
+        6,
+        3
+      ]
+    }
+  ],
+  "solution": "def tuple_endpoints(t: list[int]) -> list[int]:\n    return [t[0], t[len(t) // 2], t[-1]]\n",
+  "explanation": "Accesses positions 0, mid, and -1 in O(1) time."
+}

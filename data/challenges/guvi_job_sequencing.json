@@ -1,0 +1,81 @@
+{
+  "id": "guvi_job_sequencing",
+  "title": "GUVI: Job Sequencing with Deadlines",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Hard",
+  "category": "Greedy",
+  "description": "Given two lists `deadlines` and `profits` of `n` jobs, where each job takes 1 unit of time and deadline `d` means it must finish on or before time `d`. Find the maximum total profit.",
+  "constraints": "1 <= n <= 1000, 1 <= deadline <= 1000\n\u2022 Time: O(N log N + N * max_deadline) | Space: O(max_deadline)",
+  "function_name": "job_scheduling",
+  "starter_code": "def job_scheduling(deadlines: list[int], profits: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "deadlines": [
+          4,
+          1,
+          1,
+          1
+        ],
+        "profits": [
+          20,
+          10,
+          40,
+          30
+        ]
+      },
+      "expected": 60
+    },
+    {
+      "input": {
+        "deadlines": [
+          2,
+          1,
+          2,
+          1,
+          1
+        ],
+        "profits": [
+          100,
+          19,
+          27,
+          25,
+          15
+        ]
+      },
+      "expected": 127
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "deadlines": [
+          1
+        ],
+        "profits": [
+          50
+        ]
+      },
+      "expected": 50
+    },
+    {
+      "input": {
+        "deadlines": [
+          3,
+          1,
+          2,
+          2
+        ],
+        "profits": [
+          50,
+          10,
+          20,
+          30
+        ]
+      },
+      "expected": 100
+    }
+  ],
+  "solution": "def job_scheduling(deadlines: list[int], profits: list[int]) -> int:\n    jobs = sorted(zip(deadlines, profits), key=lambda x: x[1], reverse=True)\n    max_deadline = max(deadlines) if deadlines else 0\n    slots = [-1] * (max_deadline + 1)\n    total_profit = 0\n    for d, p in jobs:\n        for slot in range(d, 0, -1):\n            if slots[slot] == -1:\n                slots[slot] = p\n                total_profit += p\n                break\n    return total_profit\n",
+  "explanation": "Greedy choice: pick highest-paying jobs first and schedule them into the latest available slot <= deadline."
+}

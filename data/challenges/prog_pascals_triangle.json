@@ -1,0 +1,79 @@
+{
+  "id": "prog_pascals_triangle",
+  "title": "Programiz: Pascal's Triangle",
+  "platform": "Programiz",
+  "difficulty": "Hard",
+  "category": "Combinatorics & DP",
+  "description": "Given a non-negative integer `n`, generate the first `n` rows of Pascal's triangle.",
+  "constraints": "0 <= n <= 30\n\u2022 Time: O(N^2) | Space: O(N^2)",
+  "function_name": "generate_pascals_triangle",
+  "starter_code": "def generate_pascals_triangle(n: int) -> list[list[int]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 5
+      },
+      "expected": [
+        [
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          3,
+          1
+        ],
+        [
+          1,
+          4,
+          6,
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": [
+        [
+          1
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": [
+        [
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "solution": "def generate_pascals_triangle(n: int) -> list[list[int]]:\n    if n <= 0:\n        return []\n    res = [[1]]\n    for _ in range(1, n):\n        prev = res[-1]\n        row = [1] + [prev[j] + prev[j + 1] for j in range(len(prev) - 1)] + [1]\n        res.append(row)\n    return res\n",
+  "explanation": "Constructs each row from adjacent sums of preceding row in O(N^2) time."
+}

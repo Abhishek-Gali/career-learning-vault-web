@@ -1,0 +1,76 @@
+{
+  "id": "w3_nested_dict_deep_get",
+  "title": "W3Schools: Nested Dictionary Deep Lookup",
+  "platform": "W3Schools",
+  "difficulty": "Hard",
+  "category": "Dictionaries & Recursion",
+  "description": "Given a deeply nested dictionary `d`, a list of key names `keys` specifying the retrieval path, and `default_val`, return the value if the full path exists. If any key along the path is missing or not a dict, return `default_val`.",
+  "constraints": "1 <= len(keys) <= 20\n\u2022 Time: O(K) | Space: O(1)",
+  "function_name": "deep_get",
+  "starter_code": "def deep_get(d: dict, keys: list[str], default_val: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "d": {
+          "user": {
+            "profile": {
+              "name": "Alice"
+            }
+          }
+        },
+        "keys": [
+          "user",
+          "profile",
+          "name"
+        ],
+        "default_val": "Unknown"
+      },
+      "expected": "Alice"
+    },
+    {
+      "input": {
+        "d": {
+          "user": {
+            "profile": {
+              "name": "Alice"
+            }
+          }
+        },
+        "keys": [
+          "user",
+          "settings",
+          "theme"
+        ],
+        "default_val": "Dark"
+      },
+      "expected": "Dark"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "d": {},
+        "keys": [
+          "a"
+        ],
+        "default_val": "empty"
+      },
+      "expected": "empty"
+    },
+    {
+      "input": {
+        "d": {
+          "a": "value"
+        },
+        "keys": [
+          "a",
+          "b"
+        ],
+        "default_val": "not_dict"
+      },
+      "expected": "not_dict"
+    }
+  ],
+  "solution": "def deep_get(d: dict, keys: list[str], default_val: str) -> str:\n    curr = d\n    for k in keys:\n        if isinstance(curr, dict) and k in curr:\n            curr = curr[k]\n        else:\n            return default_val\n    return str(curr)\n",
+  "explanation": "Iterates down key hierarchy safely checking dictionary containment in O(K) time."
+}

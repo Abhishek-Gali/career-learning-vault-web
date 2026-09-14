@@ -1,0 +1,47 @@
+{
+  "id": "he_seven_segment_match",
+  "title": "HackerEarth: Seven-Segment Display Maximum Number",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Greedy & Math",
+  "description": "Alice got a number on a 7-segment display. Each digit consumes: 0:6, 1:2, 2:5, 3:5, 4:4, 5:5, 6:6, 7:3, 8:7, 9:6 matchsticks. Given total matchsticks `n`, output the maximum number as a string she can create using ALL matchsticks.",
+  "constraints": "2 <= n <= 100\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "max_matchstick_number",
+  "starter_code": "def max_matchstick_number(n: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": "1"
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "expected": "7"
+    },
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": "11"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 5
+      },
+      "expected": "71"
+    },
+    {
+      "input": {
+        "n": 6
+      },
+      "expected": "111"
+    }
+  ],
+  "solution": "def max_matchstick_number(n: int) -> str:\n    if n % 2 == 1:\n        return '7' + '1' * ((n - 3) // 2)\n    else:\n        return '1' * (n // 2)\n",
+  "explanation": "Greedy choice: '1' uses only 2 matchsticks maximizing number of digits. If odd, leading '7' uses 3 matchsticks."
+}

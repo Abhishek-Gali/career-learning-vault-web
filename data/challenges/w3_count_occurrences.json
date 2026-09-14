@@ -1,0 +1,61 @@
+{
+  "id": "w3_count_occurrences",
+  "title": "W3Schools: Count List Occurrences",
+  "platform": "W3Schools",
+  "difficulty": "Easy",
+  "category": "Lists",
+  "description": "Given a list of integers `lst` and a `target` integer, return the number of times `target` appears in `lst`.",
+  "constraints": "0 <= len(lst) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "count_in_list",
+  "starter_code": "def count_in_list(lst: list[int], target: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3,
+          2,
+          2,
+          4
+        ],
+        "target": 2
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3
+        ],
+        "target": 5
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "lst": [],
+        "target": 1
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "lst": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "target": 4
+      },
+      "expected": 4
+    }
+  ],
+  "solution": "def count_in_list(lst: list[int], target: int) -> int:\n    return lst.count(target)\n",
+  "explanation": "List method count() scans the list in O(N) time."
+}

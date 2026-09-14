@@ -1,0 +1,96 @@
+{
+  "id": "placement_rotate_array",
+  "title": "Placement: Rotate Array by K Steps",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Arrays",
+  "description": "Given an array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative. Return the rotated array.",
+  "constraints": "1 <= len(nums) <= 10^5\n\u2022 0 <= k <= 10^5\n\u2022 Time: O(N) | Space: O(N) or O(1)",
+  "function_name": "rotate_array",
+  "starter_code": "def rotate_array(nums: list[int], k: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "k": 3
+      },
+      "expected": [
+        5,
+        6,
+        7,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          -1,
+          -100,
+          3,
+          99
+        ],
+        "k": 2
+      },
+      "expected": [
+        3,
+        99,
+        -1,
+        -100
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1
+        ],
+        "k": 0
+      },
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2
+        ],
+        "k": 3
+      },
+      "expected": [
+        2,
+        1
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ],
+        "k": 6
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "solution": "def rotate_array(nums: list[int], k: int) -> list[int]:\n    if not nums:\n        return []\n    k = k % len(nums)\n    return nums[-k:] + nums[:-k] if k > 0 else list(nums)\n",
+  "explanation": "Normalize k = k % n. Slicing nums[-k:] + nums[:-k] achieves rotation in O(N) time."
+}

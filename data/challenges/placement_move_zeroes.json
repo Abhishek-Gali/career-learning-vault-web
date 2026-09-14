@@ -1,0 +1,95 @@
+{
+  "id": "placement_move_zeroes",
+  "title": "Placement: Move Zeroes to End",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Two Pointers",
+  "description": "Given an integer array `nums`, move all `0`s to the end of it while maintaining the relative order of the non-zero elements. Return the modified array.",
+  "constraints": "1 <= len(nums) <= 10^4\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "move_zeroes",
+  "starter_code": "def move_zeroes(nums: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          0,
+          1,
+          0,
+          3,
+          12
+        ]
+      },
+      "expected": [
+        1,
+        3,
+        12,
+        0,
+        0
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          0,
+          1
+        ]
+      },
+      "expected": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          4,
+          2,
+          0,
+          0,
+          5,
+          0,
+          8
+        ]
+      },
+      "expected": [
+        4,
+        2,
+        5,
+        8,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "solution": "def move_zeroes(nums: list[int]) -> list[int]:\n    res = [x for x in nums if x != 0]\n    res.extend([0] * (len(nums) - len(res)))\n    return res\n",
+  "explanation": "Extract non-zero elements preserving sequence order and pad the difference with trailing zeroes in O(N) time."
+}

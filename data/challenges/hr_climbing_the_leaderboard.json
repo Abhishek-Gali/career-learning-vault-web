@@ -1,0 +1,97 @@
+{
+  "id": "hr_climbing_the_leaderboard",
+  "title": "HackerRank: Climbing the Leaderboard (Dense Ranking)",
+  "platform": "HackerRank",
+  "difficulty": "Hard",
+  "category": "Binary Search & Stacks",
+  "description": "An arcade game uses Dense Ranking: The player with highest score is ranked 1. Players with equal scores receive same rank. Given `ranked` scores in descending order and `player` scores in ascending order, return player's rank after each game.",
+  "constraints": "1 <= len(ranked), len(player) <= 2 * 10^5\n\u2022 Time: O(N + M) | Space: O(N)",
+  "function_name": "climbing_leaderboard",
+  "starter_code": "def climbing_leaderboard(ranked: list[int], player: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "ranked": [
+          100,
+          100,
+          50,
+          40,
+          40,
+          20,
+          10
+        ],
+        "player": [
+          5,
+          25,
+          50,
+          120
+        ]
+      },
+      "expected": [
+        6,
+        4,
+        2,
+        1
+      ]
+    },
+    {
+      "input": {
+        "ranked": [
+          100,
+          90,
+          90,
+          80
+        ],
+        "player": [
+          70,
+          80,
+          105
+        ]
+      },
+      "expected": [
+        4,
+        3,
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "ranked": [
+          10
+        ],
+        "player": [
+          5,
+          10,
+          15
+        ]
+      },
+      "expected": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "input": {
+        "ranked": [
+          100,
+          50
+        ],
+        "player": [
+          10,
+          50,
+          100
+        ]
+      },
+      "expected": [
+        3,
+        2,
+        1
+      ]
+    }
+  ],
+  "solution": "def climbing_leaderboard(ranked: list[int], player: list[int]) -> list[int]:\n    unique_ranked = sorted(list(set(ranked)), reverse=True)\n    res = []\n    i = len(unique_ranked) - 1\n    for score in player:\n        while i >= 0 and score >= unique_ranked[i]:\n            i -= 1\n        res.append(i + 2)\n    return res\n",
+  "explanation": "Deduplicate leaderboard ranks and scan upwards using monotonicity in O(N + M) time."
+}

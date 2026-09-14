@@ -1,0 +1,38 @@
+{
+  "id": "w3_format_string",
+  "title": "W3Schools: Python String Formatting",
+  "platform": "W3Schools",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Given `name` and `count`, return the formatted string: 'Hello, {name}! You have {count} unread messages.'",
+  "constraints": "1 <= len(name) <= 100, 0 <= count <= 10^6\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "format_message",
+  "starter_code": "def format_message(name: str, count: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "name": "Alice",
+        "count": 5
+      },
+      "expected": "Hello, Alice! You have 5 unread messages."
+    },
+    {
+      "input": {
+        "name": "Bob",
+        "count": 0
+      },
+      "expected": "Hello, Bob! You have 0 unread messages."
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "name": "User",
+        "count": 100
+      },
+      "expected": "Hello, User! You have 100 unread messages."
+    }
+  ],
+  "solution": "def format_message(name: str, count: int) -> str:\n    return f'Hello, {name}! You have {count} unread messages.'\n",
+  "explanation": "f-string template interpolation in O(1) time."
+}

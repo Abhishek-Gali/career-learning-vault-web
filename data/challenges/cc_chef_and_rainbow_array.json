@@ -1,0 +1,111 @@
+{
+  "id": "cc_chef_and_rainbow_array",
+  "title": "CodeChef: Chef and Rainbow Array",
+  "platform": "CodeChef",
+  "difficulty": "Hard",
+  "category": "Two Pointers",
+  "description": "An array is a Rainbow Array if: 1. Contains only elements 1 through 7. 2. Starts with 1s, then 2s ... up to 7s, then descends back down to 1s. 3. Symmetrical (palindrome). Return 'yes' if rainbow, else 'no'.",
+  "constraints": "7 <= len(arr) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "is_rainbow",
+  "starter_code": "def is_rainbow(arr: list[int]) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": "yes"
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": "yes"
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": "no"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "expected": "no"
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": "no"
+    }
+  ],
+  "solution": "def is_rainbow(arr: list[int]) -> str:\n    if set(arr) != set(range(1, 8)):\n        return 'no'\n    if arr != arr[::-1]:\n        return 'no'\n    curr = 1\n    for x in arr[:(len(arr) + 1) // 2]:\n        if x == curr:\n            continue\n        elif x == curr + 1:\n            curr += 1\n        else:\n            return 'no'\n    return 'yes' if curr == 7 else 'no'\n",
+  "explanation": "Validates palindrome symmetry, presence of exactly 1..7, and incremental ordering up to apex 7 in O(N) time."
+}

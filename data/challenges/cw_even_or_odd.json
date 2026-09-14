@@ -1,0 +1,41 @@
+{
+  "id": "cw_even_or_odd",
+  "title": "Codewars 8kyu: Even or Odd",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Fundamentals",
+  "description": "Create a function that takes an integer as an argument and returns 'Even' for even numbers or 'Odd' for odd numbers.",
+  "constraints": "-10^9 <= number <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "even_or_odd",
+  "starter_code": "def even_or_odd(number: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "number": 2
+      },
+      "expected": "Even"
+    },
+    {
+      "input": {
+        "number": 7
+      },
+      "expected": "Odd"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "number": 0
+      },
+      "expected": "Even"
+    },
+    {
+      "input": {
+        "number": -1
+      },
+      "expected": "Odd"
+    }
+  ],
+  "solution": "def even_or_odd(number: int) -> str:\n    return 'Even' if number % 2 == 0 else 'Odd'\n",
+  "explanation": "Modulo by 2 determines parity in O(1) time."
+}

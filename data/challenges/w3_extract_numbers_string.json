@@ -1,0 +1,50 @@
+{
+  "id": "w3_extract_numbers_string",
+  "title": "W3Schools: Extract Numbers From String",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Regex & Strings",
+  "description": "Given an alphanumeric string `s`, extract all continuous sequences of digits as a list of integers.",
+  "constraints": "0 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "extract_numbers",
+  "starter_code": "def extract_numbers(s: str) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "There are 2 cats and 14 dogs in building 102"
+      },
+      "expected": [
+        2,
+        14,
+        102
+      ]
+    },
+    {
+      "input": {
+        "s": "No numbers here!"
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "007 Bond 00"
+      },
+      "expected": [
+        7,
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "12345"
+      },
+      "expected": [
+        12345
+      ]
+    }
+  ],
+  "solution": "def extract_numbers(s: str) -> list[int]:\n    import re\n    return [int(x) for x in re.findall(r'\\d+', s)]\n",
+  "explanation": "Regex '\\d+' extracts digit runs and converts to integer list in O(N) time."
+}

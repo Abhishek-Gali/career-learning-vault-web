@@ -1,0 +1,600 @@
+[
+  {
+    "item_id": "CC-D1-001",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.1 Information Assurance Concepts",
+    "cognitive_level": "RECALL",
+    "stem": "Which core pillar of the CIA triad is primarily compromised when an unauthorized user intercepts and reads unencrypted proprietary financial statements transmitted over a public network?",
+    "options": {
+      "A": "Integrity",
+      "B": "Confidentiality",
+      "C": "Availability",
+      "D": "Non-repudiation"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Confidentiality ensures that sensitive information is shielded from unauthorized observation, disclosure, or interception. Eavesdropping on plaintext data violates confidentiality.",
+      "A": "Integrity concerns unauthorized modification, tampering, or deletion of data, which did not necessarily occur during passive interception.",
+      "B": "Correct. Confidentiality is breached when unauthorized parties gain access to read restricted or proprietary data.",
+      "C": "Availability ensures authorized entities have timely, reliable access to assets and systems; intercepting a copy does not make the service unavailable.",
+      "D": "Non-repudiation provides proof of origin and delivery so neither party can deny transmitting or receiving data, which is an assurance service rather than the compromised CIA pillar."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-002",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.1 Information Assurance Concepts",
+    "cognitive_level": "SCENARIO",
+    "stem": "A security analyst is investigating an unauthorized modification of a database record containing customer credit balances. Which cryptographic mechanism should the organization implement to verify whether database records have been altered without authorization?",
+    "options": {
+      "A": "Symmetric encryption using AES-256",
+      "B": "Cryptographic hash functions with digital signatures or HMAC",
+      "C": "Transport Layer Security (TLS) tunnel encryption",
+      "D": "Role-Based Access Control (RBAC)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Cryptographic hash functions produce fixed-length message digests that change drastically upon any data alteration; when combined with HMAC or digital signatures, they guarantee integrity verification.",
+      "A": "AES-256 provides data confidentiality through encryption, but standard CBC or ECB encryption alone does not guarantee data integrity without authentication tags.",
+      "B": "Correct. Cryptographic hashing and HMAC provide direct detection of tampering and modification, ensuring data integrity.",
+      "C": "TLS protects data in transit across network hops but does not detect or prevent modifications of data at rest inside database tables.",
+      "D": "RBAC restricts access permissions, which is a preventive access control mechanism, not a cryptographic integrity verification mechanism."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-003",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.1 Information Assurance Concepts",
+    "cognitive_level": "SCENARIO",
+    "stem": "A distributed denial-of-service (DDoS) attack overwhelms an e-commerce platform's web servers with volumetric UDP floods, preventing legitimate customers from loading product catalogs or completing purchases. Which security objective is being directly degraded?",
+    "options": {
+      "A": "Confidentiality",
+      "B": "Integrity",
+      "C": "Availability",
+      "D": "Authenticity"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Availability ensures that systems, services, and data are accessible and usable upon demand by authorized users. DoS/DDoS attacks exhaust resources specifically to deny availability.",
+      "A": "Confidentiality involves unauthorized exposure of data, which is not the objective or direct effect of a resource exhaustion DDoS attack.",
+      "B": "Integrity involves unauthorized modification or alteration of data; the website data remains unchanged while the servers are offline.",
+      "C": "Correct. The availability of the e-commerce service is directly disrupted by overwhelming the web infrastructure.",
+      "D": "Authenticity guarantees that communications or identities are genuine, which is not the primary property degraded by service unavailability."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-004",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.1 Information Assurance Concepts",
+    "cognitive_level": "RECALL",
+    "stem": "What security property ensures that an individual who executed a privileged administrative command cannot plausibly claim that someone else performed the action?",
+    "options": {
+      "A": "Non-repudiation",
+      "B": "Discretionary authorization",
+      "C": "Availability",
+      "D": "Information privacy"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Non-repudiation prevents a subject from denying having performed an action or sent a communication by binding their unique verified identity to the event via cryptographic signatures and audit logs.",
+      "A": "Correct. Non-repudiation provides indisputable proof of origin and accountability for actions taken on a system.",
+      "B": "Discretionary authorization allows resource owners to assign permissions, but does not inherently provide irrefutable proof of who executed an action.",
+      "C": "Availability relates to system and service uptime, not accountability or proof of identity.",
+      "D": "Information privacy focuses on safeguarding individuals' personal identifiable information (PII) against unauthorized collection and usage."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-005",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.1 Information Assurance Concepts",
+    "cognitive_level": "RECALL",
+    "stem": "How does information privacy fundamentally differ from corporate data confidentiality in an information assurance context?",
+    "options": {
+      "A": "Privacy strictly governs public marketing materials, while confidentiality covers internal emails.",
+      "B": "Privacy focuses on the rights of individuals to control the collection, processing, and disclosure of their personal data (PII), whereas confidentiality protects sensitive organizational data from unauthorized disclosure.",
+      "C": "Privacy applies only to government defense contractors, whereas confidentiality is optional for commercial businesses.",
+      "D": "Privacy is enforced only through physical locks, while confidentiality relies exclusively on symmetric encryption."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Privacy centers on human rights regarding personal identifiable information (PII/PHI), governed by regulations like GDPR and HIPAA. Confidentiality broadly shields all organizational intellectual property, credentials, and secrets from unauthorized visibility.",
+      "A": "Marketing materials are public and not protected by privacy regulations; personal data of customers and employees is what privacy protects.",
+      "B": "Correct. Privacy grants individuals agency over their personal information, while confidentiality shields organizational proprietary assets from unauthorized disclosure.",
+      "C": "Privacy regulations (e.g., GDPR, CCPA) apply across private and public sectors globally, not solely defense contractors.",
+      "D": "Both privacy and confidentiality employ a combination of administrative, technical, and physical safeguards."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-006",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.2 Risk Management Process",
+    "cognitive_level": "RECALL",
+    "stem": "In formal risk management methodologies, what is the precise definition of a 'vulnerability'?",
+    "options": {
+      "A": "An intentional adversary with the intent and capability to compromise an asset",
+      "B": "A weakness, flaw, or gap in security procedures, design, implementation, or internal controls that could be exploited",
+      "C": "The estimated financial loss incurred if an incident materializes",
+      "D": "The rate at which an environmental disaster occurs in a calendar year"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A vulnerability is an inherent flaw, defect, or weakness in a system, process, or control that makes it susceptible to attack or failure if targeted by a threat.",
+      "A": "An adversary with intent and capability defines a threat actor or threat agent.",
+      "B": "Correct. Vulnerability is defined as a weakness or flaw that can be exploited by a threat source.",
+      "C": "The estimated financial loss is the Impact or Single Loss Expectancy (SLE).",
+      "D": "The frequency of occurrence per year is known as the Annualized Rate of Occurrence (ARO)."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-007",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.2 Risk Management Process",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization hosts an enterprise database server valued at $200,000. Risk assessment indicates that a catastrophic fire would result in an Exposure Factor (EF) of 60%. Historical actuarial tables estimate this event occurs once every 10 years (ARO = 0.10). What is the Annualized Loss Expectancy (ALE)?",
+    "options": {
+      "A": "$12,000",
+      "B": "$20,000",
+      "C": "$120,000",
+      "D": "$60,000"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Single Loss Expectancy (SLE) = Asset Value ($200,000) * Exposure Factor (0.60) = $120,000. Annualized Loss Expectancy (ALE) = SLE ($120,000) * ARO (0.10) = $12,000.",
+      "A": "Correct. SLE is $200,000 * 0.60 = $120,000; ALE is $120,000 * 0.10 = $12,000.",
+      "B": "Calculates $200,000 * 0.10 without factoring in the 60% Exposure Factor.",
+      "C": "This is the Single Loss Expectancy (SLE = $120,000), not annualized.",
+      "D": "Calculates 60% of $100,000 rather than correctly applying the formulas."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-008",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.2 Risk Management Process",
+    "cognitive_level": "SCENARIO",
+    "stem": "Due to strict regulatory penalties and high cyber attack rates, a financial institution decides to completely discontinue offering an unencrypted legacy wire transfer service to retail customers. Which risk treatment strategy did the institution execute?",
+    "options": {
+      "A": "Risk Mitigation",
+      "B": "Risk Transference",
+      "C": "Risk Avoidance",
+      "D": "Risk Acceptance"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Risk avoidance entails completely eliminating the risk exposure by ceasing the activity, disconnecting the vulnerable system, or dropping the hazardous product line.",
+      "A": "Mitigation applies controls to reduce the likelihood or impact while continuing the business activity.",
+      "B": "Transference shifts the financial or operational burden to another entity (e.g., via insurance or third-party outsourcing).",
+      "C": "Correct. Completely discontinuing the service eliminates the activity and the associated risk, which is risk avoidance.",
+      "D": "Acceptance acknowledges the risk without implementing additional controls or ceasing operations."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-009",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.2 Risk Management Process",
+    "cognitive_level": "SCENARIO",
+    "stem": "An enterprise procures a comprehensive cyber liability insurance policy covering ransomware extortion payouts, forensic investigation retainers, and legal defense fees. Which risk treatment strategy does this purchase demonstrate?",
+    "options": {
+      "A": "Risk Transfer (Sharing)",
+      "B": "Risk Avoidance",
+      "C": "Risk Mitigation",
+      "D": "Risk Acceptance"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Purchasing insurance or entering into contracts with indemnification clauses transfers financial loss to a third party (the insurer), which is the definition of risk transfer.",
+      "A": "Correct. Transferring financial liabilities to an insurance underwriter is the primary mechanism of risk transfer/sharing.",
+      "B": "Avoidance requires halting the risky activity altogether, which was not done.",
+      "C": "Mitigation reduces vulnerability or threat likelihood through technical or administrative controls (e.g., patching, EDR).",
+      "D": "Acceptance retains the risk internally without insurance or preventative countermeasures."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-010",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.2 Risk Management Process",
+    "cognitive_level": "SCENARIO",
+    "stem": "A risk assessment reveals that an internal development server has a legacy vulnerability with an expected annual loss of $500. Installing a specialized third-party security plugin to patch this flaw costs $6,000 annually. Senior management formally signs off to absorb the risk without buying the plugin. Which strategy was chosen?",
+    "options": {
+      "A": "Risk Rejection",
+      "B": "Risk Acceptance",
+      "C": "Risk Transference",
+      "D": "Risk Avoidance"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "When the cost of a countermeasure exceeds the expected annual loss (cost/benefit analysis is unfavorable), leadership may formally approve risk acceptance.",
+      "A": "Risk rejection (ignoring risk without formal analysis) is an improper and negligent practice, not a legitimate strategy.",
+      "B": "Correct. Risk acceptance occurs when management formally approves living with the residual risk because mitigation is not cost-effective.",
+      "C": "Risk transference involves shifting risk to a third party, such as an insurance company.",
+      "D": "Risk avoidance would require decommissioning the server."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-011",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.3 Security Controls",
+    "cognitive_level": "RECALL",
+    "stem": "Security controls are classified by their implementation mechanism into three categories: Technical/Logical, Administrative/Managerial, and Physical. Which of the following is an example of an Administrative control?",
+    "options": {
+      "A": "An enterprise next-generation firewall blocking port 23",
+      "B": "A mandatory annual employee security awareness and anti-phishing training program",
+      "C": "A dual-authentication biometric mantrap at data center ingress",
+      "D": "An endpoint intrusion prevention agent enforcing memory buffer protection"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Administrative (or managerial) controls are policies, standards, background checks, training programs, and operational guidelines instituted by management.",
+      "A": "A firewall is a technical (logical) control implemented in software/hardware.",
+      "B": "Correct. Security awareness training is an administrative control designed to shape human behavior through management policy.",
+      "C": "A mantrap and biometric reader at an entryway are physical security controls.",
+      "D": "An endpoint IPS is a technical/logical control running on host operating systems."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-012",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.3 Security Controls",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization deploys an automated daily log review tool that flags abnormal outbound data transfers to foreign IP addresses. By functional control classification, what type of control is this tool?",
+    "options": {
+      "A": "Preventive",
+      "B": "Detective",
+      "C": "Corrective",
+      "D": "Deterrent"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Detective controls identify and alert on security events, unauthorized actions, or anomalies that have occurred or are in progress.",
+      "A": "Preventive controls proactively block or stop the unauthorized event before it succeeds.",
+      "B": "Correct. Automated log auditing alerts analysts to an anomaly after or while it occurs, fulfilling the detective control function.",
+      "C": "Corrective controls remediate damage or restore systems after an incident has been detected.",
+      "D": "Deterrent controls discourage potential attackers from attempting violations (e.g., warning banners, visible cameras)."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-013",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.3 Security Controls",
+    "cognitive_level": "RECALL",
+    "stem": "Which functional control type is illustrated by restoring encrypted user files from an immutable offline backup following a destructive ransomware infection?",
+    "options": {
+      "A": "Deterrent control",
+      "B": "Detective control",
+      "C": "Corrective control",
+      "D": "Preventive control"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Corrective controls remediate harm, restore systems to normal operational status, and reverse the damage inflicted by an incident.",
+      "A": "Deterrent controls discourage bad actors before an attack is launched.",
+      "B": "Detective controls identify the breach or malicious activity.",
+      "C": "Correct. Restoring data from backups rebuilds system state and fixes the damage, which is a corrective control.",
+      "D": "Preventive controls attempt to stop the ransomware from executing in the first place."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-014",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.3 Security Controls",
+    "cognitive_level": "SCENARIO",
+    "stem": "A corporate building displays prominent signage stating: 'Warning: 24/7 Monitored High-Definition Video Surveillance — Trespassers Will Be Prosecuted.' What functional security control type is primarily represented by this signage?",
+    "options": {
+      "A": "Deterrent",
+      "B": "Compensating",
+      "C": "Corrective",
+      "D": "Directive"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Deterrent controls psychologically discourage adversaries from initiating malicious acts by signaling high risk of detection and punitive consequences.",
+      "A": "Correct. Visible warning signs create a psychological barrier to deter potential intruders.",
+      "B": "Compensating controls are alternative safeguards used when a primary control cannot be implemented.",
+      "C": "Corrective controls repair damage after a breach has occurred.",
+      "D": "Directive controls formally mandate rules of behavior (such as HR acceptable use policies), whereas warning signs aiming to dissuade intruders are classic deterrent controls."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-015",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.3 Security Controls",
+    "cognitive_level": "SCENARIO",
+    "stem": "An old legacy industrial control device cannot support modern WPA3-Enterprise Wi-Fi authentication or endpoint encryption. The network engineering team places the device in an isolated VLAN with private addressing and strict firewall filtering. What control category best describes this solution?",
+    "options": {
+      "A": "Compensating control",
+      "B": "Elimination control",
+      "C": "Directive control",
+      "D": "Deterrent control"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A compensating control is an alternative measure implemented to mitigate risk when the primary control cannot be deployed due to technical, architectural, or financial constraints.",
+      "A": "Correct. Network isolation compensates for the device's inability to run native encryption and modern authentication.",
+      "B": "Elimination control is a term from physical hazard management, not standard ISC2 security control taxonomy.",
+      "C": "Directive controls specify actions that personnel must follow via policy or mandate.",
+      "D": "Deterrent controls aim to discourage malicious attempts through visible consequences."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-016",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.4 ISC2 Code of Ethics",
+    "cognitive_level": "RECALL",
+    "stem": "What is the FIRST and highest priority canon in the ISC2 Code of Ethics?",
+    "options": {
+      "A": "Advance and protect the profession.",
+      "B": "Provide diligent and competent service to principals.",
+      "C": "Protect society, the common good, necessary public trust and confidence, and the infrastructure.",
+      "D": "Act honorably, honestly, justly, responsibly, and legally."
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "The first canon of the ISC2 Code of Ethics is: 'Protect society, the common good, necessary public trust and confidence, and the infrastructure.' It takes strict precedence over all other canons.",
+      "A": "Advancing and protecting the profession is the fourth and final canon.",
+      "B": "Providing diligent and competent service to principals is the third canon.",
+      "C": "Correct. Protecting society and public infrastructure is Canon 1 and takes ultimate precedence.",
+      "D": "Acting honorably, honestly, justly, responsibly, and legally is the second canon."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-017",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.4 ISC2 Code of Ethics",
+    "cognitive_level": "SCENARIO",
+    "stem": "A certified security practitioner's employer instructs them to conceal a critical infrastructure safety vulnerability from the public utility regulator to avoid fines. How must the certified member resolve this conflict according to the ISC2 Code of Ethics?",
+    "options": {
+      "A": "Follow the employer's instructions because serving the principal is the highest priority.",
+      "B": "Refuse to conceal the vulnerability, because Canon 1 (protecting society and infrastructure) overrides Canon 3 (serving principals).",
+      "C": "Publish the zero-day exploit code on social media immediately to warn users anonymously.",
+      "D": "Resign immediately without documenting or reporting the finding to anyone."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The canons of the ISC2 Code of Ethics are in hierarchical order. When conflicts arise, resolving them in favor of the higher-order canon is mandatory. Canon 1 (protecting society and public infrastructure) overrides Canon 3 (service to employers/principals).",
+      "A": "Service to principals (Canon 3) is strictly subordinate to the safety of society and infrastructure (Canon 1).",
+      "B": "Correct. Canon 1 takes precedence over employer demands when public safety or critical infrastructure is at risk.",
+      "C": "Releasing uncoordinated zero-day exploits violates Canon 2 (acting honorably and responsibly) and endangers public infrastructure.",
+      "D": "Quietly resigning without addressing or escalating critical infrastructure danger fails to protect society."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-018",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.4 ISC2 Code of Ethics",
+    "cognitive_level": "RECALL",
+    "stem": "In the ISC2 Code of Ethics hierarchy, what is the exact order of the four mandatory canons from highest priority to lowest priority?",
+    "options": {
+      "A": "1. Protect society; 2. Act honorably; 3. Provide diligent service to principals; 4. Advance and protect the profession",
+      "B": "1. Provide diligent service to principals; 2. Protect society; 3. Act honorably; 4. Advance and protect the profession",
+      "C": "1. Act honorably; 2. Advance the profession; 3. Protect society; 4. Provide diligent service to principals",
+      "D": "1. Protect society; 2. Provide diligent service to principals; 3. Act honorably; 4. Advance and protect the profession"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The exact ISC2 hierarchical order is: 1. Protect society, common good, public trust, infrastructure; 2. Act honorably, honestly, justly, responsibly, legally; 3. Provide diligent and competent service to principals; 4. Advance and protect the profession.",
+      "A": "Correct. This matches the exact canonical hierarchy codified by ISC2.",
+      "B": "Service to principals cannot supersede the protection of society or honorable conduct.",
+      "C": "Mismatches the first and second canons.",
+      "D": "Inverts the order of Canon 2 and Canon 3."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-019",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.5 Governance & Policy Hierarchy",
+    "cognitive_level": "RECALL",
+    "stem": "Within the organizational security documentation hierarchy (Policies, Standards, Procedures, Guidelines), which document represents mandatory, step-by-step instructions for executing a specific task?",
+    "options": {
+      "A": "Policy",
+      "B": "Procedure",
+      "C": "Guideline",
+      "D": "Standard"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Procedures are mandatory, detailed, sequential step-by-step instructions that technicians or users follow to accomplish a specific task.",
+      "A": "A policy is a mandatory, high-level management declaration outlining organizational security intent and objectives.",
+      "B": "Correct. Procedures provide granular, step-by-step instructions.",
+      "C": "Guidelines provide optional, discretionary recommendations and best practices.",
+      "D": "Standards provide mandatory, specific, uniform technical rules, baselines, or metrics."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-020",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.5 Governance & Policy Hierarchy",
+    "cognitive_level": "RECALL",
+    "stem": "An organization publishes an advisory document titled 'Recommended Best Practices for Securing Remote Home Wi-Fi Networks'. Compliance is encouraged but not strictly enforced or audited. In the security documentation hierarchy, what is this document?",
+    "options": {
+      "A": "A Security Standard",
+      "B": "A Security Guideline",
+      "C": "A Security Policy",
+      "D": "A Standard Operating Procedure"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Guidelines are non-mandatory, discretionary recommendations that provide guidance and advice to personnel without punitive enforcement.",
+      "A": "Standards are compulsory, audited technical requirements.",
+      "B": "Correct. Non-compulsory advisory recommendations are classified as guidelines.",
+      "C": "Policies are mandatory high-level directives approved by executive leadership.",
+      "D": "Procedures are mandatory step-by-step execution steps."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-021",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.5 Governance & Policy Hierarchy",
+    "cognitive_level": "SCENARIO",
+    "stem": "An enterprise requires all corporate laptops to enforce AES-XTS-256 BitLocker full-disk encryption with a minimum 6-character PIN upon pre-boot authentication. Which document type in the governance hierarchy formally specifies this exact technical metric?",
+    "options": {
+      "A": "Guideline",
+      "B": "Standard",
+      "C": "Mission Statement",
+      "D": "Acceptable Use Policy (AUP)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Standards specify mandatory, measurable technical baselines, algorithms, and uniform requirements that systems must meet.",
+      "A": "Guidelines are non-mandatory recommendations.",
+      "B": "Correct. Specific, mandatory technical baselines (e.g., AES-XTS-256 with 6-character PIN) are defined in security standards.",
+      "C": "A mission statement articulates an organization's broad purpose, not technical control metrics.",
+      "D": "An AUP defines rules of acceptable user conduct, not low-level cryptographic hardware standards."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D1-022",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.1 Information Assurance Concepts",
+    "cognitive_level": "SCENARIO",
+    "stem": "An attacker intercepts a software vendor's distribution mirror and replaces a legitimate firmware update file with a backdoored version having an identical file size. When an administrator downloads the file, how can they detect that the firmware was tampered with?",
+    "options": {
+      "A": "By checking if the download used HTTPS port 443",
+      "B": "By calculating the SHA-256 hash and comparing it against the cryptographic hash published on the vendor's secure portal",
+      "C": "By verifying that the file name matches the release documentation",
+      "D": "By scanning the file with a firewall stateful packet filter"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Cryptographic hashes verify file integrity. Even minor modifications to the underlying binary will produce a completely different SHA-256 digest (avalanche effect).",
+      "A": "HTTPS encrypts the transit pipe, but if the file on the server is already compromised, HTTPS will deliver the compromised file securely.",
+      "B": "Correct. Verifying the cryptographic hash against a trusted benchmark guarantees detection of unauthorized alterations.",
+      "C": "File names are easily spoofed by adversaries.",
+      "D": "Stateful packet filtering inspects transport layer headers, not file contents or tamper detection."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D1-023",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.2 Risk Management Process",
+    "cognitive_level": "RECALL",
+    "stem": "What is the relationship between threats, vulnerabilities, and assets when determining overall organizational risk?",
+    "options": {
+      "A": "Risk exists only when an asset has no vulnerabilities.",
+      "B": "Risk is the product of a threat exploiting an existing vulnerability to cause impact on an asset.",
+      "C": "Threats and vulnerabilities are identical terms describing external attackers.",
+      "D": "A vulnerability alone creates high risk even in the absence of threats or value in the asset."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Risk materializes at the intersection where a threat has the capability and intent to exploit a specific vulnerability residing on an asset of value, producing measurable impact (Risk = Threat x Vulnerability x Impact).",
+      "A": "If an asset has zero vulnerabilities, it cannot be exploited by a threat.",
+      "B": "Correct. Risk is the likelihood of a threat exploiting a vulnerability and the resulting business impact on an asset.",
+      "C": "Threats are external/internal entities or occurrences that could cause harm; vulnerabilities are internal flaws or weaknesses.",
+      "D": "If an asset has no value or there is no plausible threat to exploit the vulnerability, risk is minimal or nonexistent."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D1-024",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.3 Security Controls",
+    "cognitive_level": "RECALL",
+    "stem": "Which of the following pairings correctly matches a security control mechanism with its appropriate functional classification?",
+    "options": {
+      "A": "Security guard at entrance gate : Technical Preventive control",
+      "B": "Audit log review tool : Physical Corrective control",
+      "C": "Network Intrusion Prevention System (NIPS) : Technical Preventive control",
+      "D": "Clean desk policy : Physical Detective control"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "A Network IPS operates via software/hardware logic (Technical) and drops malicious packets in-line before they reach the target (Preventive).",
+      "A": "A security guard is a Physical control, not technical.",
+      "B": "Audit log review is a Detective control, not corrective, and typically Technical or Administrative.",
+      "C": "Correct. A NIPS is a technical mechanism that actively prevents attacks in-line.",
+      "D": "A clean desk policy is an Administrative Directive control, not a physical detective control."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D1-025",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.4 ISC2 Code of Ethics",
+    "cognitive_level": "SCENARIO",
+    "stem": "A security consultant discovers an unpatched critical flaw in a widely used commercial software package while working for a client. The consultant desires to boost their personal reputation by selling the exploit code to an underground cybercrime forum. Which ISC2 ethics canons are violated?",
+    "options": {
+      "A": "Only Canon 4 is violated because technical skill was demonstrated.",
+      "B": "Canons 1, 2, 3, and 4 are all violated because selling exploits to criminals harms society, acts dishonorably and illegally, compromises client confidentiality, and tarnishes the cybersecurity profession.",
+      "C": "No canons are violated as long as the consultant pays applicable capital gains taxes.",
+      "D": "Only Canon 3 is violated because the employer did not approve the sale."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Selling exploits to malicious actors violates Canon 1 (endangers society and public infrastructure), Canon 2 (dishonorable, unjust, and illegal conduct), Canon 3 (violates fiduciary duty and diligence to client), and Canon 4 (discredits the security profession).",
+      "A": "Underground monetization violates all four canons, not merely Canon 4.",
+      "B": "Correct. Enabling cybercriminals violates all four canons of the ISC2 Code of Ethics.",
+      "C": "Illegal weaponization of vulnerabilities directly violates foundational ethics regardless of tax declarations.",
+      "D": "The harm extends far beyond employer notification."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D1-026",
+    "domain_number": 1,
+    "domain_name": "Security Principles",
+    "sub_objective": "1.5 Governance & Policy Hierarchy",
+    "cognitive_level": "SCENARIO",
+    "stem": "A newly appointed Chief Information Security Officer (CISO) needs to articulate executive leadership's mandatory stance regarding the protection of corporate data and the consequences of intentional data misuse. Which document must the CISO publish?",
+    "options": {
+      "A": "Information Security Policy",
+      "B": "Standard Operating Procedure for USB Disposal",
+      "C": "Firewall Rule Configuration Guideline",
+      "D": "Password Complexity Standard"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "An Information Security Policy is the foundational, high-level management document that outlines the organization's security goals, roles, responsibilities, and enforcement penalties.",
+      "A": "Correct. An overarching policy establishes executive leadership's mandate and sets the framework for all supporting standards and procedures.",
+      "B": "USB disposal is a narrow, low-level procedure.",
+      "C": "A guideline provides non-mandatory technical advice.",
+      "D": "A standard specifies exact metrics (such as length and character sets), rather than the broad governance stance."
+    },
+    "is_pretest": true
+  }
+]

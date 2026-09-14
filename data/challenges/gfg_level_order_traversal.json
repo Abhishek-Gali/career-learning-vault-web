@@ -1,0 +1,85 @@
+{
+  "id": "gfg_level_order_traversal",
+  "title": "GFG: Level Order Traversal (BFS)",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Easy",
+  "category": "Trees & BFS",
+  "description": "Given a binary tree represented as a level-order list `nodes` (None representing missing children), return the level order traversal as a list of lists representing each level.",
+  "constraints": "0 <= len(nodes) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "level_order",
+  "starter_code": "def level_order(nodes: list) -> list[list[int]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      },
+      "expected": [
+        [
+          3
+        ],
+        [
+          9,
+          20
+        ],
+        [
+          15,
+          7
+        ]
+      ]
+    },
+    {
+      "input": {
+        "nodes": [
+          1
+        ]
+      },
+      "expected": [
+        [
+          1
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": [
+        [
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ]
+      ]
+    }
+  ],
+  "solution": "def level_order(nodes: list) -> list[list[int]]:\n    if not nodes or nodes[0] is None:\n        return []\n    levels = []\n    idx = 0\n    sz = 1\n    while idx < len(nodes):\n        chunk = [x for x in nodes[idx:idx + sz] if x is not None]\n        if chunk:\n            levels.append(chunk)\n        idx += sz\n        sz *= 2\n    return levels\n",
+  "explanation": "Chunking nodes by 2^d levels filters missing children to yield level-by-level groupings in O(N) time."
+}

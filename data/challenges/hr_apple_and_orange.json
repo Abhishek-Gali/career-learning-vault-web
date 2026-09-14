@@ -1,0 +1,96 @@
+{
+  "id": "hr_apple_and_orange",
+  "title": "HackerRank: Apple and Orange",
+  "platform": "HackerRank",
+  "difficulty": "Medium",
+  "category": "Implementation",
+  "description": "Sam's house has an apple tree at point `a` and an orange tree at point `b`. The house is between points `s` and `t`. Apples fall at relative distances given in `apples`, and oranges in `oranges`. Return `[apples_on_house, oranges_on_house]`.",
+  "constraints": "1 <= s, t, a, b <= 10^5, a < s < t < b\n\u2022 Time: O(N + M) | Space: O(1)",
+  "function_name": "count_apples_and_oranges",
+  "starter_code": "def count_apples_and_oranges(s: int, t: int, a: int, b: int, apples: list[int], oranges: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": 7,
+        "t": 11,
+        "a": 5,
+        "b": 15,
+        "apples": [
+          -2,
+          2,
+          1
+        ],
+        "oranges": [
+          5,
+          -6
+        ]
+      },
+      "expected": [
+        1,
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": 2,
+        "t": 3,
+        "a": 1,
+        "b": 5,
+        "apples": [
+          2
+        ],
+        "oranges": [
+          -2
+        ]
+      },
+      "expected": [
+        1,
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": 7,
+        "t": 10,
+        "a": 4,
+        "b": 12,
+        "apples": [
+          2,
+          3,
+          -4
+        ],
+        "oranges": [
+          3,
+          -2,
+          -4
+        ]
+      },
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": 1,
+        "t": 2,
+        "a": 0,
+        "b": 3,
+        "apples": [
+          -1
+        ],
+        "oranges": [
+          1
+        ]
+      },
+      "expected": [
+        0,
+        0
+      ]
+    }
+  ],
+  "solution": "def count_apples_and_oranges(s: int, t: int, a: int, b: int, apples: list[int], oranges: list[int]) -> list[int]:\n    app_cnt = sum(1 for d in apples if s <= a + d <= t)\n    ora_cnt = sum(1 for d in oranges if s <= b + d <= t)\n    return [app_cnt, ora_cnt]\n",
+  "explanation": "Calculates absolute landing coordinates and checks inclusion in range [s, t] in O(N + M) time."
+}

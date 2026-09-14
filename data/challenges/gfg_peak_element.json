@@ -1,0 +1,59 @@
+{
+  "id": "gfg_peak_element",
+  "title": "GFG: Peak Element",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Easy",
+  "category": "Arrays & Binary Search",
+  "description": "An element is called a peak element if its value is not smaller than the value of its adjacent elements (if they exist). Given an array `arr`, return any valid index of a peak element.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(log N) or O(N) | Space: O(1)",
+  "function_name": "find_peak_element",
+  "starter_code": "def find_peak_element(arr: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          10,
+          20,
+          15,
+          2,
+          23,
+          90,
+          67
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "arr": [
+          5
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def find_peak_element(arr: list[int]) -> int:\n    n = len(arr)\n    for i in range(n):\n        left_ok = (i == 0 or arr[i] >= arr[i - 1])\n        right_ok = (i == n - 1 or arr[i] >= arr[i + 1])\n        if left_ok and right_ok:\n            return i\n    return 0\n",
+  "explanation": "Linear scan checks peak condition (>= neighbors) returning first valid index in O(N) time."
+}

@@ -1,0 +1,61 @@
+{
+  "id": "gfg_min_swaps_to_sort",
+  "title": "GFG: Minimum Swaps to Sort Array",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Hard",
+  "category": "Graphs & Cycles",
+  "description": "Given an array of `n` distinct elements, find the minimum number of swaps required to sort the array in strictly increasing order.",
+  "constraints": "1 <= len(nums) <= 10^5\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "min_swaps",
+  "starter_code": "def min_swaps(nums: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          2,
+          8,
+          5,
+          4
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [
+          10,
+          19,
+          6,
+          3,
+          5
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "nums": [
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def min_swaps(nums: list[int]) -> int:\n    n = len(nums)\n    arr_pos = sorted([(val, i) for i, val in enumerate(nums)], key=lambda x: x[0])\n    visited = [False] * n\n    swaps = 0\n    for i in range(n):\n        if visited[i] or arr_pos[i][1] == i:\n            continue\n        cycle_size = 0\n        j = i\n        while not visited[j]:\n            visited[j] = True\n            j = arr_pos[j][1]\n            cycle_size += 1\n        if cycle_size > 1:\n            swaps += cycle_size - 1\n    return swaps\n",
+  "explanation": "Permutation cycle decomposition: Each disjoint cycle of size K requires K - 1 swaps to resolve, totaling min swaps in O(N log N) time."
+}

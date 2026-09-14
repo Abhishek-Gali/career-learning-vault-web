@@ -1,0 +1,47 @@
+{
+  "id": "prog_disarium_number",
+  "title": "Programiz: Disarium Number Checker",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "A number is called Disarium if sum of its digits powered with their respective positions equals the number itself (e.g. 175 is a Disarium number as 1^1 + 7^2 + 5^3 = 1 + 49 + 125 = 175). Return `True` if disarium, else `False`.",
+  "constraints": "1 <= n <= 10^9\n\u2022 Time: O(log N) | Space: O(log N)",
+  "function_name": "is_disarium",
+  "starter_code": "def is_disarium(n: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 175
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 89
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 100
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 135
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 518
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_disarium(n: int) -> bool:\n    s = str(n)\n    return sum(int(ch) ** (i + 1) for i, ch in enumerate(s)) == n\n",
+  "explanation": "Evaluates sum of digits powered by 1-based index in O(log N) time."
+}

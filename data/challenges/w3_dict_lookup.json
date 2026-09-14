@@ -1,0 +1,57 @@
+{
+  "id": "w3_dict_lookup",
+  "title": "W3Schools: Dictionary Safe Get",
+  "platform": "W3Schools",
+  "difficulty": "Easy",
+  "category": "Dictionaries",
+  "description": "Given dictionary `d`, a search `key`, and a `default_val`, return the value of `key` if present, else return `default_val`.",
+  "constraints": "0 <= len(d) <= 10^4\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "get_dict_value",
+  "starter_code": "def get_dict_value(d: dict, key: str, default_val: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "d": {
+          "name": "Alice",
+          "role": "Dev"
+        },
+        "key": "name",
+        "default_val": "Guest"
+      },
+      "expected": "Alice"
+    },
+    {
+      "input": {
+        "d": {
+          "name": "Alice",
+          "role": "Dev"
+        },
+        "key": "age",
+        "default_val": "N/A"
+      },
+      "expected": "N/A"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "d": {},
+        "key": "k",
+        "default_val": "default"
+      },
+      "expected": "default"
+    },
+    {
+      "input": {
+        "d": {
+          "x": "found"
+        },
+        "key": "x",
+        "default_val": "missing"
+      },
+      "expected": "found"
+    }
+  ],
+  "solution": "def get_dict_value(d: dict, key: str, default_val: str) -> str:\n    return d.get(key, default_val)\n",
+  "explanation": "Dict get() performs safe O(1) key lookup with fallback."
+}

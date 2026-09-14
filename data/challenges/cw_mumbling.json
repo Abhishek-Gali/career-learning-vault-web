@@ -1,0 +1,41 @@
+{
+  "id": "cw_mumbling",
+  "title": "Codewars 7kyu: Mumbling (accum)",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Strings",
+  "description": "Given a string `st`, return a formatted string following the pattern: accum('abcd') -> 'A-Bb-Ccc-Dddd', accum('RqaEzty') -> 'R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy'.",
+  "constraints": "1 <= len(st) <= 100\n\u2022 Time: O(N^2) | Space: O(N^2)",
+  "function_name": "accum",
+  "starter_code": "def accum(st: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "st": "abcd"
+      },
+      "expected": "A-Bb-Ccc-Dddd"
+    },
+    {
+      "input": {
+        "st": "RqaEzty"
+      },
+      "expected": "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "st": "Z"
+      },
+      "expected": "Z"
+    },
+    {
+      "input": {
+        "st": "cwAt"
+      },
+      "expected": "C-Ww-Aaa-Tttt"
+    }
+  ],
+  "solution": "def accum(st: str) -> str:\n    return '-'.join(ch.upper() + ch.lower() * i for i, ch in enumerate(st))\n",
+  "explanation": "Formats each token with 1 uppercase and i lowercase characters in O(N^2) time."
+}

@@ -1,0 +1,95 @@
+{
+  "id": "w3_matrix_diagonal_sum",
+  "title": "W3Schools: Matrix Diagonal Sum",
+  "platform": "W3Schools",
+  "difficulty": "Hard",
+  "category": "Matrix",
+  "description": "Given a square matrix `mat`, return the sum of the matrix diagonals. Only include the sum of all the elements on the primary diagonal and all the elements on the secondary diagonal that are not part of the primary diagonal.",
+  "constraints": "1 <= N <= 100\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "diagonal_sum",
+  "starter_code": "def diagonal_sum(mat: list[list[int]]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "mat": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      },
+      "expected": 25
+    },
+    {
+      "input": {
+        "mat": [
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": 8
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "mat": [
+          [
+            5
+          ]
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "mat": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def diagonal_sum(mat: list[list[int]]) -> int:\n    n = len(mat)\n    total = 0\n    for i in range(n):\n        total += mat[i][i] + mat[i][n - 1 - i]\n    if n % 2 == 1:\n        total -= mat[n // 2][n // 2]\n    return total\n",
+  "explanation": "Sums primary and secondary diagonals and subtracts overlapping center cell in O(N) time."
+}

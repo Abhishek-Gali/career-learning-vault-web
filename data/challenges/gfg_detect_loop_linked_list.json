@@ -1,0 +1,65 @@
+{
+  "id": "gfg_detect_loop_linked_list",
+  "title": "GFG: Detect Loop in Linked List",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Two Pointers & Graphs",
+  "description": "Given a list `next_ptrs` where `next_ptrs[i]` is the next node index from node `i` (-1 indicating null termination), return `True` if the linked list contains a cycle, `False` otherwise.",
+  "constraints": "1 <= len(next_ptrs) <= 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "has_cycle",
+  "starter_code": "def has_cycle(next_ptrs: list[int]) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "next_ptrs": [
+          1,
+          2,
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "next_ptrs": [
+          1,
+          2,
+          -1
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "next_ptrs": [
+          -1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "next_ptrs": [
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "next_ptrs": [
+          1,
+          2,
+          3,
+          4,
+          2
+        ]
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def has_cycle(next_ptrs: list[int]) -> bool:\n    if not next_ptrs or next_ptrs[0] == -1:\n        return False\n    slow = 0\n    fast = 0\n    while fast != -1 and next_ptrs[fast] != -1:\n        slow = next_ptrs[slow]\n        fast = next_ptrs[next_ptrs[fast]]\n        if slow == fast:\n            return True\n    return False\n",
+  "explanation": "Floyd's cycle-finding algorithm uses slow and fast pointers to detect loops in O(N) time and O(1) space."
+}

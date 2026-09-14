@@ -1,0 +1,61 @@
+{
+  "id": "he_divisibility_by_10",
+  "title": "HackerEarth: Divisibility by 10",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Basic Programming",
+  "description": "You are provided an array `arr` of size `N`. Form a number taking the last digit of each item from left to right. Return 'Yes' if that number is divisible by 10, else 'No'.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "divisible_by_10",
+  "starter_code": "def divisible_by_10(arr: list[int]) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          85,
+          25,
+          65,
+          21,
+          84
+        ]
+      },
+      "expected": "No"
+    },
+    {
+      "input": {
+        "arr": [
+          12,
+          34,
+          56,
+          78,
+          90
+        ]
+      },
+      "expected": "Yes"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          10
+        ]
+      },
+      "expected": "Yes"
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          0
+        ]
+      },
+      "expected": "Yes"
+    }
+  ],
+  "solution": "def divisible_by_10(arr: list[int]) -> str:\n    return 'Yes' if arr[-1] % 10 == 0 else 'No'\n",
+  "explanation": "A number is divisible by 10 iff its last digit is 0. Inspecting arr[-1] % 10 takes O(1) time."
+}

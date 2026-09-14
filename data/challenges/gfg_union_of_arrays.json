@@ -1,0 +1,94 @@
+{
+  "id": "gfg_union_of_arrays",
+  "title": "GFG: Union of Two Arrays",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Easy",
+  "category": "Sets & Sorting",
+  "description": "Given two arrays `a` and `b`, return the union of the two arrays as a sorted list of distinct elements.",
+  "constraints": "0 <= len(a), len(b) <= 10^5\n\u2022 Time: O((N + M) log(N + M)) | Space: O(N + M)",
+  "function_name": "union_arrays",
+  "starter_code": "def union_arrays(a: list[int], b: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "b": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          85,
+          25,
+          1,
+          32,
+          54,
+          6
+        ],
+        "b": [
+          85,
+          2
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        6,
+        25,
+        32,
+        54,
+        85
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [],
+        "b": [
+          1,
+          2
+        ]
+      },
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          1,
+          1,
+          1
+        ],
+        "b": [
+          1,
+          1
+        ]
+      },
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "solution": "def union_arrays(a: list[int], b: list[int]) -> list[int]:\n    return sorted(list(set(a) | set(b)))\n",
+  "explanation": "Set union extracts unique items across both lists, sorted in O((N+M) log(N+M)) time."
+}

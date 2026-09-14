@@ -1,0 +1,47 @@
+{
+  "id": "cw_valid_braces",
+  "title": "Codewars 6kyu: Valid Braces",
+  "platform": "Codewars",
+  "difficulty": "Hard",
+  "category": "Stacks",
+  "description": "Write a function that takes a string of braces, and determines if the order of the braces is valid. It should return `True` if the string is valid, and `False` if it's invalid. Characters are '()[]{}'.",
+  "constraints": "0 <= len(string) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "valid_braces",
+  "starter_code": "def valid_braces(string: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "string": "(){}[]"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "string": "(}"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "string": "[(])"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "string": ""
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "string": "([{}])"
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def valid_braces(string: str) -> bool:\n    pairs = {')': '(', '}': '{', ']': '['}\n    stack = []\n    for ch in string:\n        if ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n        else:\n            stack.append(ch)\n    return len(stack) == 0\n",
+  "explanation": "Validates bracket nesting with LIFO stack in O(N) time."
+}

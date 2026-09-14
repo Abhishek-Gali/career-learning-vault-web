@@ -1,0 +1,100 @@
+{
+  "id": "lc_four_sum",
+  "title": "LeetCode 18: 4Sum",
+  "platform": "LeetCode",
+  "difficulty": "Medium",
+  "category": "Two Pointers",
+  "description": "Given an array `nums` of `n` integers and an integer `target`, return an array of all unique quadruplets `[nums[a], nums[b], nums[c], nums[d]]` such that `a, b, c, d` are distinct and sum to `target`.",
+  "constraints": "1 <= len(nums) <= 200\n\u2022 Time: O(N^3) | Space: O(1) auxiliary",
+  "function_name": "four_sum",
+  "starter_code": "def four_sum(nums: list[int], target: int) -> list[list[int]]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          0,
+          -1,
+          0,
+          -2,
+          2
+        ],
+        "target": 0
+      },
+      "expected": [
+        [
+          -2,
+          -1,
+          1,
+          2
+        ],
+        [
+          -2,
+          0,
+          0,
+          2
+        ],
+        [
+          -1,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "target": 8
+      },
+      "expected": [
+        [
+          2,
+          2,
+          2,
+          2
+        ]
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ],
+        "target": 6
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "target": 0
+      },
+      "expected": [
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "solution": "def four_sum(nums: list[int], target: int) -> list[list[int]]:\n    nums.sort()\n    res = []\n    n = len(nums)\n    for i in range(n - 3):\n        if i > 0 and nums[i] == nums[i - 1]:\n            continue\n        for j in range(i + 1, n - 2):\n            if j > i + 1 and nums[j] == nums[j - 1]:\n                continue\n            l, r = j + 1, n - 1\n            while l < r:\n                s = nums[i] + nums[j] + nums[l] + nums[r]\n                if s == target:\n                    res.append([nums[i], nums[j], nums[l], nums[r]])\n                    while l < r and nums[l] == nums[l + 1]:\n                        l += 1\n                    while l < r and nums[r] == nums[r - 1]:\n                        r -= 1\n                    l += 1\n                    r -= 1\n                elif s < target:\n                    l += 1\n                else:\n                    r -= 1\n    return res\n",
+  "explanation": "Nested loops fixing two elements followed by two-pointer scan find unique quadruplets in O(N^3) time."
+}

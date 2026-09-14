@@ -1,0 +1,45 @@
+{
+  "id": "he_monk_and_suffix_sort",
+  "title": "HackerEarth: Monk and Suffix Sort",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Strings & Suffixes",
+  "description": "Given a string `s` and an integer `k`, generate all suffixes of `s`, sort them in lexicographical order, and return the `k`th suffix (1-indexed).",
+  "constraints": "1 <= k <= len(s) <= 100\n\u2022 Time: O(N^2 log N) | Space: O(N^2)",
+  "function_name": "kth_suffix",
+  "starter_code": "def kth_suffix(s: str, k: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "aacb",
+        "k": 3
+      },
+      "expected": "b"
+    },
+    {
+      "input": {
+        "s": "banana",
+        "k": 2
+      },
+      "expected": "ana"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "hello",
+        "k": 1
+      },
+      "expected": "ello"
+    },
+    {
+      "input": {
+        "s": "a",
+        "k": 1
+      },
+      "expected": "a"
+    }
+  ],
+  "solution": "def kth_suffix(s: str, k: int) -> str:\n    suffixes = sorted(s[i:] for i in range(len(s)))\n    return suffixes[k - 1]\n",
+  "explanation": "Generates all N suffixes, sorts lexicographically, and indexes kth element in O(N^2 log N) time."
+}

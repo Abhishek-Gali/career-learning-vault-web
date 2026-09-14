@@ -1,0 +1,47 @@
+{
+  "id": "cw_highest_and_lowest",
+  "title": "Codewars 7kyu: Highest and Lowest",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Strings & Sorting",
+  "description": "In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number as a space-separated string (e.g., 'max min').",
+  "constraints": "Valid space separated integers string\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "high_and_low",
+  "starter_code": "def high_and_low(numbers: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "numbers": "1 2 3 4 5"
+      },
+      "expected": "5 1"
+    },
+    {
+      "input": {
+        "numbers": "1 2 -3 4 5"
+      },
+      "expected": "5 -3"
+    },
+    {
+      "input": {
+        "numbers": "1 9 3 4 -5"
+      },
+      "expected": "9 -5"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "numbers": "42"
+      },
+      "expected": "42 42"
+    },
+    {
+      "input": {
+        "numbers": "-1 -1"
+      },
+      "expected": "-1 -1"
+    }
+  ],
+  "solution": "def high_and_low(numbers: str) -> str:\n    nums = [int(x) for x in numbers.split()]\n    return f'{max(nums)} {min(nums)}'\n",
+  "explanation": "Extracts integers from tokens and returns formatted string of max and min in O(N) time."
+}

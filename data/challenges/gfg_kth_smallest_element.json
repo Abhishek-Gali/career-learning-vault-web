@@ -1,0 +1,66 @@
+{
+  "id": "gfg_kth_smallest_element",
+  "title": "GFG: Kth Smallest Element",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Sorting & Heaps",
+  "description": "Given an array `arr` and a number `k` where `k` is smaller than the size of the array, find the `k`th smallest element in the given array.",
+  "constraints": "1 <= len(arr) <= 10^5, 1 <= k <= len(arr)\n\u2022 Time: O(N log K) | Space: O(K)",
+  "function_name": "kth_smallest",
+  "starter_code": "def kth_smallest(arr: list[int], k: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          7,
+          10,
+          4,
+          3,
+          20,
+          15
+        ],
+        "k": 3
+      },
+      "expected": 7
+    },
+    {
+      "input": {
+        "arr": [
+          7,
+          10,
+          4,
+          20,
+          15
+        ],
+        "k": 4
+      },
+      "expected": 15
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          1
+        ],
+        "k": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "arr": [
+          12,
+          3,
+          5,
+          7,
+          19
+        ],
+        "k": 2
+      },
+      "expected": 5
+    }
+  ],
+  "solution": "def kth_smallest(arr: list[int], k: int) -> int:\n    return sorted(arr)[k - 1]\n",
+  "explanation": "Sorting or max-heap finds kth smallest in O(N log N) time."
+}

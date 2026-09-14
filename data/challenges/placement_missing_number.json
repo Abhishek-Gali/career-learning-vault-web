@@ -1,0 +1,80 @@
+{
+  "id": "placement_missing_number",
+  "title": "Placement: Missing Number in Array",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Arrays & Math",
+  "description": "Given an array `nums` containing `n` distinct numbers in the range `[0, n]`, return the only number in the range that is missing from the array.",
+  "constraints": "1 <= len(nums) <= 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "find_missing_number",
+  "starter_code": "def find_missing_number(nums: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          3,
+          0,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nums": [
+          9,
+          6,
+          4,
+          2,
+          3,
+          5,
+          7,
+          0,
+          1
+        ]
+      },
+      "expected": 8
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def find_missing_number(nums: list[int]) -> int:\n    n = len(nums)\n    expected_sum = n * (n + 1) // 2\n    return expected_sum - sum(nums)\n",
+  "explanation": "Sum of first N integers is N*(N+1)//2. Subtracting the array sum identifies the missing number in O(N) time and O(1) space."
+}

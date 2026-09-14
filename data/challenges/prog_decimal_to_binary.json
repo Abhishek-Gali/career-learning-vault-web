@@ -1,0 +1,41 @@
+{
+  "id": "prog_decimal_to_binary",
+  "title": "Programiz: Decimal to Binary Conversion",
+  "platform": "Programiz",
+  "difficulty": "Easy",
+  "category": "Bit Manipulation",
+  "description": "Given a non-negative integer `n`, return its binary representation as a string without leading '0b'.",
+  "constraints": "0 <= n <= 10^9\n\u2022 Time: O(log N) | Space: O(log N)",
+  "function_name": "dec_to_bin",
+  "starter_code": "def dec_to_bin(n: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": "1010"
+    },
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": "0"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 255
+      },
+      "expected": "11111111"
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": "1"
+    }
+  ],
+  "solution": "def dec_to_bin(n: int) -> str:\n    return bin(n)[2:]\n",
+  "explanation": "Converts integer to binary format string in O(log N) time."
+}

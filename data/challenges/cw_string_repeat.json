@@ -1,0 +1,52 @@
+{
+  "id": "cw_string_repeat",
+  "title": "Codewars 8kyu: String Repeat",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Write a function that accepts an integer `repeat` and a string `string`, and returns the string repeated exactly that many times.",
+  "constraints": "0 <= repeat <= 1000\n\u2022 Time: O(N * repeat) | Space: O(N * repeat)",
+  "function_name": "repeat_str",
+  "starter_code": "def repeat_str(repeat: int, string: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "repeat": 3,
+        "string": "*"
+      },
+      "expected": "***"
+    },
+    {
+      "input": {
+        "repeat": 5,
+        "string": "#"
+      },
+      "expected": "#####"
+    },
+    {
+      "input": {
+        "repeat": 2,
+        "string": "ha "
+      },
+      "expected": "ha ha "
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "repeat": 0,
+        "string": "abc"
+      },
+      "expected": ""
+    },
+    {
+      "input": {
+        "repeat": 1,
+        "string": "hello"
+      },
+      "expected": "hello"
+    }
+  ],
+  "solution": "def repeat_str(repeat: int, string: str) -> str:\n    return string * repeat\n",
+  "explanation": "Python string repetition operator executes in O(N * repeat) time."
+}

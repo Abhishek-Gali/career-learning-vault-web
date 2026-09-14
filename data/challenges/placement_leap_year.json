@@ -1,0 +1,53 @@
+{
+  "id": "placement_leap_year",
+  "title": "Placement: Leap Year Identifier",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Logic",
+  "description": "Given a year `year`, return `True` if it is a leap year according to the Gregorian calendar, and `False` otherwise.",
+  "constraints": "1 <= year <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "is_leap_year",
+  "starter_code": "def is_leap_year(year: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "year": 2000
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "year": 1900
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "year": 2024
+      },
+      "expected": true
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "year": 2023
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "year": 2400
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "year": 2100
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def is_leap_year(year: int) -> bool:\n    return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)\n",
+  "explanation": "A year is leap if divisible by 4 and not 100, or divisible by 400."
+}

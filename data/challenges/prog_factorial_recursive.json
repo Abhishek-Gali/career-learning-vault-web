@@ -1,0 +1,41 @@
+{
+  "id": "prog_factorial_recursive",
+  "title": "Programiz: Find Factorial of a Number",
+  "platform": "Programiz",
+  "difficulty": "Easy",
+  "category": "Recursion & Math",
+  "description": "Find the factorial of a given non-negative integer `n`. (0! = 1).",
+  "constraints": "0 <= n <= 20\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "factorial",
+  "starter_code": "def factorial(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 7
+      },
+      "expected": 5040
+    },
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": 3628800
+    }
+  ],
+  "solution": "def factorial(n: int) -> int:\n    res = 1\n    for i in range(2, n + 1):\n        res *= i\n    return res\n",
+  "explanation": "Iterative product computes n! in O(N) time."
+}

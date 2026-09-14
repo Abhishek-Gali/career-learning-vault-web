@@ -1,0 +1,77 @@
+{
+  "id": "guvi_minimum_platforms",
+  "title": "GUVI: Minimum Platforms for Railway Station",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Hard",
+  "category": "Greedy & Sorting",
+  "description": "Given arrival `arr` and departure `dep` times of trains that reach a railway station, find the minimum number of platforms needed so that no train is kept waiting.",
+  "constraints": "1 <= len(arr) == len(dep) <= 5 * 10^4\n\u2022 Time: O(N log N) | Space: O(1) auxiliary",
+  "function_name": "min_platforms",
+  "starter_code": "def min_platforms(arr: list[int], dep: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          900,
+          940,
+          950,
+          1100,
+          1500,
+          1800
+        ],
+        "dep": [
+          910,
+          1200,
+          1120,
+          1130,
+          1900,
+          2000
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "arr": [
+          900,
+          1100,
+          1235
+        ],
+        "dep": [
+          1000,
+          1200,
+          1240
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          100,
+          200
+        ],
+        "dep": [
+          300,
+          400
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "arr": [
+          100
+        ],
+        "dep": [
+          200
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "solution": "def min_platforms(arr: list[int], dep: list[int]) -> int:\n    arr_sorted = sorted(arr)\n    dep_sorted = sorted(dep)\n    i = j = 0\n    plat_needed = max_plat = 0\n    n = len(arr)\n    while i < n and j < n:\n        if arr_sorted[i] <= dep_sorted[j]:\n            plat_needed += 1\n            max_plat = max(max_plat, plat_needed)\n            i += 1\n        else:\n            plat_needed -= 1\n            j += 1\n    return max_plat\n",
+  "explanation": "Sort arrival and departure events independently and simulate room occupancy with two pointers in O(N log N) time."
+}

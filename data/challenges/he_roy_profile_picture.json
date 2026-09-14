@@ -1,0 +1,57 @@
+{
+  "id": "he_roy_profile_picture",
+  "title": "HackerEarth: Roy and Profile Picture",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Basic Programming & Logic",
+  "description": "Roy wants to change his profile picture. Minimum dimension is `l`. For photo dimension `w x h`: If w < l or h < l, return 'UPLOAD ANOTHER'. If w == h and w >= l, return 'ACCEPTED'. Otherwise return 'CROP IT'.",
+  "constraints": "1 <= l, w, h <= 10000\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "profile_picture",
+  "starter_code": "def profile_picture(l: int, w: int, h: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "l": 180,
+        "w": 180,
+        "h": 180
+      },
+      "expected": "ACCEPTED"
+    },
+    {
+      "input": {
+        "l": 180,
+        "w": 120,
+        "h": 300
+      },
+      "expected": "UPLOAD ANOTHER"
+    },
+    {
+      "input": {
+        "l": 180,
+        "w": 300,
+        "h": 200
+      },
+      "expected": "CROP IT"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "l": 100,
+        "w": 50,
+        "h": 50
+      },
+      "expected": "UPLOAD ANOTHER"
+    },
+    {
+      "input": {
+        "l": 100,
+        "w": 200,
+        "h": 200
+      },
+      "expected": "ACCEPTED"
+    }
+  ],
+  "solution": "def profile_picture(l: int, w: int, h: int) -> str:\n    if w < l or h < l:\n        return 'UPLOAD ANOTHER'\n    elif w == h:\n        return 'ACCEPTED'\n    else:\n        return 'CROP IT'\n",
+  "explanation": "Evaluates dimension boundaries against threshold l in O(1) time."
+}

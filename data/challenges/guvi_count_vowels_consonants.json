@@ -1,0 +1,62 @@
+{
+  "id": "guvi_count_vowels_consonants",
+  "title": "GUVI: Count Vowels and Consonants",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Given a string `s`, count the number of vowels and consonants (case-insensitive, ignoring numbers, punctuation, and whitespace). Return a list `[vowels_count, consonants_count]`.",
+  "constraints": "0 <= len(s) <= 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "count_vowels_consonants",
+  "starter_code": "def count_vowels_consonants(s: str) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "Hello World"
+      },
+      "expected": [
+        3,
+        7
+      ]
+    },
+    {
+      "input": {
+        "s": "aeiou"
+      },
+      "expected": [
+        5,
+        0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "xyz123!"
+      },
+      "expected": [
+        0,
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": [
+        0,
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "Guvi Geek Network"
+      },
+      "expected": [
+        6,
+        9
+      ]
+    }
+  ],
+  "solution": "def count_vowels_consonants(s: str) -> list[int]:\n    vowels = set('aeiouAEIOU')\n    v_cnt = c_cnt = 0\n    for ch in s:\n        if ch.isalpha():\n            if ch in vowels:\n                v_cnt += 1\n            else:\n                c_cnt += 1\n    return [v_cnt, c_cnt]\n",
+  "explanation": "Iterating through characters and checking membership in vowel set takes O(N) time and O(1) space."
+}

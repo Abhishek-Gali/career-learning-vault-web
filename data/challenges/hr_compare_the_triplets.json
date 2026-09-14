@@ -1,0 +1,89 @@
+{
+  "id": "hr_compare_the_triplets",
+  "title": "HackerRank: Compare the Triplets",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup",
+  "description": "Alice and Bob each created one problem for HackerRank. A reviewer rates the two challenges, awarding points on a scale from 1 to 100 for three categories: problem clarity, originality, and difficulty. Given triplets `a` and `b`, return a list `[alice_pts, bob_pts]` comparing respective elements.",
+  "constraints": "len(a) == len(b) == 3\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "compare_triplets",
+  "starter_code": "def compare_triplets(a: list[int], b: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          5,
+          6,
+          7
+        ],
+        "b": [
+          3,
+          6,
+          10
+        ]
+      },
+      "expected": [
+        1,
+        1
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          17,
+          28,
+          30
+        ],
+        "b": [
+          99,
+          16,
+          8
+        ]
+      },
+      "expected": [
+        2,
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [
+          1,
+          1,
+          1
+        ],
+        "b": [
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": [
+        0,
+        0
+      ]
+    },
+    {
+      "input": {
+        "a": [
+          10,
+          20,
+          30
+        ],
+        "b": [
+          5,
+          15,
+          25
+        ]
+      },
+      "expected": [
+        3,
+        0
+      ]
+    }
+  ],
+  "solution": "def compare_triplets(a: list[int], b: list[int]) -> list[int]:\n    alice = sum(1 for x, y in zip(a, b) if x > y)\n    bob = sum(1 for x, y in zip(a, b) if y > x)\n    return [alice, bob]\n",
+  "explanation": "Element-wise comparison over pairs tallies points in O(1) time."
+}

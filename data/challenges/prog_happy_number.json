@@ -1,0 +1,41 @@
+{
+  "id": "prog_happy_number",
+  "title": "Programiz: Happy Number Checker",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Math & Sets",
+  "description": "A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1, or it loops endlessly in a cycle which does not include 1. Return `True` if happy, `False` otherwise.",
+  "constraints": "1 <= n <= 2^31 - 1\n\u2022 Time: O(log N) | Space: O(log N)",
+  "function_name": "is_happy",
+  "starter_code": "def is_happy(n: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 19
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 7
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_happy(n: int) -> bool:\n    seen = set()\n    while n != 1 and n not in seen:\n        seen.add(n)\n        n = sum(int(ch)**2 for ch in str(n))\n    return n == 1\n",
+  "explanation": "Cycle detection on square digit sums identifies happy numbers in O(log N) time."
+}

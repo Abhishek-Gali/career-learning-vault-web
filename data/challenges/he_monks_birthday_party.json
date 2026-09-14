@@ -1,0 +1,72 @@
+{
+  "id": "he_monks_birthday_party",
+  "title": "HackerEarth: Monk's Birthday Party",
+  "platform": "HackerEarth",
+  "difficulty": "Hard",
+  "category": "Sets & Sorting",
+  "description": "Monk invites his friends for his birthday party. The invitation list contains many duplicate names. Create an alphabetical sorted list of unique friends.",
+  "constraints": "1 <= len(guests) <= 10^4\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "unique_guests",
+  "starter_code": "def unique_guests(guests: list[str]) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "guests": [
+          "chandler",
+          "joey",
+          "chandan",
+          "joey",
+          "chandler"
+        ]
+      },
+      "expected": [
+        "chandan",
+        "chandler",
+        "joey"
+      ]
+    },
+    {
+      "input": {
+        "guests": [
+          "rachel",
+          "ross",
+          "rachel"
+        ]
+      },
+      "expected": [
+        "rachel",
+        "ross"
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "guests": [
+          "monica"
+        ]
+      },
+      "expected": [
+        "monica"
+      ]
+    },
+    {
+      "input": {
+        "guests": [
+          "b",
+          "a",
+          "c",
+          "a",
+          "b"
+        ]
+      },
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ]
+    }
+  ],
+  "solution": "def unique_guests(guests: list[str]) -> list[str]:\n    return sorted(list(set(guests)))\n",
+  "explanation": "Set deduplication and alphabetical sorting in O(N log N) time."
+}

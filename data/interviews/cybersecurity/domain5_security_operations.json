@@ -1,0 +1,577 @@
+[
+  {
+    "item_id": "CC-D5-001",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.1 Data Security & Lifecycle",
+    "cognitive_level": "RECALL",
+    "stem": "Information security recognizes three states of data in its lifecycle: Data at Rest, Data in Transit, and Data in Use. Which state describes customer records actively processed in CPU registers, caches, and system RAM?",
+    "options": {
+      "A": "Data at Rest",
+      "B": "Data in Transit",
+      "C": "Data in Use",
+      "D": "Data in Archive"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Data in Use refers to active data loaded into volatile computer memory (RAM, CPU registers, caches) that is being computed, generated, or read by an active process.",
+      "A": "Data at Rest refers to inactive data stored persistently on physical media (hard drives, SSDs, SAN arrays).",
+      "B": "Data in Transit (in motion) refers to data traversing network links (cables, wireless signals, Internet).",
+      "C": "Correct. Data undergoing active processing in volatile RAM and CPU registers is Data in Use.",
+      "D": "Data in Archive is a form of Data at Rest retained for long-term compliance."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-002",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.1 Data Security & Lifecycle",
+    "cognitive_level": "RECALL",
+    "stem": "According to NIST SP 800-88 Rev 1 (Guidelines for Media Sanitization), what are the three recognized categories of media sanitization in increasing order of destruction rigor?",
+    "options": {
+      "A": "Erase, Format, Trash",
+      "B": "Clear, Purge, Destroy",
+      "C": "Encrypt, Decrypt, Reformat",
+      "D": "Scan, Clean, Quarantine"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "NIST SP 800-88 Rev 1 defines the three standard sanitization methods: Clear (overwriting with read/write commands), Purge (rendering recovery impossible via lab techniques, e.g. degaussing or ATA Secure Erase), and Destroy (physical destruction like shredding).",
+      "A": "Standard consumer commands do not match the NIST taxonomy.",
+      "B": "Correct. Clear, Purge, and Destroy are the three NIST SP 800-88 sanitization tiers.",
+      "C": "Encryption operations do not represent the NIST sanitization categories.",
+      "D": "Antivirus actions are not media sanitization tiers."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-003",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.1 Data Security & Lifecycle",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization is decommissioning magnetic spinning hard disk drives that previously stored classified national security data. To sanitize the drives so that state-of-the-art laboratory recovery tools cannot reconstruct the magnetic flux transitions, which method satisfies the 'Purge' requirement?",
+    "options": {
+      "A": "Quick formatting the drives using a Windows FAT32 utility",
+      "B": "Degaussing using a high-energy magnetic field generator or ATA Cryptographic Erase",
+      "C": "Deleting files into the operating system Recycle Bin",
+      "D": "Renaming the drive volume label"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Degaussing subjects magnetic media to a powerful alternating magnetic field that permanently demagnetizes the platters, removing data and making laboratory recovery impossible (satisfying NIST Purge).",
+      "A": "Quick formatting only clears file table pointers, leaving raw sectors completely recoverable.",
+      "B": "Correct. Degaussing or cryptographic erase purges magnetic media against advanced laboratory forensic reconstruction.",
+      "C": "The Recycle Bin simply marks files for eventual overwriting; data remains fully intact.",
+      "D": "Volume renaming does not touch stored data sectors."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-004",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.1 Data Security & Lifecycle",
+    "cognitive_level": "SCENARIO",
+    "stem": "A healthcare provider installs a security software agent on all corporate laptops that monitors outbound USB ports and clipboard actions, actively blocking attempts to copy patient Social Security numbers or medical records to external flash drives. What technology is this?",
+    "options": {
+      "A": "Endpoint Data Loss Prevention (Endpoint DLP)",
+      "B": "Dynamic Host Configuration Protocol (DHCP)",
+      "C": "Network Address Translation (NAT)",
+      "D": "Storage Area Network (SAN)"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Endpoint Data Loss Prevention (Endpoint DLP) software runs on end-user workstations to detect, monitor, and block sensitive data from being exfiltrated via local peripherals (USB, printing, clipboard, screen captures).",
+      "A": "Correct. Endpoint DLP protects data on host systems from unauthorized copy or transfer.",
+      "B": "DHCP allocates IP addresses.",
+      "C": "NAT modifies IP header addresses.",
+      "D": "SAN is a block-level storage network."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-005",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.2 System Hardening",
+    "cognitive_level": "RECALL",
+    "stem": "Which of the following actions represents a foundational best practice in operating system and server hardening?",
+    "options": {
+      "A": "Enabling all available services and open ports to simplify troubleshooting",
+      "B": "Disabling or removing unnecessary services, protocols, default accounts, and unneeded software packages",
+      "C": "Using the same default administrative password across all network switches",
+      "D": "Disabling operating system audit logging to maximize hard drive throughput"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "System hardening reduces the attack surface by shutting down unused services, uninstalling bloatware, removing default/guest accounts, changing default passwords, and enforcing secure baseline configurations (e.g. CIS Benchmarks).",
+      "A": "Leaving open ports expands the attack surface.",
+      "B": "Correct. Eliminating unnecessary services, accounts, and protocols minimizes attack vectors.",
+      "C": "Default passwords allow trivial unauthorized compromise.",
+      "D": "Disabling logging destroys visibility and forensic readiness."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-006",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.2 System Hardening",
+    "cognitive_level": "SCENARIO",
+    "stem": "A newly provisioned web server is deployed with default factory configuration. Within hours, an automated scanner discovers and logs in to the administrator portal using credentials 'admin:admin'. What hardening step was neglected?",
+    "options": {
+      "A": "Changing factory default administrative passwords and disabling or renaming default administrative accounts",
+      "B": "Installing a higher resolution display adapter",
+      "C": "Setting the system clock to UTC",
+      "D": "Configuring optical fiber cabling"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Failing to change vendor default credentials is one of the most common configuration errors exploited by botnets and automated scanners. Hardening baselines require immediately changing or disabling default accounts.",
+      "A": "Correct. Default credentials must be changed or disabled during initial system commissioning.",
+      "B": "Display resolution has no security impact on server portals.",
+      "C": "Setting clocks to UTC assists log analysis but does not prevent credential compromise.",
+      "D": "Physical cabling has no bearing on default web portal credentials."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-007",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.3 Patch Management",
+    "cognitive_level": "SCENARIO",
+    "stem": "A software vendor releases an emergency security patch for a zero-day vulnerability rated CVSS 9.8. What should the security and operations team do BEFORE deploying this patch directly onto mission-critical production servers?",
+    "options": {
+      "A": "Deploy the patch directly to all production servers without notice during peak business hours.",
+      "B": "Test the patch in a non-production staging or sandbox environment to evaluate stability, compatibility, and prepare a rollback plan.",
+      "C": "Wait 12 months until the patch is no longer under warranty.",
+      "D": "Discard the vendor patch and rewrite the operating system kernel in-house."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Best-practice patch management requires testing patches in a staging/sandbox environment that mirrors production, assessing potential conflicts, and formulating a rollback plan before scheduled deployment.",
+      "A": "Direct production deployment risks unforeseen application crashes and business downtime.",
+      "B": "Correct. Validating patches in non-production staging ensures compatibility and verifies rollback readiness.",
+      "C": "Delaying critical patches leaves systems vulnerable to exploitation.",
+      "D": "Rewriting the OS kernel is infeasible and reckless."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-008",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.4 Change Management",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary role of the Change Advisory Board (CAB) in formal IT change management?",
+    "options": {
+      "A": "Writing source code for custom ERP applications",
+      "B": "Reviewing, evaluating the risk and business impact of, and approving or rejecting proposed changes to IT systems",
+      "C": "Replacing broken printer toner cartridges",
+      "D": "Serving as criminal prosecutors during computer crime trials"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The Change Advisory Board (CAB) is a multi-disciplinary committee that reviews Requests for Change (RFCs), evaluates business and operational risks, confirms test results and backout plans, and authorizes release schedules.",
+      "A": "Code development is performed by software engineers.",
+      "B": "Correct. The CAB evaluates risks, impacts, and approves scheduled changes to production infrastructure.",
+      "C": "Printer maintenance is basic helpdesk support.",
+      "D": "Legal prosecution is handled by government authorities."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-009",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.4 Change Management",
+    "cognitive_level": "SCENARIO",
+    "stem": "An engineer modifies a core firewall rule on a Friday afternoon without submitting a Request for Change (RFC) or notifying the network operations center. The change accidentally cuts off connectivity to the firm's warehouse distribution system. Which process did the engineer violate?",
+    "options": {
+      "A": "Change Management process",
+      "B": "Physical perimeter security process",
+      "C": "Visitor escort policy",
+      "D": "Data sanitization policy"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Unilateral, undocumented modifications to production systems bypass Change Management. Proper change management mandates RFC documentation, risk assessment, CAB approval, and execution during approved maintenance windows with rollback procedures.",
+      "A": "Correct. Modifying production configurations without RFC and approval violates Change Management.",
+      "B": "Perimeter physical security governs building entry points.",
+      "C": "Visitor escort policies govern building guests.",
+      "D": "Data sanitization governs decommissioning storage drives."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-010",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.5 Security Awareness & Social Engineering",
+    "cognitive_level": "SCENARIO",
+    "stem": "A corporate accountant receives a spoofed email appearing to come from the Chief Executive Officer (CEO), demanding an urgent wire transfer of $250,000 to an offshore vendor for an 'emergency confidential acquisition'. What specific social engineering attack is this?",
+    "options": {
+      "A": "Whaling / Business Email Compromise (BEC)",
+      "B": "Vishing",
+      "C": "Shoulder surfing",
+      "D": "Dumpster diving"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Whaling (or Business Email Compromise) specifically targets high-profile executives or impersonates senior leadership (such as the CEO or CFO) to deceive financial personnel into authorizing fraudulent high-value funds transfers.",
+      "A": "Correct. Impersonating top executives for high-value financial fraud is Whaling / BEC.",
+      "B": "Vishing is voice phishing conducted via telephone calls.",
+      "C": "Shoulder surfing is physically observing someone's screen or keyboard.",
+      "D": "Dumpster diving is sifting through physical waste bins."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-011",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.5 Security Awareness & Social Engineering",
+    "cognitive_level": "SCENARIO",
+    "stem": "An employee receives a phone call from someone claiming to be from the IT Help Desk, stating: 'We are detecting an active virus on your computer. To fix it immediately, I need you to give me your temporary MFA code.' What social engineering technique is being executed?",
+    "options": {
+      "A": "Vishing (Voice Phishing)",
+      "B": "Smishing",
+      "C": "Baiting",
+      "D": "Watering hole attack"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Vishing (Voice Phishing) uses phone calls and voice communications to manipulate individuals into disclosing confidential credentials, MFA codes, or sensitive information under false pretenses.",
+      "A": "Correct. Deceptive phone solicitation for credentials is known as Vishing.",
+      "B": "Smishing utilizes SMS / text messaging.",
+      "C": "Baiting leaves physical trojan media (e.g. infected USBs) in public spaces.",
+      "D": "Watering hole attacks compromise websites frequently visited by a target organization."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-012",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.5 Security Awareness & Social Engineering",
+    "cognitive_level": "SCENARIO",
+    "stem": "An attacker places several USB flash drives labeled 'Q3 Executive Bonuses & Salary Increases' on tables in a corporate cafeteria. An employee finds one, plugs it into a workstation, and unwittingly executes malware. What social engineering attack vector was used?",
+    "options": {
+      "A": "Baiting",
+      "B": "Spear Phishing",
+      "C": "Pretexting via SMS",
+      "D": "Credential Stuffing"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Baiting leverages human curiosity or greed by leaving physical media (e.g., infected USB drives, DVDs) in locations where targets will find them and plug them into computers, triggering malware installation.",
+      "A": "Correct. Leaving weaponized physical media in public spaces to entice targets is Baiting.",
+      "B": "Spear phishing is targeted email deception.",
+      "C": "SMS pretexting is smishing.",
+      "D": "Credential stuffing uses automated lists of leaked passwords against logon portals."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-013",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.5 Security Awareness & Social Engineering",
+    "cognitive_level": "RECALL",
+    "stem": "What is the term for a deceptive social engineering attack conducted specifically via SMS or mobile phone text messages?",
+    "options": {
+      "A": "Smishing",
+      "B": "Vishing",
+      "C": "Pharming",
+      "D": "Whaling"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Smishing (SMS Phishing) is phishing conducted through Short Message Service (SMS) text messages, often containing malicious links or fraudulent requests for personal details.",
+      "A": "Correct. Phishing via text/SMS is termed Smishing.",
+      "B": "Vishing is voice/phone phishing.",
+      "C": "Pharming redirects web traffic to fraudulent websites by altering DNS or hosts files.",
+      "D": "Whaling targets senior executives via high-level email."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-014",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.6 Logging, Auditing & Monitoring",
+    "cognitive_level": "RECALL",
+    "stem": "Why is the Network Time Protocol (NTP) critically important for security incident response and forensic log investigations across enterprise networks?",
+    "options": {
+      "A": "NTP encrypts all hard drive sectors automatically.",
+      "B": "NTP synchronizes clock timestamps across all network servers, routers, and firewalls, enabling analysts to reconstruct an accurate, correlated chronological timeline of attack events.",
+      "C": "NTP prevents brute-force password guessing attacks.",
+      "D": "NTP increases network bandwidth by 40%."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "NTP synchronizes system clocks. In forensic investigations, event correlation across firewalls, domain controllers, and web servers is impossible if timestamps drift; synchronized clocks ensure a cohesive chronological timeline.",
+      "A": "NTP is a time synchronization protocol, not a storage encryption tool.",
+      "B": "Correct. Precise time synchronization via NTP is indispensable for chronological incident reconstruction across disparate devices.",
+      "C": "Clock synchronization does not block brute-force attacks.",
+      "D": "NTP generates minor network overhead, not bandwidth expansion."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-015",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.6 Logging, Auditing & Monitoring",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary function of a Security Information and Event Management (SIEM) system in modern Security Operations Centers (SOC)?",
+    "options": {
+      "A": "Replacing human network administrators with robotic arms",
+      "B": "Aggregating log and event telemetry from across the enterprise, normalizing formats, and performing real-time cross-source rule correlation to detect threats",
+      "C": "Physically locking data center doors during fires",
+      "D": "Compiling source code into machine language"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A SIEM ingests log data from endpoints, network gear, applications, and cloud services, normalizes it, correlates disparate events in real time, and alerts SOC analysts to multi-stage attacks.",
+      "A": "SIEM is software, not physical robotics.",
+      "B": "Correct. Ingesting, aggregating, normalizing, and correlating telemetry from multiple systems is the core role of a SIEM.",
+      "C": "Building management and fire suppression systems handle physical facilities.",
+      "D": "Compilers handle source code compilation."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-016",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.6 Logging, Auditing & Monitoring",
+    "cognitive_level": "SCENARIO",
+    "stem": "To prevent an intruder who gains root/administrator access on a host from deleting their forensic footprints, how should security logs be configured?",
+    "options": {
+      "A": "Store logs only in a hidden folder on the local C: drive without backups",
+      "B": "Forward logs in real-time to a centralized, write-once or append-only remote syslog / SIEM server with restricted access controls",
+      "C": "Disable all event auditing to save system disk space",
+      "D": "Configure logs to automatically overwrite every 10 minutes"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Local logs can be altered or erased by an adversary who gains root privilege. Streaming logs immediately to a hardened, centralized, append-only SIEM repository ensures log integrity and non-repudiation.",
+      "A": "Local hidden folders are readily discovered and wiped by root users.",
+      "B": "Correct. Centralized real-time forwarding to an append-only, segregated repository preserves forensic evidence even if the source host is wiped.",
+      "C": "Disabling logging eliminates visibility.",
+      "D": "Rapid overwriting destroys historical evidence."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-017",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.1 Data Security & Lifecycle",
+    "cognitive_level": "RECALL",
+    "stem": "Which data classification level typically contains trade secrets, proprietary intellectual property, or source code whose unauthorized disclosure would inflict catastrophic damage to the organization?",
+    "options": {
+      "A": "Public",
+      "B": "Internal Use",
+      "C": "Confidential / Restricted",
+      "D": "Unclassified"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "In commercial data classification frameworks, Confidential (or Restricted/Secret) is the highest classification tier, reserved for highly sensitive assets (trade secrets, M&A data, patents) whose disclosure causes severe injury.",
+      "A": "Public data can be shared freely with no negative impact.",
+      "B": "Internal Use data is for employees and causes minor disruption if exposed.",
+      "C": "Correct. Confidential/Restricted designates the highest sensitivity data carrying severe impact upon breach.",
+      "D": "Unclassified is a government tier indicating no special sensitivity."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-018",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.2 System Hardening",
+    "cognitive_level": "RECALL",
+    "stem": "What are the Center for Internet Security (CIS) Benchmarks widely used for in IT and security operations?",
+    "options": {
+      "A": "Comparing stock market valuations of software tech companies",
+      "B": "Providing consensus-based, vendor-agnostic security configuration baselines and hardening guidelines for operating systems, cloud services, and applications",
+      "C": "Calculating monthly employee payroll taxes",
+      "D": "Designing physical floor plans for server rooms"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "CIS Benchmarks are globally recognized, peer-reviewed configuration guidelines for establishing hardened baselines across operating systems, network appliances, and cloud environments.",
+      "A": "Financial valuations have no connection to CIS Benchmarks.",
+      "B": "Correct. CIS Benchmarks provide prescriptive hardening baselines for securing systems.",
+      "C": "Payroll is unrelated.",
+      "D": "Facilities engineering designs server room floor plans."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-019",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.3 Patch Management",
+    "cognitive_level": "RECALL",
+    "stem": "In vulnerability and patch management, what does the Common Vulnerability Scoring System (CVSS) provide?",
+    "options": {
+      "A": "A universal standard numerical metric (from 0.0 to 10.0) reflecting the severity and technical impact of software vulnerabilities",
+      "B": "A legal contract for hiring external penetration testers",
+      "C": "A discount coupon system for commercial firewalls",
+      "D": "A cryptographic hashing algorithm for passwords"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "CVSS is an open industry framework providing a standardized rating from 0.0 to 10.0 that measures vulnerability severity based on attack vector, complexity, privileges required, and CIA impact.",
+      "A": "Correct. CVSS scores quantify vulnerability severity on a 0.0 to 10.0 scale to help prioritize remediation.",
+      "B": "Penetration testing contracts are Master Services Agreements (MSAs).",
+      "C": "Not a commercial discount system.",
+      "D": "Password hashing uses algorithms like bcrypt, Argon2, or PBKDF2."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D5-020",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.5 Security Awareness & Social Engineering",
+    "cognitive_level": "SCENARIO",
+    "stem": "An attacker creates a convincing fake scenario claiming to be an external auditor conducting an urgent compliance audit ordered by the corporate Board of Directors, pressuring an administrative assistant into disclosing internal server names. What social engineering principle and technique are demonstrated?",
+    "options": {
+      "A": "Pretexting exploiting perceived authority and urgency",
+      "B": "Physical tailgating",
+      "C": "Cryptographic collision",
+      "D": "Buffer overflow"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Pretexting involves fabricating a fictitious persona and backstory (pretext) to manipulate a victim into handing over sensitive information, leveraging psychological triggers like authority, urgency, and fear.",
+      "A": "Correct. Inventing a fictitious audit persona to exploit authority is classic Pretexting.",
+      "B": "Tailgating is physically following someone through a doorway.",
+      "C": "Cryptographic collision is mathematical hashing overlap.",
+      "D": "Buffer overflow is a software memory flaw."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D5-021",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.1 Data Security & Lifecycle",
+    "cognitive_level": "RECALL",
+    "stem": "Which data sanitization method completely pulverizes, incinerates, shreds, or melts storage media into minute particles to ensure data can never be reconstructed?",
+    "options": {
+      "A": "Clear",
+      "B": "Destroy",
+      "C": "Purge",
+      "D": "Archive"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Per NIST SP 800-88, 'Destroy' is the most definitive sanitization method: it subjects media to physical destruction (e.g. cross-cut shredding, disintegration, smelting) rendering it completely unusable and unrecoverable.",
+      "A": "Clear overwrites sectors with standard write commands.",
+      "B": "Correct. Physical disintegration, shredding, and incineration represent the 'Destroy' sanitization tier.",
+      "C": "Purge demagnetizes or cryptographically erases media without physical shredding.",
+      "D": "Archive preserves data for retention."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D5-022",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.2 System Hardening",
+    "cognitive_level": "SCENARIO",
+    "stem": "A security technician disables unused Windows remote assistance services, disables SMBv1, disables LLMNR, and configures account lockout policies on a Windows 11 host. What core process is the technician carrying out?",
+    "options": {
+      "A": "System Hardening",
+      "B": "Penetration Testing",
+      "C": "Social Engineering",
+      "D": "Disaster Recovery Failover"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Disabling legacy protocols (SMBv1, LLMNR), closing non-essential services, and configuring lockout policies systematically reduces the attack surface, representing core system hardening.",
+      "A": "Correct. Securing OS configurations and disabling unnecessary attack vectors constitutes System Hardening.",
+      "B": "Penetration testing simulates attacks to find vulnerabilities.",
+      "C": "Social engineering targets human deception.",
+      "D": "DR failover activates secondary sites."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D5-023",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.4 Change Management",
+    "cognitive_level": "RECALL",
+    "stem": "Why must every Request for Change (RFC) submitted to a Change Advisory Board include a detailed 'Backout / Rollback Plan'?",
+    "options": {
+      "A": "To provide instructions on how to reverse the change and restore systems to the prior known-good state if the change fails or causes unexpected disruption",
+      "B": "To ensure the server memory is completely wiped after every reboot",
+      "C": "To automatically fire the technician if a bug is found",
+      "D": "To avoid paying software license fees to operating system vendors"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A rollback (backout) plan provides explicit steps to undo a failed implementation and restore normal operational baseline without protracted downtime.",
+      "A": "Correct. Backout plans ensure that if a deployed change malfunctions, the system can quickly return to the pre-change known-good state.",
+      "B": "Wiping memory is not the purpose of a rollback plan.",
+      "C": "Change management is a blameless engineering quality process.",
+      "D": "Software licensing is unaffected."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D5-024",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.5 Security Awareness & Social Engineering",
+    "cognitive_level": "SCENARIO",
+    "stem": "An employee receives a customized email referencing their recent presentation at an engineering conference and asking them to click a link to download the conference photos. The link directs to a credential-stealing site. What attack technique is this?",
+    "options": {
+      "A": "Spear Phishing",
+      "B": "Port scanning",
+      "C": "Distributed Denial of Service",
+      "D": "SYN Flood"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Spear Phishing is a highly targeted phishing attack where the attacker tailors the message with specific personal details about the victim (conference name, colleagues, hobbies) to maximize credibility.",
+      "A": "Correct. Tailoring emails to a specific individual using gathered reconnaissance is Spear Phishing.",
+      "B": "Port scanning is network reconnaissance.",
+      "C": "DDoS attacks resource availability.",
+      "D": "SYN flood is a transport-layer denial of service."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D5-025",
+    "domain_number": 5,
+    "domain_name": "Security Operations",
+    "sub_objective": "5.6 Logging, Auditing & Monitoring",
+    "cognitive_level": "RECALL",
+    "stem": "What is the security risk of configuring an operating system to silently stop recording audit logs when its local logging partition becomes 100% full?",
+    "options": {
+      "A": "It creates a blind spot where subsequent adversary actions and malicious exploits go completely unrecorded and undetected.",
+      "B": "It causes the physical hard drive to overheat and melt.",
+      "C": "It converts encrypted data into unencrypted plaintext.",
+      "D": "It resets all user passwords to factory default."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "If auditing fails silently when logs fill up, attackers can deliberately flood the log buffer and then carry out attacks undetected because no audit events are captured.",
+      "A": "Correct. Halting logging creates total invisibility, masking malicious activity from detection.",
+      "B": "Full disk partitions do not cause thermal hardware melting.",
+      "C": "Encryption status is independent of logging disk capacity.",
+      "D": "Password databases are not reset by log buffer exhaustion."
+    },
+    "is_pretest": true
+  }
+]

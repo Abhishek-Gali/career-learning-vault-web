@@ -1,0 +1,57 @@
+{
+  "id": "w3_check_membership",
+  "title": "W3Schools: Membership Operator 'in'",
+  "platform": "W3Schools",
+  "difficulty": "Easy",
+  "category": "Operators",
+  "description": "Given an integer `item` and a list `collection`, return `True` if `item` is present in `collection`, else `False`.",
+  "constraints": "0 <= len(collection) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "item_in_collection",
+  "starter_code": "def item_in_collection(item: int, collection: list[int]) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "item": 3,
+        "collection": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "item": 5,
+        "collection": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "item": 0,
+        "collection": []
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "item": 10,
+        "collection": [
+          10
+        ]
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def item_in_collection(item: int, collection: list[int]) -> bool:\n    return item in collection\n",
+  "explanation": "Evaluates Python 'in' containment in linear time."
+}

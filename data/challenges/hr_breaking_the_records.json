@@ -1,0 +1,83 @@
+{
+  "id": "hr_breaking_the_records",
+  "title": "HackerRank: Breaking the Records",
+  "platform": "HackerRank",
+  "difficulty": "Medium",
+  "category": "Implementation",
+  "description": "Maria plays college basketball and keeps track of her game scores. Each game she records her score and tracks how many times she breaks her season record for most and least points. Return `[most_breaks, least_breaks]`.",
+  "constraints": "1 <= len(scores) <= 1000\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "breaking_records",
+  "starter_code": "def breaking_records(scores: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "scores": [
+          10,
+          5,
+          20,
+          20,
+          4,
+          5,
+          2,
+          25,
+          1
+        ]
+      },
+      "expected": [
+        2,
+        4
+      ]
+    },
+    {
+      "input": {
+        "scores": [
+          3,
+          4,
+          21,
+          36,
+          10,
+          28,
+          35,
+          5,
+          24,
+          42
+        ]
+      },
+      "expected": [
+        4,
+        0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "scores": [
+          12
+        ]
+      },
+      "expected": [
+        0,
+        0
+      ]
+    },
+    {
+      "input": {
+        "scores": [
+          0,
+          9,
+          3,
+          10,
+          2,
+          20
+        ]
+      },
+      "expected": [
+        3,
+        0
+      ]
+    }
+  ],
+  "solution": "def breaking_records(scores: list[int]) -> list[int]:\n    min_s = max_s = scores[0]\n    c_min = c_max = 0\n    for s in scores[1:]:\n        if s > max_s:\n            max_s = s\n            c_max += 1\n        elif s < min_s:\n            min_s = s\n            c_min += 1\n    return [c_max, c_min]\n",
+  "explanation": "Tracks running minimum and maximum scores across games in O(N) time."
+}

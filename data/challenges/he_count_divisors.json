@@ -1,0 +1,49 @@
+{
+  "id": "he_count_divisors",
+  "title": "HackerEarth: Count Divisors in Range",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Math",
+  "description": "You have been given 3 integers: `l`, `r` and `k`. Find how many numbers between `l` and `r` (both inclusive) are divisible by `k`.",
+  "constraints": "1 <= l <= r <= 1000, 1 <= k <= 1000\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "count_divisors",
+  "starter_code": "def count_divisors(l: int, r: int, k: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "l": 1,
+        "r": 10,
+        "k": 1
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "l": 1,
+        "r": 10,
+        "k": 2
+      },
+      "expected": 5
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "l": 5,
+        "r": 15,
+        "k": 3
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "l": 10,
+        "r": 20,
+        "k": 25
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def count_divisors(l: int, r: int, k: int) -> int:\n    return (r // k) - ((l - 1) // k)\n",
+  "explanation": "Number of multiples in [1, r] minus multiples in [1, l-1] takes O(1) time."
+}

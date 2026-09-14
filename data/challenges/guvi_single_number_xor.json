@@ -1,0 +1,69 @@
+{
+  "id": "guvi_single_number_xor",
+  "title": "GUVI: Single Number via Bitwise XOR",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Bit Manipulation",
+  "description": "Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one in O(N) runtime and O(1) auxiliary space.",
+  "constraints": "1 <= len(nums) <= 3 * 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "single_number",
+  "starter_code": "def single_number(nums: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [
+          4,
+          1,
+          2,
+          1,
+          2
+        ]
+      },
+      "expected": 4
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [
+          -1,
+          -1,
+          -2
+        ]
+      },
+      "expected": -2
+    },
+    {
+      "input": {
+        "nums": [
+          10,
+          20,
+          30,
+          20,
+          10
+        ]
+      },
+      "expected": 30
+    }
+  ],
+  "solution": "def single_number(nums: list[int]) -> int:\n    res = 0\n    for x in nums:\n        res ^= x\n    return res\n",
+  "explanation": "XOR property: x ^ x = 0 and x ^ 0 = x. Accumulating XOR cancels all duplicates, isolating the single element in O(N) time and O(1) space."
+}

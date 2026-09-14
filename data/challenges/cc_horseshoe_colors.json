@@ -1,0 +1,61 @@
+{
+  "id": "cc_horseshoe_colors",
+  "title": "CodeChef: Is your horseshoe on the other hoof?",
+  "platform": "CodeChef",
+  "difficulty": "Hard",
+  "category": "Hash Tables & Sets",
+  "description": "Valera has 4 horseshoes with colors given in list `s`. To look stylish, he needs all 4 to have distinct colors. Find the minimum number of horseshoes he must buy.",
+  "constraints": "len(s) == 4\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "horseshoes_to_buy",
+  "starter_code": "def horseshoes_to_buy(s: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": [
+          1,
+          7,
+          3,
+          3
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "s": [
+          7,
+          7,
+          7,
+          7
+        ]
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "s": [
+          1,
+          1,
+          2,
+          2
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def horseshoes_to_buy(s: list[int]) -> int:\n    return 4 - len(set(s))\n",
+  "explanation": "Difference between total horseshoes and unique colors gives required purchases in O(1) time."
+}

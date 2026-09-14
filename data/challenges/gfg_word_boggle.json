@@ -1,0 +1,83 @@
+{
+  "id": "gfg_word_boggle",
+  "title": "GFG: Word Boggle Board",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Hard",
+  "category": "Backtracking & Trees",
+  "description": "Given a dictionary of words and an M x N board of characters, find all dictionary words present on the board. A word can be formed by sequential 8-directional adjacent letters without reusing cells. Return sorted list of distinct matched words.",
+  "constraints": "m, n <= 10\n\u2022 Time: O(W * M * N * 8^L) | Space: O(M * N)",
+  "function_name": "boggle_search",
+  "starter_code": "def boggle_search(board: list[list[str]], dictionary: list[str]) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "board": [
+          [
+            "G",
+            "I",
+            "Z"
+          ],
+          [
+            "U",
+            "E",
+            "K"
+          ],
+          [
+            "Q",
+            "S",
+            "E"
+          ]
+        ],
+        "dictionary": [
+          "GEEKS",
+          "FOR",
+          "QUIZ",
+          "GO"
+        ]
+      },
+      "expected": [
+        "GEEKS",
+        "QUIZ"
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "board": [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "C",
+            "D"
+          ]
+        ],
+        "dictionary": [
+          "ABCD",
+          "ACDB"
+        ]
+      },
+      "expected": [
+        "ABCD",
+        "ACDB"
+      ]
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "A"
+          ]
+        ],
+        "dictionary": [
+          "B"
+        ]
+      },
+      "expected": []
+    }
+  ],
+  "solution": "def boggle_search(board: list[list[str]], dictionary: list[str]) -> list[str]:\n    m, n = len(board), len(board[0])\n    found = set()\n    dirs = [(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)]\n    def dfs(r, c, word, idx, visited):\n        if idx == len(word):\n            return True\n        if r < 0 or r >= m or c < 0 or c >= n or (r, c) in visited or board[r][c] != word[idx]:\n            return False\n        visited.add((r, c))\n        for dr, dc in dirs:\n            if dfs(r + dr, c + dc, word, idx + 1, visited):\n                visited.remove((r, c))\n                return True\n        visited.remove((r, c))\n        return False\n    for word in dictionary:\n        word_ok = False\n        for r in range(m):\n            if word_ok: break\n            for c in range(n):\n                if board[r][c] == word[0]:\n                    if dfs(r, c, word, 0, set()):\n                        found.add(word)\n                        word_ok = True\n                        break\n    return sorted(list(found))\n",
+  "explanation": "8-directional DFS search traverses the board looking for contiguous character paths in O(W * M * N * 8^L) time."
+}

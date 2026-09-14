@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "DS-L3-001",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "A/B Testing Minimum Detectable Effect",
+    "stem": "When designing an online A/B test, what is the impact of choosing a smaller Minimum Detectable Effect (MDE)?",
+    "options": {
+      "A": "The required sample size increases quadratically ($N \\propto 1/\\text{MDE}^2$)",
+      "B": "The required sample size decreases linearly",
+      "C": "The experiment duration is reduced to a single day",
+      "D": "The statistical power is automatically set to zero"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Detecting smaller effect sizes requires distinguishing subtle signals from random noise. The standard sample size formula is $N \\approx \\frac{2(Z_{\\alpha/2} + Z_\\beta)^2 \\sigma^2}{\\text{MDE}^2}$. Halving the MDE (e.g. from 2% to 1%) quadruples the required sample size.",
+      "A": "Correct: The sample size required is inversely proportional to the square of the effect size; smaller effects demand dramatically larger sample sizes.",
+      "B": "Smaller effects are harder to detect and require MORE samples, not fewer.",
+      "C": "Needing more samples lengthens experiment duration.",
+      "D": "MDE is an input parameter to preserve desired statistical power (typically 80%), not set it to zero."
+    }
+  },
+  {
+    "item_id": "DS-L3-002",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "A/B Testing Peeking Problem",
+    "stem": "Why is repeatedly 'peeking' at incoming A/B test results every morning and stopping the experiment as soon as $p < 0.05$ considered a severe methodological error?",
+    "options": {
+      "A": "It violates database ACID transaction locks",
+      "B": "Repeated significance testing over time drastically inflates the False Positive Rate (Type I error) well above the nominal 5%",
+      "C": "It converts the test into a Bayesian posterior automatically",
+      "D": "The statistical power drops to negative values"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Fixed-horizon tests assume data is evaluated once at the pre-calculated sample size. If you check data continuously and stop whenever random noise temporarily crosses the significance threshold, your true false positive rate can easily rise to 30%\u201340% instead of 5%. Sequential testing (e.g. mSPRT) is required for continuous monitoring.",
+      "A": "Database read queries do not corrupt transactional integrity.",
+      "B": "Correct: The 'peeking problem' (optional stopping) exploits random fluctuations over time, invalidating the nominal alpha threshold.",
+      "C": "Frequentist peeking violates frequentist stopping rules; it does not magically produce valid Bayesian inferences.",
+      "D": "Power is a probability and cannot be negative."
+    }
+  },
+  {
+    "item_id": "DS-L3-003",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Customer Lifetime Value",
+    "stem": "In subscription business economics, given an average monthly revenue per user (ARPU) of $50, a gross margin of 80%, and a monthly customer churn rate of 5%, what is the basic Customer Lifetime Value (LTV)?",
+    "options": {
+      "A": "$50",
+      "B": "$800",
+      "C": "$1,000",
+      "D": "$4,000"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Expected customer lifetime is $1 / \\text{Churn Rate} = 1 / 0.05 = 20\\text{ months}$. Lifetime Value is $\\text{Lifetime} \\times \\text{ARPU} \\times \\text{Gross Margin} = 20 \\times \\$50 \\times 0.80 = \\$800$.",
+      "A": "$50 is simply one month of revenue, not customer lifetime value.",
+      "B": "Correct: $\\text{LTV} = \\frac{\\text{ARPU} \\times \\text{Margin}}{\\text{Churn}} = \\frac{\\$50 \\times 0.80}{0.05} = \\frac{\\$40}{0.05} = \\$800$.",
+      "C": "$1,000 fails to multiply by the 80% gross margin.",
+      "D": "$4,000 is an arithmetic scaling error."
+    }
+  },
+  {
+    "item_id": "DS-L3-004",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Unit Economics",
+    "stem": "What is generally considered the healthy benchmark ratio of Customer Lifetime Value to Customer Acquisition Cost (LTV:CAC) for sustainable SaaS startups?",
+    "options": {
+      "A": "0.5 : 1 (LTV is half of CAC)",
+      "B": "1 : 1 (Break-even on gross spend)",
+      "C": "3 : 1 or greater",
+      "D": "100 : 1"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "An LTV:CAC ratio of 3:1 is widely accepted as the venture and private equity gold standard. Below 1:1 indicates the company is losing money on every acquired customer. A ratio above 5:1 usually suggests the company is under-investing in marketing and leaving market share to competitors.",
+      "A": "An LTV:CAC of 0.5 means you spend $2 to acquire $1 of gross margin, leading directly to bankruptcy.",
+      "B": "1:1 leaves zero margin to cover operating expenses, engineering, G&A, and overhead.",
+      "C": "Correct: 3:1 provides sufficient gross margin to pay back CAC within ~12 months while generating net profits.",
+      "D": "100:1 is unrealistic in competitive markets and implies severe under-investment in growth channels."
+    }
+  },
+  {
+    "item_id": "DS-L3-005",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Multiple Testing Correction",
+    "stem": "If an experimentation platform tests 20 independent variant features simultaneously at $\\alpha = 0.05$, what is the Bonferroni-corrected significance threshold for each individual hypothesis test?",
+    "options": {
+      "A": "0.05",
+      "B": "0.0025",
+      "C": "1.00",
+      "D": "0.025"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The Bonferroni correction controls the Family-Wise Error Rate (FWER) by dividing the target significance level $\\alpha$ by the number of concurrent hypotheses $m$: $\\alpha_{\\text{corrected}} = \\frac{\\alpha}{m} = \\frac{0.05}{20} = 0.0025$.",
+      "A": "Using 0.05 without adjustment results in an uncorrected family-wise false positive rate of $\\approx 64\\%$.",
+      "B": "Correct: $\\alpha / m = 0.05 / 20 = 0.0025$.",
+      "C": "1.00 would accept every test as significant without evaluation.",
+      "D": "0.025 would be the correction for $m = 2$ tests, not 20."
+    }
+  },
+  {
+    "item_id": "DS-L3-006",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Data Modeling",
+    "stem": "In Kimball dimensional data warehouse modeling, what constitutes the fundamental structural difference between a Star Schema and a Snowflake Schema?",
+    "options": {
+      "A": "Star schemas use NoSQL, while Snowflake schemas use PostgreSQL",
+      "B": "In a Star Schema, dimension tables are denormalized and connect directly to the fact table; in a Snowflake Schema, dimension tables are normalized into sub-dimensions (requiring additional joins)",
+      "C": "Star schemas do not contain numeric metrics",
+      "D": "Snowflake schemas are only supported on the cloud platform Snowflake Inc."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In a Star Schema, dimensions are deliberately denormalized for simplicity and query performance (fewer joins). A Snowflake Schema normalizes dimension tables into 3NF (e.g. splitting Product into Category and Subcategory tables), saving storage but requiring more complex multi-table joins during analysis.",
+      "A": "Both are relational dimensional modeling paradigms supported across any relational or columnar engine.",
+      "B": "Correct: Star schema denormalizes dimensions directly around the central fact table; Snowflake schema normalizes dimensions into hierarchies.",
+      "C": "Fact tables in star schemas are dominated by quantitative numeric measurements.",
+      "D": "The Snowflake schema is a Kimball design pattern that predates the cloud data warehouse company by decades."
+    }
+  },
+  {
+    "item_id": "DS-L3-007",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "A/B Testing Network Effects",
+    "stem": "When testing a social networking feature (or marketplace ride-hailing pricing), why does standard user-level randomization cause severe experimental bias?",
+    "options": {
+      "A": "Because Python cannot generate random numbers for social networks",
+      "B": "Due to SUTVA violation (Interference/Spillover): treatment users interact with control users, leaking the treatment effect across variants",
+      "C": "Because the sample size is always smaller than 100",
+      "D": "Because ride-hailing databases do not support SQL joins"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Causal inference relies on the Stable Unit Treatment Value Assumption (SUTVA): one unit's treatment assignment cannot affect another unit's potential outcomes. In social networks or two-sided marketplaces, control users are affected by treated peers (network spillovers or shared driver supply). Cluster-randomization or switchback testing is required.",
+      "A": "Randomization mechanics are identical across platforms; the issue is behavioral interference.",
+      "B": "Correct: Interference across units violates SUTVA; treated users influence control users through shared network or marketplace supply.",
+      "C": "Marketplaces have millions of users; sample size is not the source of this bias.",
+      "D": "Relational query execution is unrelated to causal inference assumptions."
+    }
+  },
+  {
+    "item_id": "DS-L3-008",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "SQL Index Internals",
+    "stem": "Why does executing `SELECT * FROM orders WHERE EXTRACT(YEAR FROM order_date) = 2024;` frequently result in a slow full table scan even when a B-Tree index exists on `order_date`?",
+    "options": {
+      "A": "B-Tree indexes cannot store dates",
+      "B": "Wrapping the indexed column in a function (`EXTRACT`) prevents the database optimizer from performing an index range seek, requiring a full scan unless a functional index exists",
+      "C": "Because the year 2024 is a leap year",
+      "D": "Because WHERE clauses ignore indexes"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Standard B-Tree indexes store raw column values in sorted order. Applying an arbitrary scalar function (`EXTRACT()`, `LOWER()`) to the column forces the engine to evaluate the function for every single record in the table. The query should be rewritten as a sargable range: `WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'`.",
+      "A": "Dates and timestamps are standard, highly indexed B-Tree data types.",
+      "B": "Correct: Non-sargable functions on indexed columns prevent B-Tree index traversal; a sargable range predicate or functional index is required.",
+      "C": "Calendar leap years have zero impact on database query execution planners.",
+      "D": "WHERE clauses are the primary consumer of database indexes."
+    }
+  },
+  {
+    "item_id": "DS-L3-009",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "RFM Segmentation",
+    "stem": "In marketing analytics, what do the three dimensions of the RFM segmentation framework represent?",
+    "options": {
+      "A": "Reliability, Frequency, Margin",
+      "B": "Recency (days since last purchase), Frequency (total count of purchases), and Monetary (total spend)",
+      "C": "Revenue, Forecast, Momentum",
+      "D": "Retention, Funnel, Marketing"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "RFM is a classic behavioral customer segmentation model: Recency (how recently the customer transacted), Frequency (how often they transact), and Monetary value (total purchasing expenditure).",
+      "A": "'Reliability' and 'Margin' are not part of standard RFM.",
+      "B": "Correct: Recency, Frequency, and Monetary value form the empirical tri-axial behavioral customer matrix.",
+      "C": "Revenue, Forecast, and Momentum are financial planning terms.",
+      "D": "Retention and Funnels are growth analytics concepts, not the RFM acronym."
+    }
+  },
+  {
+    "item_id": "DS-L3-010",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Retention Cohort Analysis",
+    "stem": "In product analytics, what does an 'N-Day Retention Curve' that flattens out parallel to the x-axis indicate about a digital product?",
+    "options": {
+      "A": "The product is experiencing catastrophic churn and will hit zero users soon",
+      "B": "The product has established Product-Market Fit (PMF) for a stable core cohort of recurring active users",
+      "C": "The tracking instrumentation has failed",
+      "D": "The application server has crashed"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A retention curve that decays and asymptotically flattens into a horizontal line indicates that a dedicated percentage of users continue returning indefinitely. This 'flattening curve' is the empirical hallmark of Product-Market Fit. If retention continues dropping toward zero without flattening, PMF does not exist.",
+      "A": "Curves that trend toward zero without flattening indicate catastrophic churn.",
+      "B": "Correct: A retention curve that flattens asymptotically demonstrates sustainable long-term retention and Product-Market Fit.",
+      "C": "A horizontal flat line reflects recurring repeat user sessions, not tracking failure.",
+      "D": "Server crashes produce sudden drops to zero, not stable retention baselines."
+    }
+  },
+  {
+    "item_id": "DS-L3-011",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "A/B Testing Sample Ratio Mismatch",
+    "stem": "You configure a 50/50 A/B test. After 100,000 visitors, the experiment portal reports 52,400 in Control and 47,600 in Treatment ($p < 10^{-10}$ via Chi-Square goodness-of-fit). What is this phenomenon called and what action should you take?",
+    "options": {
+      "A": "Normal random variation; proceed to analyze conversion rates immediately",
+      "B": "Sample Ratio Mismatch (SRM); the experiment is fundamentally compromised by a technical allocation or tracking bug, and results cannot be trusted",
+      "C": "Simpson's paradox; multiply treatment conversions by 1.1",
+      "D": "Successful treatment engagement"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A Sample Ratio Mismatch (SRM) indicates that the actual observed assignment ratio deviates from the intended design ratio with statistical significance. It is almost always symptomatic of tracking telemetry drops, redirect latency, or browser crashes in one variant. Analyzing an experiment with SRM leads to completely invalid conclusions.",
+      "A": "A discrepancy of 4,800 users on 100,000 total has odds less than 1 in 10 billion of occurring by chance.",
+      "B": "Correct: SRM invalidates the experimental integrity; you must pause the test, diagnose the engineering bug, and discard the compromised data.",
+      "C": "Arbitrary scaling coefficients cannot compensate for selection bias introduced by allocation failures.",
+      "D": "Fewer treatment users suggests a potential crash or redirect bug, not positive engagement."
+    }
+  },
+  {
+    "item_id": "DS-L3-012",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Database Normalization Forms",
+    "stem": "A relational database table is in Third Normal Form (3NF) if and only if:",
+    "options": {
+      "A": "It is stored on SSD storage with three replica nodes",
+      "B": "It is in 2NF and contains no transitive functional dependencies (all non-key columns depend directly on the primary key and nothing but the primary key)",
+      "C": "It contains exactly three columns",
+      "D": "All text strings are encrypted using AES-256"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Bill Kent's famous summary: 'Each attribute must represent a fact about the key, the whole key, and nothing but the key, so help me Codd.' 1NF eliminates repeating groups; 2NF eliminates partial dependencies; 3NF eliminates transitive dependencies ($A \\to B$ and $B \\to C$).",
+      "A": "Storage replication is physical architecture, not logical normalization.",
+      "B": "Correct: 3NF requires 2NF compliance and the eradication of transitive functional dependencies among non-key attributes.",
+      "C": "Column counts are arbitrary; 3NF tables can have any number of attributes.",
+      "D": "Encryption is security at rest, not normalization theory."
+    }
+  },
+  {
+    "item_id": "DS-L3-013",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Cohort Retention Calculation",
+    "stem": "A cohort of 1,000 users signs up on March 1st. On Day 7, 300 of these specific users log into the platform. What is the Day-7 Cohort Retention rate for this cohort?",
+    "options": {
+      "A": "30%",
+      "B": "3.33%",
+      "C": "70%",
+      "D": "0.3%"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Cohort retention is defined as the number of active users from the original cohort on Day $N$ divided by the initial size of the cohort: $\\frac{300}{1000} = 0.30 = 30\\%$.",
+      "A": "Correct: $300 / 1000 = 30\\%$.",
+      "B": "$3.33\\%$ is an arithmetic division error.",
+      "C": "$70\\%$ is the Day-7 churn rate ($1 - 0.30$).",
+      "D": "$0.3\\%$ is a decimal conversion error."
+    }
+  },
+  {
+    "item_id": "DS-L3-014",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "SQL Query Execution Plans",
+    "stem": "When inspecting an `EXPLAIN ANALYZE` query plan in PostgreSQL, what does a `Hash Join` indicate compared to a `Nested Loop`?",
+    "options": {
+      "A": "A Hash Join is always slower and indicates an unindexed query failure",
+      "B": "A Hash Join builds an in-memory hash table on the smaller joined relation and scans the larger relation against it; it is typically chosen for joining large, unsorted datasets",
+      "C": "A Hash Join encrypts records using SHA-256 before joining",
+      "D": "A Hash Join only matches records with identical MD5 checksums"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The relational planner selects join algorithms based on cost: Nested Loop for small tables with index lookups; Merge Join for pre-sorted inputs; and Hash Join for joining larger datasets where building a temporary in-memory hash table on the inner relation enables fast O(1) probe operations.",
+      "A": "Hash Join is highly efficient for medium-to-large unsorted table joins.",
+      "B": "Correct: Hash Join builds a hash table of the inner table's join keys in RAM and probes it with rows from the outer table.",
+      "C": "Hash Joins use fast, non-cryptographic hash functions (like Murmur3) for memory bucket placement, not cryptography.",
+      "D": "It matches based on the equality operator of the join predicate, not cryptographic file hashes."
+    }
+  },
+  {
+    "item_id": "DS-L3-015",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Conversion Rate Confidence Intervals",
+    "stem": "For an A/B test conversion rate proportion $p = \\frac{X}{N}$, what is the estimated standard error under the binomial distribution?",
+    "options": {
+      "A": "$\\text{SE} = \\sqrt{\\frac{p(1 - p)}{N}}$",
+      "B": "$\\text{SE} = \\frac{p}{N}$",
+      "C": "$\\text{SE} = \\frac{\\sigma}{\\sqrt{N}}$",
+      "D": "$\\text{SE} = p^2 - p$"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "For a Bernoulli trial, the population variance is $\\sigma^2 = p(1 - p)$. The variance of the sample proportion mean is $\\frac{\\sigma^2}{N} = \\frac{p(1 - p)}{N}$. Taking the square root yields the standard error: $\\text{SE} = \\sqrt{\\frac{p(1 - p)}{N}}$.",
+      "A": "Correct: The standard error for proportion estimation is $\\sqrt{p(1-p)/N}$.",
+      "B": "$p / N$ is mathematically incorrect and lacks the $(1-p)$ variance component.",
+      "C": "$\\sigma / \\sqrt{N}$ is the general formula for continuous variables; for binomial proportions, $\\sigma = \\sqrt{p(1-p)}$.",
+      "D": "This is unrelated to standard error."
+    }
+  },
+  {
+    "item_id": "DS-L3-016",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "North Star Metric",
+    "stem": "In growth analytics, what characterizes an effective 'North Star Metric' for a technology product?",
+    "options": {
+      "A": "A vanity metric like cumulative registered users since company founding",
+      "B": "A single key metric that best captures the core customer value delivered by the product and directly drives sustainable business revenue",
+      "C": "The total lines of code written by the engineering department",
+      "D": "The number of followers on LinkedIn"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A North Star Metric aligns the entire organization around customer value creation. For Airbnb, it is 'Nights Booked'; for Spotify, 'Time Spent Listening'; for Slack, 'Daily Active Users sending messages'. It connects user value directly to long-term business monetization.",
+      "A": "Cumulative registrations is a classic vanity metric: it only increases monotonically and hides churn.",
+      "B": "Correct: A true North Star reflects genuine value exchange between the user and the platform that fuels long-term retention and revenue.",
+      "C": "Lines of code is an output metric, often inversely correlated with software quality.",
+      "D": "Social followers do not measure in-product engagement or recurring retention."
+    }
+  },
+  {
+    "item_id": "DS-L3-017",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Slowly Changing Dimensions (SCD)",
+    "stem": "In enterprise data warehousing, how does a Slowly Changing Dimension Type 2 (SCD Type 2) track historical changes to customer records (such as address updates)?",
+    "options": {
+      "A": "It overwrites the existing row with the new address, losing all past history",
+      "B": "It inserts a new row with a new surrogate key, version number, and valid date range (`start_date`, `end_date`, `is_current`), preserving full historical fidelity",
+      "C": "It adds a new column named `previous_address` to the existing row",
+      "D": "It deletes the customer's purchase history"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "SCD Type 1 overwrites data (no history). SCD Type 2 creates a new record for every change with temporal validity flags (`start_date`, `end_date`, `is_current`). This allows analytical queries to reconstruct what the customer profile was at the exact moment an order occurred in the past.",
+      "A": "Overwriting existing records without history is SCD Type 1.",
+      "B": "Correct: SCD Type 2 preserves complete historical audit trails by appending a new versioned row with validity timestamps.",
+      "C": "Adding a previous value column is SCD Type 3 (which only tracks the immediate previous state).",
+      "D": "Historical transactions must never be deleted in an enterprise warehouse."
+    }
+  },
+  {
+    "item_id": "DS-L3-018",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "A/B Testing Variance Reduction",
+    "stem": "What is CUPED (Controlled-experiment Using Pre-Experiment Data) in production A/B testing?",
+    "options": {
+      "A": "A method to delete users who did not complete onboarding",
+      "B": "A variance reduction technique that uses pre-experiment metric values as a covariate to strip out explainable noise, dramatically shrinking confidence intervals",
+      "C": "An algorithm to run experiments without a control group",
+      "D": "A tool to convert SQL queries into C++"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Pioneered by Microsoft Research (Deng et al.), CUPED uses pre-experiment data $X$ correlated with the metric $Y$ to construct an adjusted estimator: $Y_{\\text{cv}} = Y - \\theta(X - E[X])$. This removes pre-existing variance, reducing required sample size or experiment duration by 30%\u201350% without compromising validity.",
+      "A": "Post-hoc sample deletion introduces severe selection bias.",
+      "B": "Correct: CUPED exploits pre-experiment baseline measurements as a covariate to reduce outcome variance, accelerating experiment velocity.",
+      "C": "CUPED strictly maintains randomized treatment and control groups.",
+      "D": "CUPED is an experimental statistics variance reduction methodology, not a compiler."
+    }
+  },
+  {
+    "item_id": "DS-L3-019",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Net Revenue Retention",
+    "stem": "A B2B SaaS company starts the year with $10M in Annual Recurring Revenue (ARR) from 100 existing customers. Over the year, those same customers generate $2M in upgrades/expansion, $500K in downgrades (contraction), and $1M churned completely. What is the Net Revenue Retention (NRR) rate?",
+    "options": {
+      "A": "85%",
+      "B": "105%",
+      "C": "120%",
+      "D": "90%"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "NRR measures the percentage of recurring revenue retained from existing customers over a period, factoring in expansion, contraction, and churn: $\\text{NRR} = \\frac{\\text{Starting ARR} + \\text{Expansion} - \\text{Contraction} - \\text{Churn}}{\\text{Starting ARR}} = \\frac{10 + 2 - 0.5 - 1.0}{10} = \\frac{10.5}{10} = 105\\%$.",
+      "A": "85% calculates Gross Retention (ignoring expansion): $\\frac{10 - 0.5 - 1.0}{10} = 85\\%$.",
+      "B": "Correct: $\\frac{10 + 2 - 0.5 - 1.0}{10} = 105\\%$. An NRR > 100% means the business grows even with zero new customer acquisition.",
+      "C": "120% ignores the downgrades and churn.",
+      "D": "90% is an incorrect summation."
+    }
+  },
+  {
+    "item_id": "DS-L3-020",
+    "track": "DATA_SCIENCE",
+    "level": 3,
+    "level_name": "Level 3: Advanced (A/B Testing, Business Metrics & Star Schema)",
+    "topic": "Survivorship Bias",
+    "stem": "During World War II, statistician Abraham Wald analyzed bullet holes on returning aircraft. Military commanders proposed adding armor to the heavily damaged areas (wings and fuselage). What counter-intuitive flaw did Wald identify?",
+    "options": {
+      "A": "Armor was too expensive to produce",
+      "B": "Survivorship Bias: The study only observed planes that survived. The planes shot in the engines were destroyed and never returned; armor should therefore be added to the engine areas that showed no bullet holes on surviving planes",
+      "C": "Bullet holes actually improved aircraft aerodynamics",
+      "D": "Pilots intentionally aimed bullets at their own wings"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Abraham Wald famously recognized Survivorship Bias. Evaluating only the 'survivors' omitted the critical causal failures. Because planes shot in the engines did not survive to be measured, bullet holes on surviving planes indicated areas an aircraft could survive being hit. Armor was needed where returning planes had NO hits.",
+      "A": "The decision was driven by statistical survival analysis, not raw steel supply limitations.",
+      "B": "Correct: Wald's analysis proved that unobserved failures (lost planes) contained the true critical signal; armor belonged on the undamaged sections of survivors.",
+      "C": "Bullet holes compromise structural integrity and increase drag.",
+      "D": "Enemy fire was the source of damage."
+    }
+  }
+]

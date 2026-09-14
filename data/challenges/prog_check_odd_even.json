@@ -1,0 +1,41 @@
+{
+  "id": "prog_check_odd_even",
+  "title": "Programiz: Check Odd or Even",
+  "platform": "Programiz",
+  "difficulty": "Easy",
+  "category": "Basic Python",
+  "description": "Given an integer `n`, return 'Even' if it is even, and 'Odd' if it is odd.",
+  "constraints": "-10^9 <= n <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "check_odd_even",
+  "starter_code": "def check_odd_even(n: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": "Even"
+    },
+    {
+      "input": {
+        "n": 7
+      },
+      "expected": "Odd"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": "Even"
+    },
+    {
+      "input": {
+        "n": -3
+      },
+      "expected": "Odd"
+    }
+  ],
+  "solution": "def check_odd_even(n: int) -> str:\n    return 'Even' if n % 2 == 0 else 'Odd'\n",
+  "explanation": "Calculates parity using remainder modulo 2 in O(1) time."
+}

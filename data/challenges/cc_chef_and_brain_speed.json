@@ -1,0 +1,45 @@
+{
+  "id": "cc_chef_and_brain_speed",
+  "title": "CodeChef: Chef and Brain Speed",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Logic",
+  "description": "Chef's brain speed threshold is `x` bits/sec. His current measured speed is `y`. If y is strictly greater than x, Chef is prone to errors, return 'YES'. Otherwise return 'NO'.",
+  "constraints": "1 <= x, y <= 1000\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "brain_speed",
+  "starter_code": "def brain_speed(x: int, y: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 7,
+        "y": 9
+      },
+      "expected": "YES"
+    },
+    {
+      "input": {
+        "x": 6,
+        "y": 6
+      },
+      "expected": "NO"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 10,
+        "y": 5
+      },
+      "expected": "NO"
+    },
+    {
+      "input": {
+        "x": 1,
+        "y": 100
+      },
+      "expected": "YES"
+    }
+  ],
+  "solution": "def brain_speed(x: int, y: int) -> str:\n    return 'YES' if y > x else 'NO'\n",
+  "explanation": "Compares speed against threshold in O(1) time."
+}

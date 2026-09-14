@@ -1,0 +1,600 @@
+[
+  {
+    "item_id": "CC-D3-001",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.1 Physical Access Controls",
+    "cognitive_level": "RECALL",
+    "stem": "Which physical security control is specifically engineered to prevent unauthorized individuals from tailgating or piggybacking behind an authorized person into a secure data center?",
+    "options": {
+      "A": "Bollards",
+      "B": "Mantrap (Security Access Portal)",
+      "C": "Chain-link perimeter fence",
+      "D": "Closed-circuit television (CCTV)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A mantrap (or security access portal) is a physical vestibule with two interlocking doors where the first door must close and lock, and the individual must authenticate (often with weight sensors or biometrics), before the second door unlocks, effectively stopping tailgating.",
+      "A": "Bollards are heavy vertical posts designed to stop vehicular ramming attacks.",
+      "B": "Correct. Mantraps enforce single-occupant passage via interlocking doors, preventing tailgating.",
+      "C": "Perimeter fences define boundary lines and deter casual trespassers, but do not stop tailgating at building entry doors.",
+      "D": "CCTV records video footage (detective control) but does not physically prevent someone from walking in behind an employee."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-002",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.1 Physical Access Controls",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization wants to protect its main glass lobby entrance against hostile vehicle ramming attacks while preserving pedestrian walking paths. Which physical control should be installed along the curb?",
+    "options": {
+      "A": "Turnstiles",
+      "B": "Bollards",
+      "C": "Cipher locks",
+      "D": "Deadbolt locks"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Bollards are heavy-duty concrete or steel posts anchored into the pavement, designed to absorb vehicular kinetic impact and prevent vehicles from breaching pedestrian zones or building facades.",
+      "A": "Turnstiles manage pedestrian crowd flow indoors, not vehicular attacks.",
+      "B": "Correct. Impact-rated bollards stop vehicle intrusions while allowing foot traffic to pass freely.",
+      "C": "Cipher locks are electronic keypad door locks.",
+      "D": "Deadbolts are mechanical door hardware."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-003",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.1 Physical Access Controls",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary physical security purpose of maintaining a mandatory visitor log and requiring a continuous security escort for external visitors inside a corporate facility?",
+    "options": {
+      "A": "To benchmark visitor walking speed",
+      "B": "To ensure positive accountability, prevent unmonitored wandering into restricted areas, and maintain an indisputable physical audit trail",
+      "C": "To test whether visitors can crack door cipher codes",
+      "D": "To eliminate the need for fire evacuation drills"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Visitor logs and escorts ensure accountability, ensure non-cleared visitors cannot access confidential spaces or connect rogue devices to networks, and establish an audit trail for emergency roll calls and forensic investigations.",
+      "A": "Irrelevant metric.",
+      "B": "Correct. Visitor logs and continuous escorts prevent unauthorized access and maintain physical auditing and safety.",
+      "C": "Testing cipher codes violates physical security policies.",
+      "D": "Fire evacuation procedures remain mandatory regardless of visitor policies."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-004",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "RECALL",
+    "stem": "In which access control model does the creator or owner of a data resource retain complete authority to grant or revoke read, write, and execute permissions to other users at their own discretion?",
+    "options": {
+      "A": "Mandatory Access Control (MAC)",
+      "B": "Discretionary Access Control (DAC)",
+      "C": "Role-Based Access Control (RBAC)",
+      "D": "Attribute-Based Access Control (ABAC)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In Discretionary Access Control (DAC), the resource creator/owner maintains discretion over access rights using mechanisms like file permission lists (ACLs, NTFS, Linux chmod).",
+      "A": "In MAC, permissions are strictly dictated by system-enforced security labels and user clearances; owners cannot reassign permissions.",
+      "B": "Correct. DAC empowers the data owner to grant or deny access to others at their personal discretion.",
+      "C": "In RBAC, administrators assign permissions to roles, and users receive permissions by virtue of being assigned to a role.",
+      "D": "In ABAC, access is governed by dynamic policy rules evaluating subject, object, action, and environmental attributes."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-005",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "SCENARIO",
+    "stem": "A military intelligence system attaches security classification labels (e.g., Unclassified, Confidential, Secret, Top Secret) to documents. Users are assigned clearance levels. A user with 'Secret' clearance cannot view a 'Top Secret' document, and no user can change document permissions. Which model is in use?",
+    "options": {
+      "A": "Discretionary Access Control (DAC)",
+      "B": "Mandatory Access Control (MAC)",
+      "C": "Role-Based Access Control (RBAC)",
+      "D": "Open Access Architecture"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Mandatory Access Control (MAC) enforces access based on centralized administrative security labels assigned to objects and clearance levels assigned to subjects, strictly preventing individual users from delegating rights.",
+      "A": "DAC permits data owners to modify permissions.",
+      "B": "Correct. Non-discretionary label-based and clearance-based access enforcement characterizes MAC.",
+      "C": "RBAC maps rights to business roles (e.g., 'Analyst' or 'Manager'), rather than classification label hierarchies.",
+      "D": "Open access provides no restriction."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-006",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "SCENARIO",
+    "stem": "In a regional hospital, all staff with the job title 'Emergency Room Registered Nurse' automatically inherit the exact same access rights to read patient medication charts and write triage notes. When a nurse transfers to the Billing Department, their nursing permissions are automatically replaced with financial ledger permissions. Which model does this illustrate?",
+    "options": {
+      "A": "Discretionary Access Control (DAC)",
+      "B": "Role-Based Access Control (RBAC)",
+      "C": "Mandatory Access Control (MAC)",
+      "D": "Rule-Based Hardware Control"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Role-Based Access Control (RBAC) simplifies administration by assigning permissions to functional business roles rather than individual user accounts. As job roles change, permissions transition systematically.",
+      "A": "DAC manages rights per individual user discretion.",
+      "B": "Correct. Permissions linked to job functions/roles define RBAC.",
+      "C": "MAC uses security labels and clearances.",
+      "D": "Rule-based hardware control applies to firewall ACLs."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-007",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "SCENARIO",
+    "stem": "An enterprise access gateway evaluates access requests using policies that check the user's department, the data classification, the connecting device's patch status, the local time (must be between 08:00 and 17:00), and the geographic IP address (must be within the corporate campus). Which model is being enforced?",
+    "options": {
+      "A": "Discretionary Access Control (DAC)",
+      "B": "Attribute-Based Access Control (ABAC)",
+      "C": "Mandatory Access Control (MAC)",
+      "D": "Role-Based Access Control (RBAC)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Attribute-Based Access Control (ABAC) uses Boolean policy logic evaluating combinations of subject attributes, resource attributes, action attributes, and environmental context (time, location, device health).",
+      "A": "DAC uses simple owner-defined access lists.",
+      "B": "Correct. Dynamic multi-attribute contextual policies define ABAC.",
+      "C": "MAC relies on static classification labels and clearances.",
+      "D": "RBAC relies solely on static role assignments."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-008",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "RECALL",
+    "stem": "Which fundamental cybersecurity principle dictates that users, processes, and systems should only be granted the minimum necessary system access privileges required to perform their authorized job functions?",
+    "options": {
+      "A": "Separation of Duties",
+      "B": "Principle of Least Privilege",
+      "C": "Dual Control",
+      "D": "Non-repudiation"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The Principle of Least Privilege states that every subject (user, service account, script) must operate with the bare minimum set of privileges necessary to execute authorized tasks, reducing blast radius if compromised.",
+      "A": "Separation of Duties divides critical business processes among multiple individuals to prevent fraud.",
+      "B": "Correct. Least privilege limits rights to only what is strictly required for the role.",
+      "C": "Dual Control requires two people simultaneously present to perform an action.",
+      "D": "Non-repudiation ensures accountability for actions."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-009",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization establishes a policy requiring that financial disbursements exceeding $50,000 must be initiated by an accounts payable clerk and independently approved by the financial controller before funds can transfer. Which security control principle is being applied?",
+    "options": {
+      "A": "Separation of Duties",
+      "B": "Single Sign-On",
+      "C": "Discretionary Access Control",
+      "D": "Non-repudiation"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Separation of Duties (SoD) divides a high-risk or sensitive process into multiple sequential steps handled by distinct people, preventing single-handed fraud, sabotage, or catastrophic human error.",
+      "A": "Correct. Dividing initiation and approval between two distinct individuals exemplifies Separation of Duties.",
+      "B": "Single Sign-On is an authentication integration mechanism.",
+      "C": "Discretionary access allows individual owners to grant permissions.",
+      "D": "Non-repudiation proves the author of an action."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-010",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "SCENARIO",
+    "stem": "Opening a high-security cryptographic vault containing root CA private keys requires two authorized security officers to turn their physical keys in two separate locks simultaneously. What operational security mechanism is this?",
+    "options": {
+      "A": "Dual Control",
+      "B": "Discretionary Control",
+      "C": "Need-to-Know",
+      "D": "Role Delegation"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Dual Control mandates that two independent authorized individuals must be physically or logically present and act in concert at the exact same time to complete an operation, ensuring neither person can act alone.",
+      "A": "Correct. Requiring two people to act simultaneously is Dual Control (distinct from Separation of Duties, which divides sequential steps).",
+      "B": "Discretionary control allows a single owner to act.",
+      "C": "Need-to-Know limits access based on legitimate business necessity.",
+      "D": "Role delegation shifts authority to another single user."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-011",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "RECALL",
+    "stem": "In the foundational IAAA identity and access control model, what do the four letters represent in chronological sequence?",
+    "options": {
+      "A": "Identification, Authentication, Authorization, Accounting",
+      "B": "Access, Audit, Allocation, Availability",
+      "C": "Authentication, Identification, Administration, Approval",
+      "D": "Assertion, Authorization, Access, Assurance"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The IAAA framework represents: 1. Identification (claiming an identity, e.g. username); 2. Authentication (proving the claimed identity, e.g. password/token); 3. Authorization (granting permission to specific resources); 4. Accounting (tracking and logging activities).",
+      "A": "Correct. Identification -> Authentication -> Authorization -> Accounting is the IAAA model.",
+      "B": "Incorrect components.",
+      "C": "Identification must precede authentication.",
+      "D": "Incorrect sequence."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-012",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "RECALL",
+    "stem": "To qualify as true Multi-Factor Authentication (MFA), an authentication mechanism MUST require credentials from at least two:",
+    "options": {
+      "A": "Different vendors of commercial software",
+      "B": "Distinct authentication factor categories (e.g., knowledge, possession, inherence)",
+      "C": "Separate active web browser windows",
+      "D": "Different alphanumeric character sets"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "True MFA requires combining at least two distinct factor categories: something you know (knowledge), something you have (possession), something you are (inherence), somewhere you are (location), or something you do (behavior).",
+      "A": "Using two products from different vendors within the same category is not MFA.",
+      "B": "Correct. Two or more distinct factor categories are mandatory to satisfy the definition of MFA.",
+      "C": "Browser tabs have no bearing on authentication factors.",
+      "D": "Requiring letters and numbers is a password complexity rule, still within 'something you know'."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-013",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "SCENARIO",
+    "stem": "An online portal requires an employee to enter their 16-character alphanumeric password, followed immediately by a 4-digit numeric PIN. Does this logon procedure constitute true Multi-Factor Authentication (MFA)?",
+    "options": {
+      "A": "Yes, because two separate login fields are required.",
+      "B": "Yes, because alphanumeric passwords and numeric PINs are different data formats.",
+      "C": "No, because both credentials belong to the same factor category: 'something you know'.",
+      "D": "No, because PINs must be at least 8 digits to count as a factor."
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Both a password and a PIN are knowledge-based credentials ('something you know'). Entering multiple items from the same factor category is multi-step single-factor authentication, not multi-factor authentication.",
+      "A": "Having multiple fields does not create multiple distinct factor categories.",
+      "B": "Data formatting does not change the factor category.",
+      "C": "Correct. Both a password and a PIN are 'something you know', failing the requirement for distinct factor categories.",
+      "D": "The issue is the factor category, not the length of the PIN."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-014",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "RECALL",
+    "stem": "Which of the following authentication credentials represents the 'something you have' (possession) factor category?",
+    "options": {
+      "A": "A mother's maiden name security answer",
+      "B": "A hardware cryptographic FIDO2/U2F security key",
+      "C": "A capacitive fingerprint biometric scan",
+      "D": "A keystroke dynamics rhythm profile"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A hardware cryptographic security key (such as a YubiKey or smart card) is a physical token in the user's physical custody, representing 'something you have'.",
+      "A": "Security answers are 'something you know' (knowledge).",
+      "B": "Correct. A physical hardware FIDO2 key is a possession factor ('something you have').",
+      "C": "A fingerprint scan is an inherence factor ('something you are').",
+      "D": "Keystroke dynamics is a behavioral factor ('something you do')."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-015",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "RECALL",
+    "stem": "Which authentication factor category is utilized when an access control system authenticates an employee using retina blood vessel pattern analysis or facial recognition?",
+    "options": {
+      "A": "Something you know",
+      "B": "Something you have",
+      "C": "Something you are (Inherence / Biometrics)",
+      "D": "Somewhere you are"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Biometric measurements based on biological, physiological human characteristics (retina, iris, fingerprint, facial geometry) fall under 'something you are' (inherence).",
+      "A": "Knowledge factor covers memorized data.",
+      "B": "Possession factor covers physical tokens/cards.",
+      "C": "Correct. Retina scans and facial recognition are biological biometrics ('something you are').",
+      "D": "Location factor covers geographic positioning (GPS, IP)."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-016",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "SCENARIO",
+    "stem": "A corporate remote access VPN terminates connections if a user attempts to authenticate from an IP address originating outside the United States. Which auxiliary authentication factor is the VPN enforcing?",
+    "options": {
+      "A": "Something you do",
+      "B": "Somewhere you are (Location)",
+      "C": "Something you have",
+      "D": "Something you are"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "'Somewhere you are' (location factor) verifies geographic or network presence via IP geolocation, GPS coordinates, or designated physical subnets.",
+      "A": "Behavioral biometrics ('something you do').",
+      "B": "Correct. Geographic IP restriction enforces the location factor ('somewhere you are').",
+      "C": "Physical token possession ('something you have').",
+      "D": "Biological characteristics ('something you are')."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-017",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary role of Security Assertion Markup Language (SAML 2.0) in enterprise federated identity architecture?",
+    "options": {
+      "A": "To compress packet headers at Layer 2 of the OSI model",
+      "B": "To exchange XML-based authentication and authorization assertions between an Identity Provider (IdP) and a Service Provider (SP)",
+      "C": "To wipe lost mobile phone storage drives remotely",
+      "D": "To scan source code for SQL injection vulnerabilities"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "SAML 2.0 is an open XML-based standard for exchanging identity authentication and authorization tokens between an Identity Provider (IdP) and a Service Provider (SP), enabling web-based Single Sign-On (SSO).",
+      "A": "Layer 2 compression is performed by protocols like PPP.",
+      "B": "Correct. SAML 2.0 enables web SSO by transmitting digitally signed XML identity assertions between IdPs and SPs.",
+      "C": "Mobile device management (MDM) performs remote wiping.",
+      "D": "SAST scanners analyze code vulnerabilities."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-018",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "RECALL",
+    "stem": "What is the fundamental difference in scope between OAuth 2.0 and OpenID Connect (OIDC)?",
+    "options": {
+      "A": "OAuth 2.0 is an authorization framework that issues access tokens for APIs, whereas OIDC is an identity layer built on top of OAuth 2.0 that provides user authentication via ID tokens.",
+      "B": "OAuth 2.0 is used only on Linux, while OIDC is exclusive to Microsoft Windows.",
+      "C": "OAuth 2.0 handles database encryption, while OIDC configures firewalls.",
+      "D": "OAuth 2.0 is completely deprecated and replaced entirely by Kerberos v4."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "OAuth 2.0 is strictly an authorization protocol for delegated API access (access tokens). OpenID Connect (OIDC) extends OAuth 2.0 to provide user authentication by issuing standardized JSON Web Tokens (JWT) called ID tokens.",
+      "A": "Correct. OAuth 2.0 delegates authorization; OIDC builds on OAuth 2.0 to deliver user authentication.",
+      "B": "Both are cross-platform open web standards.",
+      "C": "Neither deals with database storage encryption or firewall rules.",
+      "D": "OAuth 2.0 and OIDC are modern, active industry standards across cloud ecosystems."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-019",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.1 Physical Access Controls",
+    "cognitive_level": "SCENARIO",
+    "stem": "An adversary walks closely behind an employee carrying large boxes into a secure building, offering to hold the door open while slipping in without scanning a badge. Which physical access control technique was exploited?",
+    "options": {
+      "A": "Dumpster diving",
+      "B": "Tailgating (Piggybacking)",
+      "C": "Shoulder surfing",
+      "D": "Phishing"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Tailgating (or piggybacking) is a physical social engineering exploit where an unauthorized subject closely follows an authorized person through a secured door to bypass badge readers.",
+      "A": "Dumpster diving is searching through trash for discarded confidential information.",
+      "B": "Correct. Following an authorized user through a door without badging is tailgating.",
+      "C": "Shoulder surfing is covertly looking over someone's shoulder to read their screen or keypad input.",
+      "D": "Phishing is email-based deception."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-020",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "RECALL",
+    "stem": "How does the 'Need-to-Know' principle relate to the 'Principle of Least Privilege'?",
+    "options": {
+      "A": "They are unrelated; Need-to-Know applies only to physical keys.",
+      "B": "Need-to-Know focuses specifically on access to specific information necessary for a task, whereas Least Privilege encompasses all privileges (system rights, execution permissions, administrative rights).",
+      "C": "Need-to-Know grants universal read rights to all employees in a company.",
+      "D": "Least Privilege permits granting all rights as long as the user signs an NDA."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Need-to-Know restricts access to specific information/data required to carry out assigned duties (even if a user has clearance or high privilege). Least Privilege is broader, limiting all functional system permissions and rights.",
+      "A": "Both are core logical and operational access control principles.",
+      "B": "Correct. Need-to-know targets specific informational data access; least privilege covers overall operational privileges and capabilities.",
+      "C": "Need-to-know restricts access rather than expanding it.",
+      "D": "Signing an NDA does not justify excessive operational privileges."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D3-021",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization implements Single Sign-On (SSO) for its employees. What is a primary operational benefit and a primary security risk associated with SSO?",
+    "options": {
+      "A": "Benefit: Zero passwords needed anywhere; Risk: Computers run 50% slower.",
+      "B": "Benefit: Improves user experience and reduces password fatigue; Risk: A single compromised credential provides access to multiple connected systems.",
+      "C": "Benefit: Completely prevents malware; Risk: Eliminates all audit logging.",
+      "D": "Benefit: Eliminates need for firewalls; Risk: Prohibits cloud software usage."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "SSO streamlines user workflow and reduces password reuse/fatigue. However, it creates a single point of failure: compromising the central SSO credentials gives an adversary access to all integrated applications.",
+      "A": "Users still need a strong initial credential and MFA.",
+      "B": "Correct. SSO reduces friction and password fatigue, but heightens exposure if the primary credential is compromised.",
+      "C": "SSO does not stop malware and increases reliance on central audit logging.",
+      "D": "Firewalls are still required; SSO actively facilitates cloud software integration."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D3-022",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.1 Physical Access Controls",
+    "cognitive_level": "RECALL",
+    "stem": "Which type of physical lock requires the user to input a sequence of numbers on an electronic or mechanical push-button keypad to retract the bolt?",
+    "options": {
+      "A": "Warded key lock",
+      "B": "Cipher lock",
+      "C": "Wafer tumbler lock",
+      "D": "Padlock"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A cipher lock (or combination/keypad lock) operates via a mechanical or electronic numerical keypad where a code sequence must be punched to open the latch.",
+      "A": "Warded locks use physical keys with cutouts matching wards inside the keyway.",
+      "B": "Correct. Cipher locks use button keypad code entry.",
+      "C": "Wafer tumbler locks use flat metal wafers raised by a physical cut key.",
+      "D": "Padlocks are portable detaching locks."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D3-023",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.2 Logical Access Control Models",
+    "cognitive_level": "SCENARIO",
+    "stem": "A systems administrator on a Linux server runs the command 'chmod 700 project_notes.txt', granting read, write, and execute permissions only to themselves and revoking all access for group and other users. Which access control model enables the administrator to make this unilateral decision?",
+    "options": {
+      "A": "Mandatory Access Control (MAC)",
+      "B": "Discretionary Access Control (DAC)",
+      "C": "Role-Based Access Control (RBAC)",
+      "D": "Attribute-Based Access Control (ABAC)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Unix/Linux file mode bits (chmod) are the classic archetype of Discretionary Access Control (DAC), allowing the file owner to assign or restrict permissions at will.",
+      "A": "MAC prevents individual resource owners from setting custom permission bits.",
+      "B": "Correct. The resource owner exercising personal discretion over file permissions is DAC.",
+      "C": "RBAC would bind permissions to institutional group roles rather than ad-hoc owner chmod settings.",
+      "D": "ABAC evaluates external environmental and subject attributes."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D3-024",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary function of the 'Accounting' phase within the IAAA security framework?",
+    "options": {
+      "A": "Calculating corporate income taxes and auditing depreciation schedules",
+      "B": "Recording, tracking, and reviewing user actions, resource access, and system events to maintain an audit trail for accountability",
+      "C": "Validating the complexity of user passwords against a dictionary",
+      "D": "Issuing Kerberos Ticket Granting Tickets (TGT)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Accounting (auditing) tracks what authorized users do on systems—logging timestamps, commands executed, files modified, and access events—establishing individual accountability.",
+      "A": "Financial accounting is unrelated to the IAAA identity architecture.",
+      "B": "Correct. Accounting logs and tracks system activities to ensure accountability and detect anomalies.",
+      "C": "Password complexity is part of Authentication enforcement.",
+      "D": "Kerberos TGT issuance is an Authentication/Authorization mechanism."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D3-025",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.1 Physical Access Controls",
+    "cognitive_level": "SCENARIO",
+    "stem": "A security auditor notices that the server room door uses an RFID contactless smart badge reader. Employees routinely hold the door open for incoming colleagues whose hands are full. What administrative control should be implemented immediately to mitigate this risk?",
+    "options": {
+      "A": "Install higher voltage electrical wiring in the ceiling",
+      "B": "Enforce a strict anti-tailgating policy backed by mandatory security awareness training and disciplinary consequences",
+      "C": "Turn off all hallway lighting after 17:00",
+      "D": "Replace the server room air conditioning unit"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "When users circumvent physical badge readers out of social courtesy, administrative controls—specifically anti-tailgating policy, education, and disciplinary enforcement—are essential to modify human behavior.",
+      "A": "Presents electrical hazards and does not stop tailgating.",
+      "B": "Correct. Security awareness training on the dangers of courteous door holding and strict policy enforcement mitigates tailgating.",
+      "C": "Low lighting increases physical hazards and obscures intruders.",
+      "D": "HVAC equipment does not influence employee physical badging discipline."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D3-026",
+    "domain_number": 3,
+    "domain_name": "Access Controls Concepts",
+    "sub_objective": "3.3 User Authentication & Identity Management",
+    "cognitive_level": "SCENARIO",
+    "stem": "A bank mobile app prompts a user for their password, then transmits an automated push notification to the user's registered smartphone asking them to tap 'Approve' to complete authentication. Does this combination constitute valid Multi-Factor Authentication?",
+    "options": {
+      "A": "Yes, because the password is 'something you know' and the smartphone receiving the push notification is 'something you have'.",
+      "B": "No, because push notifications are not encrypted.",
+      "C": "No, because a smartphone is an electronic computer rather than an authentication factor.",
+      "D": "Yes, but only if the user types their social security number into the notification."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "This is valid MFA: the password belongs to the knowledge category ('something you know'), and the authenticated mobile device registered in the user's possession represents the possession category ('something you have').",
+      "A": "Correct. Combining a knowledge factor (password) with a possession factor (registered smartphone) fulfills MFA criteria.",
+      "B": "Push notification platforms (APNs, FCM) use TLS encryption.",
+      "C": "Possession of a registered device is a widely accepted 'something you have' factor.",
+      "D": "Entering an SSN adds a second knowledge item rather than improving the factor category."
+    },
+    "is_pretest": true
+  }
+]

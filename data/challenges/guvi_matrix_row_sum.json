@@ -1,0 +1,101 @@
+{
+  "id": "guvi_matrix_row_sum",
+  "title": "GUVI: Matrix Row-wise Sum",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Matrix",
+  "description": "Given an `M x N` matrix of integers, compute and return a list containing the sum of elements for each row.",
+  "constraints": "1 <= M, N <= 100\n\u2022 Time: O(M*N) | Space: O(M)",
+  "function_name": "row_sums",
+  "starter_code": "def row_sums(matrix: list[list[int]]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "matrix": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      },
+      "expected": [
+        6,
+        15,
+        24
+      ]
+    },
+    {
+      "input": {
+        "matrix": [
+          [
+            10,
+            -5
+          ],
+          [
+            3,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        5,
+        6
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "matrix": [
+          [
+            0
+          ]
+        ]
+      },
+      "expected": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "matrix": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        4,
+        6,
+        8
+      ]
+    }
+  ],
+  "solution": "def row_sums(matrix: list[list[int]]) -> list[int]:\n    return [sum(row) for row in matrix]\n",
+  "explanation": "Iterates through rows summing entries in O(M*N) time."
+}

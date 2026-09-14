@@ -1,0 +1,41 @@
+{
+  "id": "cw_boolean_to_string",
+  "title": "Codewars 8kyu: Convert a Boolean to a String",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Implement a function which converts the given boolean value into its string representation. (e.g. True -> 'true', False -> 'false').",
+  "constraints": "b is a boolean\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "boolean_to_string",
+  "starter_code": "def boolean_to_string(b: bool) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "b": true
+      },
+      "expected": "true"
+    },
+    {
+      "input": {
+        "b": false
+      },
+      "expected": "false"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "b": true
+      },
+      "expected": "true"
+    },
+    {
+      "input": {
+        "b": false
+      },
+      "expected": "false"
+    }
+  ],
+  "solution": "def boolean_to_string(b: bool) -> str:\n    return 'true' if b else 'false'\n",
+  "explanation": "Converts boolean flag to lowercase string representation."
+}

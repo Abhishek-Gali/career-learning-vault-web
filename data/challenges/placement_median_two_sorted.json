@@ -1,0 +1,73 @@
+{
+  "id": "placement_median_two_sorted",
+  "title": "Placement: Median of Two Sorted Arrays",
+  "platform": "Placement Preparation",
+  "difficulty": "Hard",
+  "category": "Binary Search & Divide and Conquer",
+  "description": "Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays as a float.",
+  "constraints": "0 <= m, n <= 1000, m + n >= 1\n\u2022 Time: O(log(min(m, n))) | Space: O(1)",
+  "function_name": "find_median_sorted_arrays",
+  "starter_code": "def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums1": [
+          1,
+          3
+        ],
+        "nums2": [
+          2
+        ]
+      },
+      "expected": 2.0
+    },
+    {
+      "input": {
+        "nums1": [
+          1,
+          2
+        ],
+        "nums2": [
+          3,
+          4
+        ]
+      },
+      "expected": 2.5
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums1": [
+          0,
+          0
+        ],
+        "nums2": [
+          0,
+          0
+        ]
+      },
+      "expected": 0.0
+    },
+    {
+      "input": {
+        "nums1": [],
+        "nums2": [
+          1
+        ]
+      },
+      "expected": 1.0
+    },
+    {
+      "input": {
+        "nums1": [
+          2
+        ],
+        "nums2": []
+      },
+      "expected": 2.0
+    }
+  ],
+  "solution": "def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:\n    merged = sorted(nums1 + nums2)\n    k = len(merged)\n    if k % 2 == 1:\n        return float(merged[k // 2])\n    return (merged[k // 2 - 1] + merged[k // 2]) / 2.0\n",
+  "explanation": "Combines elements and computes the median at the midpoints."
+}

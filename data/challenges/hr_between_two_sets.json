@@ -1,0 +1,68 @@
+{
+  "id": "hr_between_two_sets",
+  "title": "HackerRank: Between Two Sets",
+  "platform": "HackerRank",
+  "difficulty": "Medium",
+  "category": "Number Theory",
+  "description": "Given two arrays of integers `a` and `b`, determine the number of integers that satisfy: 1. All elements in `a` are factors of the integer. 2. The integer is a factor of all elements in `b`.",
+  "constraints": "1 <= len(a), len(b) <= 10\n\u2022 Time: O(N * log(max) + M) | Space: O(1)",
+  "function_name": "get_total_x",
+  "starter_code": "def get_total_x(a: list[int], b: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": [
+          2,
+          6
+        ],
+        "b": [
+          24,
+          36
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "a": [
+          2,
+          4
+        ],
+        "b": [
+          16,
+          32,
+          96
+        ]
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": [
+          3,
+          4
+        ],
+        "b": [
+          24,
+          48
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "a": [
+          1
+        ],
+        "b": [
+          100
+        ]
+      },
+      "expected": 9
+    }
+  ],
+  "solution": "def get_total_x(a: list[int], b: list[int]) -> int:\n    import math\n    def lcm(x, y):\n        return (x * y) // math.gcd(x, y)\n    l = a[0]\n    for num in a[1:]:\n        l = lcm(l, num)\n    g = b[0]\n    for num in b[1:]:\n        g = math.gcd(g, num)\n    count = 0\n    mult = l\n    while mult <= g:\n        if g % mult == 0:\n            count += 1\n        mult += l\n    return count\n",
+  "explanation": "Valid numbers are multiples of LCM(a) that evenly divide GCD(b)."
+}

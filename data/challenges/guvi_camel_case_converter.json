@@ -1,0 +1,41 @@
+{
+  "id": "guvi_camel_case_converter",
+  "title": "GUVI: Snake/Kebab to camelCase Converter",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Strings",
+  "description": "Given a string `s` containing words separated by spaces, underscores `_`, or hyphens `-`, convert it to standard camelCase format (first word lowercase, subsequent words capitalized).",
+  "constraints": "1 <= len(s) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "to_camel_case",
+  "starter_code": "def to_camel_case(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "the-stealth-warrior"
+      },
+      "expected": "theStealthWarrior"
+    },
+    {
+      "input": {
+        "s": "hello_world_variable"
+      },
+      "expected": "helloWorldVariable"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "single"
+      },
+      "expected": "single"
+    },
+    {
+      "input": {
+        "s": "User_account-profile view"
+      },
+      "expected": "userAccountProfileView"
+    }
+  ],
+  "solution": "def to_camel_case(s: str) -> str:\n    import re\n    words = [w for w in re.split(r'[-_\\s]+', s) if w]\n    if not words:\n        return ''\n    return words[0].lower() + ''.join(w.capitalize() for w in words[1:])\n",
+  "explanation": "Splitting on delimiters with regex and capitalizing subsequent tokens builds camelCase in O(N) time."
+}

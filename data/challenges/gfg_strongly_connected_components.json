@@ -1,0 +1,83 @@
+{
+  "id": "gfg_strongly_connected_components",
+  "title": "GFG: Strongly Connected Components (Kosaraju)",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Hard",
+  "category": "Graphs & DFS",
+  "description": "Given a directed graph with `v` vertices and adjacency list `adj`, find the number of Strongly Connected Components (SCCs) in the graph.",
+  "constraints": "1 <= v <= 1000\n\u2022 Time: O(V + E) | Space: O(V)",
+  "function_name": "kosaraju_scc",
+  "starter_code": "def kosaraju_scc(v: int, adj: list[list[int]]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "v": 5,
+        "adj": [
+          [
+            2,
+            3
+          ],
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            4
+          ],
+          []
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "v": 4,
+        "adj": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          []
+        ]
+      },
+      "expected": 4
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "v": 3,
+        "adj": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ]
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "v": 1,
+        "adj": [
+          []
+        ]
+      },
+      "expected": 1
+    }
+  ],
+  "solution": "def kosaraju_scc(v: int, adj: list[list[int]]) -> int:\n    stack = []\n    visited = [False] * v\n    def dfs1(node):\n        visited[node] = True\n        for neighbor in adj[node]:\n            if not visited[neighbor]:\n                dfs1(neighbor)\n        stack.append(node)\n    for i in range(v):\n        if not visited[i]:\n            dfs1(i)\n    rev_adj = [[] for _ in range(v)]\n    for i in range(v):\n        for j in adj[i]:\n            rev_adj[j].append(i)\n    visited = [False] * v\n    def dfs2(node):\n        visited[node] = True\n        for neighbor in rev_adj[node]:\n            if not visited[neighbor]:\n                dfs2(neighbor)\n    scc_count = 0\n    while stack:\n        node = stack.pop()\n        if not visited[node]:\n            dfs2(node)\n            scc_count += 1\n    return scc_count\n",
+  "explanation": "Kosaraju's 2-pass algorithm (forward DFS ordering + transposed graph DFS) extracts strongly connected components in O(V + E) time."
+}

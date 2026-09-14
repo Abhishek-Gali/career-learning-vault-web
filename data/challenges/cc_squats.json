@@ -1,0 +1,41 @@
+{
+  "id": "cc_squats",
+  "title": "CodeChef: Squats",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Basic Math",
+  "description": "Somu went to the gym today. He decided to do `x` sets of squats. Each set consists of 15 squats. Determine total squats Somu did.",
+  "constraints": "1 <= x <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "total_squats",
+  "starter_code": "def total_squats(x: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 1
+      },
+      "expected": 15
+    },
+    {
+      "input": {
+        "x": 4
+      },
+      "expected": 60
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 10
+      },
+      "expected": 150
+    },
+    {
+      "input": {
+        "x": 100
+      },
+      "expected": 1500
+    }
+  ],
+  "solution": "def total_squats(x: int) -> int:\n    return x * 15\n",
+  "explanation": "Multiplies set count by 15 in O(1) time."
+}

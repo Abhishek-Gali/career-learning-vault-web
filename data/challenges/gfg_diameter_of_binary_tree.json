@@ -1,0 +1,68 @@
+{
+  "id": "gfg_diameter_of_binary_tree",
+  "title": "GFG: Diameter of Binary Tree",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Trees & DFS",
+  "description": "The diameter of a tree is the number of nodes on the longest path between two end nodes in the tree. Given tree `nodes` in level-order, return its diameter.",
+  "constraints": "0 <= len(nodes) <= 1000\n\u2022 Time: O(N) | Space: O(H)",
+  "function_name": "tree_diameter",
+  "starter_code": "def tree_diameter(nodes: list) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": []
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "nodes": [
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          null,
+          3,
+          null,
+          null,
+          null,
+          4
+        ]
+      },
+      "expected": 4
+    }
+  ],
+  "solution": "def tree_diameter(nodes: list) -> int:\n    if not nodes or nodes[0] is None:\n        return 0\n    max_diam = 0\n    def height(idx):\n        nonlocal max_diam\n        if idx >= len(nodes) or nodes[idx] is None:\n            return 0\n        lh = height(2 * idx + 1)\n        rh = height(2 * idx + 2)\n        max_diam = max(max_diam, lh + rh + 1)\n        return 1 + max(lh, rh)\n    height(0)\n    return max_diam\n",
+  "explanation": "Post-order traversal computes branch heights and updates max diameter = left_height + right_height + 1 in O(N) time."
+}

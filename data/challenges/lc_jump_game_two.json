@@ -1,0 +1,81 @@
+{
+  "id": "lc_jump_game_two",
+  "title": "LeetCode 45: Jump Game II",
+  "platform": "LeetCode",
+  "difficulty": "Hard",
+  "category": "Greedy & BFS",
+  "description": "Given a 1-indexed array of integers `nums` of length `n`. You are initially positioned at index 0. Each element `nums[i]` represents maximum jump length. Return minimum number of jumps to reach index `n - 1`.",
+  "constraints": "1 <= len(nums) <= 10^4\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "jump",
+  "starter_code": "def jump(nums: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          2,
+          3,
+          1,
+          1,
+          4
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          3,
+          0,
+          1,
+          4
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nums": [
+          7,
+          0,
+          9,
+          6,
+          9,
+          6,
+          1,
+          7,
+          9,
+          0,
+          1,
+          2,
+          9,
+          0,
+          3
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def jump(nums: list[int]) -> int:\n    if len(nums) <= 1:\n        return 0\n    jumps = 0\n    curr_end = 0\n    farthest = 0\n    for i in range(len(nums) - 1):\n        farthest = max(farthest, i + nums[i])\n        if i == curr_end:\n            jumps += 1\n            curr_end = farthest\n            if curr_end >= len(nums) - 1:\n                break\n    return jumps\n",
+  "explanation": "Breadth-first search range stepping increments jumps when current window boundary is reached in O(N) time."
+}

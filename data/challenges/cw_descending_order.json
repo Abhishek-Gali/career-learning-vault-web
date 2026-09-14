@@ -1,0 +1,47 @@
+{
+  "id": "cw_descending_order",
+  "title": "Codewars 7kyu: Descending Order",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Fundamentals",
+  "description": "Your task is to make a function that can take any non-negative integer as an argument and return it with its digits in descending order. Essentially, rearrange the digits to create the highest possible number.",
+  "constraints": "0 <= num <= 10^9\n\u2022 Time: O(D log D) | Space: O(D)",
+  "function_name": "descending_order",
+  "starter_code": "def descending_order(num: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "num": 42145
+      },
+      "expected": 54421
+    },
+    {
+      "input": {
+        "num": 145263
+      },
+      "expected": 654321
+    },
+    {
+      "input": {
+        "num": 123456789
+      },
+      "expected": 987654321
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "num": 0
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "num": 10
+      },
+      "expected": 10
+    }
+  ],
+  "solution": "def descending_order(num: int) -> int:\n    return int(''.join(sorted(str(num), reverse=True)))\n",
+  "explanation": "Sorts digits descending and parses back to integer in O(D log D) time."
+}

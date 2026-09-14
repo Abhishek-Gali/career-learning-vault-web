@@ -1,0 +1,71 @@
+{
+  "id": "cc_carvans",
+  "title": "CodeChef: Carvans (Max Speed Cars)",
+  "platform": "CodeChef",
+  "difficulty": "Hard",
+  "category": "Arrays & Greedy",
+  "description": "Most of the cars on a straight one-lane track cannot travel at their maximum speed because a slower car ahead restricts them. Given speeds of cars from front to back, determine how many cars travel at their maximum possible speed.",
+  "constraints": "1 <= len(speeds) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "count_max_speed_cars",
+  "starter_code": "def count_max_speed_cars(speeds: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "speeds": [
+          4,
+          5,
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "speeds": [
+          8,
+          3,
+          6
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "speeds": [
+          10
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "speeds": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "speeds": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 5
+    }
+  ],
+  "solution": "def count_max_speed_cars(speeds: list[int]) -> int:\n    if not speeds:\n        return 0\n    count = 1\n    min_speed = speeds[0]\n    for s in speeds[1:]:\n        if s <= min_speed:\n            count += 1\n            min_speed = s\n    return count\n",
+  "explanation": "A car travels at max speed iff its capability <= speed of car immediately preceding it in O(N) time."
+}

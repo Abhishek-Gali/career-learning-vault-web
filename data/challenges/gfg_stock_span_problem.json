@@ -1,0 +1,85 @@
+{
+  "id": "gfg_stock_span_problem",
+  "title": "GFG: The Stock Span Problem",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Monotonic Stack",
+  "description": "The stock span problem is a financial problem where we have a series of `n` daily price quotes for a stock and we need to calculate the span of stock's price for all `n` days. The span of the stock's price on a given day `i` is the maximum number of consecutive days just before the given day, for which the price of the stock on the given day is less than or equal to its price on the current day.",
+  "constraints": "1 <= len(prices) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "calculate_span",
+  "starter_code": "def calculate_span(prices: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "prices": [
+          100,
+          80,
+          60,
+          70,
+          60,
+          75,
+          85
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        1,
+        2,
+        1,
+        4,
+        6
+      ]
+    },
+    {
+      "input": {
+        "prices": [
+          10,
+          4,
+          5,
+          90,
+          120,
+          80
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        2,
+        4,
+        5,
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "prices": [
+          10
+        ]
+      },
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "prices": [
+          10,
+          20,
+          30,
+          40
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "solution": "def calculate_span(prices: list[int]) -> list[int]:\n    n = len(prices)\n    span = [1] * n\n    stack = []\n    for i in range(n):\n        while stack and prices[stack[-1]] <= prices[i]:\n            stack.pop()\n        span[i] = i + 1 if not stack else i - stack[-1]\n        stack.append(i)\n    return span\n",
+  "explanation": "Monotonic decreasing stack records the previous strictly greater price index in O(N) linear time."
+}

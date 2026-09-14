@@ -1,0 +1,72 @@
+{
+  "id": "gfg_check_array_sorted",
+  "title": "GFG: Check if Array is Sorted",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Easy",
+  "category": "Arrays",
+  "description": "Given an array `arr`, check if it is sorted in non-decreasing order. Return `True` if sorted, `False` otherwise.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "is_array_sorted",
+  "starter_code": "def is_array_sorted(arr: list[int]) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          10,
+          20,
+          30,
+          40,
+          50
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "arr": [
+          90,
+          80,
+          100,
+          70,
+          40
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "arr": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          4,
+          3,
+          5
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def is_array_sorted(arr: list[int]) -> bool:\n    return all(arr[i] <= arr[i + 1] for i in range(len(arr) - 1))\n",
+  "explanation": "Adjacent element comparison verifies sorted monotonicity in O(N) time."
+}

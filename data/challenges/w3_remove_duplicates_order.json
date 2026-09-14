@@ -1,0 +1,70 @@
+{
+  "id": "w3_remove_duplicates_order",
+  "title": "W3Schools: Deduplicate List Preserving Order",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Lists & Sets",
+  "description": "Given a list `lst`, remove duplicate items while preserving the exact order of their first occurrence.",
+  "constraints": "0 <= len(lst) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "deduplicate_preserve_order",
+  "starter_code": "def deduplicate_preserve_order(lst: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3,
+          2,
+          1,
+          4,
+          5,
+          4
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "input": {
+        "lst": [
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": [
+        5
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "lst": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "solution": "def deduplicate_preserve_order(lst: list[int]) -> list[int]:\n    seen = set()\n    res = []\n    for x in lst:\n        if x not in seen:\n            seen.add(x)\n            res.append(x)\n    return res\n",
+  "explanation": "Tracking seen items in a set preserves sequence order in O(N) time."
+}

@@ -1,0 +1,41 @@
+{
+  "id": "prog_ascii_value",
+  "title": "Programiz: Find ASCII Value of Character",
+  "platform": "Programiz",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Given a single character string `ch`, return its ASCII integer value.",
+  "constraints": "len(ch) == 1\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "ascii_val",
+  "starter_code": "def ascii_val(ch: str) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "ch": "p"
+      },
+      "expected": 112
+    },
+    {
+      "input": {
+        "ch": "g"
+      },
+      "expected": 103
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "ch": "A"
+      },
+      "expected": 65
+    },
+    {
+      "input": {
+        "ch": "0"
+      },
+      "expected": 48
+    }
+  ],
+  "solution": "def ascii_val(ch: str) -> int:\n    return ord(ch)\n",
+  "explanation": "Python ord() returns integer code point in O(1) time."
+}

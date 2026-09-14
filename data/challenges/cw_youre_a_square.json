@@ -1,0 +1,59 @@
+{
+  "id": "cw_youre_a_square",
+  "title": "Codewars 7kyu: You're a Square!",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "Given an integral number `n`, determine if it's a square number (an integer multiplied by itself). Negative numbers cannot be square numbers.",
+  "constraints": "-10^9 <= n <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "is_square",
+  "starter_code": "def is_square(n: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": -1
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 25
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 26
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "n": 100000000
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_square(n: int) -> bool:\n    if n < 0:\n        return False\n    r = int(n**0.5)\n    return r * r == n\n",
+  "explanation": "Computes integer square root and validates if r * r == n in O(1) time."
+}

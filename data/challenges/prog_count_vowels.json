@@ -1,0 +1,65 @@
+{
+  "id": "prog_count_vowels",
+  "title": "Programiz: Count Number of Each Vowel",
+  "platform": "Programiz",
+  "difficulty": "Medium",
+  "category": "Strings & Dictionaries",
+  "description": "Given string `s`, count the occurrences of each vowel 'a', 'e', 'i', 'o', 'u' (case-insensitive). Return dictionary with keys 'a', 'e', 'i', 'o', 'u' mapped to their counts.",
+  "constraints": "0 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "count_vowels_dict",
+  "starter_code": "def count_vowels_dict(s: str) -> dict:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "Hello, have you tried our tutorial section yet?"
+      },
+      "expected": {
+        "a": 2,
+        "e": 5,
+        "i": 3,
+        "o": 5,
+        "u": 3
+      }
+    },
+    {
+      "input": {
+        "s": "xyz"
+      },
+      "expected": {
+        "a": 0,
+        "e": 0,
+        "i": 0,
+        "o": 0,
+        "u": 0
+      }
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "AEIOU"
+      },
+      "expected": {
+        "a": 1,
+        "e": 1,
+        "i": 1,
+        "o": 1,
+        "u": 1
+      }
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": {
+        "a": 0,
+        "e": 0,
+        "i": 0,
+        "o": 0,
+        "u": 0
+      }
+    }
+  ],
+  "solution": "def count_vowels_dict(s: str) -> dict:\n    res = {'a': 0, 'e': 0, 'i': 0, 'o': 0, 'u': 0}\n    for ch in s.lower():\n        if ch in res:\n            res[ch] += 1\n    return res\n",
+  "explanation": "Tracks frequency of each vowel key in O(N) time."
+}

@@ -1,0 +1,67 @@
+{
+  "id": "placement_gcd_lcm",
+  "title": "Placement: GCD and LCM",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Numbers",
+  "description": "Given two positive integers `a` and `b`, calculate their Greatest Common Divisor (GCD) and Least Common Multiple (LCM). Return a list `[gcd, lcm]`.",
+  "constraints": "1 <= a, b <= 10^9\n\u2022 Time: O(log(min(a, b))) | Space: O(1)",
+  "function_name": "gcd_lcm",
+  "starter_code": "def gcd_lcm(a: int, b: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 4,
+        "b": 6
+      },
+      "expected": [
+        2,
+        12
+      ]
+    },
+    {
+      "input": {
+        "a": 5,
+        "b": 10
+      },
+      "expected": [
+        5,
+        10
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": 13,
+        "b": 7
+      },
+      "expected": [
+        1,
+        91
+      ]
+    },
+    {
+      "input": {
+        "a": 24,
+        "b": 36
+      },
+      "expected": [
+        12,
+        72
+      ]
+    },
+    {
+      "input": {
+        "a": 100,
+        "b": 100
+      },
+      "expected": [
+        100,
+        100
+      ]
+    }
+  ],
+  "solution": "def gcd_lcm(a: int, b: int) -> list[int]:\n    import math\n    g = math.gcd(a, b)\n    l = (a * b) // g\n    return [g, l]\n",
+  "explanation": "Euclidean algorithm finds GCD in O(log(min(a, b))). LCM is derived via (a * b) // GCD."
+}

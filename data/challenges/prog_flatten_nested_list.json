@@ -1,0 +1,85 @@
+{
+  "id": "prog_flatten_nested_list",
+  "title": "Programiz: Flatten a Nested List",
+  "platform": "Programiz",
+  "difficulty": "Hard",
+  "category": "Recursion",
+  "description": "Given an arbitrarily nested list of integers `nested`, return a flat list containing all integer elements in depth-first order.",
+  "constraints": "Depth <= 100\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "flatten_list",
+  "starter_code": "def flatten_list(nested: list) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nested": [
+          1,
+          [
+            2,
+            [
+              3,
+              4
+            ],
+            5
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "input": {
+        "nested": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            [
+              4,
+              [
+                5
+              ]
+            ]
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nested": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nested": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "solution": "def flatten_list(nested: list) -> list[int]:\n    flat = []\n    def dfs(item):\n        if isinstance(item, list):\n            for sub in item:\n                dfs(sub)\n        else:\n            flat.append(item)\n    dfs(nested)\n    return flat\n",
+  "explanation": "Depth-first recursive traversal extracts leaf integer elements into flattened list in O(N) time."
+}

@@ -1,0 +1,41 @@
+{
+  "id": "prog_balanced_parentheses",
+  "title": "Programiz: Check Balanced Parentheses",
+  "platform": "Programiz",
+  "difficulty": "Hard",
+  "category": "Stacks",
+  "description": "Given a string of brackets `s` consisting of '()[]{}', return `True` if it is balanced, and `False` otherwise.",
+  "constraints": "0 <= len(s) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "check_parentheses",
+  "starter_code": "def check_parentheses(s: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "{[()]}"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "{[(])}"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "((("
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def check_parentheses(s: str) -> bool:\n    pairs = {')': '(', ']': '[', '}': '{'}\n    stack = []\n    for ch in s:\n        if ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n        else:\n            stack.append(ch)\n    return len(stack) == 0\n",
+  "explanation": "Stack verifies opening-closing bracket matching in O(N) time."
+}

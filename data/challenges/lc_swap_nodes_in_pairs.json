@@ -1,0 +1,63 @@
+{
+  "id": "lc_swap_nodes_in_pairs",
+  "title": "LeetCode 24: Swap Nodes in Pairs",
+  "platform": "LeetCode",
+  "difficulty": "Medium",
+  "category": "Linked Lists & Recursion",
+  "description": "Given a list of integers representing a linked list `head`, swap every two adjacent nodes and return its modified list.",
+  "constraints": "0 <= len(head) <= 100\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "swap_pairs",
+  "starter_code": "def swap_pairs(head: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "head": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": [
+        2,
+        1,
+        4,
+        3
+      ]
+    },
+    {
+      "input": {
+        "head": []
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "head": [
+          1
+        ]
+      },
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "head": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        2,
+        1,
+        3
+      ]
+    }
+  ],
+  "solution": "def swap_pairs(head: list[int]) -> list[int]:\n    res = list(head)\n    for i in range(0, len(res) - 1, 2):\n        res[i], res[i + 1] = res[i + 1], res[i]\n    return res\n",
+  "explanation": "Steps in strides of 2 and swaps adjacent elements in O(N) time."
+}

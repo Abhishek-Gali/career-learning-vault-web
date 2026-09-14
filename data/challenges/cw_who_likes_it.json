@@ -1,0 +1,73 @@
+{
+  "id": "cw_who_likes_it",
+  "title": "Codewars 6kyu: Who likes it?",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Fundamentals & Formatting",
+  "description": "You probably know the 'like' system from Facebook. Implement the function which takes an array containing the names of people that like an item. Format: [] -> 'no one likes this', ['Peter'] -> 'Peter likes this', ['Jacob', 'Alex'] -> 'Jacob and Alex like this', ['Max', 'John', 'Mark'] -> 'Max, John and Mark like this', ['Alex', 'Jacob', 'Mark', 'Max'] -> 'Alex, Jacob and 2 others like this'.",
+  "constraints": "0 <= len(names) <= 10^5\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "likes",
+  "starter_code": "def likes(names: list[str]) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "names": []
+      },
+      "expected": "no one likes this"
+    },
+    {
+      "input": {
+        "names": [
+          "Peter"
+        ]
+      },
+      "expected": "Peter likes this"
+    },
+    {
+      "input": {
+        "names": [
+          "Jacob",
+          "Alex"
+        ]
+      },
+      "expected": "Jacob and Alex like this"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "names": [
+          "Max",
+          "John",
+          "Mark"
+        ]
+      },
+      "expected": "Max, John and Mark like this"
+    },
+    {
+      "input": {
+        "names": [
+          "Alex",
+          "Jacob",
+          "Mark",
+          "Max"
+        ]
+      },
+      "expected": "Alex, Jacob and 2 others like this"
+    },
+    {
+      "input": {
+        "names": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ]
+      },
+      "expected": "A, B and 3 others like this"
+    }
+  ],
+  "solution": "def likes(names: list[str]) -> str:\n    n = len(names)\n    if n == 0:\n        return 'no one likes this'\n    elif n == 1:\n        return f'{names[0]} likes this'\n    elif n == 2:\n        return f'{names[0]} and {names[1]} like this'\n    elif n == 3:\n        return f'{names[0]}, {names[1]} and {names[2]} like this'\n    else:\n        return f'{names[0]}, {names[1]} and {n - 2} others like this'\n",
+  "explanation": "Pattern matches string formatting based on length in O(1) time."
+}

@@ -1,0 +1,73 @@
+{
+  "id": "hr_migratory_birds",
+  "title": "HackerRank: Migratory Birds",
+  "platform": "HackerRank",
+  "difficulty": "Medium",
+  "category": "Hash Tables",
+  "description": "Given an array of bird sightings `arr` where each element represents a bird type id, determine the id of the most frequently sighted type. If more than 1 type has been spotted that maximum amount, return the smallest of their ids.",
+  "constraints": "5 <= len(arr) <= 2 * 10^5, types 1..5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "migratory_birds",
+  "starter_code": "def migratory_birds(arr: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          4,
+          4,
+          4,
+          5,
+          3
+        ]
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          3,
+          2,
+          1,
+          3,
+          4
+        ]
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "arr": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": 5
+    }
+  ],
+  "solution": "def migratory_birds(arr: list[int]) -> int:\n    counts = [0] * 6\n    for bird in arr:\n        counts[bird] += 1\n    max_count = max(counts)\n    for i in range(1, 6):\n        if counts[i] == max_count:\n            return i\n    return 1\n",
+  "explanation": "Fixed array tracking bird frequencies 1..5 breaks ties by picking the lowest index in O(N) time."
+}

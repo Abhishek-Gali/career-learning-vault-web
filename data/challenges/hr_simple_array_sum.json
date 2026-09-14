@@ -1,0 +1,64 @@
+{
+  "id": "hr_simple_array_sum",
+  "title": "HackerRank: Simple Array Sum",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup",
+  "description": "Given an array of integers `ar`, find the sum of its elements.",
+  "constraints": "0 <= len(ar) <= 1000\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "simple_array_sum",
+  "starter_code": "def simple_array_sum(ar: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "ar": [
+          1,
+          2,
+          3,
+          4,
+          10,
+          11
+        ]
+      },
+      "expected": 31
+    },
+    {
+      "input": {
+        "ar": [
+          5
+        ]
+      },
+      "expected": 5
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "ar": []
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "ar": [
+          -1,
+          -2,
+          -3
+        ]
+      },
+      "expected": -6
+    },
+    {
+      "input": {
+        "ar": [
+          100,
+          200,
+          300
+        ]
+      },
+      "expected": 600
+    }
+  ],
+  "solution": "def simple_array_sum(ar: list[int]) -> int:\n    return sum(ar)\n",
+  "explanation": "Summing iterable in Python takes linear O(N) time."
+}

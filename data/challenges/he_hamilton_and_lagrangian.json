@@ -1,0 +1,73 @@
+{
+  "id": "he_hamilton_and_lagrangian",
+  "title": "HackerEarth: Hamilton and Lagrangian",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Arrays",
+  "description": "Given an array `arr`, return all the elements that are greater than or equal to all elements to their right in their original order.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "leaders_array",
+  "starter_code": "def leaders_array(arr: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          16,
+          17,
+          4,
+          3,
+          5,
+          2
+        ]
+      },
+      "expected": [
+        17,
+        5,
+        2
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          0
+        ]
+      },
+      "expected": [
+        4,
+        0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          5
+        ]
+      },
+      "expected": [
+        5
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          30,
+          20,
+          10
+        ]
+      },
+      "expected": [
+        30,
+        20,
+        10
+      ]
+    }
+  ],
+  "solution": "def leaders_array(arr: list[int]) -> list[int]:\n    leaders = []\n    max_val = -float('inf')\n    for x in reversed(arr):\n        if x >= max_val:\n            leaders.append(x)\n            max_val = x\n    return leaders[::-1]\n",
+  "explanation": "Right-to-left scan accumulates leaders in O(N) time."
+}

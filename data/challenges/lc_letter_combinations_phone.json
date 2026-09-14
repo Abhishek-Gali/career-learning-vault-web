@@ -1,0 +1,60 @@
+{
+  "id": "lc_letter_combinations_phone",
+  "title": "LeetCode 17: Letter Combinations of a Phone Number",
+  "platform": "LeetCode",
+  "difficulty": "Medium",
+  "category": "Backtracking & Recursion",
+  "description": "Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent according to telephone button mappings. Return in any order.",
+  "constraints": "0 <= len(digits) <= 4\n\u2022 Time: O(4^N) | Space: O(N)",
+  "function_name": "letter_combinations",
+  "starter_code": "def letter_combinations(digits: str) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "digits": "23"
+      },
+      "expected": [
+        "ad",
+        "ae",
+        "af",
+        "bd",
+        "be",
+        "bf",
+        "cd",
+        "ce",
+        "cf"
+      ]
+    },
+    {
+      "input": {
+        "digits": ""
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "digits": "2"
+      },
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    {
+      "input": {
+        "digits": "7"
+      },
+      "expected": [
+        "p",
+        "q",
+        "r",
+        "s"
+      ]
+    }
+  ],
+  "solution": "def letter_combinations(digits: str) -> list[str]:\n    if not digits:\n        return []\n    mapping = {'2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl', '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}\n    res = ['']\n    for d in digits:\n        res = [prefix + ch for prefix in res for ch in mapping[d]]\n    return res\n",
+  "explanation": "Iterative Cartesian product expands candidate prefixes for each digit in O(4^N) time."
+}

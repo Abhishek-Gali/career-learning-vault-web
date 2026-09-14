@@ -1,0 +1,442 @@
+[
+  {
+    "item_id": "DSA_L1_001",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Time Complexity (Amortized Analysis)",
+    "stem": "In Python, appending an element to a standard list using `list.append(x)` takes O(1) amortized time, but occasional single appends take O(N) time. Which underlying memory mechanism explains this behavior?",
+    "options": {
+      "A": "Python lists are implemented as singly linked lists, and traversing to the tail takes O(1) when a tail pointer exists, but garbage collection periodically pauses execution for O(N).",
+      "B": "Python lists are contiguous dynamic arrays; when capacity is exhausted, a new array with geometric growth (roughly ~1.125x to 1.25x capacity) is allocated, and all existing N elements are copied over.",
+      "C": "Python lists use a balanced binary search tree under the hood, where tree rebalancing via AVL rotations takes O(N) in the worst-case scenario.",
+      "D": "Python lists allocate fixed blocks of 64 bytes; when an element exceeds the block boundary, a hash table collision resolution triggers rehashing of all elements in O(N) time."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Python lists are dynamic arrays stored in contiguous memory blocks. When full, Python over-allocates extra slots geometrically. The cost of copying N elements is spread out across N subsequent O(1) appends, making the amortized cost O(1).",
+      "A": "Incorrect. Python lists are not linked lists; they are contiguous arrays of pointer references (PyObject* pointers).",
+      "B": "Correct. Dynamic array over-allocation with geometric growth ensures that expensive O(N) reallocations occur exponentially less frequently, yielding O(1) amortized time per append.",
+      "C": "Incorrect. Standard lists never use trees. Sorted containers like `SortedList` use trees or segmented lists, but Python's built-in `list` is strictly a dynamic array.",
+      "D": "Incorrect. Lists do not use hash tables or block-based collision resolution; that describes Python's `dict` and `set` implementation."
+    }
+  },
+  {
+    "item_id": "DSA_L1_002",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Python Built-in Deque vs List",
+    "stem": "You are implementing a First-In-First-Out (FIFO) queue that processes 100,000 incoming requests. Why is `collections.deque` significantly preferred over using a standard Python `list` with `pop(0)`?",
+    "options": {
+      "A": "`list.pop(0)` takes O(N) time because all subsequent elements must be shifted one index to the left in contiguous memory, whereas `collections.deque.popleft()` takes O(1) time.",
+      "B": "`collections.deque` is thread-safe with automatic distributed locks, whereas `list` cannot be safely read from within the same Python thread.",
+      "C": "`list.pop(0)` creates a complete duplicate copy of the entire list in memory on every call, taking O(N^2) space complexity.",
+      "D": "`collections.deque` stores elements in sorted order automatically, allowing binary search on queue elements in O(log N) time."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "`list` is a contiguous dynamic array, so removing from index 0 forces memory shifting of all remaining N-1 elements, resulting in O(N^2) total time for N operations. `deque` is a doubly linked list of fixed-size contiguous blocks, providing true O(1) pops and appends at both ends.",
+      "A": "Correct. In a contiguous array, deleting index 0 requires memmove shifting of N-1 items (O(N)). In a `deque`, head removal only updates a pointer block in O(1).",
+      "B": "Incorrect. While individual appends/pops in `deque` are atomic under the GIL, thread safety with distributed locks is completely untrue and not the algorithmic reason.",
+      "C": "Incorrect. `pop(0)` shifts elements in-place; it does not allocate O(N^2) space.",
+      "D": "Incorrect. Deques preserve insertion order (FIFO/LIFO); they do not sort elements."
+    }
+  },
+  {
+    "item_id": "DSA_L1_003",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Two-Pointer Technique (Two Sum Sorted)",
+    "stem": "Given an array of integers sorted in non-decreasing order and a target sum, which approach achieves O(N) time complexity with O(1) auxiliary space?",
+    "options": {
+      "A": "Store all elements in a hash map and perform complement lookups for each element.",
+      "B": "Initialize two pointers at index 0 and index N-1; if the current sum is less than target increment the left pointer, if greater decrement the right pointer.",
+      "C": "Perform binary search for the complement of every element starting from index 0.",
+      "D": "Generate all possible pairs using nested loops and return the first pair that matches target."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Because the array is already sorted, opposite-directional two pointers can deterministically eliminate one row or column of the search space on each comparison, running in O(N) time and O(1) auxiliary memory.",
+      "A": "Incorrect. Hash map lookup achieves O(N) time but requires O(N) extra space. The question specifically demands O(1) auxiliary space.",
+      "B": "Correct. Opposite-end two pointers leverage the sorted monotonic property to achieve O(N) time and O(1) space without allocating any hash table.",
+      "C": "Incorrect. Binary searching for each element takes O(N log N) time, which is strictly slower than O(N).",
+      "D": "Incorrect. Checking all pairs takes O(N^2) brute-force time."
+    }
+  },
+  {
+    "item_id": "DSA_L1_004",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Fast & Slow Pointers (Floyd's Cycle Detection)",
+    "stem": "In Floyd's Tortoise and Hare cycle-finding algorithm on a singly linked list, the slow pointer moves 1 step per iteration while the fast pointer moves 2 steps. If a cycle of length C exists, why are they guaranteed to meet inside the cycle?",
+    "options": {
+      "A": "Because the distance between the fast and slow pointer decreases by exactly 1 step on each iteration modulo C, ensuring distance reaches 0 within at most C steps once both are in the cycle.",
+      "B": "Because the fast pointer will reach the None terminus and wrap around to the head pointer automatically.",
+      "C": "Because the fast pointer reverses the pointer directions of all visited nodes, forcing the slow pointer into a collision.",
+      "D": "Because the slow pointer stops moving once it enters the cycle, acting as a stationary target for the fast pointer."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Once both pointers enter the cycle, the relative speed of the fast pointer with respect to the slow pointer is (2 - 1) = 1 node per iteration. The relative distance decreases by 1 on every step until collision (distance = 0 mod C).",
+      "A": "Correct. The relative closing distance is 1 step per iteration. In discrete modular arithmetic, decrementing by 1 without skipping ensures collision in at most C steps.",
+      "B": "Incorrect. A cyclic linked list has no None terminus; it loops indefinitely.",
+      "C": "Incorrect. Floyd's algorithm does not modify node pointers (read-only O(1) space).",
+      "D": "Incorrect. Both pointers continue moving at speeds 1 and 2 respectively."
+    }
+  },
+  {
+    "item_id": "DSA_L1_005",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Hash Map Collisions & Complexity",
+    "stem": "What is the average-case and worst-case time complexity of looking up a key in a standard Python dictionary `dict`, and what causes the worst-case degradation?",
+    "options": {
+      "A": "Average: O(1); Worst: O(log N) due to binary tree traversal when bucket depth exceeds 8.",
+      "B": "Average: O(1); Worst: O(N) when multiple keys produce identical hash values or probe collisions, forcing linear collision traversal.",
+      "C": "Average: O(log N); Worst: O(N) due to periodic garbage collection sweeps.",
+      "D": "Average: O(1); Worst: O(1) guaranteed because Python's SipHash algorithm guarantees zero hash collisions mathematically."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Python dicts use an open-addressing hash table with perturb-based pseudo-random probing. On average, lookups are O(1). In the pathological worst-case where keys produce hash collisions, probing degrades to O(N).",
+      "A": "Incorrect. Python dicts do not convert buckets into red-black trees; that is Java 8's `HashMap` behavior. Python uses open addressing.",
+      "B": "Correct. Average lookup is O(1). If an adversary supplies keys causing continuous collisions, search length degrades to O(N).",
+      "C": "Incorrect. Average lookup is O(1), not O(log N).",
+      "D": "Incorrect. SipHash provides cryptographic resistance to hash-flooding DoS attacks, but by the Pigeonhole Principle, collisions are mathematically impossible to avoid completely."
+    }
+  },
+  {
+    "item_id": "DSA_L1_006",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Sliding Window (Fixed Size)",
+    "stem": "You are given an integer array `nums` of size N and an integer K (where K <= N). You need to find the maximum sum of any contiguous subarray of size K. What is the optimal time complexity and standard technique?",
+    "options": {
+      "A": "O(N * K) by recomputing the sum of K elements starting at each index 0 to N-K.",
+      "B": "O(N) by computing the initial window sum of the first K elements, then sliding the window by adding `nums[i]` and subtracting `nums[i - K]`.",
+      "C": "O(N log N) by sorting the array in descending order and summing the first K elements.",
+      "D": "O(K) by taking the maximum element in the array and multiplying it by K."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A fixed-size sliding window maintains running state in O(1) per step by adding the incoming element on the right and subtracting the outgoing element on the left, visiting each element exactly once for O(N) total time.",
+      "A": "Incorrect. Recalculating the sum from scratch at each step takes O(N * K), which is an inefficient brute-force solution.",
+      "B": "Correct. Initial sum takes O(K), and the subsequent N - K window shifts take O(1) arithmetic operations each, yielding O(N) total time and O(1) auxiliary space.",
+      "C": "Incorrect. Sorting destroys the contiguous subarray requirement.",
+      "D": "Incorrect. Multiplying the max element by K assumes the subarray can contain duplicates of the maximum, which violates contiguous subarray constraints."
+    }
+  },
+  {
+    "item_id": "DSA_L1_007",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Stack Pattern (Valid Parentheses)",
+    "stem": "When validating a string containing brackets `()[]{}` for proper nesting and closure, why is a Stack the natural data structure, and what is the space complexity?",
+    "options": {
+      "A": "Stacks follow First-In-First-Out (FIFO), ensuring the oldest opened bracket matches the current closing bracket; O(1) auxiliary space.",
+      "B": "Stacks follow Last-In-First-Out (LIFO), ensuring the most recently opened bracket is closed first; O(N) auxiliary space in the worst case.",
+      "C": "Stacks automatically sort character ASCII values in O(N log N) time, allowing adjacent bracket matching.",
+      "D": "Stacks use bitwise XOR masking to eliminate matched pairs in O(1) space."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Bracket nesting is inherently recursive and LIFO: the most recently opened bracket must be the first one closed. A stack tracks open brackets, pushing on opening and popping on closing. If all brackets are open, stack holds N elements -> O(N) space.",
+      "A": "Incorrect. Stacks are LIFO, not FIFO. FIFO describes queues.",
+      "B": "Correct. LIFO matches the hierarchical nesting of syntax delimiters. If the string is `(((((`, the stack grows to size N, giving O(N) space.",
+      "C": "Incorrect. Stacks do not sort elements.",
+      "D": "Incorrect. Bitwise XOR cannot validate ordering or proper bracket type pairing."
+    }
+  },
+  {
+    "item_id": "DSA_L1_008",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Linked List In-Place Reversal",
+    "stem": "Consider the standard iterative algorithm to reverse a singly linked list in-place:\n```python\nprev = None\ncurr = head\nwhile curr:\n    nxt = curr.next\n    curr.next = prev\n    prev = curr\n    curr = nxt\nreturn prev\n```\nWhat are the time and auxiliary space complexities of this algorithm?",
+    "options": {
+      "A": "Time: O(N), Space: O(1)",
+      "B": "Time: O(N), Space: O(N)",
+      "C": "Time: O(N^2), Space: O(1)",
+      "D": "Time: O(log N), Space: O(1)"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The algorithm visits every node exactly once using three pointer variables (`prev`, `curr`, `nxt`), performing pointer redirects in O(1) per node with zero additional heap node allocation.",
+      "A": "Correct. The loop runs N times (O(N) time) and only requires 3 pointer reference variables stored on the call stack, achieving O(1) auxiliary space.",
+      "B": "Incorrect. A recursive reversal incurs O(N) call stack space, but this iterative solution uses O(1) auxiliary space.",
+      "C": "Incorrect. Each node is processed in constant time; there are no nested loops.",
+      "D": "Incorrect. Reversing every node in a linked list requires inspecting all N nodes, so it cannot be sublinear."
+    }
+  },
+  {
+    "item_id": "DSA_L1_009",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Dummy Head / Sentinel Node Technique",
+    "stem": "Why do competitive programmers and interview candidates frequently use a 'dummy head' (sentinel node) when modifying linked lists (such as deleting a node or merging two sorted lists)?",
+    "options": {
+      "A": "It converts a singly linked list into a doubly linked list, enabling backwards traversal in O(1).",
+      "B": "It eliminates special-case edge handling when modifying or deleting the head node of the list, allowing uniform pointer operations.",
+      "C": "It balances the linked list into a B-Tree to guarantee O(log N) search times.",
+      "D": "It prevents memory leaks by bypassing Python's reference-counting garbage collector."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Without a dummy node, if the head itself needs to be removed or replaced, you must write custom `if head is None:` or `head = head.next` branching. A dummy node provides an invariant predecessor `dummy.next = head`, so all nodes (including the first) are treated identically.",
+      "A": "Incorrect. A dummy node is simply a regular `ListNode(0)`; it does not add backward pointers.",
+      "B": "Correct. A dummy node standardizes list operations and ensures that returning `dummy.next` always points to the correct new head without messy edge-case conditionals.",
+      "C": "Incorrect. Sentinel nodes have nothing to do with tree indexing.",
+      "D": "Incorrect. Sentinel nodes are ordinary Python objects subject to normal reference counting."
+    }
+  },
+  {
+    "item_id": "DSA_L1_010",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Recursion Depth & Stack Overflow",
+    "stem": "In Python 3, what happens if you run a recursive function without a base case on an input of size N = 2,000, and what is Python's default safety limit?",
+    "options": {
+      "A": "It triggers an uncatchable segmentation fault crashing the OS process immediately.",
+      "B": "It raises a `RecursionError: maximum recursion depth exceeded`, because Python's default stack limit is set to 1,000 frames.",
+      "C": "Python automatically optimizes the recursion into an iterative while loop using Tail-Call Optimization (TCO).",
+      "D": "The memory silently expands into the swap partition until the RAM is 100% full."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "CPython enforces a default maximum recursion limit (typically 1,000 calls via `sys.getrecursionlimit()`) to protect against C call-stack overflows. Exceeding it raises `RecursionError`.",
+      "A": "Incorrect. CPython catches depth overflow proactively before a native C segfault occurs.",
+      "B": "Correct. Python defaults to a recursion depth limit of 1,000 frames to prevent C-level stack overflow, raising a clean `RecursionError`.",
+      "C": "Incorrect. CPython intentionally does NOT implement Tail-Call Optimization (TCO) in order to preserve complete and accurate debugging tracebacks.",
+      "D": "Incorrect. The recursion limit prevents memory exhaustion."
+    }
+  },
+  {
+    "item_id": "DSA_L1_011",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Binary Search Boundary Conditions",
+    "stem": "In a standard binary search on a sorted array `nums`, why is calculating the midpoint as `mid = left + (right - left) // 2` preferred over `mid = (left + right) // 2` in many programming languages?",
+    "options": {
+      "A": "`left + (right - left) // 2` runs 2x faster at the CPU assembly level because it uses bitwise shift operations.",
+      "B": "It prevents integer overflow in languages with fixed-size integers (e.g., 32-bit signed ints in Java/C++ where `left + right` can exceed 2^31 - 1).",
+      "C": "It automatically guarantees that `mid` rounds up to the ceiling instead of the floor.",
+      "D": "It prevents division-by-zero errors when `right` equals 0."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "In fixed-width integer architectures (Java, C, C++), adding two large indices like `2,000,000,000 + 2,000,000,000` causes 32-bit signed integer overflow into negative numbers. `left + (right - left) / 2` mathematically avoids overflow.",
+      "A": "Incorrect. Compilers optimize both equations similarly; speed is not the motivation.",
+      "B": "Correct. While Python 3 supports arbitrary-precision integers, this idiom is an industry-standard best practice to prevent 32-bit signed integer overflow in technical interviews.",
+      "C": "Incorrect. Integer division `// 2` still floors the quotient.",
+      "D": "Incorrect. The denominator is 2, which is never zero."
+    }
+  },
+  {
+    "item_id": "DSA_L1_012",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "String Immutability in Python",
+    "stem": "Why does repeatedly concatenating strings in a loop using `s += char` for N iterations result in O(N^2) time complexity, and how should it be written in O(N)?",
+    "options": {
+      "A": "Python strings are immutable; each `+=` creates a brand new string copying all previous characters in O(k). It should be solved by appending characters to a list and calling `''.join(list)`.",
+      "B": "Strings are linked lists of unicode bytes; traversing to the end of the string takes O(N) each time. It should be solved using `str.extend()`.",
+      "C": "Python converts strings to ASCII arrays on every concatenation. It should be solved using `bytes += char`.",
+      "D": "`+=` forces a garbage collection cycle on each character. It should be solved using recursion."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Strings in Python are immutable contiguous memory buffers. Concatenation reallocates memory and copies 1 + 2 + ... + N characters, yielding O(N^2) total work. Building a list of characters and joining once at the end takes O(N) time.",
+      "A": "Correct. Because strings are immutable, naive repeated concatenation allocates new buffers and copies existing characters, totaling 1 + 2 + ... + N = O(N^2). `''.join()` pre-calculates the exact total buffer size in O(N).",
+      "B": "Incorrect. Python strings are contiguous arrays of code points (ASCII/Latin-1/UCS-2/UCS-4), not linked lists.",
+      "C": "Incorrect. Byte arrays are also immutable; `bytearray` is mutable, but `''.join()` on a list is standard.",
+      "D": "Incorrect. Garbage collection is not the root algorithmic cause."
+    }
+  },
+  {
+    "item_id": "DSA_L1_013",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Two-Pointer (Dutch National Flag)",
+    "stem": "In LeetCode 75 ('Sort Colors'), an array contains only elements 0, 1, and 2. How does Dijkstra's Dutch National Flag algorithm sort the array in a single pass O(N) time and O(1) space?",
+    "options": {
+      "A": "By counting occurrences of 0, 1, and 2 using a hash map and rewriting the array in O(N) space.",
+      "B": "Using three pointers (`low`, `mid`, `high`): if `nums[mid] == 0` swap with `low` and advance both; if `nums[mid] == 1` advance `mid`; if `nums[mid] == 2` swap with `high` and decrement `high` without advancing `mid`.",
+      "C": "Using QuickSort with a random pivot chosen among the middle elements.",
+      "D": "By performing two sequential passes of Bubble Sort."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The three-pointer Dutch National Flag partition maintains three invariant regions: [0, low-1] are 0s, [low, mid-1] are 1s, [mid, high] are unexamined, and [high+1, N-1] are 2s. This partitions the array in a single pass.",
+      "A": "Incorrect. Two-pass counting sort works, but the problem explicitly requires a single-pass in-place partition.",
+      "B": "Correct. This is the exact Dutch National Flag three-pointer invariant. Notice that when swapping with `high`, `mid` is not advanced because the swapped-in element has not yet been inspected.",
+      "C": "Incorrect. Generic QuickSort does not guarantee single-pass 3-way partitioning without this exact Dutch Flag logic.",
+      "D": "Incorrect. Bubble Sort takes O(N^2) time."
+    }
+  },
+  {
+    "item_id": "DSA_L1_014",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Monotonic Stack Intuition",
+    "stem": "What is the primary problem pattern that indicates a Monotonic Stack should be used?",
+    "options": {
+      "A": "Finding the shortest path in an unweighted cyclic graph.",
+      "B": "Finding the Next Greater Element or Previous Smaller Element for every index in an array in O(N) linear time.",
+      "C": "Calculating the minimum spanning tree using greedy edge selection.",
+      "D": "Reversing the words in a sentence without using extra auxiliary memory."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A monotonic stack maintains elements in strictly increasing or decreasing order. As each element is processed, smaller (or larger) elements are popped, instantly resolving the 'Next Greater / Next Smaller' query for each element in O(1) amortized time.",
+      "A": "Incorrect. Shortest path in unweighted graphs uses Breadth-First Search (BFS) with a Queue.",
+      "B": "Correct. Finding the next greater/smaller element naively takes O(N^2). A monotonic stack solves this in O(N) total time because every element is pushed and popped at most once.",
+      "C": "Incorrect. Minimum spanning trees use Kruskal's (DSU) or Prim's (Heap) algorithm.",
+      "D": "Incorrect. In-place string word reversal uses two-pointer pointer swapping."
+    }
+  },
+  {
+    "item_id": "DSA_L1_015",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Sorting Algorithm Complexities",
+    "stem": "What is Python's standard sorting algorithm for `list.sort()` and `sorted()`, and what are its best-case, average-case, and worst-case time complexities?",
+    "options": {
+      "A": "QuickSort; Best: O(N log N), Average: O(N log N), Worst: O(N^2).",
+      "B": "Timsort (hybrid Merge Sort and Insertion Sort); Best: O(N) on already sorted data, Average: O(N log N), Worst: O(N log N).",
+      "C": "HeapSort; Best: O(N), Average: O(N log N), Worst: O(N log N).",
+      "D": "Radix Sort; Best: O(N), Average: O(N), Worst: O(N * k)."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Python utilizes Timsort (created by Tim Peters). Timsort identifies natural contiguous sorted segments ('runs') in the data. If the list is already sorted or nearly sorted, it achieves linear O(N) time, with a guaranteed O(N log N) worst-case.",
+      "A": "Incorrect. QuickSort is not stable and has an O(N^2) worst case, making it unsuitable as Python's default.",
+      "B": "Correct. Timsort is a stable, adaptive hybrid sorting algorithm. Its best-case is O(N) on pre-sorted data, with a guaranteed O(N log N) upper bound.",
+      "C": "Incorrect. Standard HeapSort best-case is O(N log N) (or O(N) if all elements are identical, but it is not adaptive to sorted runs).",
+      "D": "Incorrect. Radix sort is non-comparative and limited to specific integer/string byte formats."
+    }
+  },
+  {
+    "item_id": "DSA_L1_016",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Space Complexity of Recursive Calls",
+    "stem": "If a recursive function makes two recursive calls at each level up to depth D, but only one branch executes at a time (e.g. standard DFS on a binary tree of depth D), what is the auxiliary memory space complexity?",
+    "options": {
+      "A": "O(2^D) because the total number of function invocations is exponential.",
+      "B": "O(D) because the call stack only holds frames for active ancestors along the current execution path.",
+      "C": "O(1) because local variables are overwritten when moving down a tree.",
+      "D": "O(D^2) due to stack frame memoization tables."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Auxiliary space measures maximum memory allocated simultaneously. Even though the total work (time) is O(2^D), the call stack only holds the path from root to current node at any single moment, which is proportional to the tree depth D -> O(D) space.",
+      "A": "Incorrect. O(2^D) is the time complexity (number of visited nodes in a full binary tree), not the call stack height.",
+      "B": "Correct. The call stack depth equals the maximum recursion height. At any point in time, only the ancestors of the current node reside on the stack, consuming O(D) memory.",
+      "C": "Incorrect. Each nested function call pushes a distinct frame onto the call stack; memory is not O(1).",
+      "D": "Incorrect. Stack depth grows linearly with recursion depth D, not quadratically."
+    }
+  },
+  {
+    "item_id": "DSA_L1_017",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Sliding Window (Variable Size)",
+    "stem": "In the 'Longest Substring Without Repeating Characters' problem, you maintain a window `[left, right]`. When `s[right]` is already seen in your current window, how should `left` be updated efficiently in O(1)?",
+    "options": {
+      "A": "Reset `left` to 0 and re-scan the entire string from scratch.",
+      "B": "Increment `left` by 1 iteratively until the duplicate character is removed from the window.",
+      "C": "Store the last seen index of each character in a hash map; update `left = max(left, last_seen[char] + 1)`.",
+      "D": "Swap `s[left]` and `s[right]` and decrement `right`."
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "By caching the most recent index of each character in a dictionary, the left boundary can jump directly past the previous occurrence in O(1) time without stepping through intervening characters one by one.",
+      "A": "Incorrect. Resetting to 0 causes redundant re-computation and degrades time complexity.",
+      "B": "Incorrect. Incrementing `left` one step at a time is valid O(N) overall, but using a hash map to jump directly is the optimal O(1) per step implementation.",
+      "C": "Correct. Storing `last_seen[char]` allows `left` to jump immediately to `last_seen[char] + 1`. The `max(left, ...)` check ensures `left` never moves backward to duplicates outside the current window.",
+      "D": "Incorrect. Swapping modifies string characters and violates the substring property."
+    }
+  },
+  {
+    "item_id": "DSA_L1_018",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Array In-Place Deduplication",
+    "stem": "Given a sorted array `nums`, you must remove duplicates in-place such that each unique element appears only once, returning the new length $K$. What is the optimal two-pointer invariant?",
+    "options": {
+      "A": "Use an `insert_ptr` at index 1 and a `scan_ptr` from 1 to N-1; whenever `nums[scan_ptr] != nums[insert_ptr - 1]`, write `nums[insert_ptr] = nums[scan_ptr]` and increment `insert_ptr`.",
+      "B": "Delete duplicates using `nums.pop(i)` inside a loop.",
+      "C": "Convert the array to a Python `set(nums)` and convert back to list.",
+      "D": "Rotate the array left whenever a duplicate is detected."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Because the array is sorted, duplicates are adjacent. The fast pointer scans ahead, and the slow `insert_ptr` writes each unique value into the prefix of the array in O(N) time and O(1) auxiliary space.",
+      "A": "Correct. This two-pointer slow/fast technique updates the array in-place in O(N) time with O(1) space, satisfying all interview constraints.",
+      "B": "Incorrect. `nums.pop(i)` takes O(N) per deletion, turning the overall algorithm into O(N^2) time.",
+      "C": "Incorrect. `set(nums)` requires O(N) auxiliary space and does not modify the original array in-place.",
+      "D": "Incorrect. Array rotations take O(N) per duplicate, resulting in O(N^2) time."
+    }
+  },
+  {
+    "item_id": "DSA_L1_019",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Queue Implementation via Two Stacks",
+    "stem": "When implementing a FIFO Queue using two LIFO Stacks (`stack_in` and `stack_out`), how do you achieve O(1) amortized time for `pop()` and `peek()`?",
+    "options": {
+      "A": "Whenever `pop()` is called, pop all elements from `stack_in` to `stack_out`, pop the target, and immediately push everything back into `stack_in`.",
+      "B": "Push all incoming items into `stack_in`. For `pop()`, if `stack_out` is empty, pop all elements from `stack_in` into `stack_out` once; then pop from `stack_out`.",
+      "C": "Alternate pushes between `stack_in` and `stack_out` based on whether the index is even or odd.",
+      "D": "Sort `stack_in` using QuickSort prior to every pop operation."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Elements are only transferred from `stack_in` to `stack_out` when `stack_out` is completely empty. Each element is pushed to `stack_in` once, popped from `stack_in` once, pushed to `stack_out` once, and popped from `stack_out` once\u2014giving exactly 4 operations per element over its entire lifecycle (O(1) amortized).",
+      "A": "Incorrect. Transferring back immediately incurs O(N) on every single pop operation.",
+      "B": "Correct. Transferring only when `stack_out` is empty preserves the reversed FIFO order. Each element moves across stacks at most once, yielding O(1) amortized time.",
+      "C": "Incorrect. Alternating stacks destroys the FIFO ordering.",
+      "D": "Incorrect. Stacks cannot be sorted in O(1) amortized time."
+    }
+  },
+  {
+    "item_id": "DSA_L1_020",
+    "track": "DSA_CODING",
+    "level": 1,
+    "level_name": "Level 1: Foundations",
+    "topic": "Big-O Hierarchy & Growth Rates",
+    "stem": "Arrange the following common algorithmic complexities in order of strictly slowest growth rate (most efficient) to fastest growth rate (least efficient) as N -> inf:\n1. O(N log N)\n2. O(1)\n3. O(2^N)\n4. O(N)\n5. O(log N)\n6. O(N^2)",
+    "options": {
+      "A": "O(1) < O(log N) < O(N) < O(N log N) < O(N^2) < O(2^N)",
+      "B": "O(1) < O(N) < O(log N) < O(N log N) < O(2^N) < O(N^2)",
+      "C": "O(log N) < O(1) < O(N) < O(N^2) < O(N log N) < O(2^N)",
+      "D": "O(1) < O(log N) < O(N log N) < O(N) < O(N^2) < O(2^N)"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The standard Big-O growth hierarchy is: Constant O(1) < Logarithmic O(log N) < Linear O(N) < Linearithmic O(N log N) < Quadratic O(N^2) < Exponential O(2^N) < Factorial O(N!).",
+      "A": "Correct. This is the fundamental Big-O asymptotic complexity hierarchy used across all coding interviews.",
+      "B": "Incorrect. O(log N) grows significantly slower than O(N). For N=1,000,000, log2(N) ~ 20 while N = 1,000,000.",
+      "C": "Incorrect. O(1) is constant and grows slower than logarithmic O(log N).",
+      "D": "Incorrect. O(N) grows slower than O(N log N)."
+    }
+  }
+]

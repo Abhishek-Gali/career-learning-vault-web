@@ -1,0 +1,47 @@
+{
+  "id": "cc_problem_category",
+  "title": "CodeChef: Problem Category",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Logic",
+  "description": "Chef categorizes problems by rating `x`: 1 <= x < 100 -> 'Easy', 100 <= x < 200 -> 'Medium', 200 <= x <= 300 -> 'Hard'. Given `x`, return the category.",
+  "constraints": "1 <= x <= 300\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "problem_category",
+  "starter_code": "def problem_category(x: int) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 50
+      },
+      "expected": "Easy"
+    },
+    {
+      "input": {
+        "x": 172
+      },
+      "expected": "Medium"
+    },
+    {
+      "input": {
+        "x": 201
+      },
+      "expected": "Hard"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 100
+      },
+      "expected": "Medium"
+    },
+    {
+      "input": {
+        "x": 200
+      },
+      "expected": "Hard"
+    }
+  ],
+  "solution": "def problem_category(x: int) -> str:\n    if x < 100:\n        return 'Easy'\n    elif x < 200:\n        return 'Medium'\n    return 'Hard'\n",
+  "explanation": "Classifies rating into tier buckets in O(1) time."
+}

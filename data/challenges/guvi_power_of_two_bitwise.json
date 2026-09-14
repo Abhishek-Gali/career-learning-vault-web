@@ -1,0 +1,53 @@
+{
+  "id": "guvi_power_of_two_bitwise",
+  "title": "GUVI: Power of Two (Bitwise Check)",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Bit Manipulation",
+  "description": "Given an integer `n`, return `True` if it is a power of two. Otherwise, return `False`. You must use bitwise operations.",
+  "constraints": "-2^31 <= n <= 2^31 - 1\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "is_power_of_two",
+  "starter_code": "def is_power_of_two(n: int) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 16
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "n": -16
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "n": 1024
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_power_of_two(n: int) -> bool:\n    return n > 0 and (n & (n - 1)) == 0\n",
+  "explanation": "A power of two has exactly one bit set. n & (n - 1) clears that bit, resulting in 0 in O(1) time."
+}

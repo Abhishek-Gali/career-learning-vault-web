@@ -1,0 +1,70 @@
+{
+  "id": "cw_find_the_parity_outlier",
+  "title": "Codewars 6kyu: Find The Parity Outlier",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Fundamentals",
+  "description": "You are given an array of minimum length 3 containing integers. The array is either entirely comprised of odd integers or entirely comprised of even integers except for a single integer `N`. Find and return this 'outlier' `N`.",
+  "constraints": "3 <= len(integers) <= 10^5\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "find_outlier",
+  "starter_code": "def find_outlier(integers: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "integers": [
+          2,
+          4,
+          0,
+          100,
+          4,
+          11,
+          2602,
+          36
+        ]
+      },
+      "expected": 11
+    },
+    {
+      "input": {
+        "integers": [
+          160,
+          3,
+          1719,
+          19,
+          11,
+          13,
+          -21
+        ]
+      },
+      "expected": 160
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "integers": [
+          2,
+          -6,
+          8,
+          -10,
+          -3
+        ]
+      },
+      "expected": -3
+    },
+    {
+      "input": {
+        "integers": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def find_outlier(integers: list[int]) -> int:\n    evens = [x for x in integers[:3] if x % 2 == 0]\n    majority_even = len(evens) >= 2\n    for x in integers:\n        if (x % 2 == 0) != majority_even:\n            return x\n    return integers[0]\n",
+  "explanation": "Inspects first 3 items to determine dominant parity, then returns the single divergent item in O(N) time."
+}

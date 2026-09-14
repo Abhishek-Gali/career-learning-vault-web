@@ -1,0 +1,53 @@
+{
+  "id": "placement_binary_to_decimal",
+  "title": "Placement: Binary to Decimal Conversion",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Bit Manipulation & Math",
+  "description": "Given a binary string `b`, convert it to its decimal integer value.",
+  "constraints": "1 <= len(b) <= 32\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "binary_to_decimal",
+  "starter_code": "def binary_to_decimal(b: str) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "b": "1010"
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "b": "111"
+      },
+      "expected": 7
+    },
+    {
+      "input": {
+        "b": "0"
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "b": "11111111"
+      },
+      "expected": 255
+    },
+    {
+      "input": {
+        "b": "100000000"
+      },
+      "expected": 256
+    },
+    {
+      "input": {
+        "b": "101"
+      },
+      "expected": 5
+    }
+  ],
+  "solution": "def binary_to_decimal(b: str) -> int:\n    val = 0\n    for char in b:\n        val = (val << 1) | (1 if char == '1' else 0)\n    return val\n",
+  "explanation": "Left-shift the accumulator and bitwise OR the current bit in O(N) time."
+}

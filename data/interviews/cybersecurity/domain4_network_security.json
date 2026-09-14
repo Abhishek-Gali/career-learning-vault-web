@@ -1,0 +1,600 @@
+[
+  {
+    "item_id": "CC-D4-001",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "Which layer of the OSI 7-Layer Reference Model is responsible for end-to-end process-to-process communication, connection establishment, error recovery, flow control, and data segmentation using TCP or UDP?",
+    "options": {
+      "A": "Layer 2 - Data Link Layer",
+      "B": "Layer 3 - Network Layer",
+      "C": "Layer 4 - Transport Layer",
+      "D": "Layer 7 - Application Layer"
+    },
+    "correct_key": "C",
+    "rationales": {
+      "correct": "Layer 4 (Transport Layer) provides transparent, reliable or best-effort data transfer between host endpoints, handling port addressing, segmentation, reassembly, flow control, and error detection (TCP/UDP).",
+      "A": "Layer 2 manages node-to-node frame delivery across local physical links using MAC addresses.",
+      "B": "Layer 3 manages logical IP routing and packet forwarding across heterogeneous networks.",
+      "C": "Correct. Layer 4 handles host-to-host transport protocols (TCP and UDP), port numbers, and segmentation.",
+      "D": "Layer 7 provides direct interfaces for end-user network applications (HTTP, DNS, SSH)."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-002",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "Which protocol and default destination port should be used to provide secure, encrypted command-line remote administrative shell access, completely replacing insecure plaintext Telnet (port 23)?",
+    "options": {
+      "A": "RDP over port 3389",
+      "B": "SSH over port 22",
+      "C": "HTTPS over port 443",
+      "D": "SNMP over port 161"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Secure Shell (SSH) operates over TCP port 22, providing strongly encrypted, authenticated terminal sessions and secure file transfer (SFTP/SCP), directly replacing cleartext Telnet (TCP 23).",
+      "A": "RDP (TCP 3389) is a graphical desktop protocol.",
+      "B": "Correct. SSH runs on TCP port 22 and encrypts remote terminal sessions.",
+      "C": "HTTPS (TCP 443) secures web traffic.",
+      "D": "SNMP (UDP 161) manages and monitors network devices."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-003",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "Which of the following IPv4 address blocks is designated as a private, non-routable address space according to RFC 1918?",
+    "options": {
+      "A": "11.0.0.0 to 11.255.255.255",
+      "B": "172.16.0.0 to 172.31.255.255",
+      "C": "192.169.0.0 to 192.169.255.255",
+      "D": "203.0.113.0 to 203.0.113.255"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "RFC 1918 reserves three private address spaces: 10.0.0.0/8 (10.0.0.0–10.255.255.255), 172.16.0.0/12 (172.16.0.0–172.31.255.255), and 192.168.0.0/16 (192.168.0.0–192.168.255.255).",
+      "A": "11.0.0.0/8 is a public IPv4 range.",
+      "B": "Correct. 172.16.0.0/12 (172.16.0.0 to 172.31.255.255) is the Class B RFC 1918 private block.",
+      "C": "192.169.x.x is public space; only 192.168.x.x is RFC 1918.",
+      "D": "203.0.113.0/24 is reserved for documentation (TEST-NET-3)."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-004",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "SCENARIO",
+    "stem": "A help desk technician observes that a client workstation has received an IPv4 address of 169.254.102.55 and cannot access internal intranet shares or the external Internet. What does this address indicate?",
+    "options": {
+      "A": "The workstation was assigned a static enterprise DNS address.",
+      "B": "The workstation failed to contact a DHCP server and self-assigned an Automatic Private IP Addressing (APIPA) link-local address.",
+      "C": "The workstation has joined a public IPv6 multicast group.",
+      "D": "The workstation is connected directly to an RFC 1918 DMZ switch."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The IPv4 block 169.254.0.0/16 is reserved for Automatic Private IP Addressing (APIPA / Link-Local). Windows hosts automatically assign themselves an address in this range when DHCP discovery queries receive no response.",
+      "A": "DNS servers are configured with routable addresses, not APIPA.",
+      "B": "Correct. 169.254.x.x is an APIPA address assigned when DHCP is unavailable.",
+      "C": "APIPA is IPv4, not IPv6 multicast.",
+      "D": "APIPA is not routable and indicates failure to obtain network configuration."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-005",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "Which network service translates human-readable domain names (such as 'example.com') into numerical IP addresses, primarily utilizing UDP and TCP on port 53?",
+    "options": {
+      "A": "Dynamic Host Configuration Protocol (DHCP)",
+      "B": "Domain Name System (DNS)",
+      "C": "Simple Network Management Protocol (SNMP)",
+      "D": "Network Time Protocol (NTP)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "The Domain Name System (DNS) resolves hostnames and domain names to IP addresses (and vice versa) over port 53.",
+      "A": "DHCP (ports 67/68) automatically allocates IP configurations to network clients.",
+      "B": "Correct. DNS translates domain names into numerical IP addresses on port 53.",
+      "C": "SNMP (ports 161/162) gathers device telemetry and health metrics.",
+      "D": "NTP (port 123) synchronizes computer clocks across networks."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-006",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.2 Network Threats & Attack Types",
+    "cognitive_level": "SCENARIO",
+    "stem": "An attacker on a local Ethernet switch segment sends forged gratuitous ARP reply packets to an employee workstation, claiming that the default gateway's IP address is associated with the attacker's network interface MAC address. What attack is taking place?",
+    "options": {
+      "A": "DNS zone transfer attack",
+      "B": "ARP Spoofing / Poisoning (Man-in-the-Middle)",
+      "C": "SYN flood DDoS attack",
+      "D": "SQL Injection attack"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "ARP Spoofing (poisoning) exploits the stateless nature of ARP by sending spoofed ARP replies to corrupt victim ARP caches, causing traffic intended for the gateway to route through the attacker's machine (MitM).",
+      "A": "DNS zone transfers query DNS nameservers on TCP 53.",
+      "B": "Correct. Forging ARP replies to remap IP-to-MAC associations is ARP cache poisoning / spoofing.",
+      "C": "SYN floods exhaust transport-layer connection tables.",
+      "D": "SQLi targets relational database application inputs."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-007",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.2 Network Threats & Attack Types",
+    "cognitive_level": "SCENARIO",
+    "stem": "An adversary floods a public web server with thousands of TCP SYN packets with forged source IP addresses and never responds with the final ACK of the three-way handshake. The server's connection state tables fill up, causing it to drop legitimate connections. What specific attack is this?",
+    "options": {
+      "A": "TCP SYN Flood attack",
+      "B": "Cross-Site Scripting (XSS)",
+      "C": "Buffer Overflow exploit",
+      "D": "BGP route hijacking"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A TCP SYN Flood sends high volumes of SYN requests without completing the 3-way handshake (SYN -> SYN-ACK -> ACK), leaving half-open connections that exhaust the host's backlog queue.",
+      "A": "Correct. Half-open TCP connection exhaustion characterizes the SYN Flood attack.",
+      "B": "XSS is a client-side web application code injection flaw.",
+      "C": "Buffer overflows corrupt memory addresses to execute arbitrary shellcode.",
+      "D": "BGP hijacking manipulates autonomous system routing advertisements."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-008",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.2 Network Threats & Attack Types",
+    "cognitive_level": "SCENARIO",
+    "stem": "An attacker sends tiny DNS query requests with a forged victim source IP address to publicly accessible, recursive DNS resolvers requesting large DNSSEC response payloads. The resolvers bombard the victim with massive data streams. What type of attack is this?",
+    "options": {
+      "A": "DNS Amplification / Reflection DDoS attack",
+      "B": "ARP cache poisoning",
+      "C": "Pass-the-Hash attack",
+      "D": "Session hijacking attack"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "In a DNS Amplification/Reflection DDoS, the attacker exploits UDP's lack of source validation to spoof the victim's IP, directing queries to third-party open resolvers that return substantially larger responses (high amplification factor) to overwhelm the victim.",
+      "A": "Correct. Spoofing source IPs to generate disproportionate response traffic via third parties is an amplification/reflection attack.",
+      "B": "ARP spoofing operates only inside local Layer 2 broadcast domains.",
+      "C": "Pass-the-Hash steals NTLM hashes to authenticate against Windows services.",
+      "D": "Session hijacking steals existing session cookies or tokens."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-009",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.2 Network Threats & Attack Types",
+    "cognitive_level": "RECALL",
+    "stem": "An attacker uses a port scanner to send TCP packets with the FIN, URG, and PSH control flags set simultaneously to determine whether target ports are open. What reconnaissance scanning technique is this?",
+    "options": {
+      "A": "TCP Connect scan",
+      "B": "XMAS scan",
+      "C": "Ping sweep",
+      "D": "UDP broadcast storm"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "An XMAS scan turns on the FIN, URG, and PSH flags ('lit up like a Christmas tree'). RFC 793 states that closed ports must return an RST, whereas open ports ignore the packet on RFC-compliant systems.",
+      "A": "A TCP Connect scan completes the full 3-way handshake.",
+      "B": "Correct. An XMAS scan sets FIN, PSH, and URG flags simultaneously.",
+      "C": "A ping sweep sends ICMP echo requests across a subnet.",
+      "D": "A broadcast storm is an accidental network loop or flooding condition."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-010",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "RECALL",
+    "stem": "How does a stateful inspection firewall fundamentally improve upon a basic stateless packet filtering firewall?",
+    "options": {
+      "A": "Stateful firewalls track the dynamic connection state in a state table, automatically allowing return traffic belonging to an established, valid session.",
+      "B": "Stateful firewalls eliminate the need for IP addresses entirely.",
+      "C": "Stateful firewalls only operate on physical Layer 1 fiber-optic cables.",
+      "D": "Stateful firewalls automatically crack encrypted TLS traffic without certificates."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Stateful inspection monitors active connection state (TCP handshakes, UDP pseudostreams) in an internal state table. Once an outbound session is allowed, matching inbound return traffic is dynamically permitted without requiring wide-open static inbound port rules.",
+      "A": "Correct. Stateful inspection tracks session states and automatically permits legitimate return packets.",
+      "B": "Firewalls fundamentally rely on IP addresses and ports.",
+      "C": "Firewalls operate at Layers 3 through 7.",
+      "D": "TLS decryption requires dedicated certificates or proxy inspection, not basic stateful tracking."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-011",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "RECALL",
+    "stem": "What is the key functional difference between a Network Intrusion Detection System (NIDS) and a Network Intrusion Prevention System (NIPS)?",
+    "options": {
+      "A": "NIDS operates in-line to block malicious packets, while NIPS is passive.",
+      "B": "NIDS passively monitors network traffic out-of-band via a TAP/SPAN port to generate alerts, while NIPS sits in-line to actively inspect and drop malicious packets before they reach the target.",
+      "C": "NIDS protects only wireless networks, while NIPS protects wired routers.",
+      "D": "NIDS uses signatures, while NIPS never uses signatures."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A NIDS is passive and out-of-band (receives mirrored packets via SPAN/TAP), meaning it can only detect and alert. A NIPS sits directly in the traffic flow (in-line), enabling it to drop or reset malicious packets in real time.",
+      "A": "Reverses the roles of NIDS and NIPS.",
+      "B": "Correct. NIDS detects and alerts passively; NIPS resides in-line and proactively drops malicious packets.",
+      "C": "Both operate across wired and wireless infrastructures.",
+      "D": "Both NIDS and NIPS commonly utilize signature-based and heuristic-based engines."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-012",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "SCENARIO",
+    "stem": "An enterprise plans to host a public web server and an external mail server. To prevent an external attacker who compromises the web server from directly pivoting into internal Active Directory domain controllers, where should these public servers be placed?",
+    "options": {
+      "A": "Inside the core internal trusted LAN",
+      "B": "In a Demilitarized Zone (DMZ) perimeter network isolated by firewalls",
+      "C": "Directly on the public Internet without any routing or NAT",
+      "D": "On the same VLAN as the corporate human resources department"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "A Demilitarized Zone (DMZ) is a perimeter network segment separated by firewalls from both the untrusted Internet and the internal trusted LAN. If a public-facing server in the DMZ is compromised, firewall rules prevent ingress into the internal network.",
+      "A": "Placing public servers directly inside the internal LAN exposes internal assets to direct compromise upon web breach.",
+      "B": "Correct. A DMZ isolates externally accessible servers, containing compromises and protecting the internal network.",
+      "C": "Exposing servers without firewall filtering removes defense-in-depth.",
+      "D": "Co-locating public servers with HR systems violates basic network segregation."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-013",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "RECALL",
+    "stem": "In the IPsec protocol suite, which protocol provides data confidentiality (encryption) in addition to integrity and authentication?",
+    "options": {
+      "A": "Authentication Header (AH)",
+      "B": "Encapsulating Security Payload (ESP)",
+      "C": "Internet Control Message Protocol (ICMP)",
+      "D": "Address Resolution Protocol (ARP)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Encapsulating Security Payload (ESP - IP protocol 50) provides confidentiality through encryption, as well as data origin authentication and integrity. Authentication Header (AH - IP protocol 51) provides integrity and authentication, but NEVER encryption.",
+      "A": "AH provides authentication and integrity only; it provides zero confidentiality/encryption.",
+      "B": "Correct. ESP encrypts the payload, providing confidentiality, integrity, and authentication.",
+      "C": "ICMP is used for network diagnostics (ping/traceroute).",
+      "D": "ARP maps IP addresses to MAC addresses."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-014",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary difference between IPsec 'Transport Mode' and 'Tunnel Mode'?",
+    "options": {
+      "A": "Transport mode encrypts only the payload, leaving the original IP header intact; Tunnel mode encrypts the entire original IP packet and prepends a brand-new outer IP header.",
+      "B": "Transport mode is used exclusively for site-to-site VPNs, while tunnel mode is used for local printer sharing.",
+      "C": "Transport mode uses 40-bit DES, while tunnel mode uses quantum encryption.",
+      "D": "Transport mode operates at Layer 7, while tunnel mode operates at Layer 1."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "In Transport Mode, only the payload data is encrypted, preserving the original IP header (ideal for host-to-host communications). In Tunnel Mode, the entire original IP packet (header and payload) is encrypted and encapsulated inside a new outer IP header (ideal for gateway-to-gateway / site-to-site VPNs).",
+      "A": "Correct. Transport mode encrypts payload only; tunnel mode encrypts the full original packet and adds a new outer IP header.",
+      "B": "Tunnel mode is the standard for site-to-site VPNs.",
+      "C": "Both modes support modern AES ciphers.",
+      "D": "Both modes operate at Layer 3 (Network layer)."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-015",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "RECALL",
+    "stem": "Which wireless security protocol incorporates Simultaneous Authentication of Equals (SAE) to protect against offline password dictionary cracking attacks?",
+    "options": {
+      "A": "Wired Equivalent Privacy (WEP)",
+      "B": "Wi-Fi Protected Access (WPA)",
+      "C": "Wi-Fi Protected Access 2 (WPA2)",
+      "D": "Wi-Fi Protected Access 3 (WPA3)"
+    },
+    "correct_key": "D",
+    "rationales": {
+      "correct": "WPA3 mandates Simultaneous Authentication of Equals (SAE, dragonfly handshake) for Personal mode, providing forward secrecy and rendering offline dictionary and brute-force attacks against captured handshakes ineffective.",
+      "A": "WEP uses weak RC4 with predictable 24-bit IVs and is trivially broken.",
+      "B": "WPA used TKIP as an interim stopgap.",
+      "C": "WPA2 uses 4-way PSK handshake vulnerable to offline dictionary cracking via captured 4-way handshakes.",
+      "D": "Correct. WPA3 replaces PSK with SAE, eliminating offline dictionary attacks."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-016",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "Which standard protocol is used by email clients to retrieve messages from a mail server while synchronizing folder states across multiple devices over TCP port 143 (or TLS-encrypted port 993)?",
+    "options": {
+      "A": "Simple Mail Transfer Protocol (SMTP)",
+      "B": "Internet Message Access Protocol (IMAP)",
+      "C": "Post Office Protocol v3 (POP3)",
+      "D": "File Transfer Protocol (FTP)"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "IMAP (TCP 143 / IMAPS 993) allows email clients to access and manage messages directly on the mail server, synchronizing folders, read status, and drafts across multiple client devices.",
+      "A": "SMTP (TCP 25 / 587) is used to send and relay outbound mail.",
+      "B": "Correct. IMAP synchronizes mailboxes on the server across multiple devices.",
+      "C": "POP3 (TCP 110 / 995) downloads messages locally to a single client and typically deletes them from the server.",
+      "D": "FTP is used for file transfers."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-017",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "Which network protocol is utilized by authentication services like Microsoft Active Directory to securely authenticate and grant access tickets to users over TCP/UDP port 88?",
+    "options": {
+      "A": "LDAP",
+      "B": "Kerberos",
+      "C": "SNMP",
+      "D": "RADIUS"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Kerberos operates over port 88 using symmetric cryptography and tickets (Ticket Granting Service / KDC) to provide mutual authentication without sending passwords over the network.",
+      "A": "LDAP (port 389) queries directory objects.",
+      "B": "Correct. Kerberos operates on port 88 as the primary enterprise ticket-granting authentication protocol.",
+      "C": "SNMP manages network gear.",
+      "D": "RADIUS operates on UDP 1812/1813 or 1645/1646."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-018",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "SCENARIO",
+    "stem": "A network architect designs an enterprise network where internal departments (Finance, HR, Engineering) are separated into isolated Layer 2 broadcast domains on the same physical switch hardware. What technology implements this segregation?",
+    "options": {
+      "A": "Network Address Translation (NAT)",
+      "B": "Virtual Local Area Networks (VLANs / IEEE 802.1Q)",
+      "C": "Dynamic DNS",
+      "D": "Unshielded Twisted Pair (UTP) cabling"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "VLANs (IEEE 802.1Q) logically segment physical switch ports into distinct broadcast domains, restricting broadcast traffic and enforcing security boundaries that require inter-VLAN routing and firewall inspection to traverse.",
+      "A": "NAT translates private IP addresses to public IPs.",
+      "B": "Correct. VLANs segment Layer 2 traffic on shared switch infrastructure.",
+      "C": "Dynamic DNS updates DNS records when IP addresses change.",
+      "D": "UTP cabling is physical transmission media."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-019",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.2 Network Threats & Attack Types",
+    "cognitive_level": "RECALL",
+    "stem": "What type of attack occurs when an adversary injects bogus records into a caching recursive DNS server, causing legitimate users requesting 'bank.com' to be silently redirected to an attacker's phishing server?",
+    "options": {
+      "A": "DNS Cache Poisoning",
+      "B": "MAC address flooding",
+      "C": "Ping of Death",
+      "D": "SQL Injection"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "DNS Cache Poisoning (or DNS Spoofing) corrupts the cache table of a recursive resolver with fraudulent mapping data, directing unsuspecting clients to fraudulent IP addresses controlled by attackers.",
+      "A": "Correct. Corrupting resolver records to redirect traffic is DNS cache poisoning.",
+      "B": "MAC flooding exhausts switch CAM tables to force fail-open hub behavior.",
+      "C": "Ping of Death sends malformed ICMP packets causing OS crashes.",
+      "D": "SQLi attacks database queries."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-020",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization wants to authenticate corporate laptops connecting to the enterprise Wi-Fi using individual user digital certificates or Active Directory credentials, rather than a shared Pre-Shared Key (PSK). Which Wi-Fi architecture must be deployed?",
+    "options": {
+      "A": "WPA2/WPA3 Personal (PSK)",
+      "B": "WPA2/WPA3 Enterprise using IEEE 802.1X and RADIUS / EAP",
+      "C": "Open unencrypted Wi-Fi with MAC filtering",
+      "D": "WEP with 64-bit shared keys"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "WPA2/WPA3 Enterprise implements IEEE 802.1X port-based network access control, delegating authentication to a backend RADIUS server running EAP (e.g. EAP-TLS, PEAP) with individual user credentials or certificates.",
+      "A": "WPA Personal uses a single shared password (PSK) known by all users.",
+      "B": "Correct. 802.1X Enterprise mode provides individual authentication and unique session keys.",
+      "C": "MAC addresses are easily spoofed and open Wi-Fi lacks encryption.",
+      "D": "WEP is obsolete and insecure."
+    },
+    "is_pretest": false
+  },
+  {
+    "item_id": "CC-D4-021",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "What is the standard loopback IPv4 address used by an operating system to communicate with network services running locally on the same host?",
+    "options": {
+      "A": "192.168.1.1",
+      "B": "127.0.0.1",
+      "C": "10.0.0.1",
+      "D": "255.255.255.255"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "127.0.0.1 (part of the 127.0.0.0/8 block) is the standard loopback address in IPv4 (represented as ::1 in IPv6), routing traffic back to the local host's TCP/IP stack without sending packets onto physical wire.",
+      "A": "192.168.1.1 is a common private default gateway IP.",
+      "B": "Correct. 127.0.0.1 is the IPv4 local loopback address.",
+      "C": "10.0.0.1 is a private network address.",
+      "D": "255.255.255.255 is the local broadcast address."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D4-022",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.2 Network Threats & Attack Types",
+    "cognitive_level": "SCENARIO",
+    "stem": "An analyst reviewing firewall logs observes an attacker connecting to port 80 and sending the command 'HEAD / HTTP/1.0', then reading the server's response header: 'Server: Apache/2.4.41 (Ubuntu)'. What activity did the attacker perform?",
+    "options": {
+      "A": "Banner Grabbing",
+      "B": "ARP Poisoning",
+      "C": "Buffer Overflow",
+      "D": "SYN Flood"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Banner Grabbing is an information-gathering reconnaissance technique where an attacker probes a network service to extract service version, daemon name, and operating system details displayed in the server's response banner.",
+      "A": "Correct. Probing a service to read software version banners is banner grabbing.",
+      "B": "ARP poisoning targets local Layer 2 MAC associations.",
+      "C": "Buffer overflow injects malformed code into memory.",
+      "D": "SYN floods attempt denial of service."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D4-023",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "RECALL",
+    "stem": "What is the primary capability that distinguishes a Next-Generation Firewall (NGFW) from a traditional stateful inspection firewall?",
+    "options": {
+      "A": "NGFW operates exclusively at Layer 1 and requires no power supply.",
+      "B": "NGFW performs deep packet inspection at Layer 7 (Application Layer), enabling application awareness, SSL/TLS decryption, and integrated IPS threat protection.",
+      "C": "NGFW only filters ICMP ping packets.",
+      "D": "NGFW removes the need for user passwords."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "NGFWs go beyond inspecting IP addresses and port numbers (Layers 3/4) by inspecting full application-layer payloads (Layer 7), identifying specific applications regardless of port used, inspecting encrypted traffic, and running threat prevention engines.",
+      "A": "NGFW is an advanced computing appliance requiring power.",
+      "B": "Correct. Deep packet inspection, application-level awareness, and threat engine integration define NGFW.",
+      "C": "NGFW filters all major protocols, not just ICMP.",
+      "D": "User authentication remains essential."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D4-024",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "Which well-known port is utilized by Microsoft Server Message Block (SMB) file sharing, and is commonly targeted by ransomware like WannaCry to spread laterally across local networks?",
+    "options": {
+      "A": "Port 80",
+      "B": "Port 445",
+      "C": "Port 22",
+      "D": "Port 53"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Microsoft SMB runs directly over TCP port 445 (SMB over IP). Exploits like EternalBlue (MS17-010) weaponized port 445 to spread WannaCry and NotPetya ransomware across networks.",
+      "A": "Port 80 is HTTP.",
+      "B": "Correct. Port 445 is Microsoft SMB file sharing.",
+      "C": "Port 22 is SSH.",
+      "D": "Port 53 is DNS."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D4-025",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.3 Network Security Architecture & Devices",
+    "cognitive_level": "SCENARIO",
+    "stem": "An organization is migrating away from the traditional perimeter-based security model ('castle-and-moat') where everything inside the corporate network is implicitly trusted. Instead, they require strict identity verification, continuous device posture checks, and least-privilege access for every request regardless of location. What security paradigm is being adopted?",
+    "options": {
+      "A": "Zero Trust Architecture (ZTA)",
+      "B": "Open Flat Network Architecture",
+      "C": "Hub-and-Spoke Frame Relay",
+      "D": "Air-Gapped Workgroup"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Zero Trust Architecture (NIST SP 800-207) operates under the principle 'never trust, always verify'. It treats all network traffic—internal or external—as potentially hostile, requiring continuous authentication, authorization, and posture validation.",
+      "A": "Correct. Continuous verification and eliminating implicit trust are the foundations of Zero Trust.",
+      "B": "Flat networks lack internal segmentation.",
+      "C": "Hub-and-spoke is an old WAN topology.",
+      "D": "Air-gapping physically disconnects systems from networks."
+    },
+    "is_pretest": true
+  },
+  {
+    "item_id": "CC-D4-026",
+    "domain_number": 4,
+    "domain_name": "Network Security",
+    "sub_objective": "4.1 Computer Networking Foundations",
+    "cognitive_level": "RECALL",
+    "stem": "How many bits are used in an IPv6 address compared to an IPv4 address?",
+    "options": {
+      "A": "IPv4 uses 32 bits; IPv6 uses 128 bits",
+      "B": "IPv4 uses 64 bits; IPv6 uses 256 bits",
+      "C": "IPv4 uses 16 bits; IPv6 uses 32 bits",
+      "D": "IPv4 uses 128 bits; IPv6 uses 32 bits"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "IPv4 addresses are 32 bits long (4 octets written in dotted decimal notation, e.g., 192.0.2.1). IPv6 addresses are 128 bits long (8 groups of 4 hexadecimal digits separated by colons, e.g., 2001:db8::1).",
+      "A": "Correct. IPv4 is 32 bits; IPv6 is 128 bits.",
+      "B": "Incorrect bit lengths.",
+      "C": "Incorrect bit lengths.",
+      "D": "Reverses the lengths."
+    },
+    "is_pretest": true
+  }
+]

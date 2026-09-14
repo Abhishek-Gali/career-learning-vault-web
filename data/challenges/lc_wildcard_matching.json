@@ -1,0 +1,59 @@
+{
+  "id": "lc_wildcard_matching",
+  "title": "LeetCode 44: Wildcard Matching",
+  "platform": "LeetCode",
+  "difficulty": "Hard",
+  "category": "Dynamic Programming & Two Pointers",
+  "description": "Given an input string `s` and a pattern `p`, implement wildcard pattern matching with support for '?' (matches any single character) and '*' (matches any sequence of characters including empty).",
+  "constraints": "0 <= len(s), len(p) <= 2000\n\u2022 Time: O(S + P) average | Space: O(1)",
+  "function_name": "is_wildcard_match",
+  "starter_code": "def is_wildcard_match(s: str, p: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "aa",
+        "p": "a"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": "aa",
+        "p": "*"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "cb",
+        "p": "?a"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "adceb",
+        "p": "*a*b"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "acdcb",
+        "p": "a*c?b"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": "****"
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def is_wildcard_match(s: str, p: str) -> bool:\n    s_idx = p_idx = 0\n    star_idx = -1\n    s_temp = -1\n    while s_idx < len(s):\n        if p_idx < len(p) and p[p_idx] in {s[s_idx], '?'}:\n            s_idx += 1\n            p_idx += 1\n        elif p_idx < len(p) and p[p_idx] == '*':\n            star_idx = p_idx\n            s_temp = s_idx\n            p_idx += 1\n        elif star_idx != -1:\n            p_idx = star_idx + 1\n            s_temp += 1\n            s_idx = s_temp\n        else:\n            return False\n    while p_idx < len(p) and p[p_idx] == '*':\n        p_idx += 1\n    return p_idx == len(p)\n",
+  "explanation": "Greedy two-pointer scan with backtrack position for '*' handles wildcard matching in O(S) average time and O(1) space."
+}

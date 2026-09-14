@@ -1,0 +1,58 @@
+{
+  "id": "longest_substring",
+  "title": "3. Longest Substring Without Repeating Characters",
+  "difficulty": "Medium",
+  "category": "Sliding Window",
+  "description": "Given a string `s`, find the length of the longest substring without repeating characters.",
+  "constraints": "\u2022 0 <= len(s) <= 5 * 10^4\n\u2022 `s` consists of English letters, digits, symbols, and spaces.\n\u2022 Optimal Time: O(N) | Optimal Space: O(min(N, Sigma))",
+  "function_name": "length_of_longest_substring",
+  "starter_code": "def length_of_longest_substring(s: str) -> int:\n    # Write your O(N) sliding window solution here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "abcabcbb"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "s": "bbbbb"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "s": "pwwkew"
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "s": " "
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "s": "tmmzuxt"
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "s": "abba"
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def length_of_longest_substring(s: str) -> int:\n    last_seen = {}\n    left = 0\n    max_len = 0\n    for right, ch in enumerate(s):\n        if ch in last_seen and last_seen[ch] >= left:\n            left = last_seen[ch] + 1\n        last_seen[ch] = right\n        max_len = max(max_len, right - left + 1)\n    return max_len\n",
+  "explanation": "A variable-size sliding window tracks the most recent index of each character. When a duplicate is detected within the current window (`last_seen[ch] >= left`), the left boundary jumps directly to `last_seen[ch] + 1` in O(1), achieving a single-pass O(N) scan."
+}

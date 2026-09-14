@@ -1,0 +1,68 @@
+{
+  "id": "lc_remove_nth_from_end",
+  "title": "LeetCode 19: Remove Nth Node From End of List",
+  "platform": "LeetCode",
+  "difficulty": "Medium",
+  "category": "Two Pointers & Linked Lists",
+  "description": "Given the list representation of a linked list `head`, remove the `n`th node from the end of the list and return the head list.",
+  "constraints": "1 <= len(head) <= 30, 1 <= n <= len(head)\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "remove_nth_from_end",
+  "starter_code": "def remove_nth_from_end(head: list[int], n: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "head": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "n": 2
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "input": {
+        "head": [
+          1
+        ],
+        "n": 1
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "head": [
+          1,
+          2
+        ],
+        "n": 1
+      },
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "head": [
+          1,
+          2
+        ],
+        "n": 2
+      },
+      "expected": [
+        2
+      ]
+    }
+  ],
+  "solution": "def remove_nth_from_end(head: list[int], n: int) -> list[int]:\n    idx = len(head) - n\n    return head[:idx] + head[idx + 1:]\n",
+  "explanation": "Locates target offset (len - n) and excludes the item in O(N) time."
+}

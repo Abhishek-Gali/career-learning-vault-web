@@ -1,0 +1,45 @@
+{
+  "id": "cw_multiply",
+  "title": "Codewars 8kyu: Multiply",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Fundamentals",
+  "description": "This code does not execute properly. Try to figure out why and return the product of `a` and `b`.",
+  "constraints": "-10^9 <= a, b <= 10^9\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "multiply",
+  "starter_code": "def multiply(a: int, b: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 2,
+        "b": 3
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "a": -1,
+        "b": 5
+      },
+      "expected": -5
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": 0,
+        "b": 10
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "a": 100,
+        "b": 100
+      },
+      "expected": 10000
+    }
+  ],
+  "solution": "def multiply(a: int, b: int) -> int:\n    return a * b\n",
+  "explanation": "Multiplies two numbers in O(1) time."
+}

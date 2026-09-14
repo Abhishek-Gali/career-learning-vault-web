@@ -1,0 +1,59 @@
+{
+  "id": "prog_invert_dictionary",
+  "title": "Programiz: Invert a Dictionary",
+  "platform": "Programiz",
+  "difficulty": "Hard",
+  "category": "Dictionaries",
+  "description": "Given a dictionary `d` where all values are unique, return a new dictionary with keys and values swapped.",
+  "constraints": "0 <= len(d) <= 10^4\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "invert_dict",
+  "starter_code": "def invert_dict(d: dict) -> dict:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "d": {
+          "a": "1",
+          "b": "2",
+          "c": "3"
+        }
+      },
+      "expected": {
+        "1": "a",
+        "2": "b",
+        "3": "c"
+      }
+    },
+    {
+      "input": {
+        "d": {}
+      },
+      "expected": {}
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "d": {
+          "apple": "fruit",
+          "carrot": "vegetable"
+        }
+      },
+      "expected": {
+        "fruit": "apple",
+        "vegetable": "carrot"
+      }
+    },
+    {
+      "input": {
+        "d": {
+          "10": "20"
+        }
+      },
+      "expected": {
+        "20": "10"
+      }
+    }
+  ],
+  "solution": "def invert_dict(d: dict) -> dict:\n    return {v: k for k, v in d.items()}\n",
+  "explanation": "Dict comprehension inverts key-value mappings in O(N) time."
+}

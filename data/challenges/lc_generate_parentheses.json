@@ -1,0 +1,67 @@
+{
+  "id": "lc_generate_parentheses",
+  "title": "LeetCode 22: Generate Parentheses",
+  "platform": "LeetCode",
+  "difficulty": "Medium",
+  "category": "Backtracking",
+  "description": "Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
+  "constraints": "1 <= n <= 8\n\u2022 Time: O(4^N / sqrt(N)) (Catalan Number) | Space: O(N)",
+  "function_name": "generate_parenthesis",
+  "starter_code": "def generate_parenthesis(n: int) -> list[str]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 3
+      },
+      "expected": [
+        "((()))",
+        "(()())",
+        "(())()",
+        "()(())",
+        "()()()"
+      ]
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": [
+        "()"
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": [
+        "(())",
+        "()()"
+      ]
+    },
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": [
+        "(((())))",
+        "((()()))",
+        "((())())",
+        "((()))()",
+        "(()(()))",
+        "(()()())",
+        "(()())()",
+        "(())(())",
+        "(())()()",
+        "()((()))",
+        "()(()())",
+        "()(())()",
+        "()()(())",
+        "()()()()"
+      ]
+    }
+  ],
+  "solution": "def generate_parenthesis(n: int) -> list[str]:\n    res = []\n    def backtrack(curr, open_cnt, close_cnt):\n        if len(curr) == 2 * n:\n            res.append(curr)\n            return\n        if open_cnt < n:\n            backtrack(curr + '(', open_cnt + 1, close_cnt)\n        if close_cnt < open_cnt:\n            backtrack(curr + ')', open_cnt, close_cnt + 1)\n    backtrack('', 0, 0)\n    return res\n",
+  "explanation": "Backtracking adds '(' whenever open_cnt < n and ')' when close_cnt < open_cnt to guarantee valid nesting."
+}

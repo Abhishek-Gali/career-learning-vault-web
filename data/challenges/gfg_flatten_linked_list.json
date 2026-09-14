@@ -1,0 +1,97 @@
+{
+  "id": "gfg_flatten_linked_list",
+  "title": "GFG: Flatten Multi-Level Sorted Lists",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Medium",
+  "category": "Linked Lists & Sorting",
+  "description": "Given a list of sorted integer lists `lists`, flatten all elements into a single sorted list.",
+  "constraints": "0 <= len(lists) <= 1000\n\u2022 Time: O(N log N) | Space: O(N)",
+  "function_name": "flatten_list",
+  "starter_code": "def flatten_list(lists: list[list[int]]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "lists": [
+          [
+            5,
+            7,
+            8,
+            30
+          ],
+          [
+            10,
+            20
+          ],
+          [
+            19,
+            22,
+            50
+          ],
+          [
+            28,
+            35,
+            40,
+            45
+          ]
+        ]
+      },
+      "expected": [
+        5,
+        7,
+        8,
+        10,
+        19,
+        20,
+        22,
+        28,
+        30,
+        35,
+        40,
+        45,
+        50
+      ]
+    },
+    {
+      "input": {
+        "lists": [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "lists": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "lists": [
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "solution": "def flatten_list(lists: list[list[int]]) -> list[int]:\n    flat = []\n    for l in lists:\n        flat.extend(l)\n    return sorted(flat)\n",
+  "explanation": "Flattens sublists and orders entries in O(N log N) time."
+}

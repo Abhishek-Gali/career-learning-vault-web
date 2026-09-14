@@ -1,0 +1,84 @@
+{
+  "id": "top_k_frequent",
+  "title": "7. Top K Frequent Elements",
+  "difficulty": "Medium",
+  "category": "Heaps & Hash Tables",
+  "description": "Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in any order.",
+  "constraints": "\u2022 1 <= len(nums) <= 10^5\n\u2022 `k` is in range [1, the number of unique elements].\n\u2022 It is guaranteed that the answer is unique.\n\u2022 Optimal Time: O(N log K) or O(N) | Optimal Space: O(N)",
+  "function_name": "top_k_frequent",
+  "starter_code": "def top_k_frequent(nums: list[int], k: int) -> list[int]:\n    # Write your heap or bucket sort solution here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        "k": 2
+      },
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1
+        ],
+        "k": 1
+      },
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          4,
+          1,
+          -1,
+          2,
+          -1,
+          2,
+          3
+        ],
+        "k": 2
+      },
+      "expected": [
+        -1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          5,
+          5,
+          5,
+          5,
+          2,
+          2,
+          2,
+          9,
+          9,
+          1
+        ],
+        "k": 3
+      },
+      "expected": [
+        5,
+        2,
+        9
+      ]
+    }
+  ],
+  "solution": "from collections import Counter\nimport heapq\n\ndef top_k_frequent(nums: list[int], k: int) -> list[int]:\n    counts = Counter(nums)\n    heap = []\n    for num, freq in counts.items():\n        heapq.heappush(heap, (freq, num))\n        if len(heap) > k:\n            heapq.heappop(heap)\n    return sorted([num for freq, num in heap])\n",
+  "explanation": "A frequency map counts occurrences in O(N). A min-heap bounded to size K keeps the K highest-frequency numbers. Each heap insertion/pop costs O(log K), resulting in O(N log K) total time and O(N) auxiliary space."
+}

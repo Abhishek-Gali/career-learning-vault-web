@@ -1,0 +1,52 @@
+{
+  "id": "w3_count_char_frequencies",
+  "title": "W3Schools: Character Frequencies",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Dictionaries & Strings",
+  "description": "Given string `s`, count the frequency of each non-space character (case-sensitive). Return a dictionary of character counts.",
+  "constraints": "0 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "char_frequency",
+  "starter_code": "def char_frequency(s: str) -> dict:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "google.com"
+      },
+      "expected": {
+        "g": 2,
+        "o": 3,
+        "l": 1,
+        "e": 1,
+        ".": 1,
+        "c": 1,
+        "m": 1
+      }
+    },
+    {
+      "input": {
+        "s": "a b a"
+      },
+      "expected": {
+        "a": 2,
+        "b": 1
+      }
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": {}
+    },
+    {
+      "input": {
+        "s": "   "
+      },
+      "expected": {}
+    }
+  ],
+  "solution": "def char_frequency(s: str) -> dict:\n    from collections import Counter\n    return dict(Counter(ch for ch in s if ch != ' '))\n",
+  "explanation": "Counts non-space characters into dictionary in O(N) time."
+}

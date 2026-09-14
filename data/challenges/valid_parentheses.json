@@ -1,0 +1,58 @@
+{
+  "id": "valid_parentheses",
+  "title": "4. Valid Parentheses (Stack LIFO)",
+  "difficulty": "Easy",
+  "category": "Stacks",
+  "description": "Given a string `s` containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.\n3. Every close bracket has a corresponding open bracket of the same type.",
+  "constraints": "\u2022 1 <= len(s) <= 10^4\n\u2022 `s` consists of parentheses only '()[]{}'.\n\u2022 Optimal Time: O(N) | Optimal Space: O(N)",
+  "function_name": "is_valid_parentheses",
+  "starter_code": "def is_valid_parentheses(s: str) -> bool:\n    # Write your stack-based solution here\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "()"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "()[]{}"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "(]"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "([)]"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": "{[]}"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "["
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": "]"
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def is_valid_parentheses(s: str) -> bool:\n    mapping = {')': '(', '}': '{', ']': '['}\n    stack = []\n    for ch in s:\n        if ch in mapping:\n            top = stack.pop() if stack else '#'\n            if mapping[ch] != top:\n                return False\n        else:\n            stack.append(ch)\n    return not stack\n",
+  "explanation": "A stack enforces Last-In-First-Out (LIFO) hierarchical matching. Opening brackets are pushed. For each closing bracket, the top of the stack must match its pair. The string is valid if and only if the stack is completely empty at the end."
+}

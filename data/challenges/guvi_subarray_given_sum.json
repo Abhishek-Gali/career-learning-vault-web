@@ -1,0 +1,93 @@
+{
+  "id": "guvi_subarray_given_sum",
+  "title": "GUVI: Subarray with Given Sum (1-Based Indices)",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Medium",
+  "category": "Sliding Window",
+  "description": "Given an unsorted array `nums` of non-negative integers and an integer `s`, find a continuous subarray which adds to a given number `s`. Return 1-based indices `[start, end]`. If no subarray found, return [-1].",
+  "constraints": "1 <= len(nums) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "subarray_sum",
+  "starter_code": "def subarray_sum(nums: list[int], s: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          7,
+          5
+        ],
+        "s": 12
+      },
+      "expected": [
+        2,
+        4
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "s": 15
+      },
+      "expected": [
+        1,
+        5
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "s": 0
+      },
+      "expected": [
+        -1
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          5
+        ],
+        "s": 5
+      },
+      "expected": [
+        1,
+        1
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          7,
+          2,
+          1
+        ],
+        "s": 100
+      },
+      "expected": [
+        -1
+      ]
+    }
+  ],
+  "solution": "def subarray_sum(nums: list[int], s: int) -> list[int]:\n    if s <= 0:\n        return [-1]\n    left = 0\n    curr_sum = 0\n    for right in range(len(nums)):\n        curr_sum += nums[right]\n        while curr_sum > s and left < right:\n            curr_sum -= nums[left]\n            left += 1\n        if curr_sum == s:\n            return [left + 1, right + 1]\n    return [-1]\n",
+  "explanation": "Expanding and contracting sliding window over non-negative integers achieves O(N) time and O(1) space."
+}

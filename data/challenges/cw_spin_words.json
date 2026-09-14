@@ -1,0 +1,47 @@
+{
+  "id": "cw_spin_words",
+  "title": "Codewars 6kyu: Stop gninnipS My sdroW!",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Strings",
+  "description": "Write a function that takes in a string of one or more words, and returns the same string, but with all words that have five or more letters reversed. Strings consists of letters and spaces only.",
+  "constraints": "1 <= len(sentence) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "spin_words",
+  "starter_code": "def spin_words(sentence: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "sentence": "Hey fellow warriors"
+      },
+      "expected": "Hey wollef sroirraw"
+    },
+    {
+      "input": {
+        "sentence": "This is a test"
+      },
+      "expected": "This is a test"
+    },
+    {
+      "input": {
+        "sentence": "This is another test"
+      },
+      "expected": "This is rehtona test"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "sentence": "Welcome"
+      },
+      "expected": "emocleW"
+    },
+    {
+      "input": {
+        "sentence": "to"
+      },
+      "expected": "to"
+    }
+  ],
+  "solution": "def spin_words(sentence: str) -> str:\n    return ' '.join(w[::-1] if len(w) >= 5 else w for w in sentence.split(' '))\n",
+  "explanation": "Reverses words with length >= 5 while keeping shorter words intact in O(N) time."
+}

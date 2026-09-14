@@ -1,0 +1,85 @@
+{
+  "id": "placement_array_leaders",
+  "title": "Placement: Leaders in an Array",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Arrays",
+  "description": "An element is a leader if it is strictly greater than or equal to all elements to its right. The rightmost element is always a leader. Given an array `arr`, return all leaders in their original relative order.",
+  "constraints": "1 <= len(arr) <= 10^5\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "find_leaders",
+  "starter_code": "def find_leaders(arr: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          16,
+          17,
+          4,
+          3,
+          5,
+          2
+        ]
+      },
+      "expected": [
+        17,
+        5,
+        2
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          0
+        ]
+      },
+      "expected": [
+        4,
+        0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          5
+        ]
+      },
+      "expected": [
+        5
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          10,
+          20,
+          30
+        ]
+      },
+      "expected": [
+        30
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          7,
+          7,
+          7
+        ]
+      },
+      "expected": [
+        7,
+        7,
+        7
+      ]
+    }
+  ],
+  "solution": "def find_leaders(arr: list[int]) -> list[int]:\n    if not arr:\n        return []\n    leaders = []\n    max_right = arr[-1]\n    for x in reversed(arr):\n        if x >= max_right:\n            leaders.append(x)\n            max_right = x\n    return leaders[::-1]\n",
+  "explanation": "Scanning from right to left maintains the maximum element seen so far in O(N) time."
+}

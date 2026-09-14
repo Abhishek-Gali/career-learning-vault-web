@@ -1,0 +1,79 @@
+{
+  "id": "hr_plus_minus",
+  "title": "HackerRank: Plus Minus Proportions",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup",
+  "description": "Given an array of integers `arr`, calculate the ratios of its elements that are positive, negative, and zero. Return a list `[pos_ratio, neg_ratio, zero_ratio]` with values rounded to 6 decimal places.",
+  "constraints": "1 <= len(arr) <= 100\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "plus_minus",
+  "starter_code": "def plus_minus(arr: list[int]) -> list[float]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          -4,
+          3,
+          -9,
+          0,
+          4,
+          1
+        ]
+      },
+      "expected": [
+        0.5,
+        0.333333,
+        0.166667
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          -1,
+          -2,
+          -3,
+          0,
+          0
+        ]
+      },
+      "expected": [
+        0.375,
+        0.375,
+        0.25
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          0
+        ]
+      },
+      "expected": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "solution": "def plus_minus(arr: list[int]) -> list[float]:\n    n = len(arr)\n    pos = sum(1 for x in arr if x > 0)\n    neg = sum(1 for x in arr if x < 0)\n    zero = sum(1 for x in arr if x == 0)\n    return [round(pos / n, 6), round(neg / n, 6), round(zero / n, 6)]\n",
+  "explanation": "Count frequencies of positive, negative, and zero elements and divide by N."
+}

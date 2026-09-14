@@ -1,0 +1,77 @@
+{
+  "id": "he_monk_and_power_of_time",
+  "title": "HackerEarth: Monk and Power of Time",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Queues & Simulation",
+  "description": "The Monk is tracking process execution. In one unit of time, either the front process executes if it matches `ideal_order` (and is removed), or it is rotated to the back of the queue. Return total time units required to finish all processes.",
+  "constraints": "1 <= len(calling_order) == len(ideal_order) <= 100\n\u2022 Time: O(N^2) | Space: O(N)",
+  "function_name": "time_to_execute",
+  "starter_code": "def time_to_execute(calling_order: list[int], ideal_order: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "calling_order": [
+          3,
+          2,
+          1
+        ],
+        "ideal_order": [
+          1,
+          3,
+          2
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "calling_order": [
+          1,
+          2,
+          3
+        ],
+        "ideal_order": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "calling_order": [
+          1
+        ],
+        "ideal_order": [
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "calling_order": [
+          5,
+          4,
+          2,
+          3,
+          1
+        ],
+        "ideal_order": [
+          5,
+          2,
+          1,
+          4,
+          3
+        ]
+      },
+      "expected": 7
+    }
+  ],
+  "solution": "def time_to_execute(calling_order: list[int], ideal_order: list[int]) -> int:\n    from collections import deque\n    q = deque(calling_order)\n    time = 0\n    for ideal in ideal_order:\n        while q[0] != ideal:\n            q.rotate(-1)\n            time += 1\n        q.popleft()\n        time += 1\n    return time\n",
+  "explanation": "Deque simulation rotates processes until front matches ideal target in O(N^2) time."
+}

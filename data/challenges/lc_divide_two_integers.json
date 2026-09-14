@@ -1,0 +1,45 @@
+{
+  "id": "lc_divide_two_integers",
+  "title": "LeetCode 29: Divide Two Integers",
+  "platform": "LeetCode",
+  "difficulty": "Medium",
+  "category": "Bit Manipulation & Math",
+  "description": "Given two integers `dividend` and `divisor`, divide two integers without using multiplication, division, and mod operator. Clamped within [-2^31, 2^31 - 1].",
+  "constraints": "-2^31 <= dividend, divisor <= 2^31 - 1, divisor != 0\n\u2022 Time: O(log^2 N) | Space: O(1)",
+  "function_name": "divide",
+  "starter_code": "def divide(dividend: int, divisor: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "dividend": 10,
+        "divisor": 3
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "dividend": 7,
+        "divisor": -3
+      },
+      "expected": -2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "dividend": 0,
+        "divisor": 1
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "dividend": -2147483648,
+        "divisor": -1
+      },
+      "expected": 2147483647
+    }
+  ],
+  "solution": "def divide(dividend: int, divisor: int) -> int:\n    if dividend == -2**31 and divisor == -1:\n        return 2**31 - 1\n    negative = (dividend < 0) ^ (divisor < 0)\n    dvd, dvs = abs(dividend), abs(divisor)\n    ans = 0\n    while dvd >= dvs:\n        temp, m = dvs, 1\n        while dvd >= (temp << 1):\n            temp <<= 1\n            m <<= 1\n        dvd -= temp\n        ans += m\n    return -ans if negative else ans\n",
+  "explanation": "Exponential bitwise subtraction shifts divisor by powers of 2 in O(log^2 N) time without multiplication."
+}

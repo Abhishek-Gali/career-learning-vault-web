@@ -1,0 +1,47 @@
+{
+  "id": "guvi_remove_spaces",
+  "title": "GUVI: Remove All Whitespace",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Given a string `s`, remove all whitespace characters (spaces, tabs, newlines) and return the resulting continuous string.",
+  "constraints": "0 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "remove_spaces",
+  "starter_code": "def remove_spaces(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "code kata guvi"
+      },
+      "expected": "codekataguvi"
+    },
+    {
+      "input": {
+        "s": "  a b c  "
+      },
+      "expected": "abc"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": ""
+    },
+    {
+      "input": {
+        "s": "hello\tworld\n"
+      },
+      "expected": "helloworld"
+    },
+    {
+      "input": {
+        "s": "no_spaces"
+      },
+      "expected": "no_spaces"
+    }
+  ],
+  "solution": "def remove_spaces(s: str) -> str:\n    return ''.join(s.split())\n",
+  "explanation": "Splitting on default whitespace and re-joining extracts all non-whitespace in O(N) time."
+}

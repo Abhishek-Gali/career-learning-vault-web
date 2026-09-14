@@ -1,0 +1,77 @@
+{
+  "id": "prog_quicksort",
+  "title": "Programiz: QuickSort Algorithm",
+  "platform": "Programiz",
+  "difficulty": "Hard",
+  "category": "Sorting Algorithms",
+  "description": "Implement the QuickSort algorithm to sort an array of integers `arr` in ascending order.",
+  "constraints": "0 <= len(arr) <= 10^4\n\u2022 Time: O(N log N) average | Space: O(log N)",
+  "function_name": "quicksort",
+  "starter_code": "def quicksort(arr: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          8,
+          7,
+          2,
+          1,
+          0,
+          9,
+          6
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        2,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "arr": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  ],
+  "solution": "def quicksort(arr: list[int]) -> list[int]:\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    mid = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quicksort(left) + mid + quicksort(right)\n",
+  "explanation": "Divide-and-conquer partitioning around midpoint pivot runs in O(N log N) average time."
+}

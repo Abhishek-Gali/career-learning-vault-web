@@ -1,0 +1,70 @@
+{
+  "id": "cw_pete_the_baker",
+  "title": "Codewars 5kyu: Pete, the Baker",
+  "platform": "Codewars",
+  "difficulty": "Hard",
+  "category": "Hash Tables & Logic",
+  "description": "Pete likes to bake some cakes. He has some recipes and ingredients. Write a function `cakes()`, which takes the recipe (dict) and the available ingredients (dict) and returns the maximum number of cakes Pete can bake (integer). Missing ingredients count as 0.",
+  "constraints": "1 <= len(recipe) <= 50\n\u2022 Time: O(R) | Space: O(1)",
+  "function_name": "cakes",
+  "starter_code": "def cakes(recipe: dict, available: dict) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "recipe": {
+          "flour": 500,
+          "sugar": 200,
+          "eggs": 1
+        },
+        "available": {
+          "flour": 1200,
+          "sugar": 1200,
+          "eggs": 5,
+          "milk": 200
+        }
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "recipe": {
+          "apples": 3,
+          "flour": 300,
+          "sugar": 150,
+          "milk": 100,
+          "oil": 100
+        },
+        "available": {
+          "sugar": 500,
+          "flour": 2000,
+          "milk": 2000
+        }
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "recipe": {
+          "flour": 100
+        },
+        "available": {
+          "flour": 1000
+        }
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "recipe": {
+          "eggs": 2
+        },
+        "available": {}
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def cakes(recipe: dict, available: dict) -> int:\n    return min(available.get(ing, 0) // amt for ing, amt in recipe.items())\n",
+  "explanation": "Bottleneck capacity is bounded by min floor division of available supplies by recipe requirements."
+}

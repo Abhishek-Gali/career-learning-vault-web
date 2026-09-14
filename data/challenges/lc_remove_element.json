@@ -1,0 +1,83 @@
+{
+  "id": "lc_remove_element",
+  "title": "LeetCode 27: Remove Element",
+  "platform": "LeetCode",
+  "difficulty": "Easy",
+  "category": "Arrays",
+  "description": "Given an integer array `nums` and an integer `val`, remove all occurrences of `val` and return the remaining elements.",
+  "constraints": "0 <= len(nums) <= 100\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "remove_element",
+  "starter_code": "def remove_element(nums: list[int], val: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          3,
+          2,
+          2,
+          3
+        ],
+        "val": 3
+      },
+      "expected": [
+        2,
+        2
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          1,
+          2,
+          2,
+          3,
+          0,
+          4,
+          2
+        ],
+        "val": 2
+      },
+      "expected": [
+        0,
+        1,
+        3,
+        0,
+        4
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [],
+        "val": 1
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nums": [
+          1
+        ],
+        "val": 1
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nums": [
+          4,
+          5
+        ],
+        "val": 1
+      },
+      "expected": [
+        4,
+        5
+      ]
+    }
+  ],
+  "solution": "def remove_element(nums: list[int], val: int) -> list[int]:\n    return [x for x in nums if x != val]\n",
+  "explanation": "Filter elements not equal to val in O(N) time."
+}

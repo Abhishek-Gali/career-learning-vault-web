@@ -1,0 +1,45 @@
+{
+  "id": "hr_solve_me_first",
+  "title": "HackerRank: Solve Me First",
+  "platform": "HackerRank",
+  "difficulty": "Easy",
+  "category": "Warmup",
+  "description": "Complete the function `solve_me_first` to compute the sum of two integers `a` and `b`.",
+  "constraints": "1 <= a, b <= 1000\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "solve_me_first",
+  "starter_code": "def solve_me_first(a: int, b: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "a": 2,
+        "b": 3
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "a": 100,
+        "b": 200
+      },
+      "expected": 300
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "a": 1,
+        "b": 1
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "a": 999,
+        "b": 1
+      },
+      "expected": 1000
+    }
+  ],
+  "solution": "def solve_me_first(a: int, b: int) -> int:\n    return a + b\n",
+  "explanation": "Returns arithmetic sum of two integers."
+}

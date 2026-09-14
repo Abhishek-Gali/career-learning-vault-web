@@ -1,0 +1,47 @@
+{
+  "id": "cw_persistent_bugger",
+  "title": "Codewars 6kyu: Persistent Bugger",
+  "platform": "Codewars",
+  "difficulty": "Medium",
+  "category": "Math",
+  "description": "Write a function `persistence` that takes in a positive parameter `num` and returns its multiplicative persistence, which is the number of times you must multiply the digits in `num` until you reach a single digit.",
+  "constraints": "0 <= n <= 10^9\n\u2022 Time: O(K * log N) | Space: O(log N)",
+  "function_name": "persistence",
+  "starter_code": "def persistence(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 39
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "n": 999
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 25
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": 1
+    }
+  ],
+  "solution": "def persistence(n: int) -> int:\n    count = 0\n    while n >= 10:\n        prod = 1\n        for digit in str(n):\n            prod *= int(digit)\n        n = prod\n        count += 1\n    return count\n",
+  "explanation": "Multiplies digits iteratively until value < 10, returning step count."
+}

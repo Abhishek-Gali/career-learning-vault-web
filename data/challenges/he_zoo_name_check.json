@@ -1,0 +1,41 @@
+{
+  "id": "he_zoo_name_check",
+  "title": "HackerEarth: Zoo Name Checker",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Basic Programming",
+  "description": "You are required to enter a word that consists of 'z' and 'o' that can be used to simulate the word 'zoo'. A word is similar if 2 * x == y where x is the number of 'z's and y is the number of 'o's. Return 'Yes' if similar, 'No' otherwise.",
+  "constraints": "1 <= len(s) <= 20\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "is_zoo_word",
+  "starter_code": "def is_zoo_word(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "zzzoooooo"
+      },
+      "expected": "Yes"
+    },
+    {
+      "input": {
+        "s": "zzooo"
+      },
+      "expected": "No"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "zo"
+      },
+      "expected": "No"
+    },
+    {
+      "input": {
+        "s": "zzoooo"
+      },
+      "expected": "Yes"
+    }
+  ],
+  "solution": "def is_zoo_word(s: str) -> str:\n    z_count = s.count('z')\n    o_count = s.count('o')\n    return 'Yes' if 2 * z_count == o_count else 'No'\n",
+  "explanation": "Counts occurrences of z and o and verifies 2*z == o in O(N) time."
+}

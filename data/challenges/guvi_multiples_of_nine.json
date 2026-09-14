@@ -1,0 +1,64 @@
+{
+  "id": "guvi_multiples_of_nine",
+  "title": "GUVI: Multiples of Nine",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Easy",
+  "category": "Loops & Math",
+  "description": "Given an integer `n`, return a list containing the first `n` multiples of 9 starting from 9.",
+  "constraints": "1 <= n <= 100\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "multiples_of_nine",
+  "starter_code": "def multiples_of_nine(n: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 3
+      },
+      "expected": [
+        9,
+        18,
+        27
+      ]
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": [
+        9
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 5
+      },
+      "expected": [
+        9,
+        18,
+        27,
+        36,
+        45
+      ]
+    },
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": [
+        9,
+        18,
+        27,
+        36,
+        45,
+        54,
+        63,
+        72,
+        81,
+        90
+      ]
+    }
+  ],
+  "solution": "def multiples_of_nine(n: int) -> list[int]:\n    return [9 * i for i in range(1, n + 1)]\n",
+  "explanation": "List comprehension produces multiples in O(N) time."
+}

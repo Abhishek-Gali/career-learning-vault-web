@@ -1,0 +1,41 @@
+{
+  "id": "he_factorial_mod",
+  "title": "HackerEarth: Factorial Modulo 10^9+7",
+  "platform": "HackerEarth",
+  "difficulty": "Easy",
+  "category": "Math",
+  "description": "You have been given a positive integer `n`. You need to find and print the Factorial of this number modulo 10^9 + 7.",
+  "constraints": "1 <= n <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "factorial_mod",
+  "starter_code": "def factorial_mod(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 5
+      },
+      "expected": 120
+    },
+    {
+      "input": {
+        "n": 2
+      },
+      "expected": 2
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 20
+      },
+      "expected": 146326063
+    }
+  ],
+  "solution": "def factorial_mod(n: int) -> int:\n    MOD = 10**9 + 7\n    ans = 1\n    for i in range(2, n + 1):\n        ans = (ans * i) % MOD\n    return ans\n",
+  "explanation": "Computes factorial using modular multiplication in O(N) time."
+}

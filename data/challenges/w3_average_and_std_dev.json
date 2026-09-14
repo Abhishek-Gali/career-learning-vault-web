@@ -1,0 +1,69 @@
+{
+  "id": "w3_average_and_std_dev",
+  "title": "W3Schools: Mean and Population Standard Deviation",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Statistics & Math",
+  "description": "Given a list of numbers `nums`, return `[mean, std_dev]` where both are rounded to 2 decimal places. Population standard deviation: sqrt(sum((x - mean)^2) / N).",
+  "constraints": "1 <= len(nums) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "mean_and_std",
+  "starter_code": "def mean_and_std(nums: list[float]) -> list[float]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0
+        ]
+      },
+      "expected": [
+        30.0,
+        14.14
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      "expected": [
+        5.0,
+        0.0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          1.0,
+          2.0,
+          3.0
+        ]
+      },
+      "expected": [
+        2.0,
+        0.82
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          100.0
+        ]
+      },
+      "expected": [
+        100.0,
+        0.0
+      ]
+    }
+  ],
+  "solution": "def mean_and_std(nums: list[float]) -> list[float]:\n    n = len(nums)\n    mean = sum(nums) / n\n    variance = sum((x - mean)**2 for x in nums) / n\n    std = variance ** 0.5\n    return [round(mean, 2), round(std, 2)]\n",
+  "explanation": "Computes statistical mean and population standard deviation in O(N) time."
+}

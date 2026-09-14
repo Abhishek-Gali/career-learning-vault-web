@@ -1,0 +1,64 @@
+{
+  "id": "w3_list_comprehension_evens",
+  "title": "W3Schools: List Comprehension (Even Squares)",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "List Comprehension",
+  "description": "Given a list of integers `nums`, use list comprehension to return the squares of all even numbers in `nums`.",
+  "constraints": "0 <= len(nums) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "even_squares",
+  "starter_code": "def even_squares(nums: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "expected": [
+        4,
+        16,
+        36
+      ]
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          3,
+          5
+        ]
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          0,
+          -2,
+          -4
+        ]
+      },
+      "expected": [
+        0,
+        4,
+        16
+      ]
+    },
+    {
+      "input": {
+        "nums": []
+      },
+      "expected": []
+    }
+  ],
+  "solution": "def even_squares(nums: list[int]) -> list[int]:\n    return [x**2 for x in nums if x % 2 == 0]\n",
+  "explanation": "Filters even elements and squares them via list comprehension in O(N) time."
+}

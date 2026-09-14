@@ -1,0 +1,53 @@
+{
+  "id": "placement_fibonacci_term",
+  "title": "Placement: N-th Fibonacci Term",
+  "platform": "Placement Preparation",
+  "difficulty": "Easy",
+  "category": "Math & Numbers",
+  "description": "The Fibonacci numbers form a sequence where F(0) = 0, F(1) = 1, and F(n) = F(n-1) + F(n-2) for n >= 2. Given `n`, compute F(n).",
+  "constraints": "0 <= n <= 50\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "fibonacci",
+  "starter_code": "def fibonacci(n: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "n": 4
+      },
+      "expected": 3
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "n": 10
+      },
+      "expected": 55
+    },
+    {
+      "input": {
+        "n": 20
+      },
+      "expected": 6765
+    },
+    {
+      "input": {
+        "n": 30
+      },
+      "expected": 832040
+    }
+  ],
+  "solution": "def fibonacci(n: int) -> int:\n    if n <= 0:\n        return 0\n    if n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b\n",
+  "explanation": "Iterative bottom-up state transition avoids exponential recursion, yielding O(N) runtime and O(1) space."
+}

@@ -1,0 +1,59 @@
+{
+  "id": "he_micro_and_array_update",
+  "title": "HackerEarth: Micro and Array Update",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Arrays",
+  "description": "Micro purchased an array `arr` of `N` integers and an integer `K`. In each second, he can increase all elements by 1. Find the minimum time in seconds after which all elements become >= K.",
+  "constraints": "1 <= len(arr) <= 10^5, 1 <= k <= 10^6\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "min_array_updates",
+  "starter_code": "def min_array_updates(arr: list[int], k: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          5
+        ],
+        "k": 4
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "arr": [
+          2,
+          5,
+          5
+        ],
+        "k": 3
+      },
+      "expected": 1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          5,
+          6,
+          7
+        ],
+        "k": 3
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "arr": [
+          0
+        ],
+        "k": 10
+      },
+      "expected": 10
+    }
+  ],
+  "solution": "def min_array_updates(arr: list[int], k: int) -> int:\n    min_val = min(arr)\n    return max(0, k - min_val)\n",
+  "explanation": "Target depends on the minimum element: max(0, k - min(arr)) in O(N) time."
+}

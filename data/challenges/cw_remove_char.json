@@ -1,0 +1,41 @@
+{
+  "id": "cw_remove_char",
+  "title": "Codewars 8kyu: Remove First and Last Character",
+  "platform": "Codewars",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "It's pretty straightforward. Your goal is to create a function that removes the first and last characters of a string. You're given one parameter, the original string. You don't have to worry about strings with less than two characters.",
+  "constraints": "2 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "remove_char",
+  "starter_code": "def remove_char(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "eloquent"
+      },
+      "expected": "loquen"
+    },
+    {
+      "input": {
+        "s": "country"
+      },
+      "expected": "ountr"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "person"
+      },
+      "expected": "erso"
+    },
+    {
+      "input": {
+        "s": "ab"
+      },
+      "expected": ""
+    }
+  ],
+  "solution": "def remove_char(s: str) -> str:\n    return s[1:-1]\n",
+  "explanation": "String slicing from index 1 to -1 omits boundary characters in O(N) time."
+}

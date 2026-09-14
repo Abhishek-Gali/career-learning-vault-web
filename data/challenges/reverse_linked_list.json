@@ -1,0 +1,82 @@
+{
+  "id": "reverse_linked_list",
+  "title": "12. Reverse Linked List (In-Place Pointers)",
+  "difficulty": "Easy",
+  "category": "Linked Lists",
+  "description": "Given the head of a singly linked list represented as a standard list of integer values `values` (e.g. `[1, 2, 3, 4, 5]`), reverse the list and return the reversed list of values (`[5, 4, 3, 2, 1]`).\n\nYour solution should simulate the in-place pointer redirect `curr.next = prev` rather than simply calling Python's built-in `values[::-1]`.",
+  "constraints": "\u2022 0 <= len(values) <= 5000\n\u2022 -5000 <= values[i] <= 5000\n\u2022 Optimal Time: O(N) | Optimal Space: O(1) auxiliary",
+  "function_name": "reverse_list",
+  "starter_code": "def reverse_list(values: list[int]) -> list[int]:\n    # Implement the iterative 3-pointer reversal algorithm\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "values": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": [
+        5,
+        4,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "input": {
+        "values": [
+          1,
+          2
+        ]
+      },
+      "expected": [
+        2,
+        1
+      ]
+    },
+    {
+      "input": {
+        "values": []
+      },
+      "expected": []
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "values": [
+          42
+        ]
+      },
+      "expected": [
+        42
+      ]
+    },
+    {
+      "input": {
+        "values": [
+          -1,
+          -2,
+          -3,
+          0,
+          10,
+          20
+        ]
+      },
+      "expected": [
+        20,
+        10,
+        0,
+        -3,
+        -2,
+        -1
+      ]
+    }
+  ],
+  "solution": "def reverse_list(values: list[int]) -> list[int]:\n    if not values:\n        return []\n    # Simulation of linked list node pointer redirect\n    class Node:\n        def __init__(self, v):\n            self.val = v\n            self.next = None\n    head = Node(values[0])\n    curr = head\n    for v in values[1:]:\n        curr.next = Node(v)\n        curr = curr.next\n    # In-place reversal\n    prev = None\n    curr = head\n    while curr:\n        nxt = curr.next\n        curr.next = prev\n        prev = curr\n        curr = nxt\n    # Collect reversed\n    res = []\n    curr = prev\n    while curr:\n        res.append(curr.val)\n        curr = curr.next\n    return res\n",
+  "explanation": "Iterative reversal maintains three pointers (`prev`, `curr`, `nxt`). At each step, `curr.next` is redirected to `prev`. Advancing `prev = curr` and `curr = nxt` reverses all pointers in a single pass O(N) with O(1) auxiliary space."
+}

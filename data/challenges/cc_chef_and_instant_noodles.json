@@ -1,0 +1,45 @@
+{
+  "id": "cc_chef_and_instant_noodles",
+  "title": "CodeChef: Chef and Instant Noodles",
+  "platform": "CodeChef",
+  "difficulty": "Easy",
+  "category": "Basic Math",
+  "description": "Chef has `x` stoves. Each stove can cook 1 packet of noodles in 1 minute. Chef is open for `y` minutes. Find the maximum number of customers Chef can serve if each customer wants exactly 1 packet.",
+  "constraints": "1 <= x, y <= 1000\n\u2022 Time: O(1) | Space: O(1)",
+  "function_name": "max_customers",
+  "starter_code": "def max_customers(x: int, y: int) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "x": 3,
+        "y": 7
+      },
+      "expected": 21
+    },
+    {
+      "input": {
+        "x": 7,
+        "y": 8
+      },
+      "expected": 56
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "x": 1,
+        "y": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "x": 10,
+        "y": 10
+      },
+      "expected": 100
+    }
+  ],
+  "solution": "def max_customers(x: int, y: int) -> int:\n    return x * y\n",
+  "explanation": "Total capacity equals product of stoves and minutes."
+}

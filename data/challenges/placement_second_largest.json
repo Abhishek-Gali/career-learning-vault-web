@@ -1,0 +1,80 @@
+{
+  "id": "placement_second_largest",
+  "title": "Placement: Second Largest Element",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Arrays",
+  "description": "Given an array of integers `nums`, return the second largest DISTINCT element in the array. If no such element exists, return -1.",
+  "constraints": "1 <= len(nums) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "second_largest",
+  "starter_code": "def second_largest(nums: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nums": [
+          12,
+          35,
+          1,
+          10,
+          34,
+          1
+        ]
+      },
+      "expected": 34
+    },
+    {
+      "input": {
+        "nums": [
+          10,
+          5,
+          10
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "nums": [
+          10,
+          10,
+          10
+        ]
+      },
+      "expected": -1
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nums": [
+          5
+        ]
+      },
+      "expected": -1
+    },
+    {
+      "input": {
+        "nums": [
+          -10,
+          -5,
+          -2,
+          -20
+        ]
+      },
+      "expected": -5
+    },
+    {
+      "input": {
+        "nums": [
+          100,
+          200,
+          300,
+          300
+        ]
+      },
+      "expected": 200
+    }
+  ],
+  "solution": "def second_largest(nums: list[int]) -> int:\n    first = second = -float('inf')\n    for x in nums:\n        if x > first:\n            second = first\n            first = x\n        elif first > x > second:\n            second = x\n    return second if second != -float('inf') else -1\n",
+  "explanation": "Single-pass tracking of the first and second distinct maximums takes O(N) time and O(1) space."
+}

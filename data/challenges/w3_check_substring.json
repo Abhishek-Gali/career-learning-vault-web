@@ -1,0 +1,45 @@
+{
+  "id": "w3_check_substring",
+  "title": "W3Schools: Case-Insensitive Substring Search",
+  "platform": "W3Schools",
+  "difficulty": "Medium",
+  "category": "Strings",
+  "description": "Given `main_str` and `sub_str`, return `True` if `sub_str` is a substring of `main_str` (case-insensitive), else `False`.",
+  "constraints": "0 <= len(main_str), len(sub_str) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "has_substring",
+  "starter_code": "def has_substring(main_str: str, sub_str: str) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "main_str": "The quick brown fox",
+        "sub_str": "BROWN"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "main_str": "Python Programming",
+        "sub_str": "Java"
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "main_str": "Hello",
+        "sub_str": ""
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "main_str": "",
+        "sub_str": "a"
+      },
+      "expected": false
+    }
+  ],
+  "solution": "def has_substring(main_str: str, sub_str: str) -> bool:\n    return sub_str.lower() in main_str.lower()\n",
+  "explanation": "Lowercases strings and checks containment in O(N) time."
+}

@@ -1,0 +1,68 @@
+{
+  "id": "gfg_inorder_traversal",
+  "title": "GFG: Inorder Traversal of Binary Tree",
+  "platform": "GeeksforGeeks",
+  "difficulty": "Easy",
+  "category": "Trees",
+  "description": "Given a binary tree represented as a list of nodes in level-order (None representing missing child), return its Inorder Traversal (Left, Root, Right).",
+  "constraints": "0 <= len(nodes) <= 1000\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "inorder_traversal",
+  "starter_code": "def inorder_traversal(nodes: list) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "nodes": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": [
+        4,
+        2,
+        5,
+        1,
+        3
+      ]
+    },
+    {
+      "input": {
+        "nodes": [
+          1,
+          null,
+          2,
+          null,
+          null,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        3,
+        2
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "nodes": []
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "nodes": [
+          1
+        ]
+      },
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "solution": "def inorder_traversal(nodes: list) -> list[int]:\n    if not nodes or nodes[0] is None:\n        return []\n    res = []\n    def dfs(idx):\n        if idx >= len(nodes) or nodes[idx] is None:\n            return\n        dfs(2 * idx + 1)\n        res.append(nodes[idx])\n        dfs(2 * idx + 2)\n    dfs(0)\n    return res\n",
+  "explanation": "Recursively explores left subtree (2*i + 1), appends node, then explores right subtree (2*i + 2) in O(N) time."
+}

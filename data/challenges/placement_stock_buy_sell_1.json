@@ -1,0 +1,71 @@
+{
+  "id": "placement_stock_buy_sell_1",
+  "title": "Placement: Best Time to Buy and Sell Stock",
+  "platform": "Placement Preparation",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming & Greedy",
+  "description": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return maximum profit. If no profit can be achieved, return 0.",
+  "constraints": "1 <= len(prices) <= 10^5\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "max_profit",
+  "starter_code": "def max_profit(prices: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "prices": [
+          7,
+          1,
+          5,
+          3,
+          6,
+          4
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "prices": [
+          7,
+          6,
+          4,
+          3,
+          1
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "prices": [
+          1,
+          2
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "prices": [
+          2,
+          4,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "prices": [
+          3,
+          3,
+          3
+        ]
+      },
+      "expected": 0
+    }
+  ],
+  "solution": "def max_profit(prices: list[int]) -> int:\n    min_price = float('inf')\n    max_prof = 0\n    for p in prices:\n        if p < min_price:\n            min_price = p\n        elif p - min_price > max_prof:\n            max_prof = p - min_price\n    return max_prof\n",
+  "explanation": "Track the lowest historical price encountered so far and record peak difference in O(N) time and O(1) space."
+}

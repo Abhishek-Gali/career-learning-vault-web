@@ -1,0 +1,83 @@
+{
+  "id": "lc_plus_one",
+  "title": "LeetCode 66: Plus One",
+  "platform": "LeetCode",
+  "difficulty": "Easy",
+  "category": "Arrays & Math",
+  "description": "You are given a large integer represented as an integer array `digits`, where each `digits[i]` is the `i`th digit of the integer. Increment the large integer by one and return the resulting array of digits.",
+  "constraints": "1 <= len(digits) <= 100\n\u2022 Time: O(N) | Space: O(1) auxiliary",
+  "function_name": "plus_one",
+  "starter_code": "def plus_one(digits: list[int]) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "digits": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        4
+      ]
+    },
+    {
+      "input": {
+        "digits": [
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": [
+        4,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "input": {
+        "digits": [
+          9
+        ]
+      },
+      "expected": [
+        1,
+        0
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "digits": [
+          9,
+          9,
+          9
+        ]
+      },
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "input": {
+        "digits": [
+          0
+        ]
+      },
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "solution": "def plus_one(digits: list[int]) -> list[int]:\n    res = list(digits)\n    for i in range(len(res) - 1, -1, -1):\n        if res[i] < 9:\n            res[i] += 1\n            return res\n        res[i] = 0\n    return [1] + res\n",
+  "explanation": "Iterating right-to-left handles carry propagation in O(N) time without full integer reconstruction."
+}

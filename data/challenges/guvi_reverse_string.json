@@ -1,0 +1,47 @@
+{
+  "id": "guvi_reverse_string",
+  "title": "GUVI: Reverse a String",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Easy",
+  "category": "Strings",
+  "description": "Given a string `s`, return the reversed string.",
+  "constraints": "0 <= len(s) <= 10^5\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "reverse_string",
+  "starter_code": "def reverse_string(s: str) -> str:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "codekata"
+      },
+      "expected": "atakedoc"
+    },
+    {
+      "input": {
+        "s": "hello"
+      },
+      "expected": "olleh"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": ""
+    },
+    {
+      "input": {
+        "s": "a"
+      },
+      "expected": "a"
+    },
+    {
+      "input": {
+        "s": "racecar"
+      },
+      "expected": "racecar"
+    }
+  ],
+  "solution": "def reverse_string(s: str) -> str:\n    return s[::-1]\n",
+  "explanation": "Python slicing reverses the character sequence in O(N) time."
+}

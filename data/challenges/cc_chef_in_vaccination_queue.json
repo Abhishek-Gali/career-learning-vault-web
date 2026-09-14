@@ -1,0 +1,59 @@
+{
+  "id": "cc_chef_in_vaccination_queue",
+  "title": "CodeChef: Chef in Vaccination Queue",
+  "platform": "CodeChef",
+  "difficulty": "Medium",
+  "category": "Simulation",
+  "description": "In a queue of people, array `arr` has 0 for a child (takes 1 minute) and 1 for an elderly person (takes 2 minutes). Chef is at 1-based position `p`. Find total minutes until Chef gets vaccinated.",
+  "constraints": "1 <= p <= len(arr) <= 100\n\u2022 Time: O(N) | Space: O(1)",
+  "function_name": "queue_time",
+  "starter_code": "def queue_time(p: int, arr: list[int]) -> int:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "p": 2,
+        "arr": [
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "p": 4,
+        "arr": [
+          0,
+          1,
+          1,
+          0
+        ]
+      },
+      "expected": 6
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "p": 1,
+        "arr": [
+          0
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "p": 1,
+        "arr": [
+          1
+        ]
+      },
+      "expected": 2
+    }
+  ],
+  "solution": "def queue_time(p: int, arr: list[int]) -> int:\n    return sum(2 if arr[i] == 1 else 1 for i in range(p))\n",
+  "explanation": "Sums elapsed vaccination durations up to position p in O(p) time."
+}

@@ -1,0 +1,75 @@
+{
+  "id": "he_monk_and_rotation",
+  "title": "HackerEarth: Monk and Rotation",
+  "platform": "HackerEarth",
+  "difficulty": "Medium",
+  "category": "Arrays",
+  "description": "Monk loves to perform different operations on arrays. Given an array `arr` of size `N` and integer `K`, rotate the array right by `K` steps and return the modified array.",
+  "constraints": "1 <= len(arr) <= 10^5, 0 <= k <= 10^6\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "rotate_monk_array",
+  "starter_code": "def rotate_monk_array(arr: list[int], k: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "k": 2
+      },
+      "expected": [
+        4,
+        5,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2
+        ],
+        "k": 3
+      },
+      "expected": [
+        2,
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "arr": [
+          10
+        ],
+        "k": 5
+      },
+      "expected": [
+        10
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "k": 0
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "solution": "def rotate_monk_array(arr: list[int], k: int) -> list[int]:\n    if not arr:\n        return []\n    k = k % len(arr)\n    return arr[-k:] + arr[:-k] if k > 0 else list(arr)\n",
+  "explanation": "Modulus normalization k % n slices trailing elements to front in O(N) time."
+}

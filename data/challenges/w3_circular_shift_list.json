@@ -1,0 +1,86 @@
+{
+  "id": "w3_circular_shift_list",
+  "title": "W3Schools: Circular Shift List by K",
+  "platform": "W3Schools",
+  "difficulty": "Hard",
+  "category": "Arrays",
+  "description": "Given a list `lst` and an integer `k`, rotate the list to the right by `k` steps. `k` can be positive, negative (left shift), or larger than the list size.",
+  "constraints": "0 <= len(lst) <= 10^5, -10^9 <= k <= 10^9\n\u2022 Time: O(N) | Space: O(N)",
+  "function_name": "circular_shift",
+  "starter_code": "def circular_shift(lst: list[int], k: int) -> list[int]:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "k": 2
+      },
+      "expected": [
+        4,
+        5,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "k": -1
+      },
+      "expected": [
+        2,
+        3,
+        4,
+        5,
+        1
+      ]
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "lst": [],
+        "k": 5
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "lst": [
+          1
+        ],
+        "k": 10
+      },
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          2
+        ],
+        "k": 3
+      },
+      "expected": [
+        2,
+        1
+      ]
+    }
+  ],
+  "solution": "def circular_shift(lst: list[int], k: int) -> list[int]:\n    if not lst:\n        return []\n    k = k % len(lst)\n    return lst[-k:] + lst[:-k] if k > 0 else list(lst)\n",
+  "explanation": "Normalizes k modulo list length handling both positive and negative shifts in O(N) time."
+}

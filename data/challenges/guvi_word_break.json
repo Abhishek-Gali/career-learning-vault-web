@@ -1,0 +1,71 @@
+{
+  "id": "guvi_word_break",
+  "title": "GUVI: Word Break Problem",
+  "platform": "GUVI - CodeKata",
+  "difficulty": "Hard",
+  "category": "Dynamic Programming",
+  "description": "Given a string `s` and a dictionary of strings `word_dict`, return `True` if `s` can be segmented into a space-separated sequence of one or more dictionary words.",
+  "constraints": "1 <= len(s) <= 300, 1 <= len(word_dict) <= 1000\n\u2022 Time: O(N^2) | Space: O(N)",
+  "function_name": "word_break",
+  "starter_code": "def word_break(s: str, word_dict: list[str]) -> bool:\n    pass\n",
+  "visible_tests": [
+    {
+      "input": {
+        "s": "leetcode",
+        "word_dict": [
+          "leet",
+          "code"
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "applepenapple",
+        "word_dict": [
+          "apple",
+          "pen"
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "catsandog",
+        "word_dict": [
+          "cats",
+          "dog",
+          "sand",
+          "and",
+          "cat"
+        ]
+      },
+      "expected": false
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": {
+        "s": "a",
+        "word_dict": [
+          "a"
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "bb",
+        "word_dict": [
+          "a",
+          "b",
+          "bbb",
+          "bbbb"
+        ]
+      },
+      "expected": true
+    }
+  ],
+  "solution": "def word_break(s: str, word_dict: list[str]) -> bool:\n    words = set(word_dict)\n    dp = [False] * (len(s) + 1)\n    dp[0] = True\n    for i in range(1, len(s) + 1):\n        for j in range(i):\n            if dp[j] and s[j:i] in words:\n                dp[i] = True\n                break\n    return dp[len(s)]\n",
+  "explanation": "dp[i] stores whether prefix s[0:i] can be validly segmented, running in O(N^2) time with hash set lookup."
+}
