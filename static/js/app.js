@@ -1,6 +1,7 @@
 /**
- * Career Learning Vault — SPA Application Controller
- * High-performance vanilla JS controller for Refero Design & Watermelon UI
+ * Career Learning Vault — Full-Stack Cloud Web Hub
+ * Architecture & Engineering by Abhishek Gali
+ * Powered by Refero Design & Watermelon UI System
  */
 
 const App = {
@@ -16,17 +17,17 @@ const App = {
     testResults: null,
     isRunning: false,
     
-    // Interview Quiz State
+    // Interview Quiz Engine State
     interviewTracks: {},
-    selectedTrack: 'data_science',
-    selectedSet: '',
+    selectedTrack: 'cybersecurity',
+    selectedSet: 'domain1_security_principles',
     quizQuestions: [],
     currentQuizIdx: 0,
     selectedQuizOption: null,
     quizSubmitted: false,
-    quizScore: 0,
+    quizStats: { correct: 0, incorrect: 0 },
 
-    // Cron monitor
+    // Cron Keep-Alive Telemetry
     healthData: null
   },
 
@@ -45,7 +46,7 @@ const App = {
 
   bindGlobalNavigation() {
     document.querySelectorAll('.nav-tab-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const tab = btn.dataset.tab;
         this.switchTab(tab);
       });
@@ -73,7 +74,7 @@ const App = {
     }
   },
 
-  // ── Platforms & Challenges ────────────────────────────────────────────────
+  // ── Platforms & Challenges (Coding Sandbox) ────────────────────────────────
   async loadPlatforms() {
     try {
       const res = await fetch('/api/platforms');
@@ -89,10 +90,11 @@ const App = {
     const container = document.getElementById('platform-pills');
     if (!container) return;
 
+    let totalAll = this.state.platforms.reduce((acc, p) => acc + p.count, 0);
     let html = `
       <button class="platform-pill ${this.state.selectedPlatform === 'all' ? 'active' : ''}" data-plat="all">
-        <span>All Platforms</span>
-        <span class="pill-counter">${this.state.platforms.reduce((acc, p) => acc + p.count, 0)}</span>
+        <span>🌐 All Platforms</span>
+        <span class="pill-counter">${totalAll}</span>
       </button>
     `;
 
@@ -137,7 +139,7 @@ const App = {
     const listEl = document.getElementById('challenge-list');
     const countBadge = document.getElementById('challenge-count-badge');
     if (countBadge) {
-      countBadge.textContent = `${this.state.challenges.length} Found`;
+      countBadge.textContent = `${this.state.challenges.length} Available`;
     }
 
     if (!listEl) return;
@@ -145,7 +147,8 @@ const App = {
     if (this.state.challenges.length === 0) {
       listEl.innerHTML = `
         <div class="p-8 text-center text-slate-400">
-          <p class="text-sm">No matching challenges found.</p>
+          <p class="text-sm font-medium">No challenges matching filter.</p>
+          <button class="mt-3 text-xs text-emerald-400 underline" onclick="App.resetFilters()">Clear Filters</button>
         </div>
       `;
       return;
@@ -161,13 +164,14 @@ const App = {
         <div class="challenge-item ${isSelected ? 'active' : ''}" data-cid="${ch.id}">
           <div class="flex-1 min-w-0 pr-2">
             <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs px-2 py-0.5 rounded-full ${diffClass} font-semibold">${ch.difficulty}</span>
-              <span class="text-xs text-slate-400 truncate">${ch.platform}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full ${diffClass} font-semibold">${ch.difficulty}</span>
+              <span class="text-[11px] text-slate-400 truncate">${ch.platform}</span>
             </div>
-            <h4 class="text-sm font-semibold text-white truncate">${ch.title}</h4>
+            <h4 class="text-xs md:text-sm font-semibold text-white truncate">${ch.title}</h4>
           </div>
-          <div class="text-right">
-            <span class="text-xs text-slate-500 font-mono">${ch.visible_tests_count + ch.hidden_tests_count} Tests</span>
+          <div class="text-right flex flex-col items-end">
+            <span class="text-[11px] text-slate-500 font-mono">${ch.visible_tests_count + ch.hidden_tests_count} Tests</span>
+            <span class="text-[10px] text-emerald-400/80 font-mono">Python 3</span>
           </div>
         </div>
       `;
@@ -182,6 +186,17 @@ const App = {
     });
   },
 
+  resetFilters() {
+    this.state.selectedPlatform = 'all';
+    this.state.selectedDifficulty = 'All';
+    this.state.searchQuery = '';
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.value = '';
+    document.querySelectorAll('.diff-pill').forEach(p => p.classList.toggle('active', p.dataset.diff === 'All'));
+    this.renderPlatformPills();
+    this.loadChallenges();
+  },
+
   async selectChallenge(cid) {
     try {
       const res = await fetch(`/api/challenges/${cid}`);
@@ -192,7 +207,7 @@ const App = {
       this.state.testResults = null;
 
       this.renderChallengeDetail();
-      this.renderChallengeList(); // Updates active card highlight
+      this.renderChallengeList();
     } catch (e) {
       console.error('Failed to fetch challenge detail:', e);
     }
@@ -202,7 +217,6 @@ const App = {
     const ch = this.state.activeChallenge;
     if (!ch) return;
 
-    // Header info
     document.getElementById('ch-title').textContent = ch.title;
     document.getElementById('ch-platform').textContent = ch.platform;
     document.getElementById('ch-category').textContent = ch.category;
@@ -215,31 +229,27 @@ const App = {
       ch.difficulty.toLowerCase() === 'medium' ? 'badge-medium' : 'badge-hard'
     }`;
 
-    // Description text
     document.getElementById('ch-description').innerHTML = this.formatMarkdown(ch.description);
     
-    // Constraints
     const constEl = document.getElementById('ch-constraints');
     if (constEl) {
       if (ch.constraints) {
-        constEl.innerHTML = `<div class="mt-4 p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-xs text-slate-300 font-mono"><strong>Constraints:</strong><br>${ch.constraints}</div>`;
+        constEl.innerHTML = `<div class="mt-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 text-xs text-slate-300 font-mono"><strong class="text-emerald-400">Constraints:</strong><br>${ch.constraints}</div>`;
       } else {
         constEl.innerHTML = '';
       }
     }
 
-    // Set Editor Content
     const editor = document.getElementById('code-editor');
     if (editor) {
       editor.value = this.state.editorContent;
     }
 
-    // Reset results pane
     const resultsContainer = document.getElementById('results-container');
     if (resultsContainer) {
       resultsContainer.innerHTML = `
         <div class="text-slate-500 text-xs font-mono py-4 text-center">
-          Click "Run Test Suite" to execute your Python solution against test cases.
+          Click "Run Test Suite" to execute your solution against ${ch.visible_tests.length + ch.hidden_tests_count} test cases.
         </div>
       `;
     }
@@ -248,8 +258,8 @@ const App = {
   formatMarkdown(text) {
     if (!text) return '';
     return text
-      .replace(/### (.*?)\n/g, '<h3 class="text-base font-bold text-white mt-3 mb-1">$1</h3>')
-      .replace(/## (.*?)\n/g, '<h2 class="text-lg font-bold text-white mt-4 mb-2">$1</h2>')
+      .replace(/### (.*?)\n/g, '<h3 class="text-sm font-bold text-white mt-3 mb-1">$1</h3>')
+      .replace(/## (.*?)\n/g, '<h2 class="text-base font-bold text-white mt-4 mb-2">$1</h2>')
       .replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-200">$1</strong>')
       .replace(/`(.*?)`/g, '<code class="px-1.5 py-0.5 bg-slate-800 text-emerald-300 rounded font-mono text-xs">$1</code>')
       .replace(/\n/g, '<br>');
@@ -267,14 +277,14 @@ const App = {
 
     this.state.isRunning = true;
     if (runBtn) {
-      runBtn.innerHTML = '<span class="animate-spin inline-block mr-2">⚙</span> Running Sandbox...';
+      runBtn.innerHTML = '<span class="animate-spin inline-block mr-1">⚙</span> Running...';
       runBtn.disabled = true;
     }
 
     if (resultsContainer) {
       resultsContainer.innerHTML = `
-        <div class="flex items-center justify-center gap-3 py-6 text-emerald-400 text-sm font-mono">
-          <span class="animate-spin">⚙</span> Executing candidate code in isolated subprocess...
+        <div class="flex items-center justify-center gap-3 py-6 text-emerald-400 text-xs font-mono">
+          <span class="animate-spin">⚙</span> Executing code inside isolated subprocess sandbox (3.0s timeout)...
         </div>
       `;
     }
@@ -294,11 +304,10 @@ const App = {
       this.state.testResults = report;
       this.renderTestResults(report);
 
-      // Trigger Confetti blast on PASS
       if (report.status === 'PASS' && typeof confetti === 'function') {
         confetti({
-          particleCount: 100,
-          spread: 70,
+          particleCount: 120,
+          spread: 80,
           origin: { y: 0.6 },
           colors: ['#10b981', '#34d399', '#f43f5e', '#fb7185', '#38bdf8']
         });
@@ -328,9 +337,9 @@ const App = {
     const statusColor = isPass ? 'text-emerald-400' : report.status === 'TIMEOUT' ? 'text-amber-400' : 'text-rose-400';
 
     let html = `
-      <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800 mb-3">
+      <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/90 border border-slate-800 mb-3">
         <div class="flex items-center gap-2">
-          <span class="text-base font-bold ${statusColor}">● ${report.status}</span>
+          <span class="text-sm font-bold ${statusColor}">● ${report.status}</span>
           <span class="text-xs text-slate-400 font-mono">(${report.passed_count}/${report.total_count} Passed)</span>
         </div>
         <div class="text-xs font-mono text-slate-400">
@@ -360,10 +369,10 @@ const App = {
               <span class="text-slate-400 font-mono">${r.runtime_ms} ms</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono mt-1">
-              <div class="bg-black/30 p-1.5 rounded">
+              <div class="bg-black/40 p-1.5 rounded">
                 <span class="text-slate-400">Input:</span> ${JSON.stringify(r.input)}
               </div>
-              <div class="bg-black/30 p-1.5 rounded">
+              <div class="bg-black/40 p-1.5 rounded">
                 <span class="text-slate-400">Expected:</span> <span class="text-emerald-300">${JSON.stringify(r.expected)}</span>
               </div>
             </div>
@@ -385,10 +394,10 @@ const App = {
     if (!this.state.activeChallenge) return;
     const sol = this.state.activeChallenge.solution_code;
     if (!sol) {
-      alert('Solution not available for this challenge.');
+      alert('Solution reference not available for this challenge.');
       return;
     }
-    if (confirm('Reveal verified reference solution in editor?')) {
+    if (confirm('Reveal verified solution in the editor?')) {
       const editor = document.getElementById('code-editor');
       if (editor) {
         editor.value = sol;
@@ -407,7 +416,7 @@ const App = {
     }
   },
 
-  // ── Technical Interviews System ──────────────────────────────────────────
+  // ── Technical Interviews System (ROBUST DICT/ARRAY PARSING) ──────────────
   async loadInterviewTracks() {
     try {
       const res = await fetch('/api/interviews');
@@ -422,16 +431,27 @@ const App = {
     const trackContainer = document.getElementById('interview-track-selector');
     if (!trackContainer) return;
 
-    let html = '';
     const tracks = this.state.interviewTracks;
+    const trackIcons = {
+      cybersecurity: '🛡️',
+      data_science: '📊',
+      machine_learning: '🧠',
+      dsa: '⚡'
+    };
+
+    let html = '';
     Object.keys(tracks).forEach(key => {
       const track = tracks[key];
       const isSelected = this.state.selectedTrack === key;
+      const icon = trackIcons[key] || '🎯';
       html += `
-        <button class="px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-          isSelected ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-slate-800/40 text-slate-400 border border-transparent hover:text-white'
+        <button class="px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center gap-2 ${
+          isSelected 
+            ? 'bg-gradient-to-r from-emerald-500/25 to-teal-500/25 text-emerald-300 border border-emerald-500/50 shadow-lg shadow-emerald-500/10' 
+            : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700'
         }" data-track="${key}">
-          ${track.title}
+          <span>${icon}</span>
+          <span>${track.title}</span>
         </button>
       `;
     });
@@ -440,6 +460,8 @@ const App = {
     trackContainer.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', () => {
         this.state.selectedTrack = btn.dataset.track;
+        this.state.selectedSet = ''; // Reset set so first set of new track is chosen
+        this.state.quizStats = { correct: 0, incorrect: 0 };
         this.renderInterviewTrackSelectors();
         this.renderInterviewSetPills();
       });
@@ -454,11 +476,13 @@ const App = {
 
     const trackObj = this.state.interviewTracks[this.state.selectedTrack];
     if (!trackObj || !trackObj.sets || trackObj.sets.length === 0) {
-      setContainer.innerHTML = '<span class="text-xs text-slate-400">No question sets loaded.</span>';
+      setContainer.innerHTML = '<span class="text-xs text-slate-400">No question sets available for this track.</span>';
       return;
     }
 
-    if (!this.state.selectedSet && trackObj.sets.length > 0) {
+    // Auto-select first set if none selected or invalid
+    const setIds = trackObj.sets.map(s => s.id);
+    if (!setIds.includes(this.state.selectedSet)) {
       this.state.selectedSet = trackObj.sets[0].id;
     }
 
@@ -466,10 +490,13 @@ const App = {
     trackObj.sets.forEach(set => {
       const isSelected = this.state.selectedSet === set.id;
       html += `
-        <button class="px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-          isSelected ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' : 'bg-slate-800/60 text-slate-400 border border-slate-700/50 hover:text-white'
+        <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
+          isSelected 
+            ? 'bg-gradient-to-r from-rose-500/25 to-coral-500/25 text-rose-300 border border-rose-500/50 shadow-md shadow-rose-500/10' 
+            : 'bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700'
         }" data-set="${set.id}">
-          ${set.name} (${set.question_count} Qs)
+          <span>${set.name}</span>
+          <span class="px-1.5 py-0.2 text-[10px] rounded-full bg-slate-800 text-slate-300 font-mono">${set.question_count} Qs</span>
         </button>
       `;
     });
@@ -479,6 +506,7 @@ const App = {
     setContainer.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', () => {
         this.state.selectedSet = btn.dataset.set;
+        this.state.quizStats = { correct: 0, incorrect: 0 };
         this.renderInterviewSetPills();
         this.loadQuizQuestions();
       });
@@ -512,7 +540,7 @@ const App = {
 
     const qList = this.state.quizQuestions;
     if (!qList || qList.length === 0) {
-      container.innerHTML = '<div class="p-8 text-center text-slate-400">No questions available in this set.</div>';
+      container.innerHTML = '<div class="p-8 text-center text-slate-400">Loading interview question set...</div>';
       return;
     }
 
@@ -520,84 +548,157 @@ const App = {
     const qNum = this.state.currentQuizIdx + 1;
     const totalQ = qList.length;
 
+    // Resolve Question Prompt across formats
+    const questionPrompt = q.stem || q.question || q.prompt || 'Question prompt not specified.';
+    const correctKey = (q.correct_key || q.answer || q.correct || '').toString().trim().toUpperCase();
+
+    // Parse options safely from Dictionary or Array
+    let optionsList = [];
+    if (typeof q.options === 'object' && q.options !== null && !Array.isArray(q.options)) {
+      optionsList = Object.keys(q.options).sort().map(k => ({
+        key: k.toUpperCase(),
+        text: q.options[k]
+      }));
+    } else if (Array.isArray(q.options)) {
+      optionsList = q.options.map((opt, idx) => ({
+        key: String.fromCharCode(65 + idx),
+        text: typeof opt === 'object' ? (opt.text || opt.value || JSON.stringify(opt)) : opt
+      }));
+    }
+
     let optionsHtml = '';
-    const options = q.options || [];
-
-    options.forEach((opt, idx) => {
-      let optKey = String.fromCharCode(65 + idx); // A, B, C, D
-      let optText = opt;
-      if (typeof opt === 'object') {
-        optKey = opt.key || optKey;
-        optText = opt.text || opt.value || JSON.stringify(opt);
-      }
-
-      const isChosen = this.state.selectedQuizOption === optKey;
-      let extraClass = 'bg-slate-900/60 border-slate-800 hover:border-slate-700';
+    optionsList.forEach(opt => {
+      const isChosen = this.state.selectedQuizOption === opt.key;
+      let cardStyle = 'bg-slate-900/60 border-slate-800/80 hover:border-slate-700 hover:bg-slate-800/50';
+      let badgeStyle = 'bg-slate-800 text-slate-300 border border-slate-700';
 
       if (this.state.quizSubmitted) {
-        const isCorrectOpt = (q.correct_key === optKey || q.answer === optKey || q.correct === optKey);
-        if (isCorrectOpt) {
-          extraClass = 'bg-emerald-950/40 border-emerald-500/60 text-emerald-200';
+        const isCorrect = (opt.key === correctKey);
+        if (isCorrect) {
+          cardStyle = 'bg-emerald-950/40 border-emerald-500/80 text-emerald-200 shadow-lg shadow-emerald-950/30';
+          badgeStyle = 'bg-emerald-500 text-black font-black';
         } else if (isChosen) {
-          extraClass = 'bg-rose-950/40 border-rose-500/60 text-rose-200';
+          cardStyle = 'bg-rose-950/40 border-rose-500/80 text-rose-200 shadow-lg shadow-rose-950/30';
+          badgeStyle = 'bg-rose-500 text-white font-black';
+        } else {
+          cardStyle = 'bg-slate-900/40 border-slate-800/40 opacity-50';
         }
       } else if (isChosen) {
-        extraClass = 'bg-emerald-500/15 border-emerald-500 text-white';
+        cardStyle = 'bg-emerald-500/15 border-emerald-500 text-white shadow-md shadow-emerald-500/10';
+        badgeStyle = 'bg-emerald-500 text-black font-black';
       }
 
       optionsHtml += `
-        <div class="p-3.5 rounded-lg border transition-all cursor-pointer flex items-center gap-3 ${extraClass}" onclick="App.selectQuizOption('${optKey}')">
-          <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${isChosen ? 'bg-emerald-500 text-black' : 'bg-slate-800 text-slate-300'}">
-            ${optKey}
+        <div class="p-4 rounded-xl border transition-all cursor-pointer flex items-start gap-3.5 ${cardStyle}" onclick="App.selectQuizOption('${opt.key}')">
+          <span class="w-7 h-7 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-bold ${badgeStyle}">
+            ${opt.key}
           </span>
-          <span class="text-sm flex-1">${optText}</span>
+          <span class="text-sm leading-relaxed flex-1">${opt.text}</span>
         </div>
       `;
     });
 
+    // Rationale breakdown container
     let rationaleHtml = '';
-    if (this.state.quizSubmitted && q.rationales) {
+    if (this.state.quizSubmitted) {
+      const userGotCorrect = (this.state.selectedQuizOption === correctKey);
+      
       rationaleHtml = `
-        <div class="mt-4 p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs leading-relaxed space-y-2">
-          <div class="text-emerald-400 font-bold text-sm">Pedagogical Rationale:</div>
-          ${Object.entries(q.rationales).map(([k, r]) => `
-            <div><strong class="text-slate-300">Option ${k}:</strong> <span class="text-slate-400">${r}</span></div>
-          `).join('')}
-        </div>
+        <div class="mt-5 p-5 rounded-xl ${userGotCorrect ? 'bg-emerald-950/30 border-emerald-500/40' : 'bg-rose-950/30 border-rose-500/40'} border space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-base">${userGotCorrect ? '🎉' : '💡'}</span>
+            <span class="font-bold text-sm ${userGotCorrect ? 'text-emerald-400' : 'text-rose-400'}">
+              ${userGotCorrect ? 'Correct Answer!' : `Incorrect — The correct answer is Option ${correctKey}`}
+            </span>
+          </div>
       `;
-    } else if (this.state.quizSubmitted && q.explanation) {
-      rationaleHtml = `
-        <div class="mt-4 p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs leading-relaxed">
-          <div class="text-emerald-400 font-bold text-sm mb-1">Explanation:</div>
-          <p class="text-slate-300">${q.explanation}</p>
-        </div>
-      `;
+
+      if (q.rationales && typeof q.rationales === 'object') {
+        if (q.rationales.correct) {
+          rationaleHtml += `
+            <div class="p-3 rounded-lg bg-black/40 text-xs text-emerald-300 font-medium leading-relaxed">
+              <strong class="text-white">Core Principle:</strong> ${q.rationales.correct}
+            </div>
+          `;
+        }
+        rationaleHtml += '<div class="space-y-1.5 pt-2 text-xs text-slate-300">';
+        optionsList.forEach(opt => {
+          const rText = q.rationales[opt.key];
+          if (rText) {
+            const isOptCorrect = (opt.key === correctKey);
+            rationaleHtml += `
+              <div class="p-2 rounded bg-black/20">
+                <strong class="${isOptCorrect ? 'text-emerald-400' : 'text-slate-400'}">Option ${opt.key}:</strong> 
+                <span class="text-slate-300">${rText}</span>
+              </div>
+            `;
+          }
+        });
+        rationaleHtml += '</div>';
+      } else if (q.explanation) {
+        rationaleHtml += `
+          <div class="p-3 rounded-lg bg-black/40 text-xs text-slate-300 leading-relaxed">
+            <strong class="text-emerald-400">Explanation:</strong> ${q.explanation}
+          </div>
+        `;
+      }
+
+      rationaleHtml += '</div>';
     }
 
+    // Header metadata
+    const topicText = q.domain_name || q.sub_objective || q.topic || q.level_name || 'Interview Drill';
+    const cogLevel = q.cognitive_level || (q.difficulty ? q.difficulty.toUpperCase() : 'STANDARD');
+
+    const totalAnswered = this.state.quizStats.correct + this.state.quizStats.incorrect;
+    const accuracy = totalAnswered > 0 ? Math.round((this.state.quizStats.correct / totalAnswered) * 100) : 0;
+
     container.innerHTML = `
-      <div class="flex justify-between items-center mb-4">
-        <span class="text-xs font-mono text-emerald-400 font-semibold uppercase">Question ${qNum} of ${totalQ}</span>
-        <span class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">${q.domain || q.topic || 'Interview Drill'}</span>
-      </div>
-      <h3 class="text-base md:text-lg font-semibold text-white mb-5 leading-snug">${q.question || q.prompt}</h3>
-      <div class="space-y-3 mb-6">
-        ${optionsHtml}
-      </div>
-      ${rationaleHtml}
-      <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-800">
-        <button class="btn-secondary text-xs" onclick="App.prevQuizQuestion()" ${this.state.currentQuizIdx === 0 ? 'disabled' : ''}>
-          ← Previous
-        </button>
-        <div>
-          ${!this.state.quizSubmitted ? `
-            <button class="btn-primary text-xs" onclick="App.submitQuizAnswer()">
-              Check Answer
-            </button>
-          ` : `
-            <button class="btn-coral text-xs" onclick="App.nextQuizQuestion()">
-              ${this.state.currentQuizIdx + 1 < totalQ ? 'Next Question →' : 'Complete Quiz 🎉'}
-            </button>
-          `}
+      <div class="space-y-4">
+        <!-- Quiz Meta Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono text-emerald-400 font-bold tracking-wider uppercase">QUESTION ${qNum} OF ${totalQ}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">${cogLevel}</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs">
+            <span class="text-slate-400 font-mono truncate max-w-xs">${topicText}</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono font-bold">
+              Score: ${this.state.quizStats.correct}/${totalAnswered} (${accuracy}%)
+            </span>
+          </div>
+        </div>
+
+        <!-- Question Prompt -->
+        <h3 class="text-base md:text-lg font-semibold text-slate-100 leading-relaxed pt-1">
+          ${questionPrompt}
+        </h3>
+
+        <!-- Interactive Options -->
+        <div class="space-y-2.5 pt-2">
+          ${optionsHtml}
+        </div>
+
+        <!-- Pedagogical Rationale (Appears on submit) -->
+        ${rationaleHtml}
+
+        <!-- Action Footer Controls -->
+        <div class="flex items-center justify-between pt-5 border-t border-slate-800 mt-6">
+          <button class="btn-secondary text-xs" onclick="App.prevQuizQuestion()" ${qNum === 1 ? 'disabled' : ''}>
+            ← Previous
+          </button>
+          
+          <div class="flex items-center gap-2">
+            ${!this.state.quizSubmitted ? `
+              <button class="btn-primary text-xs px-5 py-2" onclick="App.submitQuizAnswer()">
+                <span>Check Answer</span>
+              </button>
+            ` : `
+              <button class="btn-coral text-xs px-5 py-2" onclick="App.nextQuizQuestion()">
+                <span>${qNum < totalQ ? 'Next Question →' : 'Complete Set 🎉'}</span>
+              </button>
+            `}
+          </div>
         </div>
       </div>
     `;
@@ -614,6 +715,15 @@ const App = {
       alert('Please select an option before checking.');
       return;
     }
+    const q = this.state.quizQuestions[this.state.currentQuizIdx];
+    const correctKey = (q.correct_key || q.answer || q.correct || '').toString().trim().toUpperCase();
+    
+    if (this.state.selectedQuizOption === correctKey) {
+      this.state.quizStats.correct += 1;
+    } else {
+      this.state.quizStats.incorrect += 1;
+    }
+
     this.state.quizSubmitted = true;
     this.renderQuizQuestion();
   },
@@ -625,7 +735,8 @@ const App = {
       this.state.quizSubmitted = false;
       this.renderQuizQuestion();
     } else {
-      alert('Quiz set completed! Great study session.');
+      const accuracy = Math.round((this.state.quizStats.correct / this.state.quizQuestions.length) * 100);
+      alert(`🎉 Set Completed! Your score: ${this.state.quizStats.correct}/${this.state.quizQuestions.length} (${accuracy}%)`);
     }
   },
 
@@ -638,15 +749,14 @@ const App = {
     }
   },
 
-  // ── 24/7 Keep-Alive & Cron Monitor ──────────────────────────────────────
+  // ── 24/7 Keep-Alive & Cron Monitor ────────────────────────────────────────
   initCronMonitor() {
     this.refreshHealthData();
-    // Poll health every 30s when active
     setInterval(() => {
       if (this.state.activeTab === 'monitor') {
         this.refreshHealthData();
       }
-    }, 30000);
+    }, 20000);
   },
 
   async refreshHealthData() {
@@ -659,7 +769,7 @@ const App = {
       this.state.healthData = data;
       this.renderCronMonitor(data, latencyMs);
     } catch (e) {
-      console.warn('Health ping failed:', e);
+      console.warn('Health ping deferred:', e);
     }
   },
 
@@ -675,13 +785,26 @@ const App = {
     if (elLatency) elLatency.textContent = `${latencyMs} ms`;
     if (elCronStatus) elCronStatus.textContent = data.cron_status;
     if (elTimestamp) elTimestamp.textContent = new Date(data.timestamp_utc).toLocaleTimeString();
+  },
+
+  copyHealthUrl() {
+    const host = window.location.origin;
+    const url = `${host}/api/health`;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('btn-copy-health-url');
+      if (btn) {
+        btn.innerHTML = '<span>✓ Copied to Clipboard!</span>';
+        setTimeout(() => {
+          btn.innerHTML = '<span>📋 Copy URL for cron-job.org</span>';
+        }, 2500);
+      }
+    });
   }
 };
 
 window.addEventListener('DOMContentLoaded', () => {
   App.init();
 
-  // Search input binding
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
     let timeout = null;
@@ -690,11 +813,10 @@ window.addEventListener('DOMContentLoaded', () => {
       timeout = setTimeout(() => {
         App.state.searchQuery = e.target.value;
         App.loadChallenges();
-      }, 250);
+      }, 200);
     });
   }
 
-  // Difficulty filter pills
   document.querySelectorAll('.diff-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       document.querySelectorAll('.diff-pill').forEach(p => p.classList.remove('active'));
@@ -704,7 +826,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Action buttons
   const btnRun = document.getElementById('btn-run-code');
   if (btnRun) btnRun.addEventListener('click', () => App.runCode());
 

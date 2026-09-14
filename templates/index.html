@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Career Learning Vault — Cloud Web Hub</title>
+  <title>Career Learning Vault — Cloud Hub | Engineered by Abhishek Gali</title>
   
   <!-- Inter & JetBrains Mono Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,17 +18,17 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            watermelon: {
-              rind: '#10b981',
-              rindDark: '#059669',
-              rindLight: '#34d399',
-              flesh: '#f43f5e',
+            vault: {
+              emerald: '#10b981',
+              emeraldDark: '#059669',
+              emeraldLight: '#34d399',
               coral: '#fb7185',
-              dark: '#e11d48'
+              rose: '#f43f5e',
+              cyan: '#38bdf8'
             }
           }
         }
@@ -42,20 +42,27 @@
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
-<body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col">
+<body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col font-sans">
 
   <!-- Header / Top Bar -->
   <header class="app-header">
-    <div class="header-brand">
-      <div class="brand-icon">
-        <span class="text-white text-lg font-black">🍉</span>
+    <div class="flex items-center gap-3">
+      <!-- Modern Tech Hexagon Logo -->
+      <div class="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-rose-500 p-[1.5px] shadow-lg shadow-emerald-500/20">
+        <div class="w-full h-full bg-[#0b1120] rounded-[10px] flex items-center justify-center">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+          </svg>
+        </div>
       </div>
       <div>
         <div class="flex items-center gap-2">
-          <span class="brand-title">CAREER LEARNING VAULT</span>
-          <span class="brand-tag">RENDER CLOUD</span>
+          <span class="font-extrabold text-sm md:text-base tracking-tight text-white">CAREER VAULT</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono">v2.0 CLOUD</span>
         </div>
-        <p class="text-xs text-slate-400 hidden sm:block">AI, Data Science & Cybersecurity Interactive Hub</p>
+        <p class="text-[11px] text-slate-400">
+          Engineered by <span class="text-emerald-300 font-semibold">Abhishek Gali</span>
+        </p>
       </div>
     </div>
 
@@ -72,21 +79,29 @@
       <span class="text-xs font-mono text-emerald-400 font-semibold hidden md:inline" id="timer-percentage">0%</span>
     </div>
 
-    <!-- Navigation Tabs -->
-    <nav class="flex items-center gap-1">
-      <button class="nav-tab-btn active" data-tab="sandbox">
-        <span>⚡</span> <span class="hidden md:inline">Coding Sandbox (312)</span>
-      </button>
-      <button class="nav-tab-btn" data-tab="interviews">
-        <span>🎯</span> <span class="hidden md:inline">Interview Drills</span>
-      </button>
-      <button class="nav-tab-btn" data-tab="roadmap">
-        <span>🗺️</span> <span class="hidden md:inline">DSA Roadmap</span>
-      </button>
-      <button class="nav-tab-btn" data-tab="monitor">
-        <span>🛰️</span> <span class="hidden md:inline">24/7 Keep-Alive</span>
-      </button>
-    </nav>
+    <!-- Navigation Tabs & Author Badge -->
+    <div class="flex items-center gap-2">
+      <nav class="flex items-center gap-1">
+        <button class="nav-tab-btn active" data-tab="sandbox">
+          <span>⚡</span> <span class="hidden md:inline">Coding Fleet (312)</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="interviews">
+          <span>🎯</span> <span class="hidden md:inline">Interview Drills</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="roadmap">
+          <span>🗺️</span> <span class="hidden md:inline">DSA Roadmap</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="monitor">
+          <span>🛰️</span> <span class="hidden md:inline">24/7 Keep-Alive</span>
+        </button>
+      </nav>
+
+      <!-- Author Chip -->
+      <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-700/60 text-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-300">Architect: <strong class="text-white">Abhishek Gali</strong></span>
+      </div>
+    </div>
   </header>
 
   <!-- Main Content Views Container -->
@@ -99,28 +114,28 @@
       <div class="glass-panel p-6 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-emerald-500/20">
         <div class="space-y-1 max-w-2xl z-10">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
-            <span>🚀 10-Platform Fleet & Sandbox Engine</span>
+            <span>🚀 10-Platform Coding Fleet</span>
             <span>•</span>
             <span>3.0s Isolated Subprocess Runner</span>
           </div>
           <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">Interactive Python Coding Sandbox</h1>
-          <p class="text-sm text-slate-300 leading-relaxed">
+          <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
             Practice 312 curated, interview-grade coding challenges from Placement Prep, GUVI, HackerRank, LeetCode, GeeksforGeeks, Codewars, HackerEarth, CodeChef, Programiz, and W3Schools.
           </p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2 z-10">
           <div class="glass-panel-elevated px-4 py-2 text-center">
-            <div class="text-lg font-bold text-emerald-400 font-mono" id="sandbox-total-counter">312</div>
-            <div class="text-xs text-slate-400">Total Problems</div>
+            <div class="text-lg font-bold text-emerald-400 font-mono">312</div>
+            <div class="text-[11px] text-slate-400">Total Problems</div>
           </div>
           <div class="glass-panel-elevated px-4 py-2 text-center">
             <div class="text-lg font-bold text-rose-400 font-mono">10</div>
-            <div class="text-xs text-slate-400">Platforms</div>
+            <div class="text-[11px] text-slate-400">Platforms</div>
           </div>
           <div class="glass-panel-elevated px-4 py-2 text-center">
             <div class="text-lg font-bold text-cyan-400 font-mono">2h/day</div>
-            <div class="text-xs text-slate-400">Daily Goal</div>
+            <div class="text-[11px] text-slate-400">Daily Target</div>
           </div>
         </div>
       </div>
@@ -139,14 +154,14 @@
           <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Easy">Easy</button>
           <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Medium">Medium</button>
           <button class="diff-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300" data-diff="Hard">Hard</button>
-          <span class="text-xs text-slate-500 ml-2" id="challenge-count-badge">Loading...</span>
+          <span class="text-xs text-slate-500 ml-2 font-mono" id="challenge-count-badge">Loading...</span>
         </div>
 
-        <div class="relative min-w-[240px]">
+        <div class="relative min-w-[260px]">
           <input 
             type="text" 
             id="search-input" 
-            placeholder="Search problems, keywords, tags..." 
+            placeholder="Search 312 problems, tags..." 
             class="w-full px-3.5 py-1.5 pl-9 text-xs rounded-lg bg-slate-900/80 border border-slate-700/60 text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
           >
           <span class="absolute left-3 top-2 text-slate-400 text-xs">🔍</span>
@@ -160,7 +175,7 @@
         <div class="lg:col-span-4 glass-panel p-3 flex flex-col h-[750px]">
           <div class="flex justify-between items-center px-2 py-1 mb-2 border-b border-slate-800">
             <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Problem Catalog</span>
-            <span class="text-xs text-emerald-400 font-mono">Python 3</span>
+            <span class="text-xs text-emerald-400 font-mono">Python 3.13</span>
           </div>
           <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="challenge-list">
             <!-- Populated by app.js -->
@@ -175,15 +190,15 @@
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div class="flex items-center gap-2">
                 <span id="ch-difficulty" class="text-xs px-2.5 py-0.5 rounded-full font-semibold badge-easy">Easy</span>
-                <span id="ch-platform" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">LeetCode</span>
-                <span id="ch-category" class="text-xs text-slate-400">Algorithms</span>
+                <span id="ch-platform" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">Platform</span>
+                <span id="ch-category" class="text-xs text-slate-400">Category</span>
               </div>
               <span id="ch-function" class="text-xs font-mono text-cyan-300 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800">def solution()</span>
             </div>
 
-            <h2 id="ch-title" class="text-lg md:text-xl font-bold text-white">Select a problem from the catalog</h2>
+            <h2 id="ch-title" class="text-base md:text-xl font-bold text-white">Select a problem from the catalog</h2>
             
-            <div id="ch-description" class="text-sm text-slate-300 leading-relaxed space-y-2">
+            <div id="ch-description" class="text-xs md:text-sm text-slate-300 leading-relaxed space-y-2">
               Select a coding challenge on the left to review the problem statement, constraints, and test suite.
             </div>
 
@@ -197,18 +212,18 @@
                 <span>🐍</span>
                 <span>solution.py</span>
                 <span class="text-slate-500">•</span>
-                <span class="text-emerald-400">Python 3.13 / Subprocess Isolated</span>
+                <span class="text-emerald-400">Subprocess Isolated</span>
               </div>
               <div class="flex items-center gap-2">
                 <button id="btn-reset-code" class="btn-secondary text-xs py-1 px-2.5">↺ Reset</button>
-                <button id="btn-reveal-solution" class="btn-secondary text-xs py-1 px-2.5 text-amber-300 border-amber-900/50 hover:bg-amber-950/40">💡 Reveal Solution</button>
+                <button id="btn-reveal-solution" class="btn-secondary text-xs py-1 px-2.5 text-amber-300 border-amber-900/50 hover:bg-amber-950/40">💡 Solution</button>
                 <button id="btn-run-code" class="btn-primary text-xs py-1.5 px-4">
                   <span>⚡</span> <span>Run Test Suite</span>
                 </button>
               </div>
             </div>
 
-            <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="# Write your Python code here..."></textarea>
+            <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="# Write your Python solution here..."></textarea>
           </div>
 
           <!-- Results & Diff Terminal -->
@@ -229,29 +244,38 @@
     </section>
 
     <!-- VIEW 2: TECHNICAL INTERVIEW DRILLS -->
-    <section id="interviews-view" class="space-y-5 hidden">
+    <section id="interviews-view" class="space-y-6 hidden">
+      <!-- Hero Banner -->
       <div class="glass-panel p-6 space-y-2 border border-rose-500/20">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-semibold">
           <span>🎯 Pedagogical Technical Interview Engine</span>
+          <span>•</span>
+          <span>Curated by Abhishek Gali</span>
         </div>
         <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">Level-Based Technical Interview Drills</h1>
-        <p class="text-sm text-slate-300">
+        <p class="text-xs md:text-sm text-slate-300">
           Master high-yield technical interview questions across Cyber Security (ISC2 CC), Data Science, Machine Learning, and DSA with option-by-option pedagogical rationales.
         </p>
       </div>
 
       <!-- Track Selector Buttons -->
-      <div class="flex flex-wrap items-center gap-2" id="interview-track-selector">
-        <!-- Populated by app.js -->
+      <div class="space-y-2">
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">1. Select Subject Track</div>
+        <div class="flex flex-wrap items-center gap-2.5" id="interview-track-selector">
+          <!-- Populated by app.js -->
+        </div>
       </div>
 
       <!-- Set Selector Pills -->
-      <div class="flex flex-wrap items-center gap-2" id="interview-set-selector">
-        <!-- Populated by app.js -->
+      <div class="space-y-2">
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">2. Select Question Bank / Domain</div>
+        <div class="flex flex-wrap items-center gap-2" id="interview-set-selector">
+          <!-- Populated by app.js -->
+        </div>
       </div>
 
       <!-- Quiz Workspace Card -->
-      <div class="glass-panel p-6 max-w-3xl mx-auto" id="quiz-question-container">
+      <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="quiz-question-container">
         <!-- Populated by app.js -->
       </div>
     </section>
@@ -263,13 +287,12 @@
           <span>🗺️ FAANG Curriculum & Algorithm Blueprint</span>
         </div>
         <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">NeetCode 150 & Blind 75 Master Roadmap</h1>
-        <p class="text-sm text-slate-300">
+        <p class="text-xs md:text-sm text-slate-300">
           Systematic high-yield algorithmic breakdown with Big-O Python 3 complexity reference card.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Blueprint Cards -->
         <div class="glass-panel p-4 space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
             <span>1. ARRAYS & HASHING</span>
@@ -321,7 +344,7 @@
 
       <!-- Big-O Table Card -->
       <div class="glass-panel p-5 space-y-3">
-        <h3 class="text-base font-bold text-white">Python 3 Data Structures Big-O Complexity Card</h3>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Python 3 Data Structures Big-O Complexity Matrix</h3>
         <div class="overflow-x-auto">
           <table class="w-full text-xs text-left text-slate-300 font-mono">
             <thead class="bg-slate-900/80 text-emerald-400 uppercase text-[11px]">
@@ -374,33 +397,35 @@
     </section>
 
     <!-- VIEW 4: 24/7 CRON & SERVER TELEMETRY -->
-    <section id="monitor-view" class="space-y-5 hidden">
+    <section id="monitor-view" class="space-y-6 hidden">
       <div class="glass-panel p-6 space-y-2 border border-emerald-500/20">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
           <span>🛰️ Zero-Cost 24/7 Deployment Telemetry</span>
+          <span>•</span>
+          <span>cron-job.org Integration</span>
         </div>
-        <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">Render.com + Cron-Job.org Live Telemetry</h1>
-        <p class="text-sm text-slate-300">
-          Your cloud instance is kept active 24/7/365 without sleep using external 10-minute HTTP keep-alive pings to <code class="text-emerald-300">/api/health</code>.
+        <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">24/7 Keep-Alive Architecture & Cron Monitor</h1>
+        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+          Render.com free tier spins down services after 15 minutes of inactivity. Pinging your <code class="text-emerald-300 bg-slate-800 px-1 py-0.5 rounded">/api/health</code> endpoint every 10 minutes prevents sleep permanently.
         </p>
       </div>
 
       <!-- Real-time metrics cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="glass-panel p-4 space-y-1">
-          <div class="text-xs text-slate-400">Server Status</div>
+        <div class="glass-panel p-4 space-y-1 border border-emerald-500/30">
+          <div class="text-xs text-slate-400">Service Health</div>
           <div class="text-base font-bold text-emerald-400 flex items-center gap-2">
             <span class="pulse-dot"></span> <span id="mon-cron-status">AWAKE</span>
           </div>
         </div>
 
         <div class="glass-panel p-4 space-y-1">
-          <div class="text-xs text-slate-400">Server Uptime</div>
+          <div class="text-xs text-slate-400">Instance Uptime</div>
           <div class="text-xl font-bold text-white font-mono" id="mon-uptime">--</div>
         </div>
 
         <div class="glass-panel p-4 space-y-1">
-          <div class="text-xs text-slate-400">Keep-Alive Pings</div>
+          <div class="text-xs text-slate-400">Healthcheck Pings</div>
           <div class="text-xl font-bold text-cyan-400 font-mono" id="mon-pings">--</div>
         </div>
 
@@ -410,35 +435,74 @@
         </div>
       </div>
 
-      <!-- How to configure cron-job.org card -->
+      <!-- Copyable URL Box -->
+      <div class="glass-panel p-6 space-y-4 border border-slate-700">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Your 24/7 Keep-Alive URL</h3>
+        <p class="text-xs text-slate-300">
+          Enter this exact URL into your cron job on <a href="https://console.cron-job.org/jobs" target="_blank" class="text-emerald-400 underline">cron-job.org</a>:
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <input 
+            type="text" 
+            readonly 
+            value="" 
+            id="health-url-display"
+            class="flex-1 px-4 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-xs font-mono text-emerald-300 select-all focus:outline-none"
+          >
+          <button id="btn-copy-health-url" class="btn-primary text-xs py-2.5 px-4" onclick="App.copyHealthUrl()">
+            <span>📋 Copy URL for cron-job.org</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Cron Job Instructions -->
       <div class="glass-panel p-6 space-y-4">
-        <h3 class="text-base font-bold text-white">How Your 24/7 Keep-Alive Architecture Works</h3>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Exact Instructions for cron-job.org</h3>
         <div class="space-y-3 text-xs md:text-sm text-slate-300 leading-relaxed">
-          <p>
-            1. <strong>Render Free Tier</strong> spins down instances after 15 minutes of zero traffic.
-          </p>
-          <p>
-            2. <strong>Your Cron Job (on cron-job.org)</strong> sends an HTTP GET request to <code class="text-emerald-300 bg-slate-800 px-1.5 py-0.5 rounded">https://&lt;your-app&gt;.onrender.com/api/health</code> every <strong>10 minutes</strong>.
-          </p>
-          <p>
-            3. Because Render receives traffic every 10 minutes (less than the 15-minute timeout), the instance <strong>NEVER goes to sleep</strong>!
-          </p>
-          <p>
-            4. <strong>Result:</strong> Zero cold starts, immediate &lt;100ms response time, 100% free with zero credit card required!
-          </p>
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <span class="font-bold text-emerald-400">Step 1:</span>
+            <span>Go to your <a href="https://console.cron-job.org/jobs" target="_blank" class="text-emerald-400 underline font-semibold">cron-job.org Console</a> and click <strong>"CREATE CRONJOB"</strong>.</span>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <span class="font-bold text-emerald-400">Step 2:</span>
+            <span>Paste your URL from the box above: <code class="text-emerald-300 bg-black/40 px-1 py-0.5 rounded font-mono">https://&lt;your-app&gt;.onrender.com/api/health</code></span>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <span class="font-bold text-emerald-400">Step 3:</span>
+            <span>Under <strong>Execution Schedule</strong>, select <strong>"Every 10 minutes"</strong> (`*/10 * * * *`).</span>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <span class="font-bold text-emerald-400">Step 4:</span>
+            <span>Click <strong>"CREATE"</strong>. Your cloud service will now remain active 24/7/365 with zero sleeping and zero cold starts!</span>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="mt-auto border-t border-slate-800/80 py-4 px-6 text-center text-xs text-slate-500">
-    Career Learning Vault Cloud Hub • Refero Design & Watermelon UI • 100% Free Hosting on Render.com & 24/7 Keep-Alive via cron-job.org
+  <!-- Footer with Credits -->
+  <footer class="mt-auto border-t border-slate-800/80 py-5 px-6 text-center text-xs text-slate-400 space-y-1">
+    <div>
+      Career Learning Vault Cloud Hub • Architecture & Engineering by <strong class="text-white">Abhishek Gali</strong>
+    </div>
+    <div class="text-[11px] text-slate-500">
+      Refero Design System & Watermelon UI • 100% Free Hosting on Render.com • 24/7 Zero Sleep via cron-job.org
+    </div>
   </footer>
 
   <!-- App Scripts -->
   <script src="/static/js/timer.js"></script>
   <script src="/static/js/app.js"></script>
+  <script>
+    // Set the dynamic health URL in the display input
+    window.addEventListener('DOMContentLoaded', () => {
+      const el = document.getElementById('health-url-display');
+      if (el) {
+        el.value = `${window.location.origin}/api/health`;
+      }
+    });
+  </script>
 </body>
 </html>
