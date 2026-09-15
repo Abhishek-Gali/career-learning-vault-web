@@ -37,8 +37,17 @@
     }
   </script>
 
+  <!-- PWA Web App Manifest & Mobile Meta Tags -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Career Vault">
+  <link rel="apple-touch-icon" href="/static/images/icon-192.png">
+
   <!-- Refero Design & Watermelon UI Styles -->
-  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=3.2.1">
+  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=3.4.0">
 
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
@@ -1574,8 +1583,14 @@
   <!-- ===================================================================== -->
   <!-- FULL SCREEN LOGIN VIEW (Shown when unauthenticated)                   -->
   <!-- ===================================================================== -->
-  <div id="view-login" class="fixed inset-0 z-50 bg-[#080c14] flex items-center justify-center p-4 overflow-y-auto hidden">
-    <div class="w-full max-w-md space-y-6">
+  <div id="view-login" class="fixed inset-0 z-50 bg-[#080c14] flex items-center justify-center p-4 overflow-y-auto hidden login-effects-container">
+    <!-- Visual Effects: Canvas Cyber Particle Grid & Ambient Floating Orbs -->
+    <canvas id="login-particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+    <div class="login-ambient-orb login-orb-1"></div>
+    <div class="login-ambient-orb login-orb-2"></div>
+    <div class="login-ambient-orb login-orb-3"></div>
+
+    <div class="relative z-10 w-full max-w-md space-y-6">
       
       <!-- Brand Header -->
       <div class="text-center space-y-2">
@@ -1588,7 +1603,7 @@
         </div>
         <div class="flex items-center justify-center gap-2">
           <h1 class="text-xl font-extrabold tracking-tight text-white">CAREER LEARNING VAULT</h1>
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono">v3.3</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono">v3.4</span>
         </div>
         <p class="text-xs text-slate-400 max-w-xs mx-auto">
           Multi-Tenant AI, Data Science, Cyber Security & 312-Question Coding Fleet
@@ -1770,8 +1785,32 @@
     </div>
   </div>
 
+  <!-- ===================================================================== -->
+  <!-- PWA MOBILE INSTALL BANNER (Shown when Chrome triggers prompt)         -->
+  <!-- ===================================================================== -->
+  <div id="pwa-install-banner" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-sm z-50 p-3.5 rounded-2xl bg-slate-900/95 border border-emerald-500/40 shadow-2xl shadow-emerald-500/20 backdrop-blur-xl flex items-center gap-3.5 hidden">
+    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-[1.5px] flex-shrink-0 shadow-lg shadow-emerald-500/30">
+      <div class="w-full h-full bg-[#0b1120] rounded-[10px] flex items-center justify-center">
+        <span class="text-xl">⚡</span>
+      </div>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="text-xs font-bold text-white flex items-center gap-1.5">
+        <span>Install Career Vault</span>
+        <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">APP</span>
+      </div>
+      <p class="text-[11px] text-slate-400 truncate">Add to Home screen for instant native access</p>
+    </div>
+    <div class="flex items-center gap-1.5 flex-shrink-0">
+      <button onclick="App.dismissPWA()" class="p-1.5 text-slate-400 hover:text-white text-xs rounded-lg hover:bg-slate-800 transition" title="Dismiss">✕</button>
+      <button onclick="App.installPWA()" class="px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs rounded-xl shadow-md hover:brightness-110 transition flex items-center gap-1">
+        <span>Install</span>
+      </button>
+    </div>
+  </div>
+
   <!-- App Scripts -->
-  <script src="/static/js/timer.js?v=3.3.0"></script>
-  <script src="/static/js/app.js?v=3.3.0"></script>
+  <script src="/static/js/timer.js?v=3.4.0"></script>
+  <script src="/static/js/app.js?v=3.4.0"></script>
 </body>
 </html>

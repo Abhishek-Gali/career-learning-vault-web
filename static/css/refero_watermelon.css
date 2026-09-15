@@ -752,3 +752,111 @@ header.app-header {
 .auth-card-glow {
   box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.15), 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
+
+/* ── Login Visual Effects & Ambient Floating Orbs ────────────────────────── */
+.login-effects-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.login-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(90px);
+  -webkit-filter: blur(90px);
+  will-change: transform, opacity;
+  z-index: 1;
+}
+
+.login-orb-1 {
+  width: 480px;
+  height: 480px;
+  top: 5%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.38) 0%, rgba(5, 150, 105, 0.08) 60%, transparent 80%);
+  animation: floatOrb1 20s ease-in-out infinite alternate;
+}
+
+.login-orb-2 {
+  width: 420px;
+  height: 420px;
+  bottom: 8%;
+  right: 10%;
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.32) 0%, rgba(225, 29, 72, 0.06) 60%, transparent 80%);
+  animation: floatOrb2 24s ease-in-out infinite alternate;
+}
+
+.login-orb-3 {
+  width: 360px;
+  height: 360px;
+  top: 40%;
+  right: 25%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.28) 0%, rgba(14, 165, 233, 0.05) 60%, transparent 80%);
+  animation: floatOrb3 18s ease-in-out infinite alternate;
+}
+
+@keyframes floatOrb1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 35px) scale(1.1); }
+  100% { transform: translate(-30px, 60px) scale(0.95); }
+}
+
+@keyframes floatOrb2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-45px, -30px) scale(1.08); }
+  100% { transform: translate(25px, -50px) scale(0.92); }
+}
+
+@keyframes floatOrb3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.15); }
+  100% { transform: translate(-35px, 25px) scale(0.9); }
+}
+
+/* ── Custom Video / Playlist Ingestion Bar ───────────────────────────────── */
+.custom-paste-container {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px dashed rgba(16, 185, 129, 0.35);
+  border-radius: 14px;
+  transition: var(--transition-smooth);
+}
+
+.custom-paste-container:focus-within {
+  border-color: rgba(16, 185, 129, 0.7);
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+.custom-shelf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.1rem 0.45rem;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* ── PWA Mobile Install Floating Toast ──────────────────────────────────── */
+#pwa-install-banner {
+  animation: slideUpBanner 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpBanner {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+

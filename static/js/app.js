@@ -38,7 +38,12 @@ const App = {
     courses: null,
     courseLanguage: { ml: 'en', ds: 'en', cyber: 'en', dsa: 'en' },
     activeCourseId: { ml: 'karpathy_zero_to_hero', ds: 'mit_60002', cyber: 'mit_6858_security', dsa: 'striver_a2z_dsa' },
-    activeVideoIdx: { ml: 0, ds: 0, cyber: 0, dsa: 0 }
+    activeVideoIdx: { ml: 0, ds: 0, cyber: 0, dsa: 0 },
+
+    // Custom Video & Playlist Ingestion State
+    customCourses: { ml: [], ds: [], cyber: [], dsa: [] },
+    deferredInstallPrompt: null,
+    loginParticlesAnimId: null
   },
 
   getAuthHeaders() {
@@ -148,6 +153,7 @@ const App = {
         await this.loadChallenges();
         await this.loadInterviewTracks();
         await this.loadCourseCatalog();
+        await this.loadCustomCourses();
         this.renderLibraryCatalog();
         this.renderDrillsHub();
         this.renderAllCourseTracks();
@@ -297,6 +303,9 @@ const App = {
   ],
 
   async init() {
+    this.initPWA();
+    this.initLoginParticles();
+
     this.bindSidebarNavigation();
     this.bindSubtabNavigation();
     this.bindSandboxEvents();
@@ -311,6 +320,7 @@ const App = {
     await this.loadChallenges();
     await this.loadInterviewTracks();
     await this.loadCourseCatalog();
+    await this.loadCustomCourses();
     this.renderLibraryCatalog();
     this.renderDrillsHub();
     this.renderAllCourseTracks();
@@ -1059,6 +1069,304 @@ const App = {
     container.innerHTML = html;
   },
 
+  getAllTrackCourses(trackKey) {
+    const track = this.state.courses ? this.state.courses[trackKey] : null;
+    if (!track) return [];
+    const currentLang = (this.state.courseLanguage && this.state.courseLanguage[trackKey]) ? this.state.courseLanguage[trackKey] : 'en';
+    const langData = (track.languages && track.languages[currentLang]) ? track.languages[currentLang] : (track.languages ? track.languages['en'] : null);
+    const goldenAnchors = track.golden_anchors || [];
+    const languageCourses = (langData && langData.courses) ? langData.courses : [];
+    
+    const trackCustoms = (this.state.customCourses && this.state.customCourses[trackKey]) ? this.state.customCourses[trackKey] : [];
+    const formattedCustomCourses = trackCustoms.map(c => ({
+      id: c.course_id,
+      title: c.course_type === 'personal' ? '📌 Personal' : c.title,
+      instructor: c.course_type === 'personal' ? 'My Saved Videos' : 'Custom Playlist',
+      institution: 'Custom Ingestion',
+      course_type: c.course_type,
+      isCustom: true,
+      videos: c.videos || []
+    }));
+
+    return [...goldenAnchors, ...languageCourses, ...formattedCustomCourses];
+  },
+
+  async loadCustomCourses() {
+    try {
+      const res = await fetch('/api/custom-courses', { headers: this.getAuthHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+      const mapped = { ml: [], ds: [], cyber: [], dsa: [] };
+      if (data && data.tracks) {
+        Object.keys(data.tracks).forEach(t => {
+          if (mapped[t]) {
+            mapped[t] = data.tracks[t];
+          }
+        });
+      }
+      this.state.customCourses = mapped;
+    } catch (e) {
+      console.warn('Failed to load custom courses:', e);
+    }
+  },
+
+  async handleAddCustomVideo(e, trackKey) {
+    if (e) e.preventDefault();
+    const inputEl = document.getElementById(`${trackKey}-custom-url-input`);
+    const statusEl = document.getElementById(`${trackKey}-custom-status`);
+    const btnEl = document.getElementById(`${trackKey}-custom-submit-btn`);
+
+    if (!inputEl) return;
+    const url = inputEl.value.trim();
+    if (!url) return;
+
+    if (btnEl) {
+      btnEl.disabled = true;
+      btnEl.innerHTML = '<span>Processing...</span>';
+    }
+    if (statusEl) {
+      statusEl.classList.remove('hidden', 'text-rose-400', 'text-emerald-400');
+      statusEl.classList.add('text-slate-400');
+      statusEl.textContent = 'Extracting video / playlist metadata...';
+    }
+
+    try {
+      const res = await fetch('/api/custom-courses/add', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ track_key: trackKey, url: url })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.status === 'ok') {
+        inputEl.value = '';
+        if (statusEl) {
+          statusEl.classList.remove('text-slate-400', 'text-rose-400');
+          statusEl.classList.add('text-emerald-400');
+          const cType = data.type || data.course_type || 'personal';
+          if (cType === 'playlist') {
+            statusEl.textContent = `✓ Added playlist "${data.title}" (${(data.videos || []).length} lectures) as a new tab!`;
+          } else {
+            const vTitle = data.title || (data.video && data.video.title) || 'video';
+            statusEl.textContent = `✓ Added "${vTitle}" to your 📌 Personal tab!`;
+          }
+          setTimeout(() => {
+            if (statusEl) statusEl.classList.add('hidden');
+          }, 5000);
+        }
+
+        await this.loadCustomCourses();
+        this.selectCourse(trackKey, data.course_id);
+      } else {
+        if (statusEl) {
+          statusEl.classList.remove('text-slate-400', 'text-emerald-400');
+          statusEl.classList.add('text-rose-400');
+          statusEl.textContent = `⚠️ ${data.detail || 'Could not add video or playlist URL.'}`;
+        }
+      }
+    } catch (err) {
+      if (statusEl) {
+        statusEl.classList.remove('text-slate-400', 'text-emerald-400');
+        statusEl.classList.add('text-rose-400');
+        statusEl.textContent = '⚠️ Network error communicating with server.';
+      }
+    } finally {
+      if (btnEl) {
+        btnEl.disabled = false;
+        btnEl.innerHTML = '<span>Add to Track</span><span>→</span>';
+      }
+    }
+  },
+
+  async deleteCustomCourse(trackKey, courseId) {
+    if (!confirm('Are you sure you want to remove this course and its videos from your vault?')) return;
+    try {
+      const res = await fetch(`/api/custom-courses/${courseId}?track_key=${trackKey}`, {
+        method: 'DELETE',
+        headers: this.getAuthHeaders()
+      });
+      if (res.ok) {
+        await this.loadCustomCourses();
+        if (this.state.activeCourseId[trackKey] === courseId) {
+          const track = this.state.courses ? this.state.courses[trackKey] : null;
+          if (track && track.golden_anchors && track.golden_anchors.length > 0) {
+            this.state.activeCourseId[trackKey] = track.golden_anchors[0].id;
+          }
+          this.state.activeVideoIdx[trackKey] = 0;
+        }
+        this.renderCourseTrack(trackKey);
+      }
+    } catch (e) {
+      console.error('Failed to delete custom course:', e);
+    }
+  },
+
+  async removeVideoFromCustomCourse(trackKey, courseId, videoId) {
+    try {
+      const res = await fetch(`/api/custom-courses/${courseId}/video/${videoId}?track_key=${trackKey}`, {
+        method: 'DELETE',
+        headers: this.getAuthHeaders()
+      });
+      if (res.ok) {
+        await this.loadCustomCourses();
+        const curIdx = this.state.activeVideoIdx[trackKey] || 0;
+        if (curIdx > 0) {
+          this.state.activeVideoIdx[trackKey] = curIdx - 1;
+        }
+        this.renderCourseTrack(trackKey);
+      }
+    } catch (e) {
+      console.error('Failed to remove video:', e);
+    }
+  },
+
+  // ── PWA Mobile Install Engine ─────────────────────────────────────────────
+  initPWA() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Career Vault ServiceWorker registered:', reg.scope))
+        .catch(err => console.warn('ServiceWorker registration error:', err));
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.state.deferredInstallPrompt = e;
+      const banner = document.getElementById('pwa-install-banner');
+      if (banner && !sessionStorage.getItem('vault_pwa_dismissed')) {
+        banner.classList.remove('hidden');
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      console.log('Career Vault PWA was installed successfully.');
+      this.dismissPWA();
+    });
+  },
+
+  installPWA() {
+    const promptEvent = this.state.deferredInstallPrompt;
+    if (!promptEvent) {
+      alert('To install Career Vault on your phone:\n1. Tap Chrome menu (⋮)\n2. Tap "Install app" or "Add to Home screen".');
+      return;
+    }
+    promptEvent.prompt();
+    promptEvent.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('PWA installation accepted');
+      }
+      this.state.deferredInstallPrompt = null;
+      this.dismissPWA();
+    });
+  },
+
+  dismissPWA() {
+    const banner = document.getElementById('pwa-install-banner');
+    if (banner) banner.classList.add('hidden');
+    try {
+      sessionStorage.setItem('vault_pwa_dismissed', 'true');
+    } catch (e) {}
+  },
+
+  // ── Login Cyber Particle Background Canvas ─────────────────────────────────
+  loginParticlesAnimId: null,
+
+  initLoginParticles() {
+    const canvas = document.getElementById('login-particles-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const count = Math.min(45, Math.floor((width * height) / 28000));
+    const colors = ['#10b981', '#38bdf8', '#fb7185', '#34d399', '#38bdf8'];
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        radius: Math.random() * 2 + 1,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      });
+    }
+
+    let mouse = { x: -1000, y: -1000 };
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    const animate = () => {
+      const loginView = document.getElementById('view-login');
+      if (!loginView || loginView.classList.contains('hidden')) {
+        this.loginParticlesAnimId = requestAnimationFrame(animate);
+        return;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(16, 185, 129, ${(1 - dist / 130) * 0.2})`;
+            ctx.lineWidth = 0.8;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Update & draw particles
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < 100) {
+          const angle = Math.atan2(mdy, mdx);
+          p.x += Math.cos(angle) * 1.5;
+          p.y += Math.sin(angle) * 1.5;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 6;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      this.loginParticlesAnimId = requestAnimationFrame(animate);
+    };
+
+    if (this.loginParticlesAnimId) cancelAnimationFrame(this.loginParticlesAnimId);
+    animate();
+  },
+
   // ── Trilingual Structured Course Hub & Golden Anchors ──────────────────────
   async loadCourseCatalog() {
     try {
@@ -1131,14 +1439,9 @@ const App = {
     if (!this.state.activeVideoIdx) this.state.activeVideoIdx = {};
     this.state.activeVideoIdx[trackKey] = idx;
 
-    const track = this.state.courses ? this.state.courses[trackKey] : null;
-    if (!track) return;
-    const currentLang = (this.state.courseLanguage && this.state.courseLanguage[trackKey]) ? this.state.courseLanguage[trackKey] : 'en';
-    const allCourses = [
-      ...(track.golden_anchors || []),
-      ...((track.languages && track.languages[currentLang]) ? track.languages[currentLang].courses : [])
-    ];
-    const activeCourse = allCourses.find(c => c.id === this.state.activeCourseId[trackKey]) || track.golden_anchors[0];
+    const allCourses = this.getAllTrackCourses(trackKey);
+    const activeCourse = allCourses.find(c => c.id === this.state.activeCourseId[trackKey]) || allCourses[0];
+    if (!activeCourse) return;
     const videos = activeCourse.videos || [];
     const v = videos[idx];
     if (!v) return;
@@ -1207,14 +1510,9 @@ const App = {
   },
 
   nextCourseVideo(trackKey) {
-    const track = this.state.courses ? this.state.courses[trackKey] : null;
-    if (!track) return;
-    const currentLang = (this.state.courseLanguage && this.state.courseLanguage[trackKey]) ? this.state.courseLanguage[trackKey] : 'en';
-    const allCourses = [
-      ...(track.golden_anchors || []),
-      ...((track.languages && track.languages[currentLang]) ? track.languages[currentLang].courses : [])
-    ];
-    const activeCourse = allCourses.find(c => c.id === this.state.activeCourseId[trackKey]) || track.golden_anchors[0];
+    const allCourses = this.getAllTrackCourses(trackKey);
+    const activeCourse = allCourses.find(c => c.id === this.state.activeCourseId[trackKey]) || allCourses[0];
+    if (!activeCourse) return;
     const videos = activeCourse.videos || [];
     const cur = (this.state.activeVideoIdx && this.state.activeVideoIdx[trackKey]) || 0;
     if (cur < videos.length - 1) {
@@ -1275,10 +1573,10 @@ const App = {
     };
     const tTheme = themeMap[trackKey] || themeMap['ml'];
 
-    // All available courses for this track: Golden Anchors + Active Language Courses
+    // All available courses for this track: Golden Anchors + Active Language Courses + Custom Courses
     const goldenAnchors = track.golden_anchors || [];
     const languageCourses = (langData && langData.courses) ? langData.courses : [];
-    const allAvailableCourses = [...goldenAnchors, ...languageCourses];
+    const allAvailableCourses = this.getAllTrackCourses(trackKey);
 
     // Determine currently active course
     let activeCourseId = this.state.activeCourseId ? this.state.activeCourseId[trackKey] : null;
@@ -1322,29 +1620,36 @@ const App = {
       `;
     }).join('');
 
-    // 2. Course Shelf Tabs (Golden Anchors + Current Language Courses)
+    // 2. Course Shelf Tabs (Golden Anchors + Current Language Courses + Custom Courses)
     let courseTabsHtml = '';
     allAvailableCourses.forEach(c => {
       const isSelected = (c.id === activeCourse.id);
       const isAnchor = goldenAnchors.some(a => a.id === c.id);
+      const isCustom = c.isCustom;
       const vidCount = (c.videos || []).length;
       
       let tabStyle = 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white';
       if (isSelected) {
         tabStyle = isAnchor
           ? 'bg-amber-500/20 text-amber-200 border-amber-500/60 shadow-lg shadow-amber-500/10 ring-1 ring-amber-500/40 font-bold'
-          : tTheme.pillActive + ' font-bold';
+          : (isCustom ? 'bg-emerald-500/20 text-emerald-200 border-emerald-500/60 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500/40 font-bold' : tTheme.pillActive + ' font-bold');
       }
+
+      const icon = isAnchor ? '⭐' : (c.course_type === 'personal' ? '📌' : (isCustom ? '📑' : '🎓'));
+      const deleteBtn = (isCustom && c.course_type !== 'personal')
+        ? `<button onclick="event.stopPropagation(); App.deleteCustomCourse('${trackKey}', '${c.id}')" title="Delete playlist course" class="p-0.5 rounded text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition">✕</button>`
+        : '';
 
       courseTabsHtml += `
         <button 
           onclick="App.selectCourse('${trackKey}', '${c.id}')"
           class="px-3.5 py-2 rounded-xl border text-xs flex items-center gap-2 transition-all cursor-pointer select-none flex-shrink-0 ${tabStyle}">
-          <span>${isAnchor ? '⭐' : '🎓'}</span>
+          <span>${icon}</span>
           <span class="truncate max-w-[220px] sm:max-w-xs">${c.title}</span>
           <span class="text-[10px] font-mono px-1.5 py-0.2 rounded-full ${isAnchor ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400'}">
             ${vidCount} vids
           </span>
+          ${deleteBtn}
         </button>
       `;
     });
@@ -1356,6 +1661,10 @@ const App = {
       const cardActiveStyle = isPlaying
         ? 'active-playlist-card bg-emerald-950/40 border-emerald-500/60 ring-1 ring-emerald-400/50 shadow-md'
         : 'bg-slate-900/50 border-slate-800/80 hover:bg-slate-800/80 hover:border-slate-700';
+
+      const removeVidBtn = (activeCourse.isCustom && activeCourse.course_type === 'personal')
+        ? `<button onclick="event.stopPropagation(); App.removeVideoFromCustomCourse('${trackKey}', '${activeCourse.id}', '${v.id}')" title="Remove from Personal" class="p-1 rounded text-slate-500 hover:text-rose-400 hover:bg-slate-800 transition text-xs flex-shrink-0 ml-auto">✕</button>`
+        : '';
 
       playlistItemsHtml += `
         <div 
@@ -1381,13 +1690,16 @@ const App = {
 
           <!-- Title & Number -->
           <div class="flex-1 min-w-0 space-y-1">
-            <div class="flex items-center gap-1.5">
-              <span class="text-[10px] font-mono font-bold ${isPlaying ? 'text-emerald-400' : 'text-slate-500'}">
-                #${i + 1}
-              </span>
-              <span class="playing-badge text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold ${isPlaying ? 'inline-flex' : 'hidden'} items-center gap-1">
-                ▶ Playing
-              </span>
+            <div class="flex items-center gap-1.5 justify-between">
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] font-mono font-bold ${isPlaying ? 'text-emerald-400' : 'text-slate-500'}">
+                  #${i + 1}
+                </span>
+                <span class="playing-badge text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold ${isPlaying ? 'inline-flex' : 'hidden'} items-center gap-1">
+                  ▶ Playing
+                </span>
+              </div>
+              ${removeVidBtn}
             </div>
             <h4 class="text-xs font-semibold leading-snug line-clamp-2 ${isPlaying ? 'text-white font-bold' : 'text-slate-300 group-hover:text-white'}">
               ${v.title}
@@ -1494,6 +1806,39 @@ const App = {
             <strong>Golden Anchors Guarantee:</strong> World-class benchmarks (Karpathy, Stanford, MIT, Striver) remain <strong>permanently pinned below</strong>, unaffected by language changes.
           </span>
         </div>
+      </div>
+
+      <!-- CUSTOM VIDEO & PLAYLIST INGESTION BAR -->
+      <div class="custom-paste-container p-3.5 sm:p-4 bg-slate-900/60 rounded-2xl space-y-2.5">
+        <div class="flex items-center justify-between gap-2 flex-wrap">
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400 text-base">➕</span>
+            <h3 class="text-xs font-bold text-white tracking-wide uppercase">Add Your Custom Video or YouTube Playlist</h3>
+          </div>
+          <div class="flex items-center gap-2 text-[10px] text-slate-400 font-mono">
+            <span class="custom-shelf-badge">Single Video → 📌 Personal</span>
+            <span class="custom-shelf-badge">Playlist → 📑 New Course Tab</span>
+          </div>
+        </div>
+        <form onsubmit="App.handleAddCustomVideo(event, '${trackKey}')" class="flex flex-col sm:flex-row items-center gap-2">
+          <div class="relative flex-1 w-full">
+            <input 
+              type="url" 
+              id="${trackKey}-custom-url-input" 
+              required 
+              placeholder="Paste YouTube URL (e.g. https://www.youtube.com/watch?v=... or https://www.youtube.com/playlist?list=...)" 
+              class="w-full pl-8 pr-3 py-2 rounded-xl bg-slate-950/90 border border-slate-800 text-xs text-slate-100 placeholder-slate-500 focus:border-emerald-500 focus:outline-none transition">
+            <span class="absolute left-2.5 top-2.5 text-slate-500 text-xs">🔗</span>
+          </div>
+          <button 
+            type="submit" 
+            id="${trackKey}-custom-submit-btn"
+            class="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs hover:brightness-110 flex items-center justify-center gap-1.5 transition flex-shrink-0 cursor-pointer shadow-md shadow-emerald-500/20">
+            <span>Add to Track</span>
+            <span>→</span>
+          </button>
+        </form>
+        <div id="${trackKey}-custom-status" class="hidden text-[11px] font-mono"></div>
       </div>
 
       <!-- COURSE SHELF / TAB SELECTOR (YouTube Style Series Tabs) -->

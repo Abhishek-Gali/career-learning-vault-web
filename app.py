@@ -23,18 +23,20 @@ import hashlib
 import hmac
 import json
 import os
+import re
 import secrets
 import subprocess
 import sys
 import tempfile
 import time
+import urllib.request
 from datetime import timezone, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from fastapi import FastAPI, HTTPException, Request, Response, Depends, Cookie, Header
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -169,11 +171,27 @@ def init_db():
                 )
             """)
 
+            # 6. User Custom Courses & Personal Playlists Table
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS user_custom_courses (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    track_key TEXT NOT NULL,
+                    course_id TEXT NOT NULL,
+                    course_type TEXT NOT NULL, -- 'personal' or 'playlist'
+                    title TEXT NOT NULL,
+                    videos_json TEXT NOT NULL,
+                    added_at TEXT NOT NULL,
+                    UNIQUE(user_id, track_key, course_id)
+                )
+            """)
+
             # Performance & FK Indexes
             conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_user ON user_sessions(user_id)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_expires ON user_sessions(expires_at)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_progress_user ON user_challenge_progress(user_id, challenge_id)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_quiz_user ON user_quiz_history(user_id, track_key)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_custom_courses_user ON user_custom_courses(user_id, track_key)")
             conn.commit()
 
             # Seed / Verify Super Admin Account ('admin' / 'Abhishek Gali')
@@ -496,6 +514,11 @@ class QuizRecordRequest(BaseModel):
     set_id: str
     correct_count: int
     total_questions: int
+
+class AddCustomVideoRequest(BaseModel):
+    track_key: str
+    url: str
+    title: Optional[str] = None
 
 # ── Authentication & RBAC Dependencies ──────────────────────────────────────
 def get_current_user(
@@ -1182,6 +1205,257 @@ def get_track_course(track_id: str):
         raise
     except Exception as err:
         raise HTTPException(status_code=500, detail=f"Error reading track course: {err}")
+
+# ── PWA Web App Manifest & Service Worker Routes ────────────────────────────
+
+@app.get("/manifest.json")
+def get_manifest():
+    """Serves Web App Manifest for mobile Chrome PWA installation."""
+    manifest_path = STATIC_DIR / "manifest.json"
+    if manifest_path.exists():
+        return FileResponse(str(manifest_path), media_type="application/manifest+json")
+    raise HTTPException(status_code=404, detail="manifest.json not found")
+
+@app.get("/sw.js")
+def get_service_worker():
+    """Serves PWA Service Worker script."""
+    sw_path = STATIC_DIR / "sw.js"
+    if sw_path.exists():
+        return FileResponse(str(sw_path), media_type="application/javascript")
+    raise HTTPException(status_code=404, detail="sw.js not found")
+
+# ── User Custom Videos & Playlist Hub Endpoints ─────────────────────────────
+
+def fetch_youtube_oembed(video_id: str) -> str:
+    """Fetches public YouTube video title via zero-key oEmbed endpoint with quick timeout."""
+    try:
+        req_url = f"https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v={video_id}&format=json"
+        req = urllib.request.Request(req_url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            data = json.loads(resp.read().decode())
+            return data.get("title", f"Video {video_id}")
+    except Exception:
+        return f"Video {video_id}"
+
+def fetch_playlist_metadata(playlist_url: str, playlist_id: str, custom_title: Optional[str] = None):
+    """Parses playlist entries and titles using yt-dlp flat-playlist extraction, with robust fallback."""
+    try:
+        proc = subprocess.run(
+            ["yt-dlp", "--flat-playlist", "-J", "--no-warnings", playlist_url],
+            capture_output=True,
+            text=True,
+            timeout=8
+        )
+        if proc.returncode == 0:
+            data = json.loads(proc.stdout)
+            title = custom_title or data.get("title") or f"Playlist {playlist_id[:8]}"
+            entries = data.get("entries", [])
+            videos = []
+            for i, e in enumerate(entries):
+                if e and e.get("id"):
+                    dur = ""
+                    dur_sec = e.get("duration")
+                    if dur_sec:
+                        m, s = divmod(int(dur_sec), 60)
+                        dur = f"{m}:{s:02d}"
+                    videos.append({
+                        "id": e.get("id"),
+                        "title": e.get("title") or f"Lecture {i+1}",
+                        "duration": dur
+                    })
+            if videos:
+                return title, videos
+    except Exception as err:
+        print(f"[Playlist Extraction Info] yt-dlp error: {err}")
+
+    # Fallback to single playlist stream embed
+    title = custom_title or f"Custom Playlist ({playlist_id[:8]})"
+    fallback_videos = [{
+        "id": f"videoseries?list={playlist_id}",
+        "title": title,
+        "duration": "Playlist Stream"
+    }]
+    return title, fallback_videos
+
+@app.get("/api/custom-courses")
+def get_user_custom_courses(track_key: Optional[str] = None, user: Dict[str, Any] = Depends(get_current_user)):
+    """Retrieves authenticated candidate's custom added playlists and personal videos."""
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        if track_key:
+            cur.execute("""
+                SELECT id, track_key, course_id, course_type, title, videos_json, added_at 
+                FROM user_custom_courses 
+                WHERE user_id = ? AND track_key = ?
+                ORDER BY id ASC
+            """, (user["id"], track_key))
+        else:
+            cur.execute("""
+                SELECT id, track_key, course_id, course_type, title, videos_json, added_at 
+                FROM user_custom_courses 
+                WHERE user_id = ?
+                ORDER BY id ASC
+            """, (user["id"],))
+        rows = cur.fetchall()
+
+        courses_by_track: Dict[str, List[Dict[str, Any]]] = {}
+        for r in rows:
+            t = r["track_key"]
+            if t not in courses_by_track:
+                courses_by_track[t] = []
+            try:
+                vids = json.loads(r["videos_json"])
+            except Exception:
+                vids = []
+            courses_by_track[t].append({
+                "id": r["course_id"],
+                "course_type": r["course_type"],
+                "title": r["title"],
+                "videos": vids,
+                "added_at": r["added_at"]
+            })
+
+    return {"status": "ok", "tracks": courses_by_track}
+
+@app.post("/api/custom-courses/add")
+def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any] = Depends(get_current_user)):
+    """
+    Ingests YouTube video or playlist URL:
+    - If playlist (list=...): creates a separate course tab with all playlist videos.
+    - If individual video: appends to candidate's 'Personal' collection.
+    """
+    url = req.url.strip()
+    if not url:
+        raise HTTPException(status_code=400, detail="URL cannot be empty.")
+
+    now_iso = datetime.datetime.now(timezone.utc).isoformat()
+
+    # Check for Playlist
+    playlist_match = re.search(r"[?&]list=([a-zA-Z0-9_-]+)", url)
+    is_playlist = bool(playlist_match) and ("playlist" in url or "watch" in url)
+
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+
+        if is_playlist:
+            pid = playlist_match.group(1)
+            course_id = f"playlist_{pid}"
+            title, videos = fetch_playlist_metadata(url, pid, req.title)
+
+            conn.execute("""
+                INSERT INTO user_custom_courses (user_id, track_key, course_id, course_type, title, videos_json, added_at)
+                VALUES (?, ?, ?, 'playlist', ?, ?, ?)
+                ON CONFLICT(user_id, track_key, course_id) DO UPDATE SET
+                    title = excluded.title,
+                    videos_json = excluded.videos_json,
+                    added_at = excluded.added_at
+            """, (user["id"], req.track_key, course_id, title, json.dumps(videos), now_iso))
+            conn.commit()
+
+            return {
+                "status": "ok",
+                "type": "playlist",
+                "course_id": course_id,
+                "title": title,
+                "video_count": len(videos),
+                "message": f"Playlist '{title}' added as a new course tab with {len(videos)} videos!"
+            }
+        else:
+            # Individual Video
+            vid_match = re.search(r"(?:v=|\/|embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})", url)
+            if not vid_match:
+                raise HTTPException(status_code=400, detail="Invalid YouTube URL. Please provide a valid video or playlist link.")
+
+            vid = vid_match.group(1)
+            title = req.title.strip() if req.title else fetch_youtube_oembed(vid)
+            video_entry = {
+                "id": vid,
+                "title": title,
+                "duration": ""
+            }
+
+            course_id = "personal"
+            cur.execute("""
+                SELECT videos_json FROM user_custom_courses 
+                WHERE user_id = ? AND track_key = ? AND course_id = 'personal'
+            """, (user["id"], req.track_key))
+            existing_row = cur.fetchone()
+
+            if existing_row:
+                try:
+                    v_list = json.loads(existing_row["videos_json"])
+                except Exception:
+                    v_list = []
+                if not any(v.get("id") == vid for v in v_list):
+                    v_list.append(video_entry)
+                conn.execute("""
+                    UPDATE user_custom_courses SET videos_json = ?, added_at = ?
+                    WHERE user_id = ? AND track_key = ? AND course_id = 'personal'
+                """, (json.dumps(v_list), now_iso, user["id"], req.track_key))
+            else:
+                v_list = [video_entry]
+                conn.execute("""
+                    INSERT INTO user_custom_courses (user_id, track_key, course_id, course_type, title, videos_json, added_at)
+                    VALUES (?, ?, 'personal', 'personal', 'Personal', ?, ?)
+                """, (user["id"], req.track_key, json.dumps(v_list), now_iso))
+
+            conn.commit()
+
+            return {
+                "status": "ok",
+                "type": "personal",
+                "course_id": "personal",
+                "title": "Personal",
+                "video": video_entry,
+                "video_count": len(v_list),
+                "message": f"Video '{title}' added to your Personal collection ({len(v_list)} total)!"
+            }
+
+@app.delete("/api/custom-courses/{course_id}")
+def delete_custom_course(course_id: str, track_key: str, user: Dict[str, Any] = Depends(get_current_user)):
+    """Deletes a custom playlist or personal course collection."""
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.execute("""
+            DELETE FROM user_custom_courses 
+            WHERE user_id = ? AND track_key = ? AND course_id = ?
+        """, (user["id"], track_key, course_id))
+        conn.commit()
+    return {"status": "ok", "message": f"Course '{course_id}' removed from shelf."}
+
+@app.delete("/api/custom-courses/{course_id}/video/{video_id}")
+def remove_video_from_custom_course(course_id: str, video_id: str, track_key: str, user: Dict[str, Any] = Depends(get_current_user)):
+    """Removes a single video from a custom course or personal collection."""
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT videos_json FROM user_custom_courses
+            WHERE user_id = ? AND track_key = ? AND course_id = ?
+        """, (user["id"], track_key, course_id))
+        row = cur.fetchone()
+        if not row:
+            raise HTTPException(status_code=404, detail="Course not found.")
+        try:
+            v_list = json.loads(row["videos_json"])
+            v_list = [v for v in v_list if v.get("id") != video_id]
+        except Exception:
+            v_list = []
+
+        if not v_list:
+            conn.execute("""
+                DELETE FROM user_custom_courses
+                WHERE user_id = ? AND track_key = ? AND course_id = ?
+            """, (user["id"], track_key, course_id))
+        else:
+            conn.execute("""
+                UPDATE user_custom_courses SET videos_json = ?
+                WHERE user_id = ? AND track_key = ? AND course_id = ?
+            """, (json.dumps(v_list), user["id"], track_key, course_id))
+        conn.commit()
+
+    return {"status": "ok", "remaining_videos": len(v_list)}
 
 # ── Frontend HTML Route ─────────────────────────────────────────────────────
 

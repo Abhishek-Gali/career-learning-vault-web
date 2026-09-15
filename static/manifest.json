@@ -1,0 +1,31 @@
+{
+  "name": "Career Learning Vault",
+  "short_name": "CareerVault",
+  "description": "Full-stack Multi-Tenant AI, Data Science & Cybersecurity Sandbox Hub",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#080c14",
+  "theme_color": "#10b981",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/static/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/images/vault-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
