@@ -215,6 +215,9 @@ const App = {
   },
 
   switchView(viewName) {
+    // Pause all playing videos immediately across all tracks upon navigation
+    this.pauseAllVideos();
+
     if (viewName === 'dsa-blueprint' || viewName === 'dsa') viewName = 'dsa-blueprint';
     if (viewName === 'dsa-drills' || viewName === 'interview-drills') viewName = 'drills';
 
@@ -901,7 +904,18 @@ const App = {
     ['ds', 'ml', 'cyber', 'dsa'].forEach(t => this.renderCourseTrack(t));
   },
 
+  getYoutubeEmbedUrl(videoId, autoplay = false) {
+    const origin = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin !== 'null')
+      ? encodeURIComponent(window.location.origin)
+      : '';
+    let url = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&enablejsapi=1`;
+    if (autoplay) url += '&autoplay=1';
+    if (origin) url += `&origin=${origin}`;
+    return url;
+  },
+
   switchCourseLanguage(trackKey, langKey) {
+    this.pauseAllVideos();
     if (!this.state.courseLanguage) this.state.courseLanguage = {};
     this.state.courseLanguage[trackKey] = langKey;
     try {
@@ -927,6 +941,7 @@ const App = {
   },
 
   selectCourse(trackKey, courseId) {
+    this.pauseAllVideos();
     if (!this.state.activeCourseId) this.state.activeCourseId = {};
     if (!this.state.activeVideoIdx) this.state.activeVideoIdx = {};
     this.state.activeCourseId[trackKey] = courseId;
@@ -950,11 +965,11 @@ const App = {
     const v = videos[idx];
     if (!v) return;
 
-    // Smooth theater update — pause all other track iframes first
-    this.pauseAllIframesExcept(`${trackKey}-theater-iframe`);
+    // Smooth theater update — pause all other videos first
+    this.pauseAllVideos(`${trackKey}-theater-iframe`);
     const iframe = document.getElementById(`${trackKey}-theater-iframe`);
     if (iframe) {
-      iframe.src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&enablejsapi=1`;
+      iframe.src = this.getYoutubeEmbedUrl(v.id, true);
     }
 
     const titleEl = document.getElementById(`${trackKey}-video-title`);
@@ -1329,7 +1344,7 @@ const App = {
             <iframe 
               id="${trackKey}-theater-iframe"
               class="w-full h-full"
-              src="https://www.youtube-nocookie.com/embed/${activeVideo.id}?rel=0&enablejsapi=1" 
+              src="${this.getYoutubeEmbedUrl(activeVideo.id, false)}" 
               title="${activeVideo.title}" 
               frameborder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -2404,13 +2419,18 @@ const App = {
     if (btn) btn.textContent = '☰';
   },
 
-  // ── Single Video Playback (pause all others) ──────────────────────────────
-  pauseAllIframesExcept(activeIframeId) {
-    document.querySelectorAll('iframe[id$="-theater-iframe"]').forEach(iframe => {
-      if (iframe.id !== activeIframeId && iframe.contentWindow) {
+  // ── Universal Single-Video Playback Engine (pause all others) ─────────────
+  pauseAllVideos(exceptIframeId = null) {
+    document.querySelectorAll('iframe').forEach(iframe => {
+      if (exceptIframeId && (iframe.id === exceptIframeId || iframe === exceptIframeId)) return;
+      if (iframe.contentWindow) {
         try {
           iframe.contentWindow.postMessage(
             JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
+            '*'
+          );
+          iframe.contentWindow.postMessage(
+            JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' }),
             '*'
           );
         } catch (e) { /* cross-origin, safe to ignore */ }
@@ -2486,5 +2506,39 @@ window.addEventListener('DOMContentLoaded', () => {
       App.prevQuizQuestion(pfx);
     } else if (e.key === 'ArrowRight' && App.state.quizSubmitted) {
       App.nextQuizQuestion(pfx);
+    }
+  });
+
+  // ── Global YouTube Cross-Player Audio Isolation Engine ─────────────────────
+  // Listens for YouTube iframe state changes and automatically pauses all other videos
+  window.addEventListener('message', (event) => {
+    try {
+      let data = event.data;
+      if (typeof data === 'string') {
+        try {
+          data = JSON.parse(data);
+        } catch (e) {
+          return;
+        }
+      }
+      if (!data || typeof data !== 'object') return;
+
+      // Check for YouTube playerState = 1 (PLAYING) or 3 (BUFFERING)
+      const isPlaying = 
+        (data.event === 'onStateChange' && (data.info === 1 || data.info === '1' || data.info === 3)) ||
+        (data.event === 'infoDelivery' && data.info && (data.info.playerState === 1 || data.info.playerState === '1'));
+
+      if (isPlaying && event.source) {
+        document.querySelectorAll('iframe').forEach(iframe => {
+          if (iframe.contentWindow && iframe.contentWindow !== event.source) {
+            try {
+              iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*');
+              iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' }), '*');
+            } catch (err) {}
+          }
+        });
+      }
+    } catch (err) {
+      // Cross-origin safe
     }
   });
