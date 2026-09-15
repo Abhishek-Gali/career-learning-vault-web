@@ -140,6 +140,7 @@ const App = {
     await this.loadChallenges();
     await this.loadInterviewTracks();
     this.renderLibraryCatalog();
+    this.renderDrillsHub();
 
     if (this.state.challenges.length > 0) {
       await this.selectChallenge(this.state.challenges[0].id);
@@ -202,10 +203,16 @@ const App = {
   },
 
   switchView(viewName) {
-    if (viewName === 'dsa') viewName = 'dsa-blueprint';
+    if (viewName === 'dsa-blueprint' || viewName === 'dsa') viewName = 'dsa-blueprint';
+    if (viewName === 'dsa-drills' || viewName === 'interview-drills') viewName = 'drills';
+
     this.state.activeView = viewName;
     document.querySelectorAll('.sidebar-item').forEach(item => {
-      item.classList.toggle('active', item.dataset.view === viewName);
+      const v = item.dataset.view;
+      const isMatch = (v === viewName) ||
+                      (viewName === 'dsa-blueprint' && v === 'dsa') ||
+                      (viewName === 'drills' && (v === 'dsa-drills' || v === 'drills'));
+      item.classList.toggle('active', isMatch);
     });
 
     document.querySelectorAll('.track-view').forEach(v => v.classList.add('hidden'));
@@ -215,8 +222,21 @@ const App = {
       target.classList.remove('hidden');
     }
 
-    if (viewName === 'dsa-drills') {
-      this.activatePrepSubtab('dsa');
+    if (viewName === 'drills') {
+      if (!this.state.activeTrackKey) {
+        this.state.activeTrackKey = 'machine_learning';
+      }
+      const pfxMap = { 'machine_learning': 'ml', 'data_science': 'ds', 'cybersecurity': 'cyber', 'dsa': 'dsa' };
+      const pfx = pfxMap[this.state.activeTrackKey] || 'ml';
+
+      const trackObj = this.state.interviewTracks[this.state.activeTrackKey];
+      if (trackObj && trackObj.sets && trackObj.sets.length > 0) {
+        if (!this.state.activeSetId || !trackObj.sets.some(s => s.id === this.state.activeSetId)) {
+          this.state.activeSetId = trackObj.sets[0].id;
+        }
+      }
+      this.renderDrillsHub();
+      this.loadQuizQuestions(pfx);
     }
 
     if (viewName === 'sandbox') {
@@ -330,56 +350,168 @@ const App = {
     return themes[trackPrefix] || themes['ml'];
   },
 
-  activatePrepSubtab(trackPrefix) {
+  openDrillsForTrack(trackPrefix, setId) {
     const trackMap = {
       'ds': 'data_science',
       'ml': 'machine_learning',
       'cyber': 'cybersecurity',
       'dsa': 'dsa'
     };
-    const trackKey = trackMap[trackPrefix];
-    if (!trackKey) return;
-
+    const trackKey = trackMap[trackPrefix] || 'machine_learning';
     this.state.activeTrackKey = trackKey;
+
     const trackObj = this.state.interviewTracks[trackKey];
     if (trackObj && trackObj.sets && trackObj.sets.length > 0) {
-      if (!this.state.activeSetId || !trackObj.sets.some(s => s.id === this.state.activeSetId)) {
+      if (setId && trackObj.sets.some(s => s.id === setId)) {
+        this.state.activeSetId = setId;
+      } else {
         this.state.activeSetId = trackObj.sets[0].id;
       }
-      this.renderTrackLevelSelectors(trackPrefix, trackObj.sets);
-      this.loadQuizQuestions(trackPrefix);
     }
+
+    this.state.quizStats = { correct: 0, incorrect: 0 };
+    this.switchView('drills');
+    this.renderDrillsHub();
+    this.loadQuizQuestions(trackPrefix);
+
+    setTimeout(() => {
+      const quizEl = document.getElementById('unified-quiz-container');
+      if (quizEl) quizEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 120);
   },
 
-  renderTrackLevelSelectors(trackPrefix, sets) {
-    const container = document.getElementById(`${trackPrefix}-level-selector`);
+  activatePrepSubtab(trackPrefix) {
+    this.openDrillsForTrack(trackPrefix);
+  },
+
+  renderDrillsHub() {
+    const container = document.getElementById('drills-domain-cards-container');
     if (!container) return;
 
-    const theme = this.getTrackTheme(trackPrefix);
+    const tracksMeta = [
+      {
+        key: 'machine_learning',
+        pfx: 'ml',
+        title: 'AI & Machine Learning (AIML)',
+        badge: '🧠 AIML TRACK',
+        desc: 'Stanford ISLP statistical modeling, Cambridge mathematics for ML, optimization, and deep learning neural nets.',
+        icon: '🧠',
+        borderActive: 'border-purple-500/60 ring-2 ring-purple-500/30 bg-purple-950/20',
+        lineGradient: 'from-purple-500 via-pink-500 to-indigo-500',
+        badgeColor: 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+      },
+      {
+        key: 'data_science',
+        pfx: 'ds',
+        title: 'Data Science (DS)',
+        badge: '📊 DATA SCIENCE TRACK',
+        desc: 'Statistical inference, advanced SQL window functions & CTEs, Pandas wrangling, and exploratory analytics.',
+        icon: '📊',
+        borderActive: 'border-cyan-500/60 ring-2 ring-cyan-500/30 bg-cyan-950/20',
+        lineGradient: 'from-cyan-500 via-blue-500 to-teal-500',
+        badgeColor: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+      },
+      {
+        key: 'cybersecurity',
+        pfx: 'cyber',
+        title: 'Cyber Security (ISC2 CC)',
+        badge: '🛡️ CYBER SECURITY TRACK',
+        desc: 'ISC2 CC exam prep banks: Security Principles, BCP/DR, Access Control, Network Security & Incident Operations.',
+        icon: '🛡️',
+        borderActive: 'border-rose-500/60 ring-2 ring-rose-500/30 bg-rose-950/20',
+        lineGradient: 'from-rose-500 via-pink-500 to-orange-500',
+        badgeColor: 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+      },
+      {
+        key: 'dsa',
+        pfx: 'dsa',
+        title: 'Data Structures & Algorithms (DSA)',
+        badge: '⚡ FAANG BLUEPRINT',
+        desc: 'NeetCode 150 & Blind 75 core patterns, Python 3 Big-O analysis, and FAANG screening drills.',
+        icon: '⚡',
+        borderActive: 'border-amber-500/60 ring-2 ring-amber-500/30 bg-amber-950/20',
+        lineGradient: 'from-amber-500 via-orange-500 to-yellow-500',
+        badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+      }
+    ];
+
     let html = '';
-    sets.forEach(set => {
-      const isSelected = this.state.activeSetId === set.id;
-      const displayName = this.formatSetName(set.id, set.name);
+    tracksMeta.forEach(t => {
+      const trackObj = this.state.interviewTracks[t.key] || { sets: [] };
+      const isTrackActive = this.state.activeTrackKey === t.key;
+      const theme = this.getTrackTheme(t.pfx);
+      const totalQs = (trackObj.sets || []).reduce((acc, s) => acc + (s.question_count || 0), 0);
+
       html += `
-        <button class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 ${
-          isSelected 
-            ? theme.active 
-            : 'bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700 hover:bg-slate-800/60'
-        }" data-set="${set.id}" data-pfx="${trackPrefix}">
-          <span>${displayName}</span>
-          <span class="px-2 py-0.5 text-[10px] rounded-full ${isSelected ? theme.badge : 'bg-slate-800 text-slate-400'} font-mono">${set.question_count} Qs</span>
-        </button>
+        <div class="glass-panel p-5 relative overflow-hidden transition-all duration-300 rounded-2xl border ${
+          isTrackActive ? t.borderActive : 'border-slate-800/80 hover:border-slate-700 bg-slate-900/50'
+        }" data-track="${t.key}">
+          <!-- Top theme accent line -->
+          <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${t.lineGradient} ${isTrackActive ? 'opacity-100' : 'opacity-40'}"></div>
+          
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3.5">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2.5 flex-wrap">
+                <span class="text-xl">${t.icon}</span>
+                <h3 class="text-base font-bold text-white tracking-tight">${t.title}</h3>
+                <span class="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${t.badgeColor}">${t.badge}</span>
+                <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">${totalQs} Questions</span>
+              </div>
+              <p class="text-xs text-slate-400">${t.desc}</p>
+            </div>
+            ${isTrackActive ? `<span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-mono font-bold flex items-center gap-1.5 self-start md:self-center"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ACTIVE DOMAIN</span>` : ''}
+          </div>
+
+          <!-- Nested Sub-Levels Pills (Wireframed by User in media_1789455278758.png) -->
+          <div class="pt-3 border-t border-slate-800/80">
+            <div class="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <span>🎯</span> <span>Sub-Levels & Assessments:</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+      `;
+
+      (trackObj.sets || []).forEach(set => {
+        const isLevelSelected = isTrackActive && (this.state.activeSetId === set.id);
+        const displayName = this.formatSetName(set.id, set.name);
+        html += `
+          <button class="level-pill-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
+            isLevelSelected 
+              ? theme.active 
+              : 'bg-slate-900/90 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700 hover:bg-slate-800/60'
+          }" data-track="${t.key}" data-pfx="${t.pfx}" data-set="${set.id}">
+            <span>${displayName}</span>
+            <span class="px-2 py-0.5 text-[10px] rounded-full ${isLevelSelected ? theme.badge : 'bg-slate-800 text-slate-400'} font-mono font-bold">${set.question_count} Qs</span>
+          </button>
+        `;
+      });
+
+      html += `
+            </div>
+          </div>
+        </div>
       `;
     });
 
     container.innerHTML = html;
 
-    container.querySelectorAll('button').forEach(btn => {
-      btn.onclick = () => {
-        this.state.activeSetId = btn.dataset.set;
+    // Attach click listeners to level pills
+    container.querySelectorAll('.level-pill-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const trackKey = btn.dataset.track;
+        const pfx = btn.dataset.pfx;
+        const setId = btn.dataset.set;
+
+        this.state.activeTrackKey = trackKey;
+        this.state.activeSetId = setId;
         this.state.quizStats = { correct: 0, incorrect: 0 };
-        this.renderTrackLevelSelectors(btn.dataset.pfx, sets);
-        this.loadQuizQuestions(btn.dataset.pfx);
+        this.renderDrillsHub();
+        this.loadQuizQuestions(pfx);
+
+        setTimeout(() => {
+          const quizEl = document.getElementById('unified-quiz-container');
+          if (quizEl) quizEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 80);
       };
     });
   },
@@ -404,7 +536,10 @@ const App = {
   },
 
   renderQuizCard(trackPrefix) {
-    const container = document.getElementById(`${trackPrefix}-quiz-container`);
+    let container = document.getElementById('unified-quiz-container');
+    if (!container) {
+      container = document.getElementById(`${trackPrefix}-quiz-container`);
+    }
     if (!container) return;
 
     const theme = this.getTrackTheme(trackPrefix);
@@ -1677,16 +1812,11 @@ window.addEventListener('DOMContentLoaded', () => {
     if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
     
     const activeView = App.state.activeView;
-    const isDsaDrills = activeView === 'dsa-drills';
-    const pfxMap = { 'machine_learning': 'ml', 'data_science': 'ds', 'cybersecurity': 'cyber', 'dsa': 'dsa' };
-    const pfx = isDsaDrills ? 'dsa' : pfxMap[App.state.activeTrackKey];
-    if (!pfx) return;
+    const isDrillsView = activeView === 'drills' || activeView === 'dsa-drills' || activeView === 'interview-drills';
+    if (!isDrillsView) return;
 
-    // Check if prep subtab or standalone view is active
-    if (!isDsaDrills) {
-      const prepSubtab = document.getElementById(`subtab-${pfx}-prep`);
-      if (!prepSubtab || prepSubtab.classList.contains('hidden')) return;
-    }
+    const pfxMap = { 'machine_learning': 'ml', 'data_science': 'ds', 'cybersecurity': 'cyber', 'dsa': 'dsa' };
+    const pfx = pfxMap[App.state.activeTrackKey] || 'ml';
 
     const key = e.key.toUpperCase();
     if (['A', 'B', 'C', 'D'].includes(key) || ['1', '2', '3', '4'].includes(e.key)) {

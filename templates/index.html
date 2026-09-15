@@ -38,7 +38,7 @@
   </script>
 
   <!-- Refero Design & Watermelon UI Styles -->
-  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.5.0">
+  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.6.0">
 
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
@@ -237,27 +237,27 @@
           </div>
         </div>
 
-        <div class="sidebar-item" data-view="dsa-blueprint">
+        <div class="sidebar-item" data-view="dsa">
           <div class="sidebar-indicator"></div>
           <span class="text-base">⚡</span>
           <div class="flex-1">
-            <div class="leading-tight">DSA Blueprint & Matrix</div>
-            <div class="text-[10px] text-slate-400 font-normal">Blind 75 & Big-O Matrix</div>
+            <div class="leading-tight">DSA & Algorithms</div>
+            <div class="text-[10px] text-slate-400 font-normal">Blind 75 & Complexity</div>
           </div>
         </div>
 
         <div class="pt-2">
           <div class="px-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Hands-On Practice</div>
           
-          <div class="sidebar-item" data-view="dsa-drills">
+          <div class="sidebar-item" data-view="drills">
             <div class="sidebar-indicator"></div>
             <span class="text-base">🎯</span>
             <div class="flex-1 flex items-center justify-between">
               <div>
-                <div class="leading-tight">DSA Interview Drills</div>
-                <div class="text-[10px] text-slate-400 font-normal">Levels 1–3 Interactive</div>
+                <div class="leading-tight">Technical Interview Drills</div>
+                <div class="text-[10px] text-slate-400 font-normal">AIML, DS, Cyber & DSA</div>
               </div>
-              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-mono font-bold">60 Qs</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-mono font-bold">280 Qs</span>
             </div>
           </div>
 
@@ -328,17 +328,7 @@
           </div>
         </div>
 
-        <!-- Sub-Tabs Navigation -->
-        <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
-          <button class="subtab-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30" data-subtab="ds-resources">
-            📚 Books, Cheatsheets & Videos
-          </button>
-          <button class="subtab-btn px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white" data-subtab="ds-prep">
-            🎯 Interactive Interview Prep (Levels 1–3)
-          </button>
-        </div>
-
-        <!-- Subtab Content 1: Books & Resources -->
+        <!-- Content: Books & Resources -->
         <div id="subtab-ds-resources" class="space-y-6">
           
           <!-- Master Study Plans -->
@@ -538,18 +528,21 @@
             </div>
           </div>
 
-        </div>
-
-        <!-- Subtab Content 2: Interview Prep Engine -->
-        <div id="subtab-ds-prep" class="space-y-4 hidden">
-          <div class="flex flex-wrap items-center gap-2 pb-2" id="ds-level-selector">
-            <!-- Populated dynamically -->
+          <!-- Bottom Transition Callout Card -->
+          <div class="glass-panel p-4 border border-cyan-500/20 bg-gradient-to-r from-cyan-500/5 via-slate-900 to-transparent flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🎯</span>
+              <div>
+                <h4 class="text-xs font-bold text-white">Ready for Data Science technical interview screening?</h4>
+                <p class="text-[11px] text-slate-400">Practice 60 Level-Based questions across Foundations, Intermediate, and Advanced SQL/EDA.</p>
+              </div>
+            </div>
+            <button onclick="App.openDrillsForTrack('ds')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-slate-950 text-xs font-bold hover:brightness-110 shadow-lg shadow-cyan-500/10 flex items-center gap-2 flex-shrink-0 transition-all cursor-pointer">
+              <span>Launch DS Interview Drills</span>
+              <span>→</span>
+            </button>
           </div>
-          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="ds-quiz-container">
-            <!-- Quiz Card -->
-          </div>
         </div>
-
       </section>
 
       <!-- =================================================================== -->
@@ -577,15 +570,7 @@
           </div>
         </div>
 
-        <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
-          <button class="subtab-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-purple-500/15 text-purple-300 border border-purple-500/30" data-subtab="ml-resources">
-            📚 Textbooks, Math & Videos
-          </button>
-          <button class="subtab-btn px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white" data-subtab="ml-prep">
-            🎯 Interactive ML Prep (Levels 1–3)
-          </button>
-        </div>
-
+        <!-- Content: Textbooks, Math & Videos -->
         <div id="subtab-ml-resources" class="space-y-6">
           <div class="space-y-3">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Premier Open Textbooks & Deep Learning Books</h3>
@@ -748,13 +733,21 @@
             </div>
           </div>
 
+          <!-- Bottom Transition Callout Card -->
+          <div class="glass-panel p-4 border border-purple-500/20 bg-gradient-to-r from-purple-500/5 via-slate-900 to-transparent flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🎯</span>
+              <div>
+                <h4 class="text-xs font-bold text-white">Ready for Machine Learning technical interview screening?</h4>
+                <p class="text-[11px] text-slate-400">Practice 60 Level-Based questions across Mathematics for ML, Classical Models, and Deep Learning.</p>
+              </div>
+            </div>
+            <button onclick="App.openDrillsForTrack('ml')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold hover:brightness-110 shadow-lg shadow-purple-500/10 flex items-center gap-2 flex-shrink-0 transition-all cursor-pointer">
+              <span>Launch ML Interview Drills</span>
+              <span>→</span>
+            </button>
+          </div>
         </div>
-
-        <div id="subtab-ml-prep" class="space-y-4 hidden">
-          <div class="flex flex-wrap items-center gap-2 pb-2" id="ml-level-selector"></div>
-          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="ml-quiz-container"></div>
-        </div>
-
       </section>
 
       <!-- =================================================================== -->
@@ -782,15 +775,7 @@
           </div>
         </div>
 
-        <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
-          <button class="subtab-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30" data-subtab="cyber-resources">
-            📕 Frameworks, Books & Lab Tools
-          </button>
-          <button class="subtab-btn px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white" data-subtab="cyber-prep">
-            📝 ISC2 CC Exam Simulator (5 Domains)
-          </button>
-        </div>
-
+        <!-- Content: Frameworks, Books & Lab Tools -->
         <div id="subtab-cyber-resources" class="space-y-6">
           <div class="space-y-3">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">NIST Industry Frameworks & Open Standards</h3>
@@ -858,11 +843,20 @@
 
             </div>
           </div>
-        </div>
-
-        <div id="subtab-cyber-prep" class="space-y-4 hidden">
-          <div class="flex flex-wrap items-center gap-2 pb-2" id="cyber-level-selector"></div>
-          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="cyber-quiz-container"></div>
+          <!-- Bottom Transition Callout Card -->
+          <div class="glass-panel p-4 border border-rose-500/20 bg-gradient-to-r from-rose-500/5 via-slate-900 to-transparent flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🎯</span>
+              <div>
+                <h4 class="text-xs font-bold text-white">Ready for ISC2 Certified in Cybersecurity (CC) exam prep?</h4>
+                <p class="text-[11px] text-slate-400">Practice 100 questions across all 5 ISC2 CC domains with instant feedback.</p>
+              </div>
+            </div>
+            <button onclick="App.openDrillsForTrack('cyber')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white text-xs font-bold hover:brightness-110 shadow-lg shadow-rose-500/10 flex items-center gap-2 flex-shrink-0 transition-all cursor-pointer">
+              <span>Launch ISC2 CC Exam Practice</span>
+              <span>→</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -1000,8 +994,8 @@
                 <p class="text-[11px] text-slate-400">Practice 60 Level-Based DSA Interview Questions across Foundations, Intermediate, and Advanced Mastery.</p>
               </div>
             </div>
-            <button onclick="App.switchView('dsa-drills')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-xs font-bold hover:brightness-110 shadow-lg shadow-amber-500/10 flex items-center gap-2 flex-shrink-0 transition-all cursor-pointer">
-              <span>Open Standalone DSA Drills</span>
+            <button onclick="App.openDrillsForTrack('dsa')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-xs font-bold hover:brightness-110 shadow-lg shadow-amber-500/10 flex items-center gap-2 flex-shrink-0 transition-all cursor-pointer">
+              <span>Launch DSA Interview Drills</span>
               <span>→</span>
             </button>
           </div>
@@ -1010,37 +1004,49 @@
 
       <!-- Backward Compatibility Alias -->
       <div id="view-dsa" class="hidden"></div>
+      <div id="view-dsa-blueprint" class="hidden"></div>
 
       <!-- =================================================================== -->
-      <!-- VIEW 4B: INTERACTIVE DSA INTERVIEW DRILLS (STANDALONE)              -->
+      <!-- VIEW: TECHNICAL INTERVIEW DRILLS HUB (STANDALONE FLEET)             -->
       <!-- =================================================================== -->
-      <section id="view-dsa-drills" class="track-view space-y-6 hidden">
+      <section id="view-drills" class="track-view space-y-6 hidden">
         <!-- Compact Sleek Hero Header -->
         <div class="glass-panel px-5 py-3 relative overflow-hidden border border-amber-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
           <div class="space-y-0.5 min-w-0">
             <div class="flex items-center gap-2.5 flex-wrap">
-              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Interactive DSA Interview Drills</h1>
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Technical Interview Drills & Simulator</h1>
               <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-semibold">
-                <span>🎯</span> <span>Interview Simulator</span>
+                <span>🎯</span> <span>280 High-Yield Questions</span>
               </span>
             </div>
             <p class="text-xs text-slate-400">
-              60 Level-Based Algorithmic Challenges (Levels 1–3) with deep option-by-option pedagogical rationales and live scoring.
+              Select a domain track below (AIML, Data Science, Cyber Security, or DSA) to practice level-based screening drills with deep pedagogical rationales.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
-            <button onclick="App.switchView('dsa-blueprint')" class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-white text-[11px] font-semibold transition-all flex items-center gap-1.5 cursor-pointer">
-              <span>← Blueprint & Matrix</span>
-            </button>
-            <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[11px] font-semibold">🎓 60 Level Qs</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-purple-300 font-mono text-[11px]">🧠 AIML (60)</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-cyan-300 font-mono text-[11px]">📊 DS (60)</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-rose-300 font-mono text-[11px]">🛡️ Cyber (100)</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-amber-300 font-mono text-[11px]">⚡ DSA (60)</span>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="flex flex-wrap items-center gap-2 pb-2" id="dsa-level-selector"></div>
-          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="dsa-quiz-container"></div>
+        <!-- 4 Domain Cards Container (Wireframed by User in media_1789455278758.png) -->
+        <div class="space-y-3.5" id="drills-domain-cards-container">
+          <!-- Populated dynamically by App.renderDrillsHub() -->
+        </div>
+
+        <!-- Active Quiz Card Container -->
+        <div class="pt-2">
+          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl transition-all" id="unified-quiz-container">
+            <!-- Populated dynamically by App.renderQuizCard() -->
+          </div>
         </div>
       </section>
+
+      <!-- Backward Compatibility Aliases -->
+      <div id="view-dsa-drills" class="hidden"></div>
+      <div id="view-interview-drills" class="hidden"></div>
 
       <!-- =================================================================== -->
       <!-- VIEW 5: CODING SANDBOX (312 CHALLENGES FLEET)                       -->
@@ -1331,7 +1337,7 @@
   </div>
 
   <!-- App Scripts -->
-  <script src="/static/js/timer.js?v=2.5.0"></script>
-  <script src="/static/js/app.js?v=2.5.0"></script>
+  <script src="/static/js/timer.js?v=2.6.0"></script>
+  <script src="/static/js/app.js?v=2.6.0"></script>
 </body>
 </html>
