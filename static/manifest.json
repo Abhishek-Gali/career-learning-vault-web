@@ -10,6 +10,11 @@
   "orientation": "any",
   "icons": [
     {
+      "src": "/static/images/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
       "src": "/static/images/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
@@ -22,7 +27,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/static/images/vault-icon.svg",
+      "src": "/static/images/vault-logo-a.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
