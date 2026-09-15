@@ -206,6 +206,10 @@ const App = {
       item.addEventListener('click', () => {
         const view = item.dataset.view;
         this.switchView(view);
+        // Auto-close sidebar on mobile after navigation
+        if (window.innerWidth < 768) {
+          this.closeMobileSidebar();
+        }
       });
     });
   },
@@ -946,10 +950,11 @@ const App = {
     const v = videos[idx];
     if (!v) return;
 
-    // Smooth theater update
+    // Smooth theater update — pause all other track iframes first
+    this.pauseAllIframesExcept(`${trackKey}-theater-iframe`);
     const iframe = document.getElementById(`${trackKey}-theater-iframe`);
     if (iframe) {
-      iframe.src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0`;
+      iframe.src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&enablejsapi=1`;
     }
 
     const titleEl = document.getElementById(`${trackKey}-video-title`);
@@ -1324,7 +1329,7 @@ const App = {
             <iframe 
               id="${trackKey}-theater-iframe"
               class="w-full h-full"
-              src="https://www.youtube-nocookie.com/embed/${activeVideo.id}?rel=0" 
+              src="https://www.youtube-nocookie.com/embed/${activeVideo.id}?rel=0&enablejsapi=1" 
               title="${activeVideo.title}" 
               frameborder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -1418,7 +1423,7 @@ const App = {
           <!-- Scrollable Full Video Queue (Like YouTube Playlist Sidebar) -->
           <div 
             id="${trackKey}-playlist-queue" 
-            class="space-y-2 max-h-[560px] overflow-y-auto pr-1"
+            class="space-y-2 max-h-[300px] lg:max-h-[560px] overflow-y-auto pr-1"
             style="scrollbar-width: thin; scrollbar-color: #334155 #0b1120;">
             ${playlistItemsHtml}
           </div>
@@ -2376,6 +2381,41 @@ const App = {
         this.state.editorContent = sol;
       }
     }
+  },
+
+  // ── Mobile Sidebar Toggle ─────────────────────────────────────────────────
+  toggleMobileSidebar() {
+    const sidebar = document.querySelector('.vault-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const btn = document.getElementById('mobile-menu-btn');
+    if (!sidebar || !overlay) return;
+    const isOpen = sidebar.classList.contains('sidebar-open');
+    sidebar.classList.toggle('sidebar-open', !isOpen);
+    overlay.classList.toggle('sidebar-open', !isOpen);
+    if (btn) btn.textContent = isOpen ? '☰' : '✕';
+  },
+
+  closeMobileSidebar() {
+    const sidebar = document.querySelector('.vault-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const btn = document.getElementById('mobile-menu-btn');
+    if (sidebar) sidebar.classList.remove('sidebar-open');
+    if (overlay) overlay.classList.remove('sidebar-open');
+    if (btn) btn.textContent = '☰';
+  },
+
+  // ── Single Video Playback (pause all others) ──────────────────────────────
+  pauseAllIframesExcept(activeIframeId) {
+    document.querySelectorAll('iframe[id$="-theater-iframe"]').forEach(iframe => {
+      if (iframe.id !== activeIframeId && iframe.contentWindow) {
+        try {
+          iframe.contentWindow.postMessage(
+            JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
+            '*'
+          );
+        } catch (e) { /* cross-origin, safe to ignore */ }
+      }
+    });
   },
 
   resetCode() {
