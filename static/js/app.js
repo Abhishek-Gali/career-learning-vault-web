@@ -6,6 +6,9 @@
 
 const App = {
   state: {
+    currentUser: null,
+    adminUsers: [],
+    authToken: (typeof localStorage !== 'undefined' ? localStorage.getItem('vault_auth_token') : '') || (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('vault_auth_token') : '') || '',
     activeView: 'datascience',
     platforms: [],
     selectedPlatform: 'all',
@@ -36,6 +39,162 @@ const App = {
     courseLanguage: { ml: 'en', ds: 'en', cyber: 'en', dsa: 'en' },
     activeCourseId: { ml: 'karpathy_zero_to_hero', ds: 'mit_60002', cyber: 'mit_6858_security', dsa: 'striver_a2z_dsa' },
     activeVideoIdx: { ml: 0, ds: 0, cyber: 0, dsa: 0 }
+  },
+
+  getAuthHeaders() {
+    const headers = { 'Content-Type': 'application/json' };
+    if (this.state.authToken) {
+      headers['Authorization'] = 'Bearer ' + this.state.authToken;
+    }
+    return headers;
+  },
+
+  async checkAuth() {
+    try {
+      const res = await fetch('/api/auth/me', { headers: this.getAuthHeaders() });
+      if (res.ok) {
+        const data = await res.json();
+        this.state.currentUser = data.user;
+        this.updateUserUI(data.user);
+        const loginView = document.getElementById('view-login');
+        if (loginView) loginView.classList.add('hidden');
+        return true;
+      }
+    } catch (e) {
+      console.warn('Auth validation failed:', e);
+    }
+
+    this.state.currentUser = null;
+    const loginView = document.getElementById('view-login');
+    if (loginView) loginView.classList.remove('hidden');
+    return false;
+  },
+
+  updateUserUI(user) {
+    if (!user) return;
+    const initials = (user.full_name || user.username).split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2) || 'US';
+    const initialsEl = document.getElementById('user-avatar-initials');
+    if (initialsEl) initialsEl.textContent = initials;
+
+    const nameEl = document.getElementById('user-display-name');
+    if (nameEl) nameEl.textContent = user.full_name || user.username;
+
+    const roleEl = document.getElementById('user-role-badge');
+    if (roleEl) {
+      roleEl.textContent = user.role.toUpperCase();
+      if (user.role === 'admin') {
+        roleEl.className = 'text-[9px] px-1.5 py-0.2 rounded font-mono font-bold uppercase bg-rose-500/15 text-rose-400 border border-rose-500/30';
+      } else {
+        roleEl.className = 'text-[9px] px-1.5 py-0.2 rounded font-mono font-bold uppercase bg-cyan-500/15 text-cyan-400 border border-cyan-500/30';
+      }
+    }
+
+    const adminSection = document.getElementById('sidebar-admin-section');
+    if (adminSection) {
+      adminSection.classList.toggle('hidden', user.role !== 'admin');
+    }
+  },
+
+  async handleLogin(e) {
+    if (e) e.preventDefault();
+    const uInput = document.getElementById('login-username');
+    const pInput = document.getElementById('login-password');
+    const rInput = document.getElementById('login-remember');
+    const errAlert = document.getElementById('login-error-alert');
+    const errMsg = document.getElementById('login-error-message');
+    const submitBtn = document.getElementById('login-submit-btn');
+
+    if (!uInput || !pInput) return;
+    const username = uInput.value.trim();
+    const password = pInput.value;
+    const rememberMe = rInput ? rInput.checked : true;
+
+    if (!username || !password) return;
+
+    if (errAlert) errAlert.classList.add('hidden');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Verifying credentials...</span>';
+    }
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, remember_me: rememberMe })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.status === 'ok') {
+        this.state.authToken = data.token;
+        if (rememberMe) {
+          localStorage.setItem('vault_auth_token', data.token);
+        } else {
+          sessionStorage.setItem('vault_auth_token', data.token);
+        }
+        this.state.currentUser = data.user;
+        this.updateUserUI(data.user);
+
+        const loginView = document.getElementById('view-login');
+        if (loginView) loginView.classList.add('hidden');
+
+        // Initialize user-scoped state
+        this.state.solvedChallenges.clear();
+        this.initSolvedState();
+        if (window.vaultTimer) {
+          window.vaultTimer.loadInitialState();
+        }
+        await this.loadPlatforms();
+        await this.loadChallenges();
+        await this.loadInterviewTracks();
+        await this.loadCourseCatalog();
+        this.renderLibraryCatalog();
+        this.renderDrillsHub();
+        this.renderAllCourseTracks();
+
+        if (data.user.role === 'admin') {
+          this.loadAdminUsers();
+        }
+      } else {
+        if (errAlert) {
+          errAlert.classList.remove('hidden');
+          if (errMsg) errMsg.textContent = data.detail || 'Invalid username or password.';
+        }
+      }
+    } catch (err) {
+      if (errAlert) {
+        errAlert.classList.remove('hidden');
+        if (errMsg) errMsg.textContent = 'Server connection failed. Please try again.';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Sign In to Vault</span><span>→</span>';
+      }
+    }
+  },
+
+  async logout() {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: this.getAuthHeaders()
+      });
+    } catch (e) {}
+
+    localStorage.removeItem('vault_auth_token');
+    sessionStorage.removeItem('vault_auth_token');
+    this.state.authToken = '';
+    this.state.currentUser = null;
+    this.state.solvedChallenges.clear();
+
+    const loginView = document.getElementById('view-login');
+    if (loginView) loginView.classList.remove('hidden');
+
+    const adminSection = document.getElementById('sidebar-admin-section');
+    if (adminSection) adminSection.classList.add('hidden');
+
+    this.switchView('datascience');
   },
 
   libraryDocs: [
@@ -140,8 +299,14 @@ const App = {
   async init() {
     this.bindSidebarNavigation();
     this.bindSubtabNavigation();
-    this.initSolvedState();
     this.bindSandboxEvents();
+
+    const isAuthed = await this.checkAuth();
+    if (!isAuthed) {
+      return;
+    }
+
+    this.initSolvedState();
     await this.loadPlatforms();
     await this.loadChallenges();
     await this.loadInterviewTracks();
@@ -150,6 +315,10 @@ const App = {
     this.renderDrillsHub();
     this.renderAllCourseTracks();
 
+    if (this.state.currentUser && this.state.currentUser.role === 'admin') {
+      this.loadAdminUsers();
+    }
+
     if (this.state.challenges.length > 0) {
       await this.selectChallenge(this.state.challenges[0].id);
     }
@@ -157,8 +326,12 @@ const App = {
 
   // ── Challenge Completion Persistence ──────────────────────────────────────
   initSolvedState() {
+    if (!this.state.currentUser) return;
+    const uid = this.state.currentUser.id;
+    const storageKey = `vault_u${uid}_solved_challenges`;
+
     try {
-      const local = JSON.parse(localStorage.getItem('vault_solved_challenges') || '[]');
+      const local = JSON.parse(localStorage.getItem(storageKey) || '[]');
       if (Array.isArray(local)) {
         local.forEach(id => this.state.solvedChallenges.add(id));
       }
@@ -166,13 +339,14 @@ const App = {
       console.warn('Could not read local solved challenges:', e);
     }
 
-    // Sync with SQLite backend
-    fetch('/api/solved-challenges')
+    // Sync with SQLite backend strictly for authenticated user
+    fetch('/api/solved-challenges', { headers: this.getAuthHeaders() })
       .then(r => r.json())
       .then(data => {
         if (data && Array.isArray(data.solved_ids)) {
+          this.state.solvedChallenges.clear();
           data.solved_ids.forEach(id => this.state.solvedChallenges.add(id));
-          localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
+          localStorage.setItem(storageKey, JSON.stringify(Array.from(this.state.solvedChallenges)));
           this.updateGlobalSolvedProgress();
           this.renderNeetCodeGrid();
           this.renderChallengeList();
@@ -236,6 +410,10 @@ const App = {
     const target = document.getElementById(`view-${viewName}`);
     if (target) {
       target.classList.remove('hidden');
+    }
+
+    if (viewName === 'admin') {
+      this.loadAdminUsers();
     }
 
     if (viewName === 'drills') {
@@ -1851,7 +2029,7 @@ const App = {
     });
   },
 
-    toggleChallengeSolvedById(cid) {
+  toggleChallengeSolvedById(cid) {
     if (!cid) return;
     const currentlySolved = this.state.solvedChallenges.has(cid);
     if (currentlySolved) {
@@ -1860,7 +2038,11 @@ const App = {
       this.state.solvedChallenges.add(cid);
     }
 
-    localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
+    if (this.state.currentUser) {
+      const storageKey = `vault_u${this.state.currentUser.id}_solved_challenges`;
+      localStorage.setItem(storageKey, JSON.stringify(Array.from(this.state.solvedChallenges)));
+    }
+
     this.updateGlobalSolvedProgress();
     this.renderNeetCodeGrid();
     this.renderChallengeList();
@@ -1872,7 +2054,7 @@ const App = {
     // Sync to SQLite in background
     fetch('/api/mark-solved', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.getAuthHeaders(),
       body: JSON.stringify({ challenge_id: cid, solved: !currentlySolved })
     }).catch(err => console.warn('mark-solved error:', err));
   },
@@ -2245,7 +2427,7 @@ const App = {
     try {
       const res = await fetch('/api/run-code', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: this.getAuthHeaders(),
         body: JSON.stringify({
           challenge_id: this.state.activeChallenge.id,
           code: userCode,
@@ -2259,7 +2441,10 @@ const App = {
 
       if (report.status === 'PASS' && runHidden) {
         this.state.solvedChallenges.add(this.state.activeChallenge.id);
-        localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
+        if (this.state.currentUser) {
+          const storageKey = `vault_u${this.state.currentUser.id}_solved_challenges`;
+          localStorage.setItem(storageKey, JSON.stringify(Array.from(this.state.solvedChallenges)));
+        }
         this.updateActiveChallengeSolvedUI();
         this.updateGlobalSolvedProgress();
         this.renderChallengeList();
@@ -2436,6 +2621,289 @@ const App = {
         } catch (e) { /* cross-origin, safe to ignore */ }
       }
     });
+  },
+
+  // ── Admin Control Panel Methods ───────────────────────────────────────────
+  async loadAdminUsers() {
+    if (!this.state.currentUser || this.state.currentUser.role !== 'admin') return;
+    try {
+      const res = await fetch('/api/admin/users', { headers: this.getAuthHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+      this.state.adminUsers = data.users || [];
+      this.renderAdminUsersTable(this.state.adminUsers);
+      this.renderAdminStats(this.state.adminUsers);
+    } catch (e) {
+      console.warn('Failed to load admin users:', e);
+    }
+  },
+
+  renderAdminStats(users) {
+    const total = users.length;
+    const activeStudents = users.filter(u => u.role === 'student' && u.is_active).length;
+    const totalSec = users.reduce((acc, u) => acc + (u.focus_seconds || 0), 0);
+    const totalHours = (totalSec / 3600).toFixed(1);
+    const totalSolves = users.reduce((acc, u) => acc + (u.solved_count || 0), 0);
+
+    const tEl = document.getElementById('admin-stat-total-users');
+    if (tEl) tEl.textContent = total;
+    const aEl = document.getElementById('admin-stat-active-users');
+    if (aEl) aEl.textContent = activeStudents;
+    const hEl = document.getElementById('admin-stat-total-hours');
+    if (hEl) hEl.textContent = `${totalHours}h`;
+    const sEl = document.getElementById('admin-stat-total-solves');
+    if (sEl) sEl.textContent = totalSolves;
+    const badgeEl = document.getElementById('admin-user-count-badge');
+    if (badgeEl) badgeEl.textContent = `${total} Users`;
+  },
+
+  renderAdminUsersTable(users) {
+    const tbody = document.getElementById('admin-user-table-body');
+    if (!tbody) return;
+
+    if (users.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-slate-500 font-mono">No provisioned users found.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = users.map(u => {
+      const isSelf = this.state.currentUser && this.state.currentUser.id === u.id;
+      const roleBadge = u.role === 'admin'
+        ? '<span class="px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-300 font-mono text-[10px] font-bold border border-rose-500/30">👑 Admin</span>'
+        : '<span class="px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/30">🎓 Student</span>';
+      
+      const statusBadge = u.is_active
+        ? '<span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[10px] font-bold border border-emerald-500/30">✓ Active</span>'
+        : '<span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono text-[10px] font-bold border border-slate-700">✕ Disabled</span>';
+
+      const hours = ((u.focus_seconds || 0) / 3600).toFixed(1);
+      const createdStr = (u.created_at || '').slice(0, 10);
+
+      return `
+        <tr class="hover:bg-slate-900/40 transition-colors">
+          <td class="py-3 px-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-[11px] text-white">
+                ${(u.full_name || u.username).slice(0, 2).toUpperCase()}
+              </div>
+              <div>
+                <div class="font-bold text-white leading-tight">${u.full_name || u.username} ${isSelf ? '<span class="text-[10px] text-emerald-400 font-mono">(You)</span>' : ''}</div>
+                <div class="text-[11px] text-slate-400 font-mono">@${u.username}</div>
+              </div>
+            </div>
+          </td>
+          <td class="py-3 px-3">${roleBadge}</td>
+          <td class="py-3 px-3">${statusBadge}</td>
+          <td class="py-3 px-3 font-mono font-bold ${u.solved_count > 0 ? 'text-emerald-400' : 'text-slate-500'}">
+            ${u.solved_count || 0} / 312
+          </td>
+          <td class="py-3 px-3 font-mono text-slate-300">${hours} hrs</td>
+          <td class="py-3 px-3 font-mono text-[11px] text-slate-500">${createdStr}</td>
+          <td class="py-3 px-3 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button 
+                onclick="App.openResetPasswordModal(${u.id}, '${u.username}')" 
+                class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-[11px] font-semibold transition-all cursor-pointer" 
+                title="Reset Password">
+                🔑 Reset
+              </button>
+              ${!isSelf ? `
+                <button 
+                  onclick="App.toggleUserStatus(${u.id}, ${u.is_active ? 1 : 0})" 
+                  class="px-2 py-1 rounded-lg ${u.is_active ? 'bg-amber-500/15 text-amber-300 border-amber-500/30 hover:bg-amber-500/25' : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30 hover:bg-emerald-500/25'} border text-[11px] font-semibold transition-all cursor-pointer">
+                  ${u.is_active ? 'Disable' : 'Enable'}
+                </button>
+                <button 
+                  onclick="App.deleteUser(${u.id}, '${u.username}')" 
+                  class="px-2 py-1 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 hover:bg-rose-500/25 text-[11px] font-semibold transition-all cursor-pointer" 
+                  title="Delete User">
+                  🗑️
+                </button>
+              ` : ''}
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  },
+
+  filterAdminUsers(q) {
+    const query = (q || '').toLowerCase().trim();
+    if (!query) {
+      this.renderAdminUsersTable(this.state.adminUsers);
+      return;
+    }
+    const filtered = this.state.adminUsers.filter(u => 
+      (u.username || '').toLowerCase().includes(query) ||
+      (u.full_name || '').toLowerCase().includes(query) ||
+      (u.role || '').toLowerCase().includes(query)
+    );
+    this.renderAdminUsersTable(filtered);
+  },
+
+  openCreateUserModal() {
+    const m = document.getElementById('modal-create-user');
+    const err = document.getElementById('create-user-error');
+    if (err) err.classList.add('hidden');
+    if (m) m.classList.remove('hidden');
+  },
+
+  closeCreateUserModal() {
+    const m = document.getElementById('modal-create-user');
+    if (m) m.classList.add('hidden');
+  },
+
+  async handleCreateUser(e) {
+    if (e) e.preventDefault();
+    const uname = document.getElementById('create-username').value.trim();
+    const fname = document.getElementById('create-fullname').value.trim();
+    const pwd = document.getElementById('create-password').value;
+    const role = document.getElementById('create-role').value;
+    const err = document.getElementById('create-user-error');
+
+    try {
+      const res = await fetch('/api/admin/users/create', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ username: uname, full_name: fname, password: pwd, role: role })
+      });
+      const data = await res.json();
+      if (res.ok && data.status === 'ok') {
+        this.closeCreateUserModal();
+        this.loadAdminUsers();
+      } else {
+        if (err) {
+          err.classList.remove('hidden');
+          err.textContent = data.detail || 'Failed to create user.';
+        }
+      }
+    } catch (e) {
+      if (err) {
+        err.classList.remove('hidden');
+        err.textContent = 'Network error provisioning user.';
+      }
+    }
+  },
+
+  openResetPasswordModal(userId, username) {
+    const m = document.getElementById('modal-reset-password');
+    const uTarget = document.getElementById('reset-target-username');
+    const idInput = document.getElementById('reset-target-user-id');
+    const pwdInput = document.getElementById('reset-new-password');
+    const err = document.getElementById('reset-password-error');
+
+    if (uTarget) uTarget.textContent = `@${username}`;
+    if (idInput) idInput.value = userId;
+    if (pwdInput) pwdInput.value = '';
+    if (err) err.classList.add('hidden');
+    if (m) m.classList.remove('hidden');
+  },
+
+  closeResetPasswordModal() {
+    const m = document.getElementById('modal-reset-password');
+    if (m) m.classList.add('hidden');
+  },
+
+  async handleResetPassword(e) {
+    if (e) e.preventDefault();
+    const userId = document.getElementById('reset-target-user-id').value;
+    const newPassword = document.getElementById('reset-new-password').value;
+    const err = document.getElementById('reset-password-error');
+
+    try {
+      const res = await fetch(`/api/admin/users/${userId}/reset-password`, {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ new_password: newPassword })
+      });
+      const data = await res.json();
+      if (res.ok && data.status === 'ok') {
+        this.closeResetPasswordModal();
+        alert('Password reset successfully. Active sessions revoked.');
+      } else {
+        if (err) {
+          err.classList.remove('hidden');
+          err.textContent = data.detail || 'Failed to reset password.';
+        }
+      }
+    } catch (e) {
+      if (err) {
+        err.classList.remove('hidden');
+        err.textContent = 'Network error resetting password.';
+      }
+    }
+  },
+
+  async toggleUserStatus(userId, currentStatus) {
+    try {
+      const res = await fetch(`/api/admin/users/${userId}/status`, {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ is_active: !currentStatus })
+      });
+      if (res.ok) {
+        this.loadAdminUsers();
+      }
+    } catch (e) {
+      console.warn('Toggle status error:', e);
+    }
+  },
+
+  async deleteUser(userId, username) {
+    if (!confirm(`Are you sure you want to delete user @${username}? This action cannot be undone.`)) return;
+    try {
+      const res = await fetch(`/api/admin/users/${userId}`, {
+        method: 'DELETE',
+        headers: this.getAuthHeaders()
+      });
+      if (res.ok) {
+        this.loadAdminUsers();
+      }
+    } catch (e) {
+      console.warn('Delete user error:', e);
+    }
+  },
+
+  openChangePasswordModal() {
+    const m = document.getElementById('modal-change-password');
+    const err = document.getElementById('change-password-error');
+    if (err) err.classList.add('hidden');
+    if (m) m.classList.remove('hidden');
+  },
+
+  closeChangePasswordModal() {
+    const m = document.getElementById('modal-change-password');
+    if (m) m.classList.add('hidden');
+  },
+
+  async handleChangePassword(e) {
+    if (e) e.preventDefault();
+    const oldPwd = document.getElementById('change-old-password').value;
+    const newPwd = document.getElementById('change-new-password').value;
+    const err = document.getElementById('change-password-error');
+
+    try {
+      const res = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ old_password: oldPwd, new_password: newPwd })
+      });
+      const data = await res.json();
+      if (res.ok && data.status === 'ok') {
+        this.closeChangePasswordModal();
+        alert('Your password has been changed successfully.');
+      } else {
+        if (err) {
+          err.classList.remove('hidden');
+          err.textContent = data.detail || 'Password change failed.';
+        }
+      }
+    } catch (e) {
+      if (err) {
+        err.classList.remove('hidden');
+        err.textContent = 'Network error changing password.';
+      }
+    }
   },
 
   resetCode() {

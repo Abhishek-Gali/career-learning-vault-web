@@ -19,16 +19,20 @@ from __future__ import annotations
 
 import datetime
 import glob
+import hashlib
+import hmac
 import json
 import os
+import secrets
 import subprocess
 import sys
 import tempfile
 import time
+from datetime import timezone, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Response, Depends, Cookie, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -57,31 +61,164 @@ else:
 
 import sqlite3
 
-# ── SQLite Database Setup ───────────────────────────────────────────────────
+# ── Cryptographic Security & Password Hashing (Standard Library PBKDF2) ──────
+ADMIN_DEFAULT_PASSWORD = os.environ.get("VAULT_ADMIN_PASSWORD", "Abhishek@Gali@2005")
+
+def hash_password(password: str) -> str:
+    salt = secrets.token_hex(16)
+    key = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt.encode("utf-8"), 200000)
+    return f"pbkdf2:sha256:200000${salt}${key.hex()}"
+
+def verify_password(stored_hash: str, password: str) -> bool:
+    try:
+        parts = stored_hash.split("$")
+        if len(parts) != 3:
+            return False
+        algo_iter, salt, key_hex = parts
+        _, _, iterations = algo_iter.split(":")
+        computed = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt.encode("utf-8"), int(iterations))
+        return hmac.compare_digest(computed.hex(), key_hex)
+    except Exception:
+        return False
+
+# ── In-Memory Login Rate Limiter (5 attempts in 15 mins) ─────────────────────
+_FAILED_LOGINS: Dict[str, List[float]] = {}
+
+def check_rate_limit(key: str, max_attempts: int = 5, window_sec: int = 900) -> bool:
+    now = time.time()
+    attempts = _FAILED_LOGINS.get(key, [])
+    attempts = [t for t in attempts if now - t < window_sec]
+    _FAILED_LOGINS[key] = attempts
+    return len(attempts) < max_attempts
+
+def record_failed_login(key: str):
+    attempts = _FAILED_LOGINS.get(key, [])
+    attempts.append(time.time())
+    _FAILED_LOGINS[key] = attempts
+
+def clear_failed_logins(key: str):
+    _FAILED_LOGINS.pop(key, None)
+
+# ── SQLite Database Setup & Multi-Tenant Migration ──────────────────────────
 def init_db():
     try:
         with sqlite3.connect(str(DB_PATH)) as conn:
+            # 1. Users Table
             conn.execute("""
-                CREATE TABLE IF NOT EXISTS daily_focus_tracker (
-                    date_str TEXT PRIMARY KEY,
+                CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT UNIQUE NOT NULL,
+                    full_name TEXT,
+                    password_hash TEXT NOT NULL,
+                    role TEXT NOT NULL DEFAULT 'student',
+                    is_active INTEGER NOT NULL DEFAULT 1,
+                    created_at TEXT NOT NULL,
+                    created_by TEXT
+                )
+            """)
+            
+            # 2. User Sessions Table
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS user_sessions (
+                    token TEXT PRIMARY KEY,
+                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    created_at TEXT NOT NULL,
+                    expires_at TEXT NOT NULL
+                )
+            """)
+
+            # 3. User Focus Tracker Table (100% Isolated Composite Key: user_id + date_str)
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS user_focus_tracker (
+                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    date_str TEXT NOT NULL,
                     seconds_active INTEGER DEFAULT 0,
                     target_seconds INTEGER DEFAULT 7200,
                     goal_completed INTEGER DEFAULT 0,
-                    last_updated_utc TEXT
+                    last_updated_utc TEXT,
+                    PRIMARY KEY(user_id, date_str)
                 )
             """)
+
+            # 4. User Challenge Progress Table
             conn.execute("""
-                CREATE TABLE IF NOT EXISTS challenge_submissions (
+                CREATE TABLE IF NOT EXISTS user_challenge_progress (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    challenge_id TEXT,
-                    status TEXT,
-                    passed_count INTEGER,
-                    total_count INTEGER,
-                    runtime_ms REAL,
-                    submitted_at TEXT
+                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    challenge_id TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    passed_count INTEGER DEFAULT 0,
+                    total_count INTEGER DEFAULT 0,
+                    runtime_ms REAL DEFAULT 0.0,
+                    user_code TEXT,
+                    submitted_at TEXT NOT NULL
                 )
             """)
+
+            # 5. User Quiz History Table
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS user_quiz_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    track_key TEXT NOT NULL,
+                    set_id TEXT NOT NULL,
+                    correct_count INTEGER NOT NULL,
+                    total_questions INTEGER NOT NULL,
+                    accuracy_pct REAL NOT NULL,
+                    completed_at TEXT NOT NULL
+                )
+            """)
+
+            # Performance & FK Indexes
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_user ON user_sessions(user_id)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_expires ON user_sessions(expires_at)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_progress_user ON user_challenge_progress(user_id, challenge_id)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_quiz_user ON user_quiz_history(user_id, track_key)")
             conn.commit()
+
+            # Seed / Verify Super Admin Account ('admin' / 'Abhishek Gali')
+            cur = conn.cursor()
+            cur.execute("SELECT id, password_hash FROM users WHERE username = 'admin'")
+            admin_row = cur.fetchone()
+            now_iso = datetime.datetime.now(timezone.utc).isoformat()
+            if not admin_row:
+                hashed = hash_password(ADMIN_DEFAULT_PASSWORD)
+                conn.execute("""
+                    INSERT INTO users (username, full_name, password_hash, role, is_active, created_at, created_by)
+                    VALUES ('admin', 'Abhishek Gali', ?, 'admin', 1, ?, 'system')
+                """, (hashed, now_iso))
+                conn.commit()
+                print(f"[Auth Engine] Initialized Super Admin account 'admin' (Abhishek Gali).")
+            else:
+                hashed = hash_password(ADMIN_DEFAULT_PASSWORD)
+                conn.execute("UPDATE users SET password_hash = ?, full_name = 'Abhishek Gali' WHERE username = 'admin'", (hashed,))
+                conn.commit()
+                print(f"[Auth Engine] Verified Super Admin account 'admin'.")
+
+            # Safe Non-Destructive Legacy Data Migration to Admin user (ID = 1)
+            try:
+                cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='daily_focus_tracker'")
+                if cur.fetchone():
+                    cur.execute("SELECT COUNT(*) FROM user_focus_tracker WHERE user_id = 1")
+                    if cur.fetchone()[0] == 0:
+                        conn.execute("""
+                            INSERT OR IGNORE INTO user_focus_tracker (user_id, date_str, seconds_active, target_seconds, goal_completed, last_updated_utc)
+                            SELECT 1, date_str, seconds_active, target_seconds, goal_completed, last_updated_utc FROM daily_focus_tracker
+                        """)
+                        conn.commit()
+                
+                cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='challenge_submissions'")
+                if cur.fetchone():
+                    cur.execute("SELECT COUNT(*) FROM user_challenge_progress WHERE user_id = 1")
+                    if cur.fetchone()[0] == 0:
+                        conn.execute("""
+                            INSERT OR IGNORE INTO user_challenge_progress (user_id, challenge_id, status, passed_count, total_count, runtime_ms, submitted_at)
+                            SELECT 1, challenge_id, status, passed_count, total_count, runtime_ms, submitted_at FROM challenge_submissions
+                        """)
+                        conn.commit()
+            except Exception as mig_err:
+                print(f"[Migration Info] Legacy table migration check: {mig_err}")
+
     except Exception as err:
         print(f"[DB Warning] Could not init database: {err}")
 
@@ -93,8 +230,8 @@ PING_COUNT = 0
 
 app = FastAPI(
     title="Career Learning Vault — Cloud API",
-    description="Full-stack AI, Data Science & Cybersecurity Sandbox Hub",
-    version="2.0.0"
+    description="Full-stack Multi-Tenant AI, Data Science & Cybersecurity Sandbox Hub",
+    version="3.3.0"
 )
 
 app.add_middleware(
@@ -320,6 +457,27 @@ if __name__ == "__main__":
                 pass
 
 # ── Models ─────────────────────────────────────────────────────────────────
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+    remember_me: bool = True
+
+class ChangePasswordRequest(BaseModel):
+    old_password: str
+    new_password: str
+
+class CreateUserRequest(BaseModel):
+    username: str
+    full_name: Optional[str] = None
+    password: str
+    role: str = "student" # "student" | "admin"
+
+class ResetPasswordRequest(BaseModel):
+    new_password: str
+
+class UserStatusRequest(BaseModel):
+    is_active: bool
+
 class CodeRunRequest(BaseModel):
     challenge_id: str
     code: str
@@ -333,7 +491,290 @@ class MarkSolvedRequest(BaseModel):
     challenge_id: str
     solved: bool = True
 
+class QuizRecordRequest(BaseModel):
+    track_key: str
+    set_id: str
+    correct_count: int
+    total_questions: int
+
+# ── Authentication & RBAC Dependencies ──────────────────────────────────────
+def get_current_user(
+    request: Request,
+    vault_session: Optional[str] = Cookie(None),
+    authorization: Optional[str] = Header(None)
+) -> Dict[str, Any]:
+    token = None
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[7:].strip()
+    if not token:
+        token = vault_session
+
+    if not token:
+        raise HTTPException(status_code=401, detail="Authentication required.")
+
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT u.id, u.username, u.full_name, u.role, u.is_active, s.expires_at
+            FROM user_sessions s
+            JOIN users u ON s.user_id = u.id
+            WHERE s.token = ?
+        """, (token,))
+        row = cur.fetchone()
+        if not row:
+            raise HTTPException(status_code=401, detail="Invalid or expired session token.")
+
+        # Check expiration
+        try:
+            exp = datetime.datetime.fromisoformat(row["expires_at"])
+            if datetime.datetime.now(timezone.utc) > exp:
+                conn.execute("DELETE FROM user_sessions WHERE token = ?", (token,))
+                conn.commit()
+                raise HTTPException(status_code=401, detail="Session has expired. Please log in again.")
+        except Exception:
+            pass
+
+        if not row["is_active"]:
+            raise HTTPException(status_code=403, detail="Your account has been deactivated by the Administrator.")
+
+        return {
+            "id": row["id"],
+            "username": row["username"],
+            "full_name": row["full_name"] or row["username"],
+            "role": row["role"],
+            "is_active": bool(row["is_active"])
+        }
+
+def require_admin(current_user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
+    if current_user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Administrator privileges required.")
+    return current_user
+
 # ── API Endpoints ──────────────────────────────────────────────────────────
+
+# ── Authentication Routes ───────────────────────────────────────────────────
+
+@app.post("/api/auth/login")
+def login_endpoint(req: LoginRequest, request: Request, response: Response):
+    """Authenticates user credentials, applies rate limiting, and issues secure session token."""
+    client_ip = request.client.host if request.client else "unknown"
+    rate_key = f"{client_ip}:{req.username.lower()}"
+
+    if not check_rate_limit(rate_key, max_attempts=5, window_sec=900):
+        raise HTTPException(
+            status_code=429,
+            detail="Too many failed login attempts. Account temporarily locked for 15 minutes."
+        )
+
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT id, username, full_name, password_hash, role, is_active FROM users WHERE username = ? COLLATE NOCASE", (req.username.strip(),))
+        user = cur.fetchone()
+
+        if not user or not verify_password(user["password_hash"], req.password):
+            record_failed_login(rate_key)
+            raise HTTPException(status_code=401, detail="Invalid username or password.")
+
+        if not user["is_active"]:
+            raise HTTPException(status_code=403, detail="Account is deactivated. Contact Administrator.")
+
+        clear_failed_logins(rate_key)
+
+        # Generate cryptographic session token
+        token = secrets.token_urlsafe(32)
+        days = 30 if req.remember_me else 1
+        now = datetime.datetime.now(timezone.utc)
+        expires = (now + timedelta(days=days)).isoformat()
+
+        conn.execute(
+            "INSERT INTO user_sessions (token, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
+            (token, user["id"], now.isoformat(), expires)
+        )
+        conn.commit()
+
+        # Set HttpOnly Session Cookie (Accessible via browser requests & sendBeacon)
+        max_age_sec = days * 86400
+        response.set_cookie(
+            key="vault_session",
+            value=token,
+            max_age=max_age_sec,
+            httponly=True,
+            samesite="lax",
+            secure=False # Set to True behind HTTPS in prod, False supports localhost dev
+        )
+
+        return {
+            "status": "ok",
+            "token": token,
+            "user": {
+                "id": user["id"],
+                "username": user["username"],
+                "full_name": user["full_name"] or user["username"],
+                "role": user["role"]
+            }
+        }
+
+@app.post("/api/auth/logout")
+def logout_endpoint(response: Response, vault_session: Optional[str] = Cookie(None), authorization: Optional[str] = Header(None)):
+    """Revokes session token and clears the authentication cookie."""
+    token = vault_session
+    if not token and authorization and authorization.startswith("Bearer "):
+        token = authorization[7:].strip()
+
+    if token:
+        try:
+            with sqlite3.connect(str(DB_PATH)) as conn:
+                conn.execute("DELETE FROM user_sessions WHERE token = ?", (token,))
+                conn.commit()
+        except Exception:
+            pass
+
+    response.delete_cookie(key="vault_session", httponly=True, samesite="lax")
+    return {"status": "ok", "message": "Successfully logged out."}
+
+@app.get("/api/auth/me")
+def get_current_user_profile(user: Dict[str, Any] = Depends(get_current_user)):
+    """Returns the authenticated user's profile and active role."""
+    return {"status": "ok", "user": user}
+
+@app.post("/api/auth/change-password")
+def change_password_endpoint(req: ChangePasswordRequest, user: Dict[str, Any] = Depends(get_current_user)):
+    """Allows user to change their own password upon validating their current credentials."""
+    if len(req.new_password) < 6:
+        raise HTTPException(status_code=400, detail="New password must be at least 6 characters.")
+
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT password_hash FROM users WHERE id = ?", (user["id"],))
+        row = cur.fetchone()
+        if not row or not verify_password(row["password_hash"], req.old_password):
+            raise HTTPException(status_code=400, detail="Current password incorrect.")
+
+        new_hash = hash_password(req.new_password)
+        conn.execute("UPDATE users SET password_hash = ? WHERE id = ?", (new_hash, user["id"]))
+        # Invalidate other active sessions for security
+        conn.commit()
+
+    return {"status": "ok", "message": "Password updated successfully."}
+
+# ── Admin User Provisioning & Control Routes (Admin Only) ───────────────────
+
+@app.get("/api/admin/users")
+def list_admin_users(admin: Dict[str, Any] = Depends(require_admin)):
+    """Lists all provisioned users, roles, account status, solved counts, and study times."""
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT 
+                u.id, 
+                u.username, 
+                u.full_name, 
+                u.role, 
+                u.is_active, 
+                u.created_at, 
+                u.created_by,
+                (SELECT COUNT(DISTINCT challenge_id) FROM user_challenge_progress WHERE user_id = u.id AND status = 'PASS') as solved_count,
+                (SELECT COALESCE(SUM(seconds_active), 0) FROM user_focus_tracker WHERE user_id = u.id) as focus_seconds
+            FROM users u
+            ORDER BY u.id ASC
+        """)
+        users = [dict(r) for r in cur.fetchall()]
+
+    return {"status": "ok", "users": users, "total_users": len(users)}
+
+@app.post("/api/admin/users/create")
+def admin_create_user(req: CreateUserRequest, admin: Dict[str, Any] = Depends(require_admin)):
+    """Admin provisions a new user with temporary password and designated role."""
+    uname = req.username.strip()
+    if len(uname) < 3 or not uname.replace("_", "").isalnum():
+        raise HTTPException(status_code=400, detail="Username must be 3-30 alphanumeric characters (or underscores).")
+    if len(req.password) < 6:
+        raise HTTPException(status_code=400, detail="Initial password must be at least 6 characters.")
+    if req.role not in ("student", "admin"):
+        raise HTTPException(status_code=400, detail="Role must be 'student' or 'admin'.")
+
+    now_iso = datetime.datetime.now(timezone.utc).isoformat()
+    hashed = hash_password(req.password)
+
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            cur = conn.cursor()
+            cur.execute("""
+                INSERT INTO users (username, full_name, password_hash, role, is_active, created_at, created_by)
+                VALUES (?, ?, ?, ?, 1, ?, ?)
+            """, (uname, req.full_name or uname, hashed, req.role, now_iso, admin["username"]))
+            user_id = cur.lastrowid
+            conn.commit()
+
+            return {
+                "status": "ok",
+                "message": f"User '{uname}' provisioned successfully.",
+                "user": {
+                    "id": user_id,
+                    "username": uname,
+                    "full_name": req.full_name or uname,
+                    "role": req.role
+                }
+            }
+    except sqlite3.IntegrityError:
+        raise HTTPException(status_code=409, detail=f"Username '{uname}' already exists.")
+
+@app.post("/api/admin/users/{user_id}/reset-password")
+def admin_reset_password(user_id: int, req: ResetPasswordRequest, admin: Dict[str, Any] = Depends(require_admin)):
+    """Admin resets a candidate's password and revokes all active sessions."""
+    if len(req.new_password) < 6:
+        raise HTTPException(status_code=400, detail="New password must be at least 6 characters.")
+
+    hashed = hash_password(req.new_password)
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        cur = conn.cursor()
+        cur.execute("UPDATE users SET password_hash = ? WHERE id = ?", (hashed, user_id))
+        if cur.rowcount == 0:
+            raise HTTPException(status_code=404, detail="User not found.")
+        # Revoke all active sessions so the old password immediately stops working
+        conn.execute("DELETE FROM user_sessions WHERE user_id = ?", (user_id,))
+        conn.commit()
+
+    return {"status": "ok", "message": "Password reset successfully. Active sessions revoked."}
+
+@app.post("/api/admin/users/{user_id}/status")
+def admin_toggle_user_status(user_id: int, req: UserStatusRequest, admin: Dict[str, Any] = Depends(require_admin)):
+    """Admin toggles active / disabled state of an account."""
+    if user_id == admin["id"] and not req.is_active:
+        raise HTTPException(status_code=400, detail="You cannot deactivate your own super administrator account.")
+
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        cur = conn.cursor()
+        cur.execute("UPDATE users SET is_active = ? WHERE id = ?", (1 if req.is_active else 0, user_id))
+        if cur.rowcount == 0:
+            raise HTTPException(status_code=404, detail="User not found.")
+        if not req.is_active:
+            # Wipe active sessions on deactivation
+            conn.execute("DELETE FROM user_sessions WHERE user_id = ?", (user_id,))
+        conn.commit()
+
+    return {"status": "ok", "user_id": user_id, "is_active": req.is_active}
+
+@app.delete("/api/admin/users/{user_id}")
+def admin_delete_user(user_id: int, admin: Dict[str, Any] = Depends(require_admin)):
+    """Admin removes a user account and purges associated sessions and records."""
+    if user_id == admin["id"]:
+        raise HTTPException(status_code=400, detail="You cannot delete your own super administrator account.")
+
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        cur = conn.cursor()
+        cur.execute("DELETE FROM users WHERE id = ?", (user_id,))
+        if cur.rowcount == 0:
+            raise HTTPException(status_code=404, detail="User not found.")
+        conn.commit()
+
+    return {"status": "ok", "message": "User deleted successfully."}
+
+# ── Keep-Alive & Platform Catalog Routes ────────────────────────────────────
 
 @app.get("/api/health")
 def healthcheck():
@@ -347,11 +788,11 @@ def healthcheck():
     return {
         "status": "healthy",
         "service": "Career Learning Vault Cloud Hub",
-        "version": "2.0.0",
+        "version": "3.3.0",
         "uptime_seconds": uptime_sec,
         "ping_count": PING_COUNT,
         "challenges_loaded": len(_CHALLENGES_CACHE),
-        "timestamp_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "timestamp_utc": datetime.datetime.now(timezone.utc).isoformat(),
         "cron_status": "AWAKE (24/7 Keep-Alive Active)"
     }
 
@@ -487,9 +928,11 @@ def get_challenge_detail(challenge_id: str):
         "explanation": ch.get("explanation", "")
     }
 
+# ── User-Scoped Interactive Code Execution & Solved Progress ───────────────
+
 @app.post("/api/run-code")
-def run_code_endpoint(req: CodeRunRequest):
-    """Executes candidate code inside an isolated subprocess against test cases."""
+def run_code_endpoint(req: CodeRunRequest, user: Dict[str, Any] = Depends(get_current_user)):
+    """Executes candidate code inside an isolated subprocess and logs isolated progress."""
     ch = _CHALLENGES_CACHE.get(req.challenge_id)
     if not ch:
         raise HTTPException(status_code=404, detail=f"Challenge '{req.challenge_id}' not found.")
@@ -499,14 +942,18 @@ def run_code_endpoint(req: CodeRunRequest):
     try:
         with sqlite3.connect(str(DB_PATH)) as conn:
             conn.execute(
-                "INSERT INTO challenge_submissions (challenge_id, status, passed_count, total_count, runtime_ms, submitted_at) VALUES (?, ?, ?, ?, ?, ?)",
+                """INSERT INTO user_challenge_progress 
+                   (user_id, challenge_id, status, passed_count, total_count, runtime_ms, user_code, submitted_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
                 (
+                    user["id"],
                     req.challenge_id,
                     report.get("status", "ERROR"),
                     report.get("passed_count", 0),
                     report.get("total_count", 0),
                     report.get("runtime_ms", 0.0),
-                    datetime.datetime.now(datetime.timezone.utc).isoformat()
+                    req.code,
+                    datetime.datetime.now(timezone.utc).isoformat()
                 )
             )
             conn.commit()
@@ -516,12 +963,13 @@ def run_code_endpoint(req: CodeRunRequest):
     return report
 
 @app.get("/api/solved-challenges")
-def get_solved_challenges():
-    """Returns list of challenge IDs marked as passed in the database."""
+def get_solved_challenges(user: Dict[str, Any] = Depends(get_current_user)):
+    """Returns list of challenge IDs marked as passed strictly for the authenticated user."""
     try:
         with sqlite3.connect(str(DB_PATH)) as conn:
             cursor = conn.execute(
-                "SELECT DISTINCT challenge_id FROM challenge_submissions WHERE status = 'PASS'"
+                "SELECT DISTINCT challenge_id FROM user_challenge_progress WHERE user_id = ? AND status = 'PASS'",
+                (user["id"],)
             )
             solved_ids = [row[0] for row in cursor.fetchall()]
         return {"status": "ok", "solved_ids": solved_ids, "count": len(solved_ids)}
@@ -529,52 +977,59 @@ def get_solved_challenges():
         return {"status": "error", "solved_ids": [], "count": 0, "detail": str(err)}
 
 @app.post("/api/mark-solved")
-def mark_solved_endpoint(req: MarkSolvedRequest):
-    """Allows client to mark or unmark a challenge as solved in persistent SQLite storage."""
+def mark_solved_endpoint(req: MarkSolvedRequest, user: Dict[str, Any] = Depends(get_current_user)):
+    """Allows client to mark or unmark a challenge as solved strictly for the authenticated user."""
     try:
         with sqlite3.connect(str(DB_PATH)) as conn:
             if req.solved:
                 conn.execute(
-                    "INSERT INTO challenge_submissions (challenge_id, status, passed_count, total_count, runtime_ms, submitted_at) VALUES (?, 'PASS', 1, 1, 0.0, ?)",
-                    (req.challenge_id, datetime.datetime.now(datetime.timezone.utc).isoformat())
+                    """INSERT INTO user_challenge_progress 
+                       (user_id, challenge_id, status, passed_count, total_count, runtime_ms, submitted_at)
+                       VALUES (?, ?, 'PASS', 1, 1, 0.0, ?)""",
+                    (user["id"], req.challenge_id, datetime.datetime.now(timezone.utc).isoformat())
                 )
             else:
                 conn.execute(
-                    "DELETE FROM challenge_submissions WHERE challenge_id = ?",
-                    (req.challenge_id,)
+                    "DELETE FROM user_challenge_progress WHERE user_id = ? AND challenge_id = ?",
+                    (user["id"], req.challenge_id)
                 )
             conn.commit()
         return {"status": "ok", "challenge_id": req.challenge_id, "solved": req.solved}
     except Exception as err:
         return {"status": "error", "detail": str(err)}
 
-# ── Activity-Gated Focus Timer Endpoints ────────────────────────────────────
+# ── User-Scoped Activity-Gated Focus Timer Endpoints ────────────────────────
 
 @app.get("/api/timer")
-def get_timer():
-    """Returns today's active study time and weekly focus telemetry."""
+def get_timer(user: Dict[str, Any] = Depends(get_current_user)):
+    """Returns today's active study time and weekly focus telemetry for the authenticated user."""
     today = datetime.date.today().isoformat()
     try:
         with sqlite3.connect(str(DB_PATH)) as conn:
             cursor = conn.cursor()
             cursor.execute(
-                "SELECT seconds_active, target_seconds, goal_completed FROM daily_focus_tracker WHERE date_str = ?",
-                (today,)
+                "SELECT seconds_active, target_seconds, goal_completed FROM user_focus_tracker WHERE user_id = ? AND date_str = ?",
+                (user["id"], today)
             )
             row = cursor.fetchone()
             if row:
                 sec, tgt, completed = int(row[0]), int(row[1]), bool(row[2])
             else:
                 sec, tgt, completed = 0, 7200, False
-                now_utc = datetime.datetime.now(datetime.timezone.utc).isoformat()[:19]
+                now_utc = datetime.datetime.now(timezone.utc).isoformat()[:19]
                 conn.execute(
-                    "INSERT INTO daily_focus_tracker (date_str, seconds_active, target_seconds, goal_completed, last_updated_utc) VALUES (?, ?, ?, ?, ?)",
-                    (today, 0, 7200, 0, now_utc)
+                    """INSERT INTO user_focus_tracker (user_id, date_str, seconds_active, target_seconds, goal_completed, last_updated_utc)
+                       VALUES (?, ?, ?, ?, ?, ?)""",
+                    (user["id"], today, 0, 7200, 0, now_utc)
                 )
                 conn.commit()
 
             cursor.execute(
-                "SELECT date_str, seconds_active, goal_completed FROM daily_focus_tracker ORDER BY date_str DESC LIMIT 7"
+                """SELECT date_str, seconds_active, goal_completed 
+                   FROM user_focus_tracker 
+                   WHERE user_id = ? 
+                   ORDER BY date_str DESC LIMIT 7""",
+                (user["id"],)
             )
             history = [{"date": r[0], "seconds": r[1], "completed": bool(r[2])} for r in cursor.fetchall()]
     except Exception as e:
@@ -592,22 +1047,22 @@ def get_timer():
     }
 
 @app.post("/api/timer/sync")
-def sync_timer(req: TimerSyncRequest):
+def sync_timer(req: TimerSyncRequest, user: Dict[str, Any] = Depends(get_current_user)):
     """
     Activity-Gated Endpoint:
-    Only increments seconds when the frontend confirms user activity is occurring.
+    Only increments seconds for authenticated user when the frontend confirms user activity.
     """
     if not req.is_active or req.elapsed_seconds <= 0:
         return {"status": "PAUSED_IDLE", "message": "No active study seconds accumulated."}
 
     added_seconds = min(req.elapsed_seconds, 120)
     today = datetime.date.today().isoformat()
-    now_utc = datetime.datetime.now(datetime.timezone.utc).isoformat()[:19]
+    now_utc = datetime.datetime.now(timezone.utc).isoformat()[:19]
 
     try:
         with sqlite3.connect(str(DB_PATH)) as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT seconds_active, target_seconds FROM daily_focus_tracker WHERE date_str = ?", (today,))
+            cursor.execute("SELECT seconds_active, target_seconds FROM user_focus_tracker WHERE user_id = ? AND date_str = ?", (user["id"], today))
             row = cursor.fetchone()
             if row:
                 current_sec = int(row[0]) + added_seconds
@@ -618,15 +1073,15 @@ def sync_timer(req: TimerSyncRequest):
 
             completed = 1 if current_sec >= target_sec else 0
             conn.execute("""
-                INSERT INTO daily_focus_tracker (date_str, seconds_active, target_seconds, goal_completed, last_updated_utc)
-                VALUES (?, ?, ?, ?, ?)
-                ON CONFLICT(date_str) DO UPDATE SET
+                INSERT INTO user_focus_tracker (user_id, date_str, seconds_active, target_seconds, goal_completed, last_updated_utc)
+                VALUES (?, ?, ?, ?, ?, ?)
+                ON CONFLICT(user_id, date_str) DO UPDATE SET
                     seconds_active = ?,
                     goal_completed = ?,
                     last_updated_utc = ?
-            """, (today, current_sec, target_sec, completed, now_utc, current_sec, completed, now_utc))
+            """, (user["id"], today, current_sec, target_sec, completed, now_utc, current_sec, completed, now_utc))
             conn.commit()
-            
+
             return {
                 "status": "SYNCED",
                 "seconds_active": current_sec,
@@ -637,6 +1092,19 @@ def sync_timer(req: TimerSyncRequest):
     except Exception as e:
         print(f"Timer sync error: {e}")
         return {"status": "ERROR", "message": str(e)}
+
+@app.post("/api/quiz-results")
+def record_quiz_result(req: QuizRecordRequest, user: Dict[str, Any] = Depends(get_current_user)):
+    """Persists authenticated candidate's interview drill score into user_quiz_history."""
+    acc = round((req.correct_count / req.total_questions) * 100, 1) if req.total_questions > 0 else 0.0
+    now_iso = datetime.datetime.now(timezone.utc).isoformat()
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.execute("""
+            INSERT INTO user_quiz_history (user_id, track_key, set_id, correct_count, total_questions, accuracy_pct, completed_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (user["id"], req.track_key, req.set_id, req.correct_count, req.total_questions, acc, now_iso))
+        conn.commit()
+    return {"status": "ok", "accuracy_pct": acc}
 
 # ── Interview Quizzes Endpoints ─────────────────────────────────────────────
 

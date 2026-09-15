@@ -46,12 +46,21 @@ class FocusTracker {
     });
   }
 
+  getStorageKey() {
+    const uid = (window.App && window.App.state && window.App.state.currentUser) ? window.App.state.currentUser.id : 'anon';
+    return `vault_u${uid}_timer_` + new Date().toISOString().slice(0, 10);
+  }
+
+  getAuthHeaders() {
+    return (window.App && window.App.getAuthHeaders) ? window.App.getAuthHeaders() : { 'Content-Type': 'application/json' };
+  }
+
   async loadInitialState() {
-    const todayKey = 'vault_timer_' + new Date().toISOString().slice(0, 10);
+    const todayKey = this.getStorageKey();
     const localSaved = parseInt(localStorage.getItem(todayKey) || '0', 10);
 
     try {
-      const res = await fetch('/api/timer');
+      const res = await fetch('/api/timer', { headers: this.getAuthHeaders() });
       if (res.ok) {
         const data = await res.json();
         this.targetSeconds = data.target_seconds || 7200;
@@ -86,10 +95,8 @@ class FocusTracker {
         this.todaySeconds += 1;
         this.unsavedActiveSeconds += 1;
         
-        // Cache to localStorage
-        const todayKey = 'vault_timer_' + new Date().toISOString().slice(0, 10);
-        localStorage.setItem(todayKey, this.todaySeconds.toString());
-        
+        // Cache to user-scoped localStorage
+        localStorage.setItem(this.getStorageKey(), this.todaySeconds.toString());
         this.updateDisplay();
       }
     }, 1000);
@@ -107,7 +114,7 @@ class FocusTracker {
     try {
       const res = await fetch('/api/timer/sync', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: this.getAuthHeaders(),
         body: JSON.stringify({
           elapsed_seconds: toSync,
           is_active: true

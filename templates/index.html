@@ -355,18 +355,46 @@
               <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono font-bold">PDFs</span>
             </div>
           </div>
+
+          <!-- Administration (Visible only to Admin) -->
+          <div class="pt-2 hidden" id="sidebar-admin-section">
+            <div class="px-2 text-[10px] font-bold uppercase tracking-wider text-rose-400 mb-1.5 flex items-center gap-1.5">
+              <span>🛡️</span> <span>Administration</span>
+            </div>
+            
+            <div class="sidebar-item border border-rose-500/20 hover:border-rose-500/40 hover:bg-rose-500/10" data-view="admin" id="nav-item-admin">
+              <div class="sidebar-indicator bg-rose-500"></div>
+              <span class="text-base">👑</span>
+              <div class="flex-1 flex items-center justify-between">
+                <div>
+                  <div class="leading-tight text-white font-bold">Admin Control Panel</div>
+                  <div class="text-[10px] text-slate-400 font-normal">Provision Users & Telemetry</div>
+                </div>
+                <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono font-bold" id="admin-user-count-badge">Admin</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- Author Profile Footer -->
-      <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-sm font-black text-emerald-400">
-          AG
+      <!-- Active User Profile & Logout Footer -->
+      <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2.5 shadow-lg">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-black text-emerald-400 flex-shrink-0" id="user-avatar-initials">
+            AG
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="text-xs font-bold text-white truncate" id="user-display-name">Abhishek Gali</div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30" id="user-role-badge">ADMIN</span>
+              <button onclick="App.openChangePasswordModal()" class="text-[10px] text-slate-400 hover:text-white cursor-pointer transition-colors" title="Change My Password">🔑</button>
+            </div>
+          </div>
         </div>
-        <div class="min-w-0 flex-1">
-          <div class="text-xs font-bold text-white truncate">Abhishek Gali</div>
-          <div class="text-[10px] text-emerald-400 font-medium">Lead Systems Architect</div>
-        </div>
+        <button onclick="App.logout()" class="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 hover:text-rose-400 border border-slate-700 hover:border-rose-500/40 text-slate-400 text-xs transition-colors flex-shrink-0 cursor-pointer" title="Sign Out">
+          ⎋
+        </button>
       </div>
     </aside>
 
@@ -1443,12 +1471,307 @@
         </div>
       </section>
 
+      <!-- =================================================================== -->
+      <!-- VIEW 7: ADMIN CONTROL PANEL (ADMINISTRATORS ONLY)                   -->
+      <!-- =================================================================== -->
+      <section id="view-admin" class="track-view space-y-6 hidden">
+        
+        <!-- Admin Header -->
+        <div class="glass-panel px-5 py-4 relative overflow-hidden border border-rose-500/30 bg-gradient-to-r from-rose-500/10 via-slate-900/60 to-transparent flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
+          <div class="space-y-1 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                <span>👑</span> <span>System Administration & Candidate Provisioning</span>
+              </h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-[11px] font-semibold font-mono">
+                Admin Zone
+              </span>
+            </div>
+            <p class="text-xs text-slate-400">
+              Provision new student/candidate credentials, reset passwords, manage account statuses, and monitor individual candidate learning metrics.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button onclick="App.openCreateUserModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs hover:brightness-110 flex items-center gap-1.5 transition-all shadow-lg shadow-emerald-500/20 cursor-pointer">
+              <span>➕</span> <span>Provision New User</span>
+            </button>
+            <button onclick="App.loadAdminUsers()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition-all cursor-pointer">
+              <span>🔄</span> <span>Refresh</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Telemetry Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+          <div class="glass-panel p-4 rounded-xl border border-slate-800 space-y-1">
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Total Users</div>
+            <div class="text-2xl font-black text-white font-mono" id="admin-stat-total-users">--</div>
+            <div class="text-[10px] text-emerald-400 font-semibold">Provisioned in Vault</div>
+          </div>
+          <div class="glass-panel p-4 rounded-xl border border-slate-800 space-y-1">
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Active Students</div>
+            <div class="text-2xl font-black text-cyan-400 font-mono" id="admin-stat-active-users">--</div>
+            <div class="text-[10px] text-slate-500">Enabled accounts</div>
+          </div>
+          <div class="glass-panel p-4 rounded-xl border border-slate-800 space-y-1">
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Total Focus Time</div>
+            <div class="text-2xl font-black text-amber-400 font-mono" id="admin-stat-total-hours">--</div>
+            <div class="text-[10px] text-slate-500">Cumulative study hours</div>
+          </div>
+          <div class="glass-panel p-4 rounded-xl border border-slate-800 space-y-1">
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Fleet Solves</div>
+            <div class="text-2xl font-black text-rose-400 font-mono" id="admin-stat-total-solves">--</div>
+            <div class="text-[10px] text-slate-500">Total solved submissions</div>
+          </div>
+        </div>
+
+        <!-- User Directory Table Card -->
+        <div class="glass-panel p-5 rounded-2xl border border-slate-800 space-y-4 shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+            <div>
+              <h3 class="text-sm font-bold text-white tracking-tight">Provisioned User Directory</h3>
+              <p class="text-[11px] text-slate-400">Manage all registered credentials and monitor individual student progress.</p>
+            </div>
+            <div class="w-full sm:w-64">
+              <input 
+                type="text" 
+                id="admin-user-search" 
+                placeholder="Search username or name..." 
+                oninput="App.filterAdminUsers(this.value)"
+                class="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:border-emerald-500/60 focus:outline-none">
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="text-[11px] font-mono uppercase tracking-wider text-slate-400 bg-slate-950/60 border-b border-slate-800">
+                <tr>
+                  <th class="py-2.5 px-3">User</th>
+                  <th class="py-2.5 px-3">Role</th>
+                  <th class="py-2.5 px-3">Status</th>
+                  <th class="py-2.5 px-3">Solved (Fleet)</th>
+                  <th class="py-2.5 px-3">Focus Hours</th>
+                  <th class="py-2.5 px-3">Created</th>
+                  <th class="py-2.5 px-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-user-table-body" class="divide-y divide-slate-800/60 font-sans">
+                <tr>
+                  <td colspan="7" class="py-6 text-center text-slate-500 font-mono">Loading user directory...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
     </main>
 
   </div>
 
+  <!-- ===================================================================== -->
+  <!-- FULL SCREEN LOGIN VIEW (Shown when unauthenticated)                   -->
+  <!-- ===================================================================== -->
+  <div id="view-login" class="fixed inset-0 z-50 bg-[#080c14] flex items-center justify-center p-4 overflow-y-auto hidden">
+    <div class="w-full max-w-md space-y-6">
+      
+      <!-- Brand Header -->
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-rose-500 p-[2px] shadow-2xl shadow-emerald-500/30 mx-auto">
+          <div class="w-full h-full bg-[#0b1120] rounded-[14px] flex items-center justify-center">
+            <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <h1 class="text-xl font-extrabold tracking-tight text-white">CAREER LEARNING VAULT</h1>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono">v3.3</span>
+        </div>
+        <p class="text-xs text-slate-400 max-w-xs mx-auto">
+          Multi-Tenant AI, Data Science, Cyber Security & 312-Question Coding Fleet
+        </p>
+      </div>
+
+      <!-- Login Card -->
+      <div class="glass-panel p-6 sm:p-7 rounded-2xl border border-slate-800/90 bg-slate-900/80 shadow-2xl space-y-5">
+        <div>
+          <h2 class="text-base font-bold text-white tracking-tight">Sign In to Your Workspace</h2>
+          <p class="text-xs text-slate-400">Enter your provisioned credentials to access your isolated progress.</p>
+        </div>
+
+        <!-- Error Alert Box -->
+        <div id="login-error-alert" class="hidden p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+          <span>⚠️</span>
+          <span id="login-error-message">Invalid username or password.</span>
+        </div>
+
+        <form id="login-form" onsubmit="App.handleLogin(event)" class="space-y-4">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-300">Username</label>
+            <input 
+              type="text" 
+              id="login-username" 
+              required 
+              autocomplete="username"
+              placeholder="e.g. admin or your candidate username" 
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/40 focus:outline-none transition-all">
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-300">Password</label>
+            <input 
+              type="password" 
+              id="login-password" 
+              required 
+              autocomplete="current-password"
+              placeholder="••••••••••••" 
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/40 focus:outline-none transition-all">
+          </div>
+
+          <div class="flex items-center justify-between text-xs pt-1">
+            <label class="flex items-center gap-2 text-slate-400 cursor-pointer select-none">
+              <input type="checkbox" id="login-remember" checked class="rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-0">
+              <span>Remember me for 30 days</span>
+            </label>
+          </div>
+
+          <button 
+            type="submit" 
+            id="login-submit-btn" 
+            class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-slate-950 font-bold text-sm hover:brightness-110 flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-500/20 cursor-pointer">
+            <span>Sign In to Vault</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <!-- Notice -->
+        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-[11px] text-slate-400 flex items-start gap-2.5">
+          <span class="text-emerald-400 text-sm mt-0.5">🔒</span>
+          <span>
+            <strong>Admin-Managed Access:</strong> Accounts are provisioned exclusively by the Administrator. Self-registration is restricted.
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: PROVISION NEW USER (ADMIN ONLY)                                -->
+  <!-- ===================================================================== -->
+  <div id="modal-create-user" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-panel w-full max-w-md p-6 rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-base">👤</span>
+          <h3 class="text-sm font-bold text-white">Provision New Candidate / User</h3>
+        </div>
+        <button onclick="App.closeCreateUserModal()" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+
+      <div id="create-user-error" class="hidden p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs"></div>
+
+      <form onsubmit="App.handleCreateUser(event)" class="space-y-3.5">
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-300">Username *</label>
+          <input type="text" id="create-username" required placeholder="e.g. john_doe" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:border-emerald-500 focus:outline-none">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-300">Full Name (Optional)</label>
+          <input type="text" id="create-fullname" placeholder="e.g. John Doe" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:border-emerald-500 focus:outline-none">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-300">Initial Password * (min 6 chars)</label>
+          <input type="password" id="create-password" required minlength="6" placeholder="••••••••••••" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:border-emerald-500 focus:outline-none">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-300">Role Designation</label>
+          <select id="create-role" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:border-emerald-500 focus:outline-none">
+            <option value="student">Student / Candidate (Isolated Progress)</option>
+            <option value="admin">Administrator (Full System & User Control)</option>
+          </select>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="App.closeCreateUserModal()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:brightness-110">Provision Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: RESET PASSWORD (ADMIN ONLY)                                    -->
+  <!-- ===================================================================== -->
+  <div id="modal-reset-password" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-panel w-full max-w-sm p-6 rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🔑</span>
+          <h3 class="text-sm font-bold text-white">Reset Candidate Password</h3>
+        </div>
+        <button onclick="App.closeResetPasswordModal()" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        Resetting password for: <strong class="text-white font-mono" id="reset-target-username">user</strong>
+      </p>
+
+      <div id="reset-password-error" class="hidden p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs"></div>
+
+      <form onsubmit="App.handleResetPassword(event)" class="space-y-3.5">
+        <input type="hidden" id="reset-target-user-id">
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-300">New Password (min 6 chars)</label>
+          <input type="password" id="reset-new-password" required minlength="6" placeholder="Enter new password..." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:border-emerald-500 focus:outline-none">
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="App.closeResetPasswordModal()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs hover:brightness-110">Update & Invalidate Old Sessions</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: SELF-SERVICE CHANGE PASSWORD                                  -->
+  <!-- ===================================================================== -->
+  <div id="modal-change-password" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-panel w-full max-w-sm p-6 rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-base">🔐</span>
+          <h3 class="text-sm font-bold text-white">Change My Password</h3>
+        </div>
+        <button onclick="App.closeChangePasswordModal()" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+
+      <div id="change-password-error" class="hidden p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs"></div>
+
+      <form onsubmit="App.handleChangePassword(event)" class="space-y-3.5">
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-300">Current Password</label>
+          <input type="password" id="change-old-password" required placeholder="Current password..." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:border-emerald-500 focus:outline-none">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-slate-300">New Password (min 6 chars)</label>
+          <input type="password" id="change-new-password" required minlength="6" placeholder="New password..." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:border-emerald-500 focus:outline-none">
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="App.closeChangePasswordModal()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:brightness-110">Save New Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- App Scripts -->
-  <script src="/static/js/timer.js?v=3.2.1"></script>
-  <script src="/static/js/app.js?v=3.2.1"></script>
+  <script src="/static/js/timer.js?v=3.3.0"></script>
+  <script src="/static/js/app.js?v=3.3.0"></script>
 </body>
 </html>
