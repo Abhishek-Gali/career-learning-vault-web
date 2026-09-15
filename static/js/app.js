@@ -213,6 +213,12 @@ const App = {
     if (target) {
       target.classList.remove('hidden');
     }
+
+    if (viewName === 'sandbox') {
+      if (this.state.sandboxMode === 'grid') {
+        this.renderNeetCodeGrid();
+      }
+    }
   },
 
   // ── Sub-tab Navigation (Inside each track) ─────────────────────────────────
@@ -679,21 +685,16 @@ const App = {
     if (mode === 'grid') {
       if (gridView) gridView.classList.remove('hidden');
       if (ideView) ideView.classList.add('hidden');
-      if (btnGrid) {
-        btnGrid.className = 'view-mode-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-2';
-      }
-      if (btnIde) {
-        btnIde.className = 'view-mode-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white flex items-center gap-2';
-      }
+      if (btnGrid) btnGrid.classList.add('active');
+      if (btnIde) btnIde.classList.remove('active');
       this.renderNeetCodeGrid();
     } else {
       if (gridView) gridView.classList.add('hidden');
       if (ideView) ideView.classList.remove('hidden');
-      if (btnIde) {
-        btnIde.className = 'view-mode-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-2';
-      }
-      if (btnGrid) {
-        btnGrid.className = 'view-mode-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white flex items-center gap-2';
+      if (btnIde) btnIde.classList.add('active');
+      if (btnGrid) btnGrid.classList.remove('active');
+      if (!this.state.activeChallenge && this.state.challenges && this.state.challenges.length > 0) {
+        this.selectChallenge(this.state.challenges[0].id);
       }
     }
   },
@@ -730,6 +731,15 @@ const App = {
     const container = document.getElementById('neetcode-roadmap-container');
     if (!container) return;
 
+    if (!this.state.challenges || this.state.challenges.length === 0) {
+      container.innerHTML = `
+        <div class="p-12 text-center text-slate-400 text-xs font-mono rounded-xl bg-slate-900/60 border border-slate-800">
+          No challenges match the active filter. Try selecting 'All Platforms' or 'All Status'.
+        </div>
+      `;
+      return;
+    }
+
     const orderedPlatformNames = [
       "LeetCode",
       "HackerRank",
@@ -748,25 +758,18 @@ const App = {
     orderedPlatformNames.forEach(p => platformsMap.set(p, []));
 
     this.state.challenges.forEach(ch => {
-      let platName = ch.platform || "Foundational Sandbox";
-      let matchedKey = null;
-      for (const pName of orderedPlatformNames) {
-        if (pName.toLowerCase() === platName.toLowerCase() || platName.toLowerCase().includes(pName.toLowerCase().split(' ')[0])) {
-          matchedKey = pName;
-          break;
-        }
+      const platName = ch.platform || "Foundational Sandbox";
+      if (!platformsMap.has(platName)) {
+        platformsMap.set(platName, []);
       }
-      if (!matchedKey) matchedKey = platName;
-      if (!platformsMap.has(matchedKey)) {
-        platformsMap.set(matchedKey, []);
-      }
-      platformsMap.get(matchedKey).push(ch);
+      platformsMap.get(platName).push(ch);
     });
 
     let html = '';
 
     platformsMap.forEach((pChallenges, platName) => {
-      if (pChallenges.length === 0 && (this.state.searchQuery || this.state.selectedDifficulty !== 'All' || this.state.selectedStatus !== 'all')) {
+      // If no challenges match for this platform under current filters, skip it
+      if (pChallenges.length === 0) {
         return;
       }
 
@@ -928,31 +931,32 @@ const App = {
 
     // Bind accordion toggles
     container.querySelectorAll('.neetcode-accordion-header').forEach(hdr => {
-      hdr.addEventListener('click', (e) => {
+      hdr.onclick = (e) => {
         if (e.target.closest('button') || e.target.closest('input')) return;
         const acc = hdr.closest('.neetcode-accordion');
-        acc.classList.toggle('is-open');
-      });
+        if (acc) acc.classList.toggle('is-open');
+      };
     });
 
     // Bind checkboxes
     container.querySelectorAll('.problem-checkbox').forEach(cb => {
-      cb.addEventListener('change', (e) => {
+      cb.onchange = (e) => {
         const cid = e.target.dataset.cid;
         this.toggleChallengeSolvedById(cid);
-      });
+      };
     });
 
     // Bind problem open links and Solve buttons
     container.querySelectorAll('.problem-open-link, .btn-solve-now').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
         const cid = btn.dataset.cid;
         this.selectChallenge(cid, true);
-      });
+      };
     });
   },
 
-  toggleChallengeSolvedById(cid) {
+    toggleChallengeSolvedById(cid) {
     if (!cid) return;
     const currentlySolved = this.state.solvedChallenges.has(cid);
     if (currentlySolved) {
@@ -1215,74 +1219,74 @@ const App = {
     const btnModeGrid = document.getElementById('btn-mode-grid');
     const btnModeIde = document.getElementById('btn-mode-ide');
     const btnBackGrid = document.getElementById('btn-back-to-grid');
-    if (btnModeGrid) btnModeGrid.addEventListener('click', () => this.switchSandboxMode('grid'));
-    if (btnModeIde) btnModeIde.addEventListener('click', () => this.switchSandboxMode('ide'));
-    if (btnBackGrid) btnBackGrid.addEventListener('click', () => this.switchSandboxMode('grid'));
+    if (btnModeGrid) btnModeGrid.onclick = () => this.switchSandboxMode('grid');
+    if (btnModeIde) btnModeIde.onclick = () => this.switchSandboxMode('ide');
+    if (btnBackGrid) btnBackGrid.onclick = () => this.switchSandboxMode('grid');
 
     // Expand / Collapse All
     const btnExpand = document.getElementById('btn-expand-all');
     const btnCollapse = document.getElementById('btn-collapse-all');
     if (btnExpand) {
-      btnExpand.addEventListener('click', () => {
+      btnExpand.onclick = () => {
         document.querySelectorAll('.neetcode-accordion').forEach(a => a.classList.add('is-open'));
-      });
+      };
     }
     if (btnCollapse) {
-      btnCollapse.addEventListener('click', () => {
+      btnCollapse.onclick = () => {
         document.querySelectorAll('.neetcode-accordion').forEach(a => a.classList.remove('is-open'));
-      });
+      };
     }
 
     // Tab switching inside IDE left pane
     const tabProblem = document.getElementById('tab-btn-problem');
     const tabCatalog = document.getElementById('tab-btn-catalog');
-    if (tabProblem) tabProblem.addEventListener('click', () => this.switchSandboxTab('problem'));
-    if (tabCatalog) tabCatalog.addEventListener('click', () => this.switchSandboxTab('catalog'));
+    if (tabProblem) tabProblem.onclick = () => this.switchSandboxTab('problem');
+    if (tabCatalog) tabCatalog.onclick = () => this.switchSandboxTab('catalog');
 
     // Solved pill toggle
     const statusPill = document.getElementById('active-ch-status-pill');
-    if (statusPill) statusPill.addEventListener('click', () => this.toggleActiveChallengeSolved());
+    if (statusPill) statusPill.onclick = () => this.toggleActiveChallengeSolved();
 
     // Quick Challenge Dropdown
     const dropdown = document.getElementById('challenge-select-dropdown');
     if (dropdown) {
-      dropdown.addEventListener('change', (e) => {
+      dropdown.onchange = (e) => {
         if (e.target.value) {
           this.selectChallenge(e.target.value, true);
           this.switchSandboxTab('problem');
         }
-      });
+      };
     }
 
     // Status filter pills (All / Unsolved / Solved)
     document.querySelectorAll('.status-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
+      pill.onclick = () => {
         document.querySelectorAll('.status-pill').forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
         this.state.selectedStatus = pill.dataset.status;
         this.loadChallenges();
-      });
+      };
     });
 
     // Run Sample Cases button
     const btnSamples = document.getElementById('btn-run-samples');
-    if (btnSamples) btnSamples.addEventListener('click', () => this.runCode(false));
+    if (btnSamples) btnSamples.onclick = () => this.runCode(false);
 
     // Submit Solution button
     const btnRun = document.getElementById('btn-run-code');
-    if (btnRun) btnRun.addEventListener('click', () => this.runCode(true));
+    if (btnRun) btnRun.onclick = () => this.runCode(true);
 
     // Reset & Reveal
     const btnReset = document.getElementById('btn-reset-code');
-    if (btnReset) btnReset.addEventListener('click', () => this.resetCode());
+    if (btnReset) btnReset.onclick = () => this.resetCode();
 
     const btnReveal = document.getElementById('btn-reveal-solution');
-    if (btnReveal) btnReveal.addEventListener('click', () => this.revealSolution());
+    if (btnReveal) btnReveal.onclick = () => this.revealSolution();
 
     // Code Editor keyboard shortcuts: Tab key & Ctrl+Enter
     const editor = document.getElementById('code-editor');
     if (editor) {
-      editor.addEventListener('keydown', (e) => {
+      editor.onkeydown = (e) => {
         if (e.key === 'Tab') {
           e.preventDefault();
           const start = editor.selectionStart;
@@ -1294,11 +1298,11 @@ const App = {
           e.preventDefault();
           this.runCode(false);
         }
-      });
+      };
     }
   },
 
-  formatMarkdown(text) {
+    formatMarkdown(text) {
     if (!text) return '';
     return text
       .replace(/### (.*?)\n/g, '<h3 class="text-sm font-bold text-white mt-3 mb-1">$1</h3>')
@@ -1516,21 +1520,21 @@ window.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
     let timeout = null;
-    searchInput.addEventListener('input', (e) => {
+    searchInput.oninput = (e) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         App.state.searchQuery = e.target.value;
         App.loadChallenges();
       }, 200);
-    });
+    };
   }
 
   document.querySelectorAll('.diff-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
+    pill.onclick = () => {
       document.querySelectorAll('.diff-pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       App.state.selectedDifficulty = pill.dataset.diff;
       App.loadChallenges();
-    });
+    };
   });
 });

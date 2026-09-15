@@ -567,8 +567,25 @@ header.app-header {
 
 /* ── NeetCode Roadmap Grid System (Platforms & Subdivisions) ──────────────── */
 .view-mode-btn {
+  padding: 0.45rem 0.95rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.85);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: var(--transition-smooth);
   cursor: pointer;
+  user-select: none;
+}
+
+.view-mode-btn:hover {
+  color: #ffffff;
+  background: rgba(30, 41, 69, 0.7);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .view-mode-btn.active {
