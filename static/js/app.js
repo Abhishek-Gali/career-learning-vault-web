@@ -3104,11 +3104,242 @@ const App = {
       const res = await fetch('/api/admin/users', { headers: this.getAuthHeaders() });
       if (!res.ok) return;
       const data = await res.json();
-      this.state.adminUsers = data.users || [];
-      this.renderAdminUsersTable(this.state.adminUsers);
-      this.renderAdminStats(this.state.adminUsers);
+      const users = data.users || [];
+      this.state.adminUsers = users;
+      this.renderAdminUsersTable(users);
+      this.renderAdminStats(users);
+
+      // Auto-Cache non-admin candidates in browser's persistent storage
+      const nonAdminCandidates = users.filter(u => u.role !== 'admin').map(u => ({
+        username: u.username,
+        full_name: u.full_name,
+        role: u.role,
+        is_active: u.is_active,
+        created_at: u.created_at,
+        created_by: u.created_by
+      }));
+
+      if (nonAdminCandidates.length > 0) {
+        localStorage.setItem('vault_admin_roster', JSON.stringify(nonAdminCandidates));
+      } else {
+        // Zero students on server: Check if browser cache has saved roster to auto-restore!
+        const cachedRosterStr = localStorage.getItem('vault_admin_roster');
+        if (cachedRosterStr) {
+          try {
+            const cachedList = JSON.parse(cachedRosterStr);
+            if (Array.isArray(cachedList) && cachedList.length > 0) {
+              console.log('[Auto-Sync] Server has 0 students, auto-restoring from Admin browser cache:', cachedList);
+              this.syncRoster(cachedList, true);
+            }
+          } catch (err) {}
+        }
+      }
+
+      // Also refresh IP Threat Defense and Security Logs
+      this.loadBannedIPs();
+      this.loadSecurityLogs();
     } catch (e) {
       console.warn('Failed to load admin users:', e);
+    }
+  },
+
+  async syncRoster(explicitList = null, isAuto = false) {
+    let list = explicitList;
+    if (!list) {
+      try {
+        const stored = localStorage.getItem('vault_admin_roster');
+        list = stored ? JSON.parse(stored) : [];
+      } catch (e) {
+        list = [];
+      }
+    }
+
+    if (!Array.isArray(list) || list.length === 0) {
+      if (!isAuto) alert('No saved candidate roster found in local storage to sync.');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/admin/users/sync-roster', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ candidates: list })
+      });
+      const data = await res.json();
+      if (res.ok && data.status === 'ok') {
+        const uRes = await fetch('/api/admin/users', { headers: this.getAuthHeaders() });
+        if (uRes.ok) {
+          const uData = await uRes.json();
+          this.state.adminUsers = uData.users || [];
+          this.renderAdminUsersTable(this.state.adminUsers);
+          this.renderAdminStats(this.state.adminUsers);
+        }
+        if (!isAuto) {
+          alert(`⚡ Success! Synchronized ${data.total_synced} candidate accounts with the server.`);
+        } else {
+          console.log(`[Auto-Sync] Successfully restored ${data.restored_count} candidates.`);
+        }
+      }
+    } catch (err) {
+      console.warn('Roster sync error:', err);
+    }
+  },
+
+  async exportRoster() {
+    try {
+      const res = await fetch('/api/admin/users/export-roster', { headers: this.getAuthHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+      const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(jsonBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `career_vault_candidates_roster_${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      alert('Failed to export candidate roster.');
+    }
+  },
+
+  async importRoster(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (evt) => {
+      try {
+        const parsed = JSON.parse(evt.target.result);
+        const candidates = Array.isArray(parsed) ? parsed : (parsed.candidates || []);
+        if (!Array.isArray(candidates) || candidates.length === 0) {
+          alert('Invalid backup file. No candidates found.');
+          return;
+        }
+        localStorage.setItem('vault_admin_roster', JSON.stringify(candidates));
+        await this.syncRoster(candidates, false);
+      } catch (err) {
+        alert('Failed to parse candidate JSON file.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  },
+
+  // ── IP Threat Defense & Banned IPs Management ─────────────────────────────
+  async loadBannedIPs() {
+    try {
+      const res = await fetch('/api/admin/security/banned-ips', { headers: this.getAuthHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+      const banned = data.banned_ips || [];
+
+      const countEl = document.getElementById('admin-stat-banned-ips');
+      if (countEl) countEl.textContent = banned.length;
+
+      const tbody = document.getElementById('admin-banned-ips-body');
+      if (!tbody) return;
+
+      if (banned.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="py-6 text-center text-slate-500 font-mono">No active IP bans. Threat surface is clean.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = banned.map(b => {
+        const bannedTime = (b.banned_at || '').slice(0, 19).replace('T', ' ');
+        const expTime = b.is_permanent ? 'Permanent' : (b.expires_at ? b.expires_at.slice(0, 19).replace('T', ' ') : '1 hour');
+        return `
+          <tr class="hover:bg-rose-500/5 transition-colors">
+            <td class="py-2.5 px-3 font-mono font-bold text-rose-300">${b.ip}</td>
+            <td class="py-2.5 px-3 text-slate-300">${b.reason}</td>
+            <td class="py-2.5 px-3 font-mono text-amber-400 font-bold">${b.strike_count || 1}</td>
+            <td class="py-2.5 px-3 text-[10px] text-slate-400">${bannedTime}</td>
+            <td class="py-2.5 px-3 text-[10px] text-slate-400">${expTime}</td>
+            <td class="py-2.5 px-3 text-right">
+              <button onclick="App.unbanIP('${b.ip}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-emerald-500/20 hover:text-emerald-300 border border-slate-700 hover:border-emerald-500/40 text-[11px] font-bold text-slate-300 transition cursor-pointer">
+                🔓 Unban
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    } catch (err) {
+      console.warn('Failed to load banned IPs:', err);
+    }
+  },
+
+  async handleManualBanIP(e) {
+    if (e) e.preventDefault();
+    const input = document.getElementById('manual-ban-ip-input');
+    if (!input || !input.value.trim()) return;
+    const ip = input.value.trim();
+
+    try {
+      const res = await fetch('/api/admin/security/ban-ip', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ ip: ip, reason: 'Manual administrative ban', duration_hours: 24 })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        input.value = '';
+        this.loadBannedIPs();
+        this.loadSecurityLogs();
+        alert(`✓ IP ${ip} has been added to the active ban list.`);
+      } else {
+        alert(data.detail || 'Failed to ban IP.');
+      }
+    } catch (err) {
+      alert('Network error banning IP.');
+    }
+  },
+
+  async unbanIP(ip) {
+    if (!confirm(`Are you sure you want to unban IP ${ip}?`)) return;
+    try {
+      const res = await fetch('/api/admin/security/unban-ip', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ ip: ip })
+      });
+      if (res.ok) {
+        this.loadBannedIPs();
+        this.loadSecurityLogs();
+      }
+    } catch (err) {
+      console.warn('Unban error:', err);
+    }
+  },
+
+  async loadSecurityLogs() {
+    try {
+      const res = await fetch('/api/admin/security/logs', { headers: this.getAuthHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+      const logs = data.logs || [];
+      const container = document.getElementById('admin-security-logs-container');
+      if (!container) return;
+
+      if (logs.length === 0) {
+        container.innerHTML = '<div class="text-slate-500 italic">No recent security events recorded.</div>';
+        return;
+      }
+
+      container.innerHTML = logs.map(l => {
+        const timeStr = (l.timestamp || '').slice(11, 19);
+        const isBan = l.event_type.includes('BAN') || l.event_type.includes('ATTACK');
+        const color = isBan ? 'text-rose-400' : 'text-emerald-400';
+        return `
+          <div class="flex items-start gap-2 py-0.5 border-b border-slate-900/40">
+            <span class="text-slate-500">[${timeStr}]</span>
+            <span class="font-bold ${color}">[${l.event_type}]</span>
+            <span class="text-slate-300 font-mono">${l.ip}:</span>
+            <span class="text-slate-400">${l.details}</span>
+          </div>
+        `;
+      }).join('');
+    } catch (err) {
+      console.warn('Failed to load security logs:', err);
     }
   },
 

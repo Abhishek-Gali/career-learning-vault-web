@@ -57,6 +57,7 @@ if not CHALLENGES_DIR.exists() and (VAULT_LOCAL / "Coding_Sandbox" / "challenges
 # SQLite Database Resolution:
 # Prioritize DATA_DIR / "web_vault.db" so that all user data, accounts, and progress are tracked in git and persist across commits/deploys.
 DB_PATH = DATA_DIR / "web_vault.db"
+PERSISTENT_USERS_FILE = DATA_DIR / "persistent_users.json"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 if not DB_PATH.exists() and (VAULT_LOCAL / "interview_history.db").exists():
     try:
@@ -86,8 +87,120 @@ def verify_password(stored_hash: str, password: str) -> bool:
     except Exception:
         return False
 
-# ── In-Memory Login Rate Limiter (5 attempts in 15 mins) ─────────────────────
+# ── Intelligent IP Threat Defense & Banned IPs Cache ─────────────────────────
+_BANNED_IPS_CACHE: Dict[str, Dict[str, Any]] = {}
 _FAILED_LOGINS: Dict[str, List[float]] = {}
+
+RECKLESS_ATTACK_PATTERNS = [
+    re.compile(r"(\b(union\s+select|insert\s+into|drop\s+table|delete\s+from|alter\s+table|select\s+.*\s+from)\b|'[\s]*(or|and)[\s]+|(--|#|/\*)|(\b(or|and)\b\s+['\"0-9a-zA-Z]+\s*=\s*['\"0-9a-zA-Z]+))", re.IGNORECASE),
+    re.compile(r"(<script\b|javascript:|onerror\s*=|onload\s*=|onclick\s*=|eval\s*\(|alert\s*\(|<iframe|<svg)", re.IGNORECASE),
+    re.compile(r"(\.\./\.\./|\betc/passwd\b|\bwindows/system32\b)", re.IGNORECASE)
+]
+
+def check_reckless_payload(input_str: Optional[str]) -> Optional[str]:
+    if not input_str:
+        return None
+    for pattern in RECKLESS_ATTACK_PATTERNS:
+        if pattern.search(input_str):
+            return pattern.pattern
+    return None
+
+def get_client_ip(request: Request) -> str:
+    cf_ip = request.headers.get("cf-connecting-ip") or request.headers.get("CF-Connecting-IP")
+    if cf_ip:
+        return cf_ip.strip()
+    x_forwarded = request.headers.get("x-forwarded-for") or request.headers.get("X-Forwarded-For")
+    if x_forwarded:
+        return x_forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "127.0.0.1"
+
+def load_banned_ips_cache():
+    global _BANNED_IPS_CACHE
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            conn.row_factory = sqlite3.Row
+            cur = conn.cursor()
+            cur.execute("SELECT ip, reason, banned_at, expires_at, strike_count, is_permanent FROM banned_ips")
+            now_iso = datetime.datetime.now(timezone.utc).isoformat()
+            cache = {}
+            for row in cur.fetchall():
+                exp = row["expires_at"]
+                if exp and exp < now_iso:
+                    continue
+                cache[row["ip"]] = dict(row)
+            _BANNED_IPS_CACHE = cache
+    except Exception as e:
+        print(f"[Security Info] Load banned IPs cache: {e}")
+
+def is_ip_banned(ip: str) -> Optional[str]:
+    if not ip or ip in ("127.0.0.1", "localhost", "::1"):
+        return None
+    if ip in _BANNED_IPS_CACHE:
+        info = _BANNED_IPS_CACHE[ip]
+        exp = info.get("expires_at")
+        if exp:
+            now_iso = datetime.datetime.now(timezone.utc).isoformat()
+            if exp < now_iso:
+                _BANNED_IPS_CACHE.pop(ip, None)
+                return None
+        return info.get("reason", "IP banned for security violations.")
+    return None
+
+def ban_ip_address(ip: str, reason: str, duration_hours: Optional[int] = 1, is_permanent: bool = False):
+    if not ip or ip in ("127.0.0.1", "localhost", "::1"):
+        return
+    now = datetime.datetime.now(timezone.utc)
+    now_iso = now.isoformat()
+    expires_at = (now + timedelta(hours=duration_hours)).isoformat() if (duration_hours and not is_permanent) else None
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            conn.execute("""
+                INSERT INTO banned_ips (ip, reason, banned_at, expires_at, strike_count, is_permanent)
+                VALUES (?, ?, ?, ?, 1, ?)
+                ON CONFLICT(ip) DO UPDATE SET
+                    reason = excluded.reason,
+                    banned_at = excluded.banned_at,
+                    expires_at = excluded.expires_at,
+                    strike_count = strike_count + 1,
+                    is_permanent = excluded.is_permanent
+            """, (ip, reason, now_iso, expires_at, 1 if is_permanent else 0))
+            conn.execute("""
+                INSERT INTO security_audit_logs (ip, event_type, details, timestamp)
+                VALUES (?, 'IP_BANNED', ?, ?)
+            """, (ip, f"Banned: {reason} (Expires: {expires_at or 'Permanent'})", now_iso))
+            conn.commit()
+        _BANNED_IPS_CACHE[ip] = {
+            "ip": ip, "reason": reason, "banned_at": now_iso,
+            "expires_at": expires_at, "is_permanent": 1 if is_permanent else 0
+        }
+    except Exception as e:
+        print(f"[Security] Error banning IP {ip}: {e}")
+
+def unban_ip_address(ip: str):
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            conn.execute("DELETE FROM banned_ips WHERE ip = ?", (ip,))
+            now_iso = datetime.datetime.now(timezone.utc).isoformat()
+            conn.execute("""
+                INSERT INTO security_audit_logs (ip, event_type, details, timestamp)
+                VALUES (?, 'IP_UNBANNED', 'IP unbanned by administrator', ?)
+            """, (ip, now_iso))
+            conn.commit()
+        _BANNED_IPS_CACHE.pop(ip, None)
+    except Exception as e:
+        print(f"[Security] Error unbanning IP {ip}: {e}")
+
+def log_security_event(ip: str, event_type: str, details: str):
+    try:
+        now_iso = datetime.datetime.now(timezone.utc).isoformat()
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            conn.execute("""
+                INSERT INTO security_audit_logs (ip, event_type, details, timestamp)
+                VALUES (?, ?, ?, ?)
+            """, (ip, event_type, details, now_iso))
+            conn.commit()
+    except Exception:
+        pass
 
 def check_rate_limit(key: str, max_attempts: int = 5, window_sec: int = 900) -> bool:
     now = time.time()
@@ -104,10 +217,89 @@ def record_failed_login(key: str):
 def clear_failed_logins(key: str):
     _FAILED_LOGINS.pop(key, None)
 
+# ── Candidate Auto-Sync & Roster Persistence ────────────────────────────────
+def sync_persistent_users_file():
+    """Saves all non-admin candidate accounts into data/persistent_users.json."""
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            conn.row_factory = sqlite3.Row
+            cur = conn.cursor()
+            cur.execute("""
+                SELECT username, full_name, password_hash, role, is_active, created_at, created_by
+                FROM users
+                WHERE role != 'admin'
+            """)
+            users_list = [dict(r) for r in cur.fetchall()]
+            with open(PERSISTENT_USERS_FILE, "w", encoding="utf-8") as f:
+                json.dump(users_list, f, indent=2)
+    except Exception as e:
+        print(f"[Persistence] Error syncing persistent_users.json: {e}")
+
+def restore_persistent_users_if_needed():
+    """Auto-restores candidates from persistent_users.json or SEEDED_USERS_JSON env var if missing in SQLite."""
+    try:
+        to_restore = []
+        if PERSISTENT_USERS_FILE.exists():
+            with open(PERSISTENT_USERS_FILE, "r", encoding="utf-8") as f:
+                file_users = json.load(f)
+                if isinstance(file_users, list):
+                    to_restore.extend(file_users)
+        
+        env_seeds = os.environ.get("SEEDED_USERS_JSON")
+        if env_seeds:
+            try:
+                env_list = json.loads(env_seeds)
+                if isinstance(env_list, list):
+                    to_restore.extend(env_list)
+            except Exception:
+                pass
+
+        if not to_restore:
+            return
+
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT username FROM users")
+            existing = {row[0].lower() for row in cur.fetchall()}
+            
+            restored_count = 0
+            for u in to_restore:
+                uname = u.get("username", "").strip().lower()
+                if not uname or uname in existing:
+                    continue
+                pwd_hash = u.get("password_hash")
+                if not pwd_hash and u.get("password"):
+                    pwd_hash = hash_password(u["password"])
+                if not pwd_hash:
+                    continue
+                
+                fname = u.get("full_name") or uname.capitalize()
+                role = u.get("role") or "student"
+                created_at = u.get("created_at") or datetime.datetime.now(timezone.utc).isoformat()
+                created_by = u.get("created_by") or "admin"
+                
+                cur.execute("""
+                    INSERT INTO users (username, full_name, password_hash, role, is_active, created_at, created_by)
+                    VALUES (?, ?, ?, ?, 1, ?, ?)
+                """, (uname, fname, pwd_hash, role, created_at, created_by))
+                existing.add(uname)
+                restored_count += 1
+            
+            if restored_count > 0:
+                conn.commit()
+                print(f"[Persistence] Auto-restored {restored_count} candidate accounts into database.")
+    except Exception as e:
+        print(f"[Persistence] Error restoring persistent users: {e}")
+
 # ── SQLite Database Setup & Multi-Tenant Migration ──────────────────────────
 def init_db():
     try:
         with sqlite3.connect(str(DB_PATH)) as conn:
+            # WAL Mode & Busy Timeout for High-Concurrency Multi-User Scalability
+            conn.execute("PRAGMA journal_mode=WAL;")
+            conn.execute("PRAGMA busy_timeout=5000;")
+            conn.execute("PRAGMA synchronous=NORMAL;")
+
             # 1. Users Table
             conn.execute("""
                 CREATE TABLE IF NOT EXISTS users (
@@ -181,11 +373,34 @@ def init_db():
                     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
                     track_key TEXT NOT NULL,
                     course_id TEXT NOT NULL,
-                    course_type TEXT NOT NULL, -- 'personal' or 'playlist'
+                    course_type TEXT NOT NULL DEFAULT 'playlist',
                     title TEXT NOT NULL,
                     videos_json TEXT NOT NULL,
                     added_at TEXT NOT NULL,
                     UNIQUE(user_id, track_key, course_id)
+                )
+            """)
+
+            # 7. Banned IPs Table
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS banned_ips (
+                    ip TEXT PRIMARY KEY,
+                    reason TEXT NOT NULL,
+                    banned_at TEXT NOT NULL,
+                    expires_at TEXT,
+                    strike_count INTEGER DEFAULT 1,
+                    is_permanent INTEGER DEFAULT 0
+                )
+            """)
+
+            # 8. Security Audit Logs Table
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS security_audit_logs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ip TEXT NOT NULL,
+                    event_type TEXT NOT NULL,
+                    details TEXT NOT NULL,
+                    timestamp TEXT NOT NULL
                 )
             """)
 
@@ -238,6 +453,10 @@ def init_db():
             except Exception as mig_err:
                 print(f"[Migration Info] Legacy table migration check: {mig_err}")
 
+        # Load Banned IPs Cache & Restore Persistent Users
+        load_banned_ips_cache()
+        restore_persistent_users_if_needed()
+
     except Exception as err:
         print(f"[DB Warning] Could not init database: {err}")
 
@@ -250,7 +469,7 @@ PING_COUNT = 0
 app = FastAPI(
     title="Career Learning Vault — Cloud API",
     description="Full-stack Multi-Tenant AI, Data Science & Cybersecurity Sandbox Hub",
-    version="3.3.0"
+    version="3.6.0"
 )
 
 app.add_middleware(
@@ -263,6 +482,33 @@ app.add_middleware(
 
 @app.middleware("http")
 async def security_and_cache_middleware(request: Request, call_next):
+    # Immediate IP Ban Check (Protects all routes from banned attackers)
+    client_ip = get_client_ip(request)
+    ban_reason = is_ip_banned(client_ip)
+    if ban_reason:
+        if request.url.path.startswith("/api/"):
+            return JSONResponse(
+                status_code=403,
+                content={"detail": f"Access Denied: Your IP ({client_ip}) has been banned. Reason: {ban_reason}"}
+            )
+        return HTMLResponse(
+            f"""<!DOCTYPE html>
+            <html lang="en" class="dark"><head><meta charset="UTF-8"><title>403 — Access Banned | Career Vault</title>
+            <script src="https://cdn.tailwindcss.com"></script></head>
+            <body class="bg-[#080c14] text-slate-100 min-h-screen flex items-center justify-center p-4">
+              <div class="max-w-md w-full bg-slate-900 border border-rose-500/40 rounded-3xl p-8 text-center shadow-2xl">
+                <div class="text-6xl mb-4">🛡️</div>
+                <h1 class="text-2xl font-black text-rose-400 mb-2">Access Suspended</h1>
+                <p class="text-xs text-slate-400 mb-4">Your IP address (<code>{client_ip}</code>) has been blocked due to detected security violations or reckless login attacks.</p>
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl text-left text-xs font-mono text-rose-300 mb-6">
+                  <strong>Reason:</strong> {ban_reason}
+                </div>
+                <p class="text-[11px] text-slate-500 font-mono">Contact the System Administrator (@admin) to review and unban this IP.</p>
+              </div>
+            </body></html>""",
+            status_code=403
+        )
+
     response = await call_next(request)
     # Defense-in-depth HTTP security headers (Anti-Clickjacking, Anti-MIME sniffing, Anti-XSS)
     response.headers["X-Content-Type-Options"] = "nosniff"
@@ -522,6 +768,18 @@ class QuizRecordRequest(BaseModel):
     correct_count: int
     total_questions: int
 
+class SyncRosterRequest(BaseModel):
+    candidates: List[Dict[str, Any]]
+
+class BanIpRequest(BaseModel):
+    ip: str
+    reason: Optional[str] = "Manual administrative ban"
+    duration_hours: Optional[int] = 24
+    is_permanent: Optional[bool] = False
+
+class UnbanIpRequest(BaseModel):
+    ip: str
+
 import html
 from urllib.parse import urlparse
 
@@ -647,14 +905,39 @@ def require_admin(current_user: Dict[str, Any] = Depends(get_current_user)) -> D
 
 @app.post("/api/auth/login")
 def login_endpoint(req: LoginRequest, request: Request, response: Response):
-    """Authenticates user credentials, applies rate limiting, and issues secure session token."""
-    client_ip = request.client.host if request.client else "unknown"
+    """Authenticates user credentials, inspects for reckless attack payloads, and issues secure session token."""
+    client_ip = get_client_ip(request)
+
+    # 1. Check if IP is already banned
+    ban_reason = is_ip_banned(client_ip)
+    if ban_reason:
+        log_security_event(client_ip, "BLOCKED_BANNED_IP", f"Login attempt from banned IP: {ban_reason}")
+        raise HTTPException(
+            status_code=403,
+            detail=f"Access Denied: Your IP ({client_ip}) has been banned. Reason: {ban_reason}"
+        )
+
+    # 2. Inspect for Reckless Injection / Attack Payloads in Username or Password
+    u_reckless = check_reckless_payload(req.username)
+    p_reckless = check_reckless_payload(req.password)
+    if u_reckless or p_reckless:
+        attack_type = u_reckless or p_reckless
+        ban_ip_address(client_ip, f"Malicious payload pattern detected in login: {attack_type}", duration_hours=24)
+        log_security_event(client_ip, "RECKLESS_LOGIN_ATTACK", f"Payload attack in login field: {req.username[:40]}")
+        raise HTTPException(
+            status_code=403,
+            detail="Security Violation: Reckless malicious attack pattern detected. Your IP address has been banned."
+        )
+
     rate_key = f"{client_ip}:{req.username.lower()}"
 
+    # 3. Check Brute-Force Rate Limiting (5 failed attempts triggers automatic 1-hour IP Ban)
     if not check_rate_limit(rate_key, max_attempts=5, window_sec=900):
+        ban_ip_address(client_ip, "Brute-force credential stuffing (5 failed login attempts in 15 mins)", duration_hours=1)
+        log_security_event(client_ip, "BRUTE_FORCE_BAN", f"Auto-banned after exceeding failed attempts for user: {req.username}")
         raise HTTPException(
-            status_code=429,
-            detail="Too many failed login attempts. Account temporarily locked for 15 minutes."
+            status_code=403,
+            detail="Security Lockout: 5 consecutive failed login attempts detected. Your IP address has been temporarily banned for 1 hour."
         )
 
     with sqlite3.connect(str(DB_PATH)) as conn:
@@ -665,7 +948,18 @@ def login_endpoint(req: LoginRequest, request: Request, response: Response):
 
         if not user or not verify_password(user["password_hash"], req.password):
             record_failed_login(rate_key)
-            raise HTTPException(status_code=401, detail="Invalid username or password.")
+            cur_attempts = len(_FAILED_LOGINS.get(rate_key, []))
+            remaining = max(0, 5 - cur_attempts)
+            if remaining == 0:
+                ban_ip_address(client_ip, "Brute-force credential stuffing (5 failed login attempts)", duration_hours=1)
+                raise HTTPException(
+                    status_code=403,
+                    detail="Security Lockout: Too many failed login attempts. Your IP address has been banned for 1 hour."
+                )
+            raise HTTPException(
+                status_code=401,
+                detail=f"Invalid username or password. ({remaining} attempt{'s' if remaining != 1 else ''} remaining before automated IP ban)"
+            )
 
         if not user["is_active"]:
             raise HTTPException(status_code=403, detail="Account is deactivated. Contact Administrator.")
@@ -801,16 +1095,19 @@ def admin_create_user(req: CreateUserRequest, admin: Dict[str, Any] = Depends(re
             user_id = cur.lastrowid
             conn.commit()
 
-            return {
-                "status": "ok",
-                "message": f"User '{uname}' provisioned successfully.",
-                "user": {
-                    "id": user_id,
-                    "username": uname,
-                    "full_name": full_name_clean,
-                    "role": req.role
-                }
+        # Update persistent candidate registry file
+        sync_persistent_users_file()
+
+        return {
+            "status": "ok",
+            "message": f"User '{uname}' provisioned successfully.",
+            "user": {
+                "id": user_id,
+                "username": uname,
+                "full_name": full_name_clean,
+                "role": req.role
             }
+        }
     except sqlite3.IntegrityError:
         raise HTTPException(status_code=409, detail=f"Username '{uname}' already exists. Please choose another username.")
 
@@ -830,6 +1127,7 @@ def admin_reset_password(user_id: int, req: ResetPasswordRequest, admin: Dict[st
         conn.execute("DELETE FROM user_sessions WHERE user_id = ?", (user_id,))
         conn.commit()
 
+    sync_persistent_users_file()
     return {"status": "ok", "message": "Password reset successfully. Active sessions revoked."}
 
 @app.post("/api/admin/users/{user_id}/status")
@@ -848,6 +1146,7 @@ def admin_toggle_user_status(user_id: int, req: UserStatusRequest, admin: Dict[s
             conn.execute("DELETE FROM user_sessions WHERE user_id = ?", (user_id,))
         conn.commit()
 
+    sync_persistent_users_file()
     return {"status": "ok", "user_id": user_id, "is_active": req.is_active}
 
 @app.delete("/api/admin/users/{user_id}")
@@ -863,7 +1162,126 @@ def admin_delete_user(user_id: int, admin: Dict[str, Any] = Depends(require_admi
             raise HTTPException(status_code=404, detail="User not found.")
         conn.commit()
 
+    sync_persistent_users_file()
     return {"status": "ok", "message": "User deleted successfully."}
+
+# ── Admin Roster Auto-Sync & Backup Endpoints ───────────────────────────────
+
+@app.post("/api/admin/users/sync-roster")
+def admin_sync_roster(req: SyncRosterRequest, admin: Dict[str, Any] = Depends(require_admin)):
+    """
+    Auto-Sync Endpoint:
+    Restores/upserts candidate roster from Admin browser or backup file, guaranteeing zero data loss.
+    """
+    candidates = req.candidates
+    if not isinstance(candidates, list):
+        raise HTTPException(status_code=400, detail="Invalid roster format.")
+
+    now_iso = datetime.datetime.now(timezone.utc).isoformat()
+    restored_count = 0
+
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT username FROM users")
+        existing_usernames = {r[0].lower() for r in cur.fetchall()}
+
+        for c in candidates:
+            uname = str(c.get("username", "")).strip().lower()
+            if not uname or uname in ("admin", "system"):
+                continue
+            if not re.match(r"^[a-zA-Z0-9_.@-]{3,50}$", uname):
+                continue
+
+            fname = sanitize_user_input(c.get("full_name") or uname.capitalize(), max_len=60)
+            role = c.get("role") or "student"
+            pwd_hash = c.get("password_hash")
+            if not pwd_hash and c.get("password"):
+                pwd_hash = hash_password(str(c["password"]))
+            if not pwd_hash:
+                # Default initial fallback
+                pwd_hash = hash_password("Candidate@Vault2025")
+
+            c_time = c.get("created_at") or now_iso
+            c_by = c.get("created_by") or admin["username"]
+
+            if uname in existing_usernames:
+                # Update existing candidate
+                cur.execute("""
+                    UPDATE users SET full_name = ?, role = ?, is_active = 1
+                    WHERE username = ?
+                """, (fname, role, uname))
+            else:
+                cur.execute("""
+                    INSERT INTO users (username, full_name, password_hash, role, is_active, created_at, created_by)
+                    VALUES (?, ?, ?, ?, 1, ?, ?)
+                """, (uname, fname, pwd_hash, role, c_time, c_by))
+                existing_usernames.add(uname)
+                restored_count += 1
+
+        conn.commit()
+
+    sync_persistent_users_file()
+    return {"status": "ok", "restored_count": restored_count, "total_synced": len(candidates)}
+
+@app.get("/api/admin/users/export-roster")
+def admin_export_roster(admin: Dict[str, Any] = Depends(require_admin)):
+    """Exports clean JSON candidate roster for 1-click download/backup."""
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT username, full_name, password_hash, role, is_active, created_at, created_by
+            FROM users
+            WHERE role != 'admin'
+            ORDER BY id ASC
+        """)
+        roster = [dict(r) for r in cur.fetchall()]
+    return {"status": "ok", "candidates": roster, "count": len(roster), "exported_at": datetime.datetime.now(timezone.utc).isoformat()}
+
+# ── Admin IP Threat Defense & Banned IPs Management ─────────────────────────
+
+@app.get("/api/admin/security/banned-ips")
+def admin_list_banned_ips(admin: Dict[str, Any] = Depends(require_admin)):
+    """Lists all active and permanent IP bans with reason and strike count."""
+    load_banned_ips_cache()
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT ip, reason, banned_at, expires_at, strike_count, is_permanent FROM banned_ips ORDER BY banned_at DESC")
+        banned = [dict(r) for r in cur.fetchall()]
+    return {"status": "ok", "banned_ips": banned, "count": len(banned)}
+
+@app.post("/api/admin/security/ban-ip")
+def admin_manual_ban_ip(req: BanIpRequest, admin: Dict[str, Any] = Depends(require_admin)):
+    """Allows admin to manually ban any IP address."""
+    ip = req.ip.strip()
+    if not ip:
+        raise HTTPException(status_code=400, detail="IP address cannot be empty.")
+    if ip in ("127.0.0.1", "localhost", "::1"):
+        raise HTTPException(status_code=400, detail="Cannot ban localhost.")
+
+    reason = req.reason or f"Administrative manual ban by @{admin['username']}"
+    ban_ip_address(ip, reason, duration_hours=req.duration_hours, is_permanent=req.is_permanent or False)
+    return {"status": "ok", "message": f"IP {ip} has been banned.", "ip": ip, "reason": reason}
+
+@app.post("/api/admin/security/unban-ip")
+def admin_unban_ip(req: UnbanIpRequest, admin: Dict[str, Any] = Depends(require_admin)):
+    """Allows admin to 1-click unban any IP address."""
+    ip = req.ip.strip()
+    if not ip:
+        raise HTTPException(status_code=400, detail="IP address cannot be empty.")
+    unban_ip_address(ip)
+    return {"status": "ok", "message": f"IP {ip} has been unbanned successfully.", "ip": ip}
+
+@app.get("/api/admin/security/logs")
+def admin_get_security_logs(limit: int = 50, admin: Dict[str, Any] = Depends(require_admin)):
+    """Returns recent security audit events and attack attempts."""
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT id, ip, event_type, details, timestamp FROM security_audit_logs ORDER BY id DESC LIMIT ?", (limit,))
+        logs = [dict(r) for r in cur.fetchall()]
+    return {"status": "ok", "logs": logs, "count": len(logs)}
 
 # ── Keep-Alive & Platform Catalog Routes ────────────────────────────────────
 
