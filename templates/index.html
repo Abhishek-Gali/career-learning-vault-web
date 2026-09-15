@@ -5,6 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Career Learning Vault — Cloud Command Hub | Abhishek Gali</title>
   
+  <!-- Primary Meta Tags & SEO -->
+  <meta name="title" content="Career Learning Vault — Cloud Command Hub | Abhishek Gali">
+  <meta name="description" content="Career Learning Vault: 100% free autonomous career command hub with 312+ interactive Python challenges across 10 platforms, 4 career tracks (AIML, Data Science, Cybersecurity, DSA), and level-based technical interview engines.">
+  <meta name="keywords" content="career vault, data science, machine learning, cybersecurity, DSA, leetcode, hackerrank, interview prep, ISC2 CC, python coding sandbox">
+  <meta name="author" content="Abhishek Gali">
+  <link rel="canonical" href="https://career-learning-vault.onrender.com/">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Career Learning Vault">
+  <meta property="og:url" content="https://career-learning-vault.onrender.com/">
+  <meta property="og:title" content="Career Learning Vault — Cloud Command Hub | Abhishek Gali">
+  <meta property="og:description" content="Master AI/ML, Data Science, Defensive Cybersecurity, and DSA with 312+ coding challenges, technical interview engines, and trilingual university curricula.">
+  <meta property="og:image" content="https://career-learning-vault.onrender.com/static/images/icon-512.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://career-learning-vault.onrender.com/">
+  <meta name="twitter:title" content="Career Learning Vault — Cloud Command Hub | Abhishek Gali">
+  <meta name="twitter:description" content="Master AI/ML, Data Science, Defensive Cybersecurity, and DSA with 312+ coding challenges, technical interview engines, and trilingual curricula.">
+  <meta name="twitter:image" content="https://career-learning-vault.onrender.com/static/images/icon-512.png">
+
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/images/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/static/images/icon-192.png">
+  <link rel="apple-touch-icon" href="/static/images/icon-192.png">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Career Learning Vault",
+    "url": "https://career-learning-vault.onrender.com",
+    "description": "Comprehensive career preparation command hub with coding sandboxes, technical interview engines, and multi-track curricula.",
+    "founder": {
+      "@type": "Person",
+      "name": "Abhishek Gali"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Career Preparation Tracks",
+      "itemListElement": [
+        {
+          "@type": "Course",
+          "name": "Artificial Intelligence & Machine Learning Track",
+          "description": "Deep learning, loss functions, PyTorch architectures, and production ML pipelines."
+        },
+        {
+          "@type": "Course",
+          "name": "Data Science & Analytics Track",
+          "description": "Inferential statistics, exploratory data analysis, SQL window functions, and predictive modeling."
+        },
+        {
+          "@type": "Course",
+          "name": "Defensive Cybersecurity & SOC Operations Track",
+          "description": "Log analysis, incident triage, OWASP Top 10:2025, and ISC2 CC certification preparation."
+        },
+        {
+          "@type": "Course",
+          "name": "Data Structures & Algorithms (DSA) Track",
+          "description": "Blind 75, NeetCode 150 topic mapping, time-space complexity matrices, and interactive coding sandboxes."
+        }
+      ]
+    }
+  }
+  </script>
+
   <!-- Inter & JetBrains Mono Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,10 +112,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Career Vault">
-  <link rel="apple-touch-icon" href="/static/images/icon-192.png">
 
   <!-- Refero Design & Watermelon UI Styles -->
-  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=3.4.0">
+  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=3.5.0">
 
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
@@ -388,22 +455,32 @@
       </div>
 
       <!-- Active User Profile & Logout Footer -->
-      <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2.5 shadow-lg">
-        <div class="flex items-center gap-2.5 min-w-0">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-black text-emerald-400 flex-shrink-0" id="user-avatar-initials">
-            AG
-          </div>
-          <div class="min-w-0 flex-1">
-            <div class="text-xs font-bold text-white truncate" id="user-display-name">Abhishek Gali</div>
-            <div class="flex items-center gap-1.5">
-              <span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30" id="user-role-badge">ADMIN</span>
-              <button onclick="App.openChangePasswordModal()" class="text-[10px] text-slate-400 hover:text-white cursor-pointer transition-colors" title="Change My Password">🔑</button>
+      <div class="space-y-1.5">
+        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2.5 shadow-lg">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-black text-emerald-400 flex-shrink-0" id="user-avatar-initials">
+              AG
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-xs font-bold text-white truncate" id="user-display-name">Abhishek Gali</div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30" id="user-role-badge">ADMIN</span>
+                <button onclick="App.openChangePasswordModal()" class="text-[10px] text-slate-400 hover:text-white cursor-pointer transition-colors" title="Change My Password">🔑</button>
+              </div>
             </div>
           </div>
+          <button onclick="App.logout()" class="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 hover:text-rose-400 border border-slate-700 hover:border-rose-500/40 text-slate-400 text-xs transition-colors flex-shrink-0 cursor-pointer" title="Sign Out">
+            ⎋
+          </button>
         </div>
-        <button onclick="App.logout()" class="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 hover:text-rose-400 border border-slate-700 hover:border-rose-500/40 text-slate-400 text-xs transition-colors flex-shrink-0 cursor-pointer" title="Sign Out">
-          ⎋
-        </button>
+
+        <!-- Privacy & Compliance Sub-bar -->
+        <div class="px-2 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+          <button onclick="App.openPrivacyModal()" class="hover:text-emerald-400 cursor-pointer transition-colors flex items-center gap-1">
+            <span>📜</span> <span>Privacy & Data Policy</span>
+          </button>
+          <span>v3.5.0</span>
+        </div>
       </div>
     </aside>
 
@@ -1809,8 +1886,104 @@
     </div>
   </div>
 
+  <!-- ===================================================================== -->
+  <!-- MODAL: PRIVACY POLICY, DATA GOVERNANCE & TERMS                       -->
+  <!-- ===================================================================== -->
+  <div id="modal-privacy-policy" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-panel w-full max-w-2xl max-h-[85vh] p-6 sm:p-8 rounded-3xl border border-slate-700/80 bg-slate-900/95 shadow-2xl shadow-black/90 flex flex-col space-y-4 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-rose-500"></div>
+
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3.5 flex-shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-xl">
+            📜
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Privacy Policy & Data Governance</h3>
+            <p class="text-[11px] text-slate-400 font-mono">Transparency Disclosure & Compliance Standards</p>
+          </div>
+        </div>
+        <button onclick="App.closePrivacyModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition" title="Close Policy">✕</button>
+      </div>
+
+      <!-- Scrollable Policy Body -->
+      <div class="overflow-y-auto space-y-4 pr-1 text-xs text-slate-300 leading-relaxed custom-scrollbar flex-1">
+        
+        <!-- Pillar 1: Zero Monetization -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-emerald-500/30 space-y-1.5">
+          <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+            <span>🛡️</span> <span>100% Free & Zero Monetization Guarantee</span>
+          </div>
+          <p class="text-slate-300 text-[11.5px]">
+            Career Learning Vault is a 100% free educational command hub built by <strong>Abhishek Gali</strong>. We have <strong>zero paid tiers</strong>, require <strong>no credit card information</strong>, run <strong>no commercial ad trackers</strong>, and <strong>never sell, lease, or monetize user data</strong> to third parties under any circumstances.
+          </p>
+        </div>
+
+        <!-- Pillar 2: Data Collection & Storage -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-wider">
+            <span>💾</span> <span>What Data We Collect & How It Is Used</span>
+          </div>
+          <p class="text-slate-300 text-[11.5px]">
+            To deliver an authentic learning experience, the system stores strictly the following data in isolated database tables:
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-[11px] text-slate-400 pl-1">
+            <li><strong class="text-slate-200">Account Credentials:</strong> Username and PBKDF2-HMAC-SHA256 salted password hash.</li>
+            <li><strong class="text-slate-200">Study Focus Timer:</strong> Daily active seconds spent learning to calculate daily goal completion.</li>
+            <li><strong class="text-slate-200">Practice Progress:</strong> Question accuracy, quiz attempts, and solved sandbox coding challenge IDs.</li>
+            <li><strong class="text-slate-200">Custom Playlists:</strong> YouTube video URLs or playlist IDs candidates choose to add to their personal workspace.</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 3: Third-Party Embedded Services -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+            <span>🌐</span> <span>Third-Party Embeds & Services</span>
+          </div>
+          <p class="text-slate-300 text-[11.5px]">
+            The web application integrates select external services to provide trilingual video lectures and high-performance fonts:
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-[11px] text-slate-400 pl-1">
+            <li><strong class="text-slate-200">YouTube Embedded Players:</strong> Course lectures utilize sandboxed <code class="text-slate-300 bg-slate-900 px-1 rounded">youtube-nocookie.com</code> embeds. Interactions are subject to YouTube's standard terms.</li>
+            <li><strong class="text-slate-200">CDNs & Fonts:</strong> Google Fonts (Inter & JetBrains Mono) and Tailwind CSS are delivered via global CDN endpoints for sub-50ms latency.</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 4: Candidate Data Rights & Purge -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-wider">
+            <span>🗑️</span> <span>Data Ownership & Cascading Deletion Rights</span>
+          </div>
+          <p class="text-slate-300 text-[11.5px]">
+            Candidates retain full ownership of their data. Account administrators can purge candidate accounts at any time via <code class="text-slate-300 bg-slate-900 px-1 rounded">DELETE /api/admin/users/{id}</code>, which initiates an instant <strong>cascading deletion</strong> permanently removing all sessions, focus timer logs, quiz histories, and custom playlists from the database.
+          </p>
+        </div>
+
+        <!-- Pillar 5: Cryptographic Security -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-purple-400 font-bold text-xs uppercase tracking-wider">
+            <span>🔒</span> <span>Cryptographic Security & System Integrity</span>
+          </div>
+          <p class="text-slate-300 text-[11.5px]">
+            Security is engineered into every layer: 200,000-iteration PBKDF2 hashing with unique 16-byte salts, 15-minute brute-force login lockouts, parameterized SQL execution against injection attacks, and strict HTML escaping against cross-site scripting (XSS).
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-between border-t border-slate-800 pt-3 flex-shrink-0 text-[11px] text-slate-500 font-mono">
+        <span>Career Learning Vault v3.5.0</span>
+        <button type="button" onclick="App.closePrivacyModal()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold text-xs shadow-md transition">
+          I Understand
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- App Scripts -->
-  <script src="/static/js/timer.js?v=3.4.2"></script>
-  <script src="/static/js/app.js?v=3.4.2"></script>
+  <script src="/static/js/timer.js?v=3.5.0"></script>
+  <script src="/static/js/app.js?v=3.5.0"></script>
 </body>
 </html>

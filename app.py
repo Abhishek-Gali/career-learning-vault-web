@@ -1602,6 +1602,120 @@ def export_database_backup(user: Dict[str, Any] = Depends(get_current_user)):
         filename="web_vault_backup.db"
     )
 
+# ── SEO, Bot & AI Crawling Standards ──────────────────────────────────────────
+
+@app.get("/robots.txt", response_class=Response)
+def serve_robots_txt():
+    """Serves standards-compliant robots.txt allowing search and AI indexing of public tracks."""
+    content = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Allow: /sitemap.xml\n"
+        "Allow: /manifest.json\n"
+        "Allow: /static/\n"
+        "Allow: /llms.txt\n"
+        "Disallow: /api/admin/\n"
+        "Disallow: /api/auth/\n\n"
+        "Sitemap: https://career-learning-vault.onrender.com/sitemap.xml\n"
+    )
+    return Response(content=content, media_type="text/plain; charset=utf-8")
+
+@app.get("/sitemap.xml", response_class=Response)
+def serve_sitemap_xml():
+    """Serves XML sitemap indexing all public career tracks, sandbox, and drills."""
+    now_str = datetime.datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://career-learning-vault.onrender.com/</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://career-learning-vault.onrender.com/#view-datascience</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://career-learning-vault.onrender.com/#view-machinelearning</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://career-learning-vault.onrender.com/#view-cybersecurity</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://career-learning-vault.onrender.com/#view-dsa</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://career-learning-vault.onrender.com/#view-sandbox</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://career-learning-vault.onrender.com/#view-drills</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://career-learning-vault.onrender.com/llms.txt</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>"""
+    return Response(content=xml_content, media_type="application/xml; charset=utf-8")
+
+@app.get("/llms.txt", response_class=Response)
+def serve_llms_txt():
+    """Serves official LLM documentation summary for AI crawlers and automated research agents."""
+    llms_content = (
+        "# Career Learning Vault\n"
+        "> Comprehensive, 100% Free Autonomous Career Command Hub & Technical Interview Preparation System.\n\n"
+        "## Overview\n"
+        "Career Learning Vault is an open-access educational platform built for hands-on technical mastery across "
+        "Artificial Intelligence & Machine Learning, Data Science & Analytics, Defensive Cybersecurity & SOC Operations, "
+        "and Data Structures & Algorithms (DSA).\n\n"
+        "## Core Modules & Capabilities\n"
+        "- **Interactive Coding Sandbox**: 312 curated, runnable Python challenges categorized across 10 industry platforms "
+        "(LeetCode, HackerRank, GeeksforGeeks, CodeChef, GUVI, Codewars, HackerEarth, Programiz, W3Schools, Placement Prep) "
+        "with 3.0s subprocess isolation and automated test suites.\n"
+        "- **Technical Interview Drills**: Level-based examination engines (L1/L2/L3) covering 280+ questions with deep "
+        "pedagogical rationales and option-by-option analyses.\n"
+        "- **Trilingual Structured Course Hub**: Curated video lecture series with English, Hindi, and Telugu tracks pinned to "
+        "world-class university benchmarks (Stanford CS229, Karpathy Zero-to-Hero, UC Berkeley DATA 100, MIT 6.858, Striver A2Z, NeetCode 150).\n"
+        "- **DSA Master Blueprint**: Complexity matrix, Blind 75 / NeetCode 150 topic mapping, and real-time complexity cards.\n\n"
+        "## Privacy & Architecture\n"
+        "- 100% Free with zero paywalls, zero subscription tiers, and zero credit card capture.\n"
+        "- Isolated SQLite multi-tenant candidate data tracking (study focus timer, solved challenges, quiz telemetry).\n"
+        "- Hosted on Render.com with 24/7 keep-alive infrastructure.\n"
+    )
+    return Response(content=llms_content, media_type="text/plain; charset=utf-8")
+
+# ── Custom 404 Exception Handler ────────────────────────────────────────────
+
+@app.exception_handler(404)
+async def custom_404_handler(request: Request, exc: Exception):
+    """Renders custom branded 404 HTML template for browser requests, JSON for API."""
+    if request.url.path.startswith("/api/"):
+        return JSONResponse(status_code=404, content={"detail": "API endpoint not found."})
+    template_404 = TEMPLATES_DIR / "404.html"
+    if template_404.exists():
+        with open(template_404, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read(), status_code=404)
+    return HTMLResponse("<h1>404 — Not Found</h1>", status_code=404)
+
 # ── Frontend HTML Route ─────────────────────────────────────────────────────
 
 @app.get("/", response_class=HTMLResponse)

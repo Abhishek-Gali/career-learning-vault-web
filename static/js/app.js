@@ -443,6 +443,21 @@ const App = {
     if (viewName === 'dsa-drills' || viewName === 'interview-drills') viewName = 'drills';
 
     this.state.activeView = viewName;
+
+    // Dynamic Contextual Page Titles (Eliminating static page title giveaway)
+    const viewTitles = {
+      'datascience': 'Data Science & Analytics — Career Learning Vault',
+      'ml': 'AI & Machine Learning Track — Career Learning Vault',
+      'cyber': 'Cybersecurity & SOC Operations — Career Learning Vault',
+      'dsa-blueprint': 'DSA Blueprint & Complexity Matrix — Career Learning Vault',
+      'drills': 'Technical Interview Drills Hub (280 Qs) — Career Learning Vault',
+      'quiz': 'Live Technical Quiz Drills — Career Learning Vault',
+      'sandbox': 'Interactive Coding Sandbox (312 Qs) — Career Learning Vault',
+      'library': 'Vault Library & Curated Textbooks — Career Learning Vault',
+      'admin': 'Admin Management Console — Career Learning Vault'
+    };
+    document.title = viewTitles[viewName] || 'Career Learning Vault — Cloud Command Hub | Abhishek Gali';
+
     document.querySelectorAll('.sidebar-item').forEach(item => {
       const v = item.dataset.view;
       const isMatch = (v === viewName) ||
@@ -3407,6 +3422,16 @@ const App = {
     }
   },
 
+  openPrivacyModal() {
+    const m = document.getElementById('modal-privacy-policy');
+    if (m) m.classList.remove('hidden');
+  },
+
+  closePrivacyModal() {
+    const m = document.getElementById('modal-privacy-policy');
+    if (m) m.classList.add('hidden');
+  },
+
   resetCode() {
     if (!this.state.activeChallenge) return;
     const starter = this.state.activeChallenge.initial_code;
@@ -3443,8 +3468,16 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-  // Global Quiz Keyboard Shortcuts (A, B, C, D, Enter)
+  // Global Keyboard Shortcuts (A, B, C, D, Enter, Esc)
   window.addEventListener('keydown', (e) => {
+    // Esc key closes any open modal across the application
+    if (e.key === 'Escape') {
+      App.closePrivacyModal();
+      App.closeChangePasswordModal();
+      if (typeof App.closeResetPasswordModal === 'function') App.closeResetPasswordModal();
+      if (typeof App.closeCreateUserModal === 'function') App.closeCreateUserModal();
+    }
+
     // Only if not inside an input, textarea or editor
     if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
     
