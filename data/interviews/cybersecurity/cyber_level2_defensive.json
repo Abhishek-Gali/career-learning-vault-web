@@ -1,0 +1,178 @@
+[
+  {
+    "item_id": "CYBER-L2-001",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "OWASP Top 10:2025 - Broken Access Control",
+    "stem": "An API lets a logged-in user request /api/invoices/1842 and returns invoice 1842 without checking whether that invoice belongs to the authenticated user. Which vulnerability best describes this flaw?",
+    "options": {
+      "A": "Broken access control",
+      "B": "Cryptographic failure",
+      "C": "Security misconfiguration only",
+      "D": "Cross-site request forgery only"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The application authenticates the caller but fails to enforce object-level authorization for the requested resource. OWASP Top 10:2025 places Broken Access Control at A01 and includes related authorization failures such as insecure direct object access patterns.",
+      "A": "Correct: the server must authorize access to the specific invoice, not merely authenticate the requester.",
+      "B": "No cryptographic weakness is required for this vulnerability.",
+      "C": "A configuration issue is not the defining root cause here; missing authorization is.",
+      "D": "CSRF is a different class of attack involving unwanted actions performed using a victim's authenticated browser context."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-002",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "SQL Injection",
+    "stem": "A login query is built by concatenating a username supplied directly by the client into SQL text. Which defense is the strongest general mitigation?",
+    "options": {
+      "A": "Parameterized queries / prepared statements",
+      "B": "Base64-encoding the username",
+      "C": "Increasing database RAM",
+      "D": "Hiding the login page URL"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Parameterized queries keep SQL code and untrusted data structurally separate, preventing input from being interpreted as SQL syntax.",
+      "A": "Correct: prepared statements are the primary application-level defense against SQL injection.",
+      "B": "Encoding does not inherently prevent a database parser from interpreting attacker-controlled input.",
+      "C": "Hardware resources do not fix injection flaws.",
+      "D": "Changing a URL does not remove the vulnerable query construction."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-003",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "XSS",
+    "stem": "A comment field stores attacker-controlled HTML and later renders it to other users without contextual output encoding. Which vulnerability is most likely?",
+    "options": {
+      "A": "Stored cross-site scripting",
+      "B": "DNS cache poisoning",
+      "C": "ARP spoofing",
+      "D": "Integer overflow"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Stored XSS occurs when malicious client-side content is persisted by the application and later executed in other users' browsers.",
+      "A": "Correct: persistent attacker-controlled content is rendered without appropriate output encoding or other contextual controls.",
+      "B": "DNS cache poisoning targets name resolution.",
+      "C": "ARP spoofing targets local network address resolution.",
+      "D": "Integer overflow is a numerical computation flaw."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-004",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "TLS",
+    "stem": "What security property is TLS primarily intended to provide for application traffic when correctly configured?",
+    "options": {
+      "A": "Confidentiality and integrity in transit, plus server authentication through certificates",
+      "B": "Permanent protection against endpoint malware",
+      "C": "Authorization for every database row",
+      "D": "Guaranteed availability during DDoS attacks"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "TLS protects data while it traverses the network and uses certificate-based authentication to establish the peer identity expected by the protocol.",
+      "A": "Correct: TLS provides encrypted, integrity-protected transport and supports endpoint authentication.",
+      "B": "TLS does not prevent malware already running on an endpoint.",
+      "C": "Application authorization is separate from transport encryption.",
+      "D": "TLS alone does not guarantee resilience to denial-of-service."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-005",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "SIEM & Logging",
+    "stem": "A SOC wants to determine whether a suspicious PowerShell process on endpoint A was followed by a connection to an unusual external IP. Which capability is most important?",
+    "options": {
+      "A": "Correlating normalized endpoint and network telemetry using synchronized timestamps",
+      "B": "Deleting old logs immediately",
+      "C": "Collecting only firewall logs",
+      "D": "Disabling endpoint telemetry to reduce noise"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Incident investigation often requires joining multiple telemetry sources into a coherent event timeline. Normalization and time synchronization make correlation reliable.",
+      "A": "Correct: endpoint process telemetry plus network events can reveal the sequence and relationship between execution and outbound communication.",
+      "B": "Premature deletion destroys forensic evidence.",
+      "C": "Firewall-only visibility may miss the initiating process.",
+      "D": "Reducing visibility can increase blind spots rather than improve detection quality."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-006",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "Vulnerability Management",
+    "stem": "A scanner reports a critical vulnerability on an internet-facing server, but exploitation requires local administrative access that the server does not expose. What is the best next step?",
+    "options": {
+      "A": "Validate exploitability and prioritize using exposure, likelihood, impact, and compensating controls",
+      "B": "Automatically classify every critical CVSS finding as the highest business priority",
+      "C": "Ignore the finding because exploitation is not guaranteed",
+      "D": "Delete the scanner report"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Risk-based vulnerability management considers technical severity together with asset exposure, exploitability, business impact, and existing controls.",
+      "A": "Correct: CVSS is useful input, but remediation priority should reflect the organization's actual risk context.",
+      "B": "Severity scores alone do not fully represent environmental or business risk.",
+      "C": "Unproven exploitation does not make a vulnerability irrelevant.",
+      "D": "Deleting evidence prevents proper tracking and remediation."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-007",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "Identity Security",
+    "stem": "A company requires phishing-resistant MFA for administrators and uses separate privileged accounts for administrative work. What risk is this most directly reducing?",
+    "options": {
+      "A": "Credential compromise leading to privileged account abuse",
+      "B": "Disk fragmentation",
+      "C": "Packet loss caused by congestion",
+      "D": "Database normalization errors"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Strong authentication reduces the probability that stolen passwords alone can unlock privileged accounts, while separate admin identities reduce exposure of high-privilege credentials during routine activity.",
+      "A": "Correct: the controls reduce the attack path from credential theft to privileged access.",
+      "B": "Disk fragmentation is unrelated.",
+      "C": "MFA does not address network congestion.",
+      "D": "Database normalization is a data-modeling concern."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-008",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "Incident Response",
+    "stem": "During a suspected ransomware incident, which action is generally the highest-priority containment step when feasible and consistent with the incident-response plan?",
+    "options": {
+      "A": "Isolate affected systems to limit propagation",
+      "B": "Immediately wipe every affected disk",
+      "C": "Publish the incident publicly before investigation",
+      "D": "Disable all logging"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Containment aims to prevent further spread and impact while preserving the ability to investigate and recover.",
+      "A": "Correct: isolation can interrupt lateral movement and reduce additional encryption or compromise.",
+      "B": "Wiping systems can destroy volatile or forensic evidence and should not be the default first action.",
+      "C": "External communication should follow the organization's incident and legal/communications processes.",
+      "D": "Logging should normally be preserved and expanded where possible."
+    }
+  }
+]

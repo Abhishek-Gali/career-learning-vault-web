@@ -1,0 +1,90 @@
+[
+  {
+    "item_id": "CYBER-L4-001",
+    "track": "CYBERSECURITY",
+    "level": 4,
+    "level_name": "Level 4: Security Architecture & Engineering",
+    "topic": "NIST CSF 2.0",
+    "stem": "An organization establishes cybersecurity risk-management policies, roles, supply-chain expectations, and oversight before defining technical safeguards. Which NIST CSF 2.0 Function most directly corresponds to this activity?",
+    "options": {
+      "A": "Govern",
+      "B": "Identify",
+      "C": "Detect",
+      "D": "Recover"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "NIST CSF 2.0 added Govern as a sixth Function, covering cybersecurity risk-management strategy, expectations, policy, roles, and oversight.",
+      "A": "Correct: Govern addresses organizational cybersecurity strategy and governance.",
+      "B": "Identify focuses on understanding assets, risks, and the organization's cybersecurity context.",
+      "C": "Detect focuses on finding and analyzing possible cybersecurity events.",
+      "D": "Recover focuses on restoring capabilities after cybersecurity incidents."
+    }
+  },
+  {
+    "item_id": "CYBER-L4-002",
+    "track": "CYBERSECURITY",
+    "level": 4,
+    "level_name": "Level 4: Security Architecture & Engineering",
+    "topic": "Security Architecture",
+    "stem": "A company wants to reduce blast radius if an internet-facing application is compromised. Which architecture is generally strongest?",
+    "options": {
+      "A": "Segment the workload, tightly control east-west access, isolate sensitive services, and enforce least privilege",
+      "B": "Place all systems on one flat network for simpler administration",
+      "C": "Give the application administrator access to every server",
+      "D": "Expose the database directly to the internet"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Blast-radius reduction combines segmentation, constrained lateral movement, service isolation, and least privilege.",
+      "A": "Correct: multiple independent controls reduce the attacker's ability to pivot after initial compromise.",
+      "B": "Flat networks increase lateral movement opportunities.",
+      "C": "Broad administrative access magnifies compromise impact.",
+      "D": "Direct database exposure increases the attack surface."
+    }
+  },
+  {
+    "item_id": "CYBER-L4-003",
+    "track": "CYBERSECURITY",
+    "level": 4,
+    "level_name": "Level 4: Security Architecture & Engineering",
+    "topic": "Resilience",
+    "stem": "A business-impact analysis identifies a payment service with an RTO of 30 minutes and an RPO of 5 minutes. What do these values mean?",
+    "options": {
+      "A": "The service should be restored within 30 minutes and data loss should be limited to about 5 minutes of transactions",
+      "B": "The service may be offline for 5 minutes and lose 30 minutes of data",
+      "C": "RTO measures encryption strength and RPO measures password complexity",
+      "D": "Both values specify the maximum number of users"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "RTO is the target time to restore service; RPO is the target maximum tolerable data-loss window measured in time.",
+      "A": "Correct: a 30-minute RTO and 5-minute RPO drive both recovery design and backup/replication requirements.",
+      "B": "The definitions are reversed.",
+      "C": "Neither metric measures cryptographic or password strength.",
+      "D": "Neither metric specifies user counts."
+    }
+  },
+  {
+    "item_id": "CYBER-L4-004",
+    "track": "CYBERSECURITY",
+    "level": 4,
+    "level_name": "Level 4: Security Architecture & Engineering",
+    "topic": "Risk Management",
+    "stem": "Two vulnerabilities have identical CVSS base scores. Vulnerability A affects an isolated test server; vulnerability B affects an internet-facing identity service used by every employee. Which should generally receive higher remediation priority?",
+    "options": {
+      "A": "Vulnerability B because environmental exposure and business impact materially increase risk",
+      "B": "Vulnerability A because test servers always have higher risk",
+      "C": "They must always have identical priority because CVSS is the only relevant metric",
+      "D": "Neither should be remediated until exploitation occurs"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Security risk is contextual. Exposure, asset criticality, exploitability, business impact, and compensating controls can change remediation priority even when base severity is identical.",
+      "A": "Correct: the identity service has greater exposure and potentially greater enterprise impact.",
+      "B": "Test systems are not automatically higher risk.",
+      "C": "Base severity is not a complete substitute for environmental risk assessment.",
+      "D": "Waiting for exploitation is poor vulnerability-management practice."
+    }
+  }
+]

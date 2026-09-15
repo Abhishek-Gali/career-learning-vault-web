@@ -1,0 +1,134 @@
+[
+  {
+    "item_id": "CYBER-L1-001",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "CIA Triad",
+    "stem": "A security engineer ensures that only authorized users can read a database containing customer records. Which CIA security property is primarily being protected?",
+    "options": {
+      "A": "Confidentiality",
+      "B": "Integrity",
+      "C": "Availability",
+      "D": "Non-repudiation"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Confidentiality protects information from unauthorized disclosure or access.",
+      "A": "Correct: restricting data access to authorized users directly addresses confidentiality.",
+      "B": "Integrity concerns unauthorized alteration or destruction of information.",
+      "C": "Availability concerns reliable and timely access to systems and data.",
+      "D": "Non-repudiation provides evidence that an action or transaction can be attributed to its originator."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-002",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Authentication & Authorization",
+    "stem": "A web application verifies a user's password and then checks whether that user may access the administrator dashboard. Which sequence correctly describes these controls?",
+    "options": {
+      "A": "Authorization followed by authentication",
+      "B": "Authentication followed by authorization",
+      "C": "Accounting followed by authentication",
+      "D": "Encryption followed by authorization"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Authentication establishes who the user is; authorization determines what that authenticated identity is permitted to do.",
+      "A": "The identity normally has to be established before permissions can be evaluated.",
+      "B": "Correct: password verification is authentication, while the administrator-dashboard permission check is authorization.",
+      "C": "Accounting is activity tracking rather than the identity-verification step.",
+      "D": "Encryption protects data but does not establish identity."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-003",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Hashing vs Encryption",
+    "stem": "A password database stores salted password hashes rather than encrypted passwords. What is the primary security rationale?",
+    "options": {
+      "A": "Passwords can be recovered automatically when users forget them",
+      "B": "A one-way password verifier reduces the need to retain recoverable plaintext-equivalent secrets",
+      "C": "Hashing guarantees passwords cannot ever be guessed",
+      "D": "Hashing provides confidentiality for network traffic"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Password verification is normally based on a one-way password hashing/KDF process. A salt makes precomputed attacks less effective and unique per-password values prevent identical passwords from producing identical stored values.",
+      "A": "Password systems should reset forgotten passwords rather than recover the original password.",
+      "B": "Correct: a properly designed password KDF makes the stored verifier computationally expensive to invert while supporting verification.",
+      "C": "Offline guessing remains possible if an attacker obtains the verifier; password KDFs and strong passwords raise the cost.",
+      "D": "Network confidentiality is provided by protocols such as TLS, not password hashing."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-004",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Least Privilege",
+    "stem": "A developer's CI pipeline needs read-only access to production logs but no ability to modify infrastructure. Which principle should guide the IAM design?",
+    "options": {
+      "A": "Least privilege",
+      "B": "Open authorization",
+      "C": "Implicit trust",
+      "D": "Security through obscurity"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Least privilege grants only the permissions required for a role or task, reducing the impact of credential compromise or misuse.",
+      "A": "Correct: read-only log access without infrastructure modification is a direct least-privilege design.",
+      "B": "Broad authorization increases unnecessary privilege.",
+      "C": "Modern identity systems should explicitly verify identities and permissions rather than assume trust.",
+      "D": "Hiding implementation details is not a substitute for access control."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-005",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Network Security",
+    "stem": "A company places its public web server in a network segment isolated from its internal database servers. What security architecture is this most directly implementing?",
+    "options": {
+      "A": "Network segmentation",
+      "B": "Password spraying",
+      "C": "Data deduplication",
+      "D": "Load balancing"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Network segmentation separates systems into security zones so compromise of one segment does not automatically provide unrestricted access to another.",
+      "A": "Correct: separating internet-facing workloads from internal systems limits lateral movement paths.",
+      "B": "Password spraying is an authentication attack technique.",
+      "C": "Deduplication reduces redundant data storage.",
+      "D": "Load balancing distributes traffic and is not inherently a segmentation control."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-006",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Phishing",
+    "stem": "An employee receives an urgent message claiming to be from the CFO and asking for a wire transfer to a new bank account. Which social-engineering indicator is strongest?",
+    "options": {
+      "A": "Urgency combined with a high-impact request and unusual payment change",
+      "B": "The message uses the company's logo",
+      "C": "The message contains a greeting",
+      "D": "The email was delivered during business hours"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Urgency, authority impersonation, and a request to bypass normal financial controls are classic social-engineering indicators.",
+      "A": "Correct: the combination creates pressure to act before independently verifying the request.",
+      "B": "Logos are easy to copy and provide weak evidence of authenticity.",
+      "C": "A greeting is not a meaningful trust signal.",
+      "D": "Delivery time does not establish legitimacy."
+    }
+  }
+]

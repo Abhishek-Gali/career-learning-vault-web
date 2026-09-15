@@ -1,0 +1,552 @@
+[
+  {
+    "item_id": "CYBER-L1-001",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "CIA Triad",
+    "stem": "A security engineer ensures that only authorized users can read a database containing customer records. Which CIA security property is primarily being protected?",
+    "options": {
+      "A": "Confidentiality",
+      "B": "Integrity",
+      "C": "Availability",
+      "D": "Non-repudiation"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Confidentiality protects information from unauthorized disclosure or access.",
+      "A": "Correct: restricting data access to authorized users directly addresses confidentiality.",
+      "B": "Integrity concerns unauthorized alteration or destruction of information.",
+      "C": "Availability concerns reliable and timely access to systems and data.",
+      "D": "Non-repudiation provides evidence that an action or transaction can be attributed to its originator."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-002",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Authentication & Authorization",
+    "stem": "A web application verifies a user's password and then checks whether that user may access the administrator dashboard. Which sequence correctly describes these controls?",
+    "options": {
+      "A": "Authorization followed by authentication",
+      "B": "Authentication followed by authorization",
+      "C": "Accounting followed by authentication",
+      "D": "Encryption followed by authorization"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Authentication establishes who the user is; authorization determines what that authenticated identity is permitted to do.",
+      "A": "The identity normally has to be established before permissions can be evaluated.",
+      "B": "Correct: password verification is authentication, while the administrator-dashboard permission check is authorization.",
+      "C": "Accounting is activity tracking rather than the identity-verification step.",
+      "D": "Encryption protects data but does not establish identity."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-003",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Hashing vs Encryption",
+    "stem": "A password database stores salted password hashes rather than encrypted passwords. What is the primary security rationale?",
+    "options": {
+      "A": "Passwords can be recovered automatically when users forget them",
+      "B": "A one-way password verifier reduces the need to retain recoverable plaintext-equivalent secrets",
+      "C": "Hashing guarantees passwords cannot ever be guessed",
+      "D": "Hashing provides confidentiality for network traffic"
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Password verification is normally based on a one-way password hashing/KDF process. A salt makes precomputed attacks less effective and unique per-password values prevent identical passwords from producing identical stored values.",
+      "A": "Password systems should reset forgotten passwords rather than recover the original password.",
+      "B": "Correct: a properly designed password KDF makes the stored verifier computationally expensive to invert while supporting verification.",
+      "C": "Offline guessing remains possible if an attacker obtains the verifier; password KDFs and strong passwords raise the cost.",
+      "D": "Network confidentiality is provided by protocols such as TLS, not password hashing."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-004",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Least Privilege",
+    "stem": "A developer's CI pipeline needs read-only access to production logs but no ability to modify infrastructure. Which principle should guide the IAM design?",
+    "options": {
+      "A": "Least privilege",
+      "B": "Open authorization",
+      "C": "Implicit trust",
+      "D": "Security through obscurity"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Least privilege grants only the permissions required for a role or task, reducing the impact of credential compromise or misuse.",
+      "A": "Correct: read-only log access without infrastructure modification is a direct least-privilege design.",
+      "B": "Broad authorization increases unnecessary privilege.",
+      "C": "Modern identity systems should explicitly verify identities and permissions rather than assume trust.",
+      "D": "Hiding implementation details is not a substitute for access control."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-005",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Network Security",
+    "stem": "A company places its public web server in a network segment isolated from its internal database servers. What security architecture is this most directly implementing?",
+    "options": {
+      "A": "Network segmentation",
+      "B": "Password spraying",
+      "C": "Data deduplication",
+      "D": "Load balancing"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Network segmentation separates systems into security zones so compromise of one segment does not automatically provide unrestricted access to another.",
+      "A": "Correct: separating internet-facing workloads from internal systems limits lateral movement paths.",
+      "B": "Password spraying is an authentication attack technique.",
+      "C": "Deduplication reduces redundant data storage.",
+      "D": "Load balancing distributes traffic and is not inherently a segmentation control."
+    }
+  },
+  {
+    "item_id": "CYBER-L1-006",
+    "track": "CYBERSECURITY",
+    "level": 1,
+    "level_name": "Level 1: Security Foundations",
+    "topic": "Phishing",
+    "stem": "An employee receives an urgent message claiming to be from the CFO and asking for a wire transfer to a new bank account. Which social-engineering indicator is strongest?",
+    "options": {
+      "A": "Urgency combined with a high-impact request and unusual payment change",
+      "B": "The message uses the company's logo",
+      "C": "The message contains a greeting",
+      "D": "The email was delivered during business hours"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Urgency, authority impersonation, and a request to bypass normal financial controls are classic social-engineering indicators.",
+      "A": "Correct: the combination creates pressure to act before independently verifying the request.",
+      "B": "Logos are easy to copy and provide weak evidence of authenticity.",
+      "C": "A greeting is not a meaningful trust signal.",
+      "D": "Delivery time does not establish legitimacy."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-001",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "OWASP Top 10:2025 - Broken Access Control",
+    "stem": "An API lets a logged-in user request /api/invoices/1842 and returns invoice 1842 without checking whether that invoice belongs to the authenticated user. Which vulnerability best describes this flaw?",
+    "options": {
+      "A": "Broken access control",
+      "B": "Cryptographic failure",
+      "C": "Security misconfiguration only",
+      "D": "Cross-site request forgery only"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The application authenticates the caller but fails to enforce object-level authorization for the requested resource. OWASP Top 10:2025 places Broken Access Control at A01 and includes related authorization failures such as insecure direct object access patterns.",
+      "A": "Correct: the server must authorize access to the specific invoice, not merely authenticate the requester.",
+      "B": "No cryptographic weakness is required for this vulnerability.",
+      "C": "A configuration issue is not the defining root cause here; missing authorization is.",
+      "D": "CSRF is a different class of attack involving unwanted actions performed using a victim's authenticated browser context."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-002",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "SQL Injection",
+    "stem": "A login query is built by concatenating a username supplied directly by the client into SQL text. Which defense is the strongest general mitigation?",
+    "options": {
+      "A": "Parameterized queries / prepared statements",
+      "B": "Base64-encoding the username",
+      "C": "Increasing database RAM",
+      "D": "Hiding the login page URL"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Parameterized queries keep SQL code and untrusted data structurally separate, preventing input from being interpreted as SQL syntax.",
+      "A": "Correct: prepared statements are the primary application-level defense against SQL injection.",
+      "B": "Encoding does not inherently prevent a database parser from interpreting attacker-controlled input.",
+      "C": "Hardware resources do not fix injection flaws.",
+      "D": "Changing a URL does not remove the vulnerable query construction."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-003",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "XSS",
+    "stem": "A comment field stores attacker-controlled HTML and later renders it to other users without contextual output encoding. Which vulnerability is most likely?",
+    "options": {
+      "A": "Stored cross-site scripting",
+      "B": "DNS cache poisoning",
+      "C": "ARP spoofing",
+      "D": "Integer overflow"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Stored XSS occurs when malicious client-side content is persisted by the application and later executed in other users' browsers.",
+      "A": "Correct: persistent attacker-controlled content is rendered without appropriate output encoding or other contextual controls.",
+      "B": "DNS cache poisoning targets name resolution.",
+      "C": "ARP spoofing targets local network address resolution.",
+      "D": "Integer overflow is a numerical computation flaw."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-004",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "TLS",
+    "stem": "What security property is TLS primarily intended to provide for application traffic when correctly configured?",
+    "options": {
+      "A": "Confidentiality and integrity in transit, plus server authentication through certificates",
+      "B": "Permanent protection against endpoint malware",
+      "C": "Authorization for every database row",
+      "D": "Guaranteed availability during DDoS attacks"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "TLS protects data while it traverses the network and uses certificate-based authentication to establish the peer identity expected by the protocol.",
+      "A": "Correct: TLS provides encrypted, integrity-protected transport and supports endpoint authentication.",
+      "B": "TLS does not prevent malware already running on an endpoint.",
+      "C": "Application authorization is separate from transport encryption.",
+      "D": "TLS alone does not guarantee resilience to denial-of-service."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-005",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "SIEM & Logging",
+    "stem": "A SOC wants to determine whether a suspicious PowerShell process on endpoint A was followed by a connection to an unusual external IP. Which capability is most important?",
+    "options": {
+      "A": "Correlating normalized endpoint and network telemetry using synchronized timestamps",
+      "B": "Deleting old logs immediately",
+      "C": "Collecting only firewall logs",
+      "D": "Disabling endpoint telemetry to reduce noise"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Incident investigation often requires joining multiple telemetry sources into a coherent event timeline. Normalization and time synchronization make correlation reliable.",
+      "A": "Correct: endpoint process telemetry plus network events can reveal the sequence and relationship between execution and outbound communication.",
+      "B": "Premature deletion destroys forensic evidence.",
+      "C": "Firewall-only visibility may miss the initiating process.",
+      "D": "Reducing visibility can increase blind spots rather than improve detection quality."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-006",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "Vulnerability Management",
+    "stem": "A scanner reports a critical vulnerability on an internet-facing server, but exploitation requires local administrative access that the server does not expose. What is the best next step?",
+    "options": {
+      "A": "Validate exploitability and prioritize using exposure, likelihood, impact, and compensating controls",
+      "B": "Automatically classify every critical CVSS finding as the highest business priority",
+      "C": "Ignore the finding because exploitation is not guaranteed",
+      "D": "Delete the scanner report"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Risk-based vulnerability management considers technical severity together with asset exposure, exploitability, business impact, and existing controls.",
+      "A": "Correct: CVSS is useful input, but remediation priority should reflect the organization's actual risk context.",
+      "B": "Severity scores alone do not fully represent environmental or business risk.",
+      "C": "Unproven exploitation does not make a vulnerability irrelevant.",
+      "D": "Deleting evidence prevents proper tracking and remediation."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-007",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "Identity Security",
+    "stem": "A company requires phishing-resistant MFA for administrators and uses separate privileged accounts for administrative work. What risk is this most directly reducing?",
+    "options": {
+      "A": "Credential compromise leading to privileged account abuse",
+      "B": "Disk fragmentation",
+      "C": "Packet loss caused by congestion",
+      "D": "Database normalization errors"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Strong authentication reduces the probability that stolen passwords alone can unlock privileged accounts, while separate admin identities reduce exposure of high-privilege credentials during routine activity.",
+      "A": "Correct: the controls reduce the attack path from credential theft to privileged access.",
+      "B": "Disk fragmentation is unrelated.",
+      "C": "MFA does not address network congestion.",
+      "D": "Database normalization is a data-modeling concern."
+    }
+  },
+  {
+    "item_id": "CYBER-L2-008",
+    "track": "CYBERSECURITY",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Defensive Security",
+    "topic": "Incident Response",
+    "stem": "During a suspected ransomware incident, which action is generally the highest-priority containment step when feasible and consistent with the incident-response plan?",
+    "options": {
+      "A": "Isolate affected systems to limit propagation",
+      "B": "Immediately wipe every affected disk",
+      "C": "Publish the incident publicly before investigation",
+      "D": "Disable all logging"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Containment aims to prevent further spread and impact while preserving the ability to investigate and recover.",
+      "A": "Correct: isolation can interrupt lateral movement and reduce additional encryption or compromise.",
+      "B": "Wiping systems can destroy volatile or forensic evidence and should not be the default first action.",
+      "C": "External communication should follow the organization's incident and legal/communications processes.",
+      "D": "Logging should normally be preserved and expanded where possible."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-001",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "MITRE ATT&CK",
+    "stem": "A threat hunter observes a compromised account being used to access several internal systems with legitimate credentials. Which MITRE ATT&CK concept is most useful for describing this behavior?",
+    "options": {
+      "A": "Lateral Movement tactics and credential-based techniques",
+      "B": "Only Initial Access",
+      "C": "Only Impact",
+      "D": "Only Resource Development"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "MITRE ATT&CK organizes adversary behavior into tactics and techniques. Movement between systems using valid accounts can map to lateral-movement behavior and relevant credential techniques.",
+      "A": "Correct: the behavior is best analyzed in the context of lateral movement and the specific technique used.",
+      "B": "Initial Access describes how the adversary first gains entry, not the entire subsequent movement.",
+      "C": "Impact concerns effects such as disruption or destruction.",
+      "D": "Resource Development covers preparation activities rather than the observed movement."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-002",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Detection Engineering",
+    "stem": "A detection rule alerts whenever a PowerShell process starts. It generates thousands of benign alerts but misses malicious encoded-command activity. What is the best engineering response?",
+    "options": {
+      "A": "Tune the analytic using contextual signals such as parent process, command-line characteristics, user, host role, and behavioral correlations",
+      "B": "Disable PowerShell everywhere without assessing business requirements",
+      "C": "Increase the alert volume by lowering every threshold",
+      "D": "Remove all PowerShell telemetry"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "High-quality detections balance coverage with precision and use context to distinguish normal administrative behavior from suspicious execution patterns.",
+      "A": "Correct: contextual features can reduce false positives while improving detection of behavior associated with abuse.",
+      "B": "Broad blocking can break legitimate operations and is not a substitute for detection engineering.",
+      "C": "More noisy alerts can worsen analyst fatigue.",
+      "D": "Removing telemetry eliminates evidence needed for detection and investigation."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-003",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Zero Trust",
+    "stem": "A Zero Trust architecture assumes that a device inside the corporate network should automatically be trusted. Is that assumption correct?",
+    "options": {
+      "A": "No; access decisions should continuously consider identity, device, resource, policy, and contextual risk",
+      "B": "Yes; internal network location is sufficient trust",
+      "C": "Yes, if the device has an IP address",
+      "D": "Yes, if the user logged in once this month"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Zero Trust rejects implicit trust based solely on network location. Access is evaluated using explicit policy and relevant signals.",
+      "A": "Correct: identity, device posture, resource sensitivity, session context, and policy can all influence authorization.",
+      "B": "Network location alone is not a reliable trust boundary.",
+      "C": "An IP address identifies a network endpoint but does not establish trust.",
+      "D": "A previous successful login does not permanently establish authorization."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-004",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Cloud Security",
+    "stem": "A cloud storage bucket containing sensitive data is accidentally made publicly readable. Which control would most directly reduce the probability of this class of exposure?",
+    "options": {
+      "A": "Preventive policy controls plus continuous configuration monitoring and least-privilege access",
+      "B": "A faster CPU on the storage service",
+      "C": "Disabling encryption because it complicates access",
+      "D": "Relying only on annual manual audits"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Cloud security requires both preventive guardrails and continuous detection of configuration drift because resources and policies can change rapidly.",
+      "A": "Correct: preventive policy enforcement and continuous monitoring address both creation-time mistakes and later drift.",
+      "B": "Compute performance does not control authorization.",
+      "C": "Encryption is valuable even though it does not replace access control.",
+      "D": "Annual reviews can leave long exposure windows."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-005",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Software Supply Chain",
+    "stem": "A build pipeline downloads a third-party dependency without integrity verification and executes it during the build. Which security improvement is strongest?",
+    "options": {
+      "A": "Pin and verify trusted dependency versions/artifacts and protect the build pipeline with provenance and access controls",
+      "B": "Allow every dependency to float to the newest version automatically",
+      "C": "Disable source control",
+      "D": "Store build credentials in source code"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Supply-chain security reduces the chance that compromised dependencies or build infrastructure can introduce malicious artifacts.",
+      "A": "Correct: version pinning, integrity verification, provenance, and protected build credentials reduce multiple supply-chain attack paths.",
+      "B": "Uncontrolled updates increase dependency drift and supply-chain risk.",
+      "C": "Source control is an important integrity and traceability mechanism.",
+      "D": "Hard-coded credentials create a separate credential-compromise risk."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-006",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Cryptography",
+    "stem": "A system needs to prove that a message was produced by a specific private-key holder and detect modification. Which primitive is designed for this purpose?",
+    "options": {
+      "A": "Digital signature",
+      "B": "Plain hashing alone",
+      "C": "Symmetric encryption without authentication",
+      "D": "Base64 encoding"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Digital signatures provide integrity and origin authentication when signature verification succeeds under the appropriate trust model.",
+      "A": "Correct: the private key signs and the corresponding public key verifies.",
+      "B": "A hash alone does not authenticate who generated the message.",
+      "C": "Encryption alone does not necessarily provide origin authentication.",
+      "D": "Base64 is an encoding, not a cryptographic security primitive."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-007",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Threat Modeling",
+    "stem": "A team identifies an API endpoint that exposes sensitive records and asks, 'What could an attacker do with this trust boundary?' Which threat-modeling activity is this closest to?",
+    "options": {
+      "A": "Analyzing threats against assets, trust boundaries, entry points, and data flows",
+      "B": "Benchmarking CPU utilization",
+      "C": "Choosing a programming language based only on popularity",
+      "D": "Compressing application logs"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Threat modeling systematically identifies assets, entry points, trust boundaries, data flows, abuse cases, and mitigations.",
+      "A": "Correct: understanding what can cross a trust boundary is central to threat analysis.",
+      "B": "Performance benchmarking does not identify security threats.",
+      "C": "Language popularity is not a threat-modeling method.",
+      "D": "Log compression is an operational optimization."
+    }
+  },
+  {
+    "item_id": "CYBER-L4-001",
+    "track": "CYBERSECURITY",
+    "level": 4,
+    "level_name": "Level 4: Security Architecture & Engineering",
+    "topic": "NIST CSF 2.0",
+    "stem": "An organization establishes cybersecurity risk-management policies, roles, supply-chain expectations, and oversight before defining technical safeguards. Which NIST CSF 2.0 Function most directly corresponds to this activity?",
+    "options": {
+      "A": "Govern",
+      "B": "Identify",
+      "C": "Detect",
+      "D": "Recover"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "NIST CSF 2.0 added Govern as a sixth Function, covering cybersecurity risk-management strategy, expectations, policy, roles, and oversight.",
+      "A": "Correct: Govern addresses organizational cybersecurity strategy and governance.",
+      "B": "Identify focuses on understanding assets, risks, and the organization's cybersecurity context.",
+      "C": "Detect focuses on finding and analyzing possible cybersecurity events.",
+      "D": "Recover focuses on restoring capabilities after cybersecurity incidents."
+    }
+  },
+  {
+    "item_id": "CYBER-L4-002",
+    "track": "CYBERSECURITY",
+    "level": 4,
+    "level_name": "Level 4: Security Architecture & Engineering",
+    "topic": "Security Architecture",
+    "stem": "A company wants to reduce blast radius if an internet-facing application is compromised. Which architecture is generally strongest?",
+    "options": {
+      "A": "Segment the workload, tightly control east-west access, isolate sensitive services, and enforce least privilege",
+      "B": "Place all systems on one flat network for simpler administration",
+      "C": "Give the application administrator access to every server",
+      "D": "Expose the database directly to the internet"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Blast-radius reduction combines segmentation, constrained lateral movement, service isolation, and least privilege.",
+      "A": "Correct: multiple independent controls reduce the attacker's ability to pivot after initial compromise.",
+      "B": "Flat networks increase lateral movement opportunities.",
+      "C": "Broad administrative access magnifies compromise impact.",
+      "D": "Direct database exposure increases the attack surface."
+    }
+  },
+  {
+    "item_id": "CYBER-L4-003",
+    "track": "CYBERSECURITY",
+    "level": 4,
+    "level_name": "Level 4: Security Architecture & Engineering",
+    "topic": "Resilience",
+    "stem": "A business-impact analysis identifies a payment service with an RTO of 30 minutes and an RPO of 5 minutes. What do these values mean?",
+    "options": {
+      "A": "The service should be restored within 30 minutes and data loss should be limited to about 5 minutes of transactions",
+      "B": "The service may be offline for 5 minutes and lose 30 minutes of data",
+      "C": "RTO measures encryption strength and RPO measures password complexity",
+      "D": "Both values specify the maximum number of users"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "RTO is the target time to restore service; RPO is the target maximum tolerable data-loss window measured in time.",
+      "A": "Correct: a 30-minute RTO and 5-minute RPO drive both recovery design and backup/replication requirements.",
+      "B": "The definitions are reversed.",
+      "C": "Neither metric measures cryptographic or password strength.",
+      "D": "Neither metric specifies user counts."
+    }
+  },
+  {
+    "item_id": "CYBER-L4-004",
+    "track": "CYBERSECURITY",
+    "level": 4,
+    "level_name": "Level 4: Security Architecture & Engineering",
+    "topic": "Risk Management",
+    "stem": "Two vulnerabilities have identical CVSS base scores. Vulnerability A affects an isolated test server; vulnerability B affects an internet-facing identity service used by every employee. Which should generally receive higher remediation priority?",
+    "options": {
+      "A": "Vulnerability B because environmental exposure and business impact materially increase risk",
+      "B": "Vulnerability A because test servers always have higher risk",
+      "C": "They must always have identical priority because CVSS is the only relevant metric",
+      "D": "Neither should be remediated until exploitation occurs"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Security risk is contextual. Exposure, asset criticality, exploitability, business impact, and compensating controls can change remediation priority even when base severity is identical.",
+      "A": "Correct: the identity service has greater exposure and potentially greater enterprise impact.",
+      "B": "Test systems are not automatically higher risk.",
+      "C": "Base severity is not a complete substitute for environmental risk assessment.",
+      "D": "Waiting for exploitation is poor vulnerability-management practice."
+    }
+  }
+]

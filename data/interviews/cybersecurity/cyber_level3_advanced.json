@@ -1,0 +1,156 @@
+[
+  {
+    "item_id": "CYBER-L3-001",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "MITRE ATT&CK",
+    "stem": "A threat hunter observes a compromised account being used to access several internal systems with legitimate credentials. Which MITRE ATT&CK concept is most useful for describing this behavior?",
+    "options": {
+      "A": "Lateral Movement tactics and credential-based techniques",
+      "B": "Only Initial Access",
+      "C": "Only Impact",
+      "D": "Only Resource Development"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "MITRE ATT&CK organizes adversary behavior into tactics and techniques. Movement between systems using valid accounts can map to lateral-movement behavior and relevant credential techniques.",
+      "A": "Correct: the behavior is best analyzed in the context of lateral movement and the specific technique used.",
+      "B": "Initial Access describes how the adversary first gains entry, not the entire subsequent movement.",
+      "C": "Impact concerns effects such as disruption or destruction.",
+      "D": "Resource Development covers preparation activities rather than the observed movement."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-002",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Detection Engineering",
+    "stem": "A detection rule alerts whenever a PowerShell process starts. It generates thousands of benign alerts but misses malicious encoded-command activity. What is the best engineering response?",
+    "options": {
+      "A": "Tune the analytic using contextual signals such as parent process, command-line characteristics, user, host role, and behavioral correlations",
+      "B": "Disable PowerShell everywhere without assessing business requirements",
+      "C": "Increase the alert volume by lowering every threshold",
+      "D": "Remove all PowerShell telemetry"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "High-quality detections balance coverage with precision and use context to distinguish normal administrative behavior from suspicious execution patterns.",
+      "A": "Correct: contextual features can reduce false positives while improving detection of behavior associated with abuse.",
+      "B": "Broad blocking can break legitimate operations and is not a substitute for detection engineering.",
+      "C": "More noisy alerts can worsen analyst fatigue.",
+      "D": "Removing telemetry eliminates evidence needed for detection and investigation."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-003",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Zero Trust",
+    "stem": "A Zero Trust architecture assumes that a device inside the corporate network should automatically be trusted. Is that assumption correct?",
+    "options": {
+      "A": "No; access decisions should continuously consider identity, device, resource, policy, and contextual risk",
+      "B": "Yes; internal network location is sufficient trust",
+      "C": "Yes, if the device has an IP address",
+      "D": "Yes, if the user logged in once this month"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Zero Trust rejects implicit trust based solely on network location. Access is evaluated using explicit policy and relevant signals.",
+      "A": "Correct: identity, device posture, resource sensitivity, session context, and policy can all influence authorization.",
+      "B": "Network location alone is not a reliable trust boundary.",
+      "C": "An IP address identifies a network endpoint but does not establish trust.",
+      "D": "A previous successful login does not permanently establish authorization."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-004",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Cloud Security",
+    "stem": "A cloud storage bucket containing sensitive data is accidentally made publicly readable. Which control would most directly reduce the probability of this class of exposure?",
+    "options": {
+      "A": "Preventive policy controls plus continuous configuration monitoring and least-privilege access",
+      "B": "A faster CPU on the storage service",
+      "C": "Disabling encryption because it complicates access",
+      "D": "Relying only on annual manual audits"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Cloud security requires both preventive guardrails and continuous detection of configuration drift because resources and policies can change rapidly.",
+      "A": "Correct: preventive policy enforcement and continuous monitoring address both creation-time mistakes and later drift.",
+      "B": "Compute performance does not control authorization.",
+      "C": "Encryption is valuable even though it does not replace access control.",
+      "D": "Annual reviews can leave long exposure windows."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-005",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Software Supply Chain",
+    "stem": "A build pipeline downloads a third-party dependency without integrity verification and executes it during the build. Which security improvement is strongest?",
+    "options": {
+      "A": "Pin and verify trusted dependency versions/artifacts and protect the build pipeline with provenance and access controls",
+      "B": "Allow every dependency to float to the newest version automatically",
+      "C": "Disable source control",
+      "D": "Store build credentials in source code"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Supply-chain security reduces the chance that compromised dependencies or build infrastructure can introduce malicious artifacts.",
+      "A": "Correct: version pinning, integrity verification, provenance, and protected build credentials reduce multiple supply-chain attack paths.",
+      "B": "Uncontrolled updates increase dependency drift and supply-chain risk.",
+      "C": "Source control is an important integrity and traceability mechanism.",
+      "D": "Hard-coded credentials create a separate credential-compromise risk."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-006",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Cryptography",
+    "stem": "A system needs to prove that a message was produced by a specific private-key holder and detect modification. Which primitive is designed for this purpose?",
+    "options": {
+      "A": "Digital signature",
+      "B": "Plain hashing alone",
+      "C": "Symmetric encryption without authentication",
+      "D": "Base64 encoding"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Digital signatures provide integrity and origin authentication when signature verification succeeds under the appropriate trust model.",
+      "A": "Correct: the private key signs and the corresponding public key verifies.",
+      "B": "A hash alone does not authenticate who generated the message.",
+      "C": "Encryption alone does not necessarily provide origin authentication.",
+      "D": "Base64 is an encoding, not a cryptographic security primitive."
+    }
+  },
+  {
+    "item_id": "CYBER-L3-007",
+    "track": "CYBERSECURITY",
+    "level": 3,
+    "level_name": "Level 3: Advanced Security Engineering",
+    "topic": "Threat Modeling",
+    "stem": "A team identifies an API endpoint that exposes sensitive records and asks, 'What could an attacker do with this trust boundary?' Which threat-modeling activity is this closest to?",
+    "options": {
+      "A": "Analyzing threats against assets, trust boundaries, entry points, and data flows",
+      "B": "Benchmarking CPU utilization",
+      "C": "Choosing a programming language based only on popularity",
+      "D": "Compressing application logs"
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Threat modeling systematically identifies assets, entry points, trust boundaries, data flows, abuse cases, and mitigations.",
+      "A": "Correct: understanding what can cross a trust boundary is central to threat analysis.",
+      "B": "Performance benchmarking does not identify security threats.",
+      "C": "Language popularity is not a threat-modeling method.",
+      "D": "Log compression is an operational optimization."
+    }
+  }
+]
