@@ -38,7 +38,7 @@
   </script>
 
   <!-- Refero Design & Watermelon UI Styles -->
-  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.9.0">
+  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=3.0.0">
 
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
@@ -328,8 +328,13 @@
           </div>
         </div>
 
-        <!-- Content: Books & Resources -->
+        <!-- Content: Trilingual Course, Textbooks & Resources -->
         <div id="subtab-ds-resources" class="space-y-6">
+          
+          <!-- Trilingual Structured Course Hub (Embedded Video Players & Intermediate Notes) -->
+          <div id="course-section-ds" class="space-y-6">
+            <!-- Populated dynamically by App.renderCourseTrack('ds') -->
+          </div>
           
           <!-- Master Study Plans -->
           <div class="space-y-3">
@@ -570,8 +575,13 @@
           </div>
         </div>
 
-        <!-- Content: Textbooks, Math & Videos -->
+        <!-- Content: Trilingual Course, Textbooks, Math & Videos -->
         <div id="subtab-ml-resources" class="space-y-6">
+          
+          <!-- Trilingual Structured Course Hub (Embedded Video Players & Intermediate Notes) -->
+          <div id="course-section-ml" class="space-y-6">
+            <!-- Populated dynamically by App.renderCourseTrack('ml') -->
+          </div>
           <div class="space-y-3">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Premier Open Textbooks & Deep Learning Books</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
@@ -775,8 +785,13 @@
           </div>
         </div>
 
-        <!-- Content: Frameworks, Books & Lab Tools -->
+        <!-- Content: Trilingual Course, Frameworks, Books & Lab Tools -->
         <div id="subtab-cyber-resources" class="space-y-6">
+          
+          <!-- Trilingual Structured Course Hub (Embedded Video Players & Intermediate Notes) -->
+          <div id="course-section-cyber" class="space-y-6">
+            <!-- Populated dynamically by App.renderCourseTrack('cyber') -->
+          </div>
           <div class="space-y-3">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">NIST Industry Frameworks & Open Standards</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
@@ -887,6 +902,10 @@
         </div>
 
         <div class="space-y-6">
+          <!-- Trilingual Structured Course Hub (Embedded Video Players & Intermediate Notes) -->
+          <div id="course-section-dsa" class="space-y-6">
+            <!-- Populated dynamically by App.renderCourseTrack('dsa') -->
+          </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
             <div class="glass-panel p-4 space-y-2">
               <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
@@ -1358,7 +1377,7 @@
   </div>
 
   <!-- App Scripts -->
-  <script src="/static/js/timer.js?v=2.9.0"></script>
-  <script src="/static/js/app.js?v=2.9.0"></script>
+  <script src="/static/js/timer.js?v=3.0.0"></script>
+  <script src="/static/js/app.js?v=3.0.0"></script>
 </body>
 </html>

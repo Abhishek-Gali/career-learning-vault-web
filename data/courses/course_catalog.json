@@ -1,0 +1,640 @@
+{
+  "tracks": {
+    "ml": {
+      "id": "ml",
+      "title": "Artificial Intelligence & Machine Learning (AIML)",
+      "badge": "🧠 AIML MASTERCLASS",
+      "description": "Systematic transition from continuous convex optimization and statistical learning theory to distributed backpropagation, sequence transformers, and from-scratch neural network systems.",
+      "golden_anchors": [
+        {
+          "id": "karpathy_zero_to_hero",
+          "title": "Andrej Karpathy — Neural Networks: Zero to Hero",
+          "institution": "Independent / Ex-Tesla AI & OpenAI Director",
+          "runtime": "20.5 Hours (8 Deep Dives)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
+          "description": "Bottom-up systems deconstruction: build micrograd (DAG autograd engine), makemore (MLP language models), manual tensor backprop, and nanoGPT from scratch in raw Python and C/PyTorch tensors.",
+          "syllabus": [
+            "1. The spelled-out intro to neural networks and backpropagation: building micrograd",
+            "2. The spelled-out intro to language modeling: building makemore",
+            "3. Building makemore Part 2: MLP architecture and cross-entropy loss",
+            "4. Building makemore Part 3: Batch normalization and internal activations",
+            "5. Building makemore Part 4: Manual tensor backpropagation without autograd",
+            "6. Building makemore Part 5: WaveNet architecture and dilated convolutions",
+            "7. Let's build GPT: from scratch, in code, spelled out (nanoGPT)",
+            "8. Let's build the GPT Tokenizer (minBPE Byte-Pair Encoding)"
+          ],
+          "github_url": "https://github.com/karpathy/nn-zero-to-hero"
+        },
+        {
+          "id": "stanford_cs229",
+          "title": "Stanford CS229: Machine Learning (Andrew Ng)",
+          "institution": "Stanford University",
+          "runtime": "30.0 Hours (20 Lectures)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU",
+          "description": "The mathematical benchmark: Ordinary Least Squares, GLMs, SVM duals via Lagrange duality & KKT conditions, VC dimension, EM algorithm for GMMs, and Markov Decision Processes.",
+          "syllabus": [
+            "Lec 1-4: Linear Regression, Batch/Stochastic Gradient Descent, Normal Equations, Locally Weighted Regression",
+            "Lec 5-8: Logistic Regression, Newton-Raphson, Generalized Linear Models, Gaussian Discriminant Analysis, Naive Bayes",
+            "Lec 9-11: Support Vector Machines, Optimal Margin Classifiers, Lagrange Duality, Mercer Kernels",
+            "Lec 12-14: Learning Theory, Bias/Variance Tradeoff, Uniform Convergence, VC Dimension",
+            "Lec 15-17: Unsupervised Learning, K-Means Clustering, EM Algorithm, Factor Analysis, PCA",
+            "Lec 18-20: Independent Component Analysis, Reinforcement Learning, Bellman Equations, Value/Policy Iteration"
+          ],
+          "notes_url": "https://cs229.stanford.edu/main_notes.pdf"
+        }
+      ],
+      "languages": {
+        "en": {
+          "label": "English (Academic & Systems)",
+          "flag": "🇬🇧",
+          "badge": "Tier-1 University Rigor",
+          "courses": [
+            {
+              "id": "mit_6s191",
+              "title": "MIT 6.S191: Introduction to Deep Learning",
+              "instructor": "Alexander & Ava Amini / MIT",
+              "runtime": "15.0 Hours (14 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLtBw6njkvG-WEJ5cnzPkyksgD4_O_2zom",
+              "description": "Modern deep learning architectures: CNNs, Transformers, Generative AI (VAEs, GANs, Diffusion), Reinforcement Learning, and Multi-GPU scaling with Fully Sharded Data Parallel (FSDP).",
+              "web_url": "http://introtodeeplearning.com/"
+            },
+            {
+              "id": "fastai_dl",
+              "title": "Practical Deep Learning for Coders",
+              "instructor": "Jeremy Howard & Rachel Thomas / Fast.ai",
+              "runtime": "25.0 Hours (8 Modules)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLfYUBJiXBWdvdLXQhN7vL5g4k9t4dEv90",
+              "description": "Top-down engineering: PyTorch model training, progressive resizing, learning rate finders, transfer learning, and production deployment.",
+              "web_url": "https://course.fast.ai/"
+            }
+          ]
+        },
+        "hi": {
+          "label": "Hindi (Industrial Bootcamp)",
+          "flag": "🇮🇳",
+          "badge": "Daily Code & Production Deployment",
+          "courses": [
+            {
+              "id": "campusx_100days_ml",
+              "title": "100 Days of Machine Learning",
+              "instructor": "Nitish Singh / CampusX",
+              "runtime": "52.0 Hours (84 Videos)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLKnIA16_RmvbAlyx4_rdtR66B7EHX5k3z",
+              "description": "Comprehensive industrial syllabus in Hindi: data preprocessing, feature engineering, ensemble methods (bagging, boosting, stacking), and production ML pipeline deployment.",
+              "web_url": "https://www.youtube.com/playlist?list=PLKnIA16_RmvbAlyx4_rdtR66B7EHX5k3z"
+            },
+            {
+              "id": "campusx_100days_dl",
+              "title": "100 Days of Deep Learning",
+              "instructor": "Nitish Singh / CampusX",
+              "runtime": "31.0 Hours (40 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLKnIA16_RmvYuZauWaPlRTC54KzpDCFtN",
+              "description": "Perceptrons, backpropagation calculus, ANNs, CNNs, transfer learning, and computer vision models in Hindi.",
+              "web_url": "https://www.youtube.com/@CampusX-official"
+            },
+            {
+              "id": "wscube_ml_hindi",
+              "title": "Machine Learning Full Course (Scikit-Learn)",
+              "instructor": "WsCube Tech Instructor",
+              "runtime": "10.3 Hours (Mega Course)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLjVLYmrlmjGfAUFtJIR4s6uQYk3q9M1sB",
+              "description": "End-to-end classification, regression, and model evaluation workflows in Scikit-Learn with real-world case studies.",
+              "web_url": "https://www.youtube.com/@wscubetech"
+            }
+          ]
+        },
+        "te": {
+          "label": "Telugu (Vernacular Intuition)",
+          "flag": "🇮🇳",
+          "badge": "Intuitive Mental Models",
+          "courses": [
+            {
+              "id": "nerchuko_ml_telugu",
+              "title": "Machine Learning in Telugu Complete Playlist",
+              "instructor": "Nerchuko Academy",
+              "runtime": "14.5 Hours (58 Videos)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLVG0Zju2HPJe0bhmV6l1MEE-6h0MG-20P",
+              "description": "Deep conceptual intuition in Telugu: decision trees, information entropy, linear regression matrices, cross-validation, and ensemble boosting.",
+              "web_url": "https://www.youtube.com/playlist?list=PLVG0Zju2HPJe0bhmV6l1MEE-6h0MG-20P"
+            },
+            {
+              "id": "mass_coders_ml_telugu",
+              "title": "Mass Coders Machine Learning Course in Telugu",
+              "instructor": "Dodagatta Nihar",
+              "runtime": "6.0 Hours (6 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/Sig7CTTVHcY",
+              "description": "Supervised, unsupervised, and reinforcement learning paradigms explained with NumPy array manipulation and Pandas dataframes in Telugu.",
+              "web_url": "https://www.youtube.com/watch?v=Sig7CTTVHcY"
+            },
+            {
+              "id": "pythonlife_ml_telugu",
+              "title": "PythonLife Machine Learning & Scikit-Learn Series",
+              "instructor": "Kiran Sagar / PythonLife",
+              "runtime": "8.0 Hours (15+ Modules)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLbMVPNscUopTabwrwhZxVbvCoofSbe86P",
+              "description": "Hands-on machine learning in Telugu: model training, clustering algorithms, classification pipelines, and feature preparation.",
+              "web_url": "https://youtube.com/playlist?list=PLbMVPNscUopTabwrwhZxVbvCoofSbe86P"
+            }
+          ]
+        }
+      },
+      "intermediate_notes": [
+        {
+          "id": "note_ml_attention",
+          "title": "Scaled Dot-Product Self-Attention Mechanics",
+          "author": "Jay Alammar (The Illustrated Transformer)",
+          "tag": "Architecture Derivation",
+          "math": "Attention(Q, K, V) = softmax((Q * K^T) / sqrt(d_k)) * V",
+          "content": "In self-attention, each input token embedding is projected into Query (Q), Key (K), and Value (V) representations via learned projection weight matrices W_Q, W_K, W_V in R^(d_model x d_k). The scaling factor sqrt(d_k) counteracts the growth of dot products in high dimensions; large dot products push the softmax activation into regions with vanishingly small gradients. After computing token alignments, multi-head attention concatenates independent attention heads and applies residual additions followed by Layer Normalization (LayerNorm(x + Sublayer(x)))."
+        },
+        {
+          "id": "note_ml_convexity",
+          "title": "Lagrange Duality & Support Vector Machine Formulation",
+          "author": "Andrew Ng (Stanford CS229 Notes)",
+          "tag": "Optimization Derivation",
+          "math": "max_alpha [ sum_i alpha_i - 0.5 * sum_i sum_j alpha_i * alpha_j * y_i * y_j * K(x_i, x_j) ] s.t. 0 <= alpha_i <= C",
+          "content": "By formulating the maximum-margin hyperplane problem as a primal quadratic program with inequality constraints, we construct the Lagrangian L(w, b, alpha). Deriving the dual representation via KKT optimality conditions reveals that the weight vector w depends exclusively on the linear combination of support vectors (samples with alpha_i > 0). The inner product <x_i, x_j> can then be replaced by a Mercer kernel function K(x_i, x_j) = <phi(x_i), phi(x_j)> to project into infinite-dimensional reproducing kernel Hilbert spaces without materializing feature coordinates."
+        },
+        {
+          "id": "note_ml_autograd",
+          "title": "Reverse-Mode Automatic Differentiation (Autograd Engine)",
+          "author": "Andrej Karpathy (micrograd)",
+          "tag": "Systems Implementation",
+          "math": "dL/dx = sum_{y in children(x)} (dL/dy * dy/dx)",
+          "content": "Modern deep learning frameworks construct dynamic directed acyclic graphs (DAGs) during the forward pass. Each scalar or tensor Value node records its operands and a backward closure implementing the local Jacobian-vector product. A reverse topological sort across the computational graph triggers .backward() in reverse execution order, propagating loss gradients dL/dw through backpropagation to update parameters: w = w - lr * grad."
+        }
+      ]
+    },
+    "ds": {
+      "id": "ds",
+      "title": "Data Science Systems & Statistical Inference (AIDS)",
+      "badge": "📊 DATA SCIENCE MASTERCLASS",
+      "description": "Bridging statistical theory, empirical feature engineering, relational querying, and scalable distributed data processing pipelines from raw ingestion to model deployment.",
+      "golden_anchors": [
+        {
+          "id": "ucb_data100",
+          "title": "UC Berkeley DATA 100: Principles & Techniques of Data Science",
+          "institution": "University of California, Berkeley (CDSS)",
+          "runtime": "80.0 Hours (28 Full-Semester Lectures)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLs8w1CNTIV64_hUe8W9_vIcsG_T8xZf9Y",
+          "description": "Upper-division flagship curriculum bridging Data 8 and CS 189: data lifecycle, regex extraction, Pandas/Polars manipulation, OLS projection geometry, SVD, PCA, and data ethics.",
+          "syllabus": [
+            "Lec 1-4: The Data Science Lifecycle, Pandas & Polars Wrangling, Tidy Data",
+            "Lec 5-8: Exploratory Data Analysis, Visualization Principles, Regex Feature Extraction",
+            "Lec 9-12: Constant Model, Loss Functions, OLS Regression, Matrix Formulation",
+            "Lec 13-16: The Hat Matrix Projection, Multiple Regression, Cross-Validation, Regularization (Ridge/Lasso)",
+            "Lec 17-20: Gradient Descent, Convexity, Logistic Regression, Decision Boundaries",
+            "Lec 21-24: Singular Value Decomposition (SVD), Principal Component Analysis (PCA)",
+            "Lec 25-28: Relational SQL, Confounders, Simpson's Paradox, Data Ethics & Governance"
+          ],
+          "notes_url": "https://ds100.org/fa23-course-notes/"
+        },
+        {
+          "id": "statlearning_islr",
+          "title": "StatLearning: An Introduction to Statistical Learning (ISLR / ISLP)",
+          "institution": "Stanford University (Hastie, Tibshirani, James, Witten)",
+          "runtime": "15.0 Hours (35 Modular Chapters)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLoROMvodv4rOzrYsAxzQyHb8n_RWNuS1e",
+          "description": "The authors' official video companion series: resampling methods (k-fold CV, bootstrap), Ridge/Lasso shrinkage, tree ensembles (bagging, random forests, boosting), and survival analysis.",
+          "syllabus": [
+            "Chap 1-3: Statistical Learning Foundations, Linear Regression, Confidence Intervals",
+            "Chap 4-5: Classification (Logistic, LDA, QDA), Resampling Methods (Cross-Validation, Bootstrap)",
+            "Chap 6-7: Linear Model Selection, Ridge Regression, Lasso Regularization, Splines & GAMs",
+            "Chap 8-9: Tree-Based Methods (Bagging, Random Forests, Boosting), Support Vector Machines",
+            "Chap 10-12: Deep Learning, Survival Analysis, Unsupervised Learning (PCA, K-Means, Hierarchical)"
+          ],
+          "book_url": "https://www.statlearning.com/"
+        }
+      ],
+      "languages": {
+        "en": {
+          "label": "English (Academic & Production)",
+          "flag": "🇬🇧",
+          "badge": "Mathematical Inference",
+          "courses": [
+            {
+              "id": "caltech_learning_from_data",
+              "title": "Learning From Data (Introductory Machine Learning)",
+              "instructor": "Yaser Abu-Mostafa / Caltech",
+              "runtime": "20.0 Hours (18 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLD63A284B7615313A",
+              "description": "Statistical learning theory: Hoeffding inequality, uniform convergence bounds, growth function, and VC dimension to establish generalization feasibility.",
+              "web_url": "https://work.caltech.edu/telecourse.html"
+            }
+          ]
+        },
+        "hi": {
+          "label": "Hindi (Industrial Bootcamp)",
+          "flag": "🇮🇳",
+          "badge": "27-Hour Practical Marathon",
+          "courses": [
+            {
+              "id": "wscube_ds_hindi",
+              "title": "Data Science Full Course for Beginners in 27 Hours",
+              "instructor": "WsCube Tech Instructors",
+              "runtime": "27.8 Hours (Mega Video)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLjVLYmrlmjGfDNuN_dYV5q4gYg6K_0t1a",
+              "description": "Complete 27-hour practical syllabus: Python syntax, NumPy array vectorization, Pandas aggregations, Seaborn visualization, relational SQL querying, and Scikit-Learn pipelines.",
+              "web_url": "https://www.youtube.com/@wscubetech"
+            },
+            {
+              "id": "krish_naik_ds_hindi",
+              "title": "Live Data Science & Feature Engineering Practicum",
+              "instructor": "Krish Naik",
+              "runtime": "22.5 Hours (15 Streams)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLZoTAELRMXVPBTrWtJkn3wWQxZkmTXGwe",
+              "description": "Production feature stores, data leakage prevention, handling missingness, exploratory data analysis frameworks, and model evaluation metrics.",
+              "web_url": "https://www.youtube.com/@krishnaik06"
+            }
+          ]
+        },
+        "te": {
+          "label": "Telugu (Vernacular Intuition)",
+          "flag": "🇮🇳",
+          "badge": "Vernacular Analytics & Spark",
+          "courses": [
+            {
+              "id": "pythonlife_ds_telugu",
+              "title": "PythonLife Data Science & Pandas Track in Telugu",
+              "instructor": "Kiran Sagar / PythonLife",
+              "runtime": "12.0 Hours (20+ Modules)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLbMVPNscUopTabwrwhZxVbvCoofSbe86P",
+              "description": "End-to-end data manipulation in Telugu: cleaning missing values, Pandas DataFrame transformations, descriptive statistics, and visualization charts.",
+              "web_url": "https://youtube.com/playlist?list=PLbMVPNscUopTabwrwhZxVbvCoofSbe86P"
+            },
+            {
+              "id": "nihar_numpy_pandas_telugu",
+              "title": "NumPy & Pandas Deep Dive in Telugu",
+              "instructor": "Dodagatta Nihar",
+              "runtime": "5.0 Hours (4 Tutorials)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/Sig7CTTVHcY",
+              "description": "Vectorized array calculations, slicing, broadcasting mechanics, and high-performance tabular aggregations in Telugu.",
+              "web_url": "https://www.youtube.com/watch?v=Sig7CTTVHcY"
+            },
+            {
+              "id": "code_chasers_spark_telugu",
+              "title": "Apache Spark & Databricks Distributed Big Data in Telugu",
+              "instructor": "Code Chasers",
+              "runtime": "2.0 Hours (2 Deep Dives)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/GUUq_36n2OM",
+              "description": "Distributed cluster computing with PySpark, Resilient Distributed Datasets (RDDs), and cloud analytics workflows.",
+              "web_url": "https://www.youtube.com/watch?v=GUUq_36n2OM"
+            }
+          ]
+        }
+      },
+      "intermediate_notes": [
+        {
+          "id": "note_ds_hat_matrix",
+          "title": "The Geometry of Ordinary Least Squares (Hat Matrix Projection)",
+          "author": "UC Berkeley DATA 100 Faculty",
+          "tag": "Mathematical Proof",
+          "math": "H = X * (X^T * X)^(-1) * X^T  ==>  y_hat = H * y",
+          "content": "In multiple linear regression, the fitted response vector y_hat is the orthogonal projection of the observed response vector y onto the column space of the design matrix X (col(X)). Because the residual vector e = y - y_hat is orthogonal to every column in X, X^T(y - X*beta) = 0, which yields the normal equations: beta_hat = (X^T * X)^(-1) * X^T * y. The Hat Matrix H is idempotent (H^2 = H) and symmetric (H^T = H), confirming it acts as a true geometric orthogonal projector."
+        },
+        {
+          "id": "note_ds_sql_optimization",
+          "title": "Production SQL Query Optimization: The 6 Operational Rules",
+          "author": "Career Learning Vault Relational Architecture",
+          "tag": "Systems Best Practices",
+          "math": "EXPLAIN ANALYZE SELECT ... WHERE ... GROUP BY ...",
+          "content": "1. Projection Truncation: Explicitly name required columns; eliminate SELECT * to avoid unnecessary disk I/O and network payload transfer.\n2. Predicate Pushdown: Apply filters in WHERE before joins and grouping, eliminating rows as early as possible rather than filtering with HAVING.\n3. CTE Query Decomposition: Use Common Table Expressions (WITH clause) to structure complex multi-step queries into readable, logically partitioned sub-pipelines.\n4. Join Efficiency: Favor INNER JOIN over OUTER JOIN patterns when allowable to minimize memory allocation in join hash tables.\n5. Window Function Optimization: Use analytic window functions (ROW_NUMBER(), RANK(), DENSE_RANK(), LEAD(), LAG()) with PARTITION BY to eliminate slow self-joins.\n6. Execution Plan Diagnostics: Inspect EXPLAIN and EXPLAIN ANALYZE traces to detect sequential table scans and create appropriate B-Tree or Hash indexes."
+        },
+        {
+          "id": "note_ds_ethics_simpson",
+          "title": "Simpson's Paradox & Confounding Variables in Data Science",
+          "author": "UC Berkeley Human Contexts and Ethics Group",
+          "tag": "Statistical Caution",
+          "math": "P(A | B) > P(A | ~B) but P(A | B, C) < P(A | ~B, C)",
+          "content": "Simpson's Paradox occurs when a statistical trend appears across distinct groups of data but disappears or reverses when the groups are aggregated. This happens when a confounding variable correlates with both the predictor and response. In production data pipelines, failing to stratify by confounding factors (e.g. user cohort, device type, geographic market) leads to false causal inferences and flawed A/B test interpretations."
+        }
+      ]
+    },
+    "cyber": {
+      "id": "cyber",
+      "title": "Computer Systems Security & Defensive Operations",
+      "badge": "🛡️ CYBER SECURITY MASTERCLASS",
+      "description": "Understanding how software, operating systems, and network protocols behave under adversarial conditions: memory exploitation, defensive network architecture, and application security hardening.",
+      "golden_anchors": [
+        {
+          "id": "mit_6858_security",
+          "title": "MIT 6.858: Computer Systems Security",
+          "institution": "Massachusetts Institute of Technology (Nickolai Zeldovich & James Mickens)",
+          "runtime": "36.0 Hours (24 Graduate Lectures)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLUl4u3cNGP62K2DjQLRxDNRi0z2IRWnNh",
+          "description": "The definitive academic systems security curriculum: stack buffer overflows, shellcode injection, Return-to-libc and Return-Oriented Programming (ROP) gadgets bypassing W^X/DEP and ASLR, Linux container primitives (namespaces, cgroups, seccomp), and side-channel timing attacks.",
+          "syllabus": [
+            "Lec 1-4: Threat Models, Buffer Overflow Vulnerabilities, Shellcode Construction",
+            "Lec 5-8: Non-Executable Stacks (W^X / DEP), ASLR, Return-to-libc, ROP Gadget Chains",
+            "Lec 9-12: System Call Sandboxing, Linux Namespaces, Cgroups, Seccomp-BPF Filters",
+            "Lec 13-16: Web Security Architecture, Same-Origin Policy (SOP), Cross-Site Scripting (XSS), CSRF",
+            "Lec 17-20: Cryptographic Protocols, TLS Handshakes, Certificate Authorities, Key Exchange",
+            "Lec 21-24: Side-Channel Timing Attacks, Meltdown/Spectre Microarchitectural Leaks, Hardware Security"
+          ],
+          "web_url": "https://css.csail.mit.edu/6.858/"
+        },
+        {
+          "id": "messer_secplus",
+          "title": "Professor Messer: CompTIA Security+ (SY0-701) Training Course",
+          "institution": "Professor Messer Studios",
+          "runtime": "25.0 Hours (100+ Modular Videos)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLG49S3nxzAnl4QDVqK-hOnoeCjS31g9S8",
+          "description": "Exhaustive corporate security architecture: AES-GCM, RSA, ECC, SHA-256/3, PKI lifecycles, Zero Trust Architecture (ZTA), IAM protocols (OAuth 2.0, OpenID Connect, SAML), network segmentation, and incident response.",
+          "syllabus": [
+            "Domain 1: General Security Concepts (CIA Triad, Zero Trust, PKI, Cryptographic Ciphers)",
+            "Domain 2: Threats, Vulnerabilities, and Mitigations (Social Engineering, Malware, Exploits)",
+            "Domain 3: Security Architecture (Network Segmentation, Cloud Security, Hardening)",
+            "Domain 4: Security Operations (Log Analysis, SIEM, Incident Response, Digital Forensics)",
+            "Domain 5: Security Program Management & Oversight (NIST CSF, Risk Governance, Compliance)"
+          ],
+          "web_url": "https://professormesser.link/701videos"
+        }
+      ],
+      "languages": {
+        "en": {
+          "label": "English (Academic & Enterprise)",
+          "flag": "🇬🇧",
+          "badge": "Systems & Enterprise Defense",
+          "courses": [
+            {
+              "id": "computerphile_crypto",
+              "title": "Computerphile Cryptography Masterclass",
+              "instructor": "University of Nottingham Faculty",
+              "runtime": "8.0 Hours (30+ Deep Dives)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLzH6n4zXucVcx4hR95x79rZ5mQj4iZf_P",
+              "description": "Mathematical breakdowns of cryptographic primitives: RSA modular exponentiation, Diffie-Hellman key exchange, AES key schedules, and collision resistance in SHA hashes.",
+              "web_url": "https://www.youtube.com/@Computerphile"
+            }
+          ]
+        },
+        "hi": {
+          "label": "Hindi (Industrial Bootcamp)",
+          "flag": "🇮🇳",
+          "badge": "Ethical Hacking & SOC Analyst",
+          "courses": [
+            {
+              "id": "wscube_cyber_hindi",
+              "title": "Ethical Hacking & Networking Full Course in Hindi",
+              "instructor": "WsCube Cyber Security Team",
+              "runtime": "44.0 Hours (Comprehensive Track)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLjVLYmrlmjGcyF_KqP8d_1yM34rKxK4s_",
+              "description": "Low-level computer networking, Nmap reconnaissance, Wi-Fi security auditing, password cracking mechanisms, and Security Operations Center (SOC) triage.",
+              "web_url": "https://www.youtube.com/@WsCubeCyberSecurity"
+            },
+            {
+              "id": "wscube_networking_hindi",
+              "title": "Complete Computer Networking Master Course",
+              "instructor": "Kushagra Bhatia / WsCube",
+              "runtime": "4.5 Hours (Mega Video)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/ewtDKmovou4",
+              "description": "OSI 7 layers, MAC vs IP addressing, subnet masking, static/dynamic routing protocols, DNS resolution, and TCP/UDP ports.",
+              "web_url": "https://www.youtube.com/watch?v=ewtDKmovou4"
+            }
+          ]
+        },
+        "te": {
+          "label": "Telugu (Vernacular Intuition)",
+          "flag": "🇮🇳",
+          "badge": "Vernacular Cyber Awareness",
+          "courses": [
+            {
+              "id": "snit_cyber_telugu",
+              "title": "Full Cyber Security Course in Telugu",
+              "instructor": "SNIT Training / Telugu WebTech",
+              "runtime": "2.0 Hours (Full Course Video)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/61XwTSsPbr4",
+              "description": "Foundational introduction to malware classification, phishing tactics, network scanning, and defensive security posture in Telugu.",
+              "web_url": "https://www.youtube.com/watch?v=61XwTSsPbr4"
+            },
+            {
+              "id": "pythonlife_cyber_telugu",
+              "title": "Cyber Security Roadmap & Foundations in Telugu",
+              "instructor": "Kiran Sagar / PythonLife",
+              "runtime": "4.0 Hours (10+ Modules)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/nwqrTELXc_U",
+              "description": "Defensive security principles, Linux terminal navigation, and Python security automation scripts.",
+              "web_url": "https://www.youtube.com/watch?v=nwqrTELXc_U"
+            },
+            {
+              "id": "shiva_ram_hacking_telugu",
+              "title": "Ethical Hacking & Termux Practical Track in Telugu",
+              "instructor": "Shiva Ram Tech",
+              "runtime": "6.0 Hours (15+ Videos)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/TZicZJnbDds",
+              "description": "Network setup, Termux environment configuration, reconnaissance methodologies, and practical defense demonstrations.",
+              "web_url": "https://www.youtube.com/watch?v=TZicZJnbDds"
+            },
+            {
+              "id": "cyber_telugu_system_attacks",
+              "title": "System & Web Application Attacks in Telugu",
+              "instructor": "Cyber Security Telugu",
+              "runtime": "3.5 Hours (12 Daily Modules)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/MdTFdERGY2E",
+              "description": "Privilege escalation, SQL Injection, Cross-Site Scripting (XSS), and buffer overflow mechanics explained in Telugu.",
+              "web_url": "https://www.youtube.com/watch?v=MdTFdERGY2E"
+            }
+          ]
+        }
+      },
+      "intermediate_notes": [
+        {
+          "id": "note_cyber_memory_safety",
+          "title": "Binary Memory Safety: Stack Layout, ASLR & ROP Gadgets",
+          "author": "Nickolai Zeldovich (MIT 6.858 Notes)",
+          "tag": "Systems Security",
+          "math": "Buffer Overflow -> Saved EIP / RIP Overwrite -> ROP Chain (pop rdi; ret)",
+          "content": "Classic stack smashing corrupts the saved instruction pointer (Saved RIP) on the stack frame. Operating systems mitigated this using non-executable stacks (W^X / Data Execution Prevention) and Address Space Layout Randomization (ASLR). Modern adversaries bypass W^X using Return-Oriented Programming (ROP): chaining existing short instruction sequences ending in 'ret' (gadgets) already present in executable code libraries (e.g. libc) to load registers and trigger mprotect() or execve() without injecting executable instructions."
+        },
+        {
+          "id": "note_cyber_owasp_controls",
+          "title": "OWASP Defensive Implementation Controls",
+          "author": "OWASP Cheat Sheet Series",
+          "tag": "AppSec Hardening",
+          "math": "SELECT * FROM users WHERE user = ? AND pass_hash = ?",
+          "content": "1. SQL Injection: Use parameterized queries (prepared statements) to structurally separate query syntax from untrusted client input. Avoid string concatenation.\n2. Cross-Site Scripting (XSS): Implement context-aware output encoding across HTML bodies, attributes, and script tags, reinforced by strict Content Security Policy (CSP) headers.\n3. Server-Side Request Forgery (SSRF): Validate destination hostnames against an explicit domain allowlist, resolve DNS records to filter private IP ranges (RFC 1918), and block access to cloud metadata IP endpoints (e.g. 169.254.169.254).\n4. Password Storage: Use salted adaptive password hashing algorithms (Argon2id, bcrypt, PBKDF2) configured with adequate memory and iteration work factors; avoid fast message digests like MD5 or SHA-256."
+        },
+        {
+          "id": "note_cyber_nist_csf",
+          "title": "NIST Cybersecurity Framework (CSF) 2.0 Architecture",
+          "author": "National Institute of Standards and Technology (NIST)",
+          "tag": "Governance & Architecture",
+          "math": "Govern (GV) -> Identify (ID) -> Protect (PR) -> Detect (DE) -> Respond (RS) -> Recover (RC)",
+          "content": "NIST CSF 2.0 formalizes organizational cybersecurity into 6 core Functions:\n- GOVERN (GV): Establish cybersecurity risk management strategy, organizational roles, policies, and supply chain oversight.\n- IDENTIFY (ID): Determine cybersecurity risks to systems, people, assets, data, and capabilities.\n- PROTECT (PR): Implement safeguards to ensure delivery of critical services (access control, data security, awareness).\n- DETECT (DE): Find and analyze possible cybersecurity attacks and anomalies.\n- RESPOND (RS): Take action regarding a detected cybersecurity incident (containment, mitigation, communication).\n- RECOVER (RC): Restore assets and operations impacted by a cybersecurity incident."
+        }
+      ]
+    },
+    "dsa": {
+      "id": "dsa",
+      "title": "Data Structures & Algorithmic Analysis (DSA)",
+      "badge": "⚡ FAANG ALGORITHMIC BLUEPRINT",
+      "description": "Understanding abstract data types in memory, proving inductive correctness of recursive procedures, and optimizing asymptotic complexity bounds within competitive judging constraints.",
+      "golden_anchors": [
+        {
+          "id": "striver_a2z_dsa",
+          "title": "Striver's A2Z DSA Course (TakeUForward)",
+          "institution": "TakeUForward (Raj Vikramaditya)",
+          "runtime": "110.0 Hours (455+ Curated Videos)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_st8",
+          "description": "The definitive 18-step sequential FAANG curriculum: asymptotic bounds, Kadane's algorithm, Dutch National Flag, binary search on search spaces, monotonic stacks, Dijkstra/Bellman-Ford, DSU, and multi-dimensional dynamic programming.",
+          "syllabus": [
+            "Step 1-3: Learn the Basics, Sorting Techniques, Solve Problems on Arrays (Easy -> Medium -> Hard)",
+            "Step 4: Binary Search on 1D/2D Arrays & Search Space Solutions",
+            "Step 5-6: Strings (Basic & Medium), Singly & Doubly Linked List Pointer Mutations",
+            "Step 7-8: Recursion & Backtracking, Bit Manipulation (XOR Properties)",
+            "Step 9-10: Stacks and Queues (Monotonic Next-Greater-Element), Sliding Window & Two Pointers",
+            "Step 11-12: Heaps & Priority Queues, Greedy Algorithms",
+            "Step 13-14: Binary Trees & BSTs (Traversals, Balances, Views)",
+            "Step 15-16: Graphs (BFS/DFS, Topological Sort, Shortest Path, Spanning Trees / DSU)",
+            "Step 17-18: Dynamic Programming (1D, 2D, Grids, Subsequences, Knapsack, MCM), Tries"
+          ],
+          "web_url": "https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z"
+        },
+        {
+          "id": "neetcode_150",
+          "title": "NeetCode 150 Pattern-Oriented Problem Solving",
+          "institution": "NeetCode.io",
+          "runtime": "45.0 Hours (150 Core Problems)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf",
+          "description": "Problem-solving grouped into foundational coding archetypes: Two Pointers, Sliding Window, Monotonic Stacks, Fast & Slow Pointers, Backtracking, and Dynamic Programming.",
+          "syllabus": [
+            "1. Arrays & Hashing (Two Sum, Group Anagrams, Top K Frequent)",
+            "2. Two Pointers & Sliding Window (Valid Palindrome, 3Sum, Container With Most Water)",
+            "3. Stack & Binary Search (Valid Parentheses, Min Stack, Search in Rotated Sorted Array)",
+            "4. Linked List & Trees (Reverse Linked List, Merge Two Lists, Invert Tree, Diameter)",
+            "5. Graphs & Dynamic Programming (Number of Islands, Pacific Atlantic, Climbing Stairs, Coin Change)"
+          ],
+          "web_url": "https://neetcode.io/"
+        }
+      ],
+      "languages": {
+        "en": {
+          "label": "English (Theoretical Analysis)",
+          "flag": "🇬🇧",
+          "badge": "Algorithm Design & Proofs",
+          "courses": [
+            {
+              "id": "abdul_bari_algorithms",
+              "title": "Algorithms Masterclass (Whiteboard Lectures)",
+              "instructor": "Abdul Bari / YouTube",
+              "runtime": "38.0 Hours (84 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O",
+              "description": "Master Theorem proofs, divide-and-conquer recurrences, greedy exchange arguments, dynamic programming matrix chain multiplication, 0/1 knapsacks, and graph traversals.",
+              "web_url": "https://www.youtube.com/@abdul_bari"
+            }
+          ]
+        },
+        "hi": {
+          "label": "Hindi (Industrial Bootcamp)",
+          "flag": "🇮🇳",
+          "badge": "Placement Mastery Series",
+          "courses": [
+            {
+              "id": "love_babbar_java_dsa",
+              "title": "Java DSA Master Placement Series",
+              "instructor": "Love Babbar / CodeHelp",
+              "runtime": "65.0 Hours (100 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/Reaqf3_V108",
+              "description": "Java Collection Framework internals, bitwise operations, recursion, trees, graphs, and dynamic programming for campus placements.",
+              "web_url": "https://www.youtube.com/watch?v=Reaqf3_V108"
+            },
+            {
+              "id": "love_babbar_cpp_dsa",
+              "title": "C++ DSA Placement Series (Memory & Pointers)",
+              "instructor": "Love Babbar / CodeHelp",
+              "runtime": "85.0 Hours (148 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA",
+              "description": "Memory-level pointer visualizations, dynamic memory allocation, recursion trees, Trie prefix trees, and advanced graphs.",
+              "web_url": "https://www.youtube.com/@CodeHelp"
+            },
+            {
+              "id": "jennys_lectures_dsa",
+              "title": "Data Structures CS & IT Academic Playlist",
+              "instructor": "Jenny's Lectures CS IT",
+              "runtime": "32.0 Hours (82 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLdo5W4Nhv31bbKJzrsKfMpo_grxuLl8LU",
+              "description": "Array memory layout, stack implementation via linked lists, sorting algorithm step-by-step traces, and binary heap operations.",
+              "web_url": "https://www.youtube.com/@JennyslecturesCSIT"
+            }
+          ]
+        },
+        "te": {
+          "label": "Telugu (Vernacular Intuition)",
+          "flag": "🇮🇳",
+          "badge": "Intuitive Vernacular DSA",
+          "courses": [
+            {
+              "id": "vamsi_bhavani_dsa_telugu",
+              "title": "Data Structures & Algorithms in Telugu",
+              "instructor": "Vamsi Bhavani",
+              "runtime": "12.0 Hours (25+ Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLNgoFk5SYUglQutDAA7sqnlVyXaKgX6-H",
+              "description": "Abstract data types, linked list pointer mutations, stack operations, linear and binary search, and LeetCode problem patterns in accessible Telugu.",
+              "web_url": "https://www.youtube.com/playlist?list=PLNgoFk5SYUglQutDAA7sqnlVyXaKgX6-H"
+            },
+            {
+              "id": "vamsi_top10_patterns_telugu",
+              "title": "Top 10 DSA Patterns in Telugu",
+              "instructor": "Vamsi Bhavani",
+              "runtime": "2.0 Hours (Pattern Special)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/NXJE7q_sy5I",
+              "description": "Sliding Window, Two Pointers, Floyd's Cycle Detection, Merge Intervals, and Topological Sort deconstructed in Telugu.",
+              "web_url": "https://www.youtube.com/watch?v=NXJE7q_sy5I"
+            },
+            {
+              "id": "skillset_java_dsa_telugu",
+              "title": "Data Structures and Algorithms in Java in Telugu",
+              "instructor": "Skillset Academy",
+              "runtime": "42.0 Hours (75 Lectures)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/JOvXPh7yTAg",
+              "description": "Java DSA primitives, array transformations, searching algorithms, recursion trees, and dynamic programming in Telugu.",
+              "web_url": "https://www.youtube.com/watch?v=JOvXPh7yTAg"
+            },
+            {
+              "id": "pythonlife_dsa_telugu",
+              "title": "DSA in Python & Algorithmic Roadmap in Telugu",
+              "instructor": "Kiran Sagar / PythonLife",
+              "runtime": "6.5 Hours (10+ Modules)",
+              "embed_url": "https://www.youtube-nocookie.com/embed/TcrOFSdYEW0",
+              "description": "Linked list workshops, complexity analysis, and problem-solving roadmaps using Python in Telugu.",
+              "web_url": "https://www.youtube.com/watch?v=TcrOFSdYEW0"
+            }
+          ]
+        }
+      },
+      "intermediate_notes": [
+        {
+          "id": "note_dsa_10_8_rule",
+          "title": "The Operational Judging Server Rule (10^8 Operations / Second)",
+          "author": "TakeUForward Operational Benchmarks",
+          "tag": "Time Complexity Invariant",
+          "math": "10^8 basic operations ≈ 1.0 second CPU execution limit",
+          "content": "In online competitive programming and technical screening servers, a standard CPU executes roughly 10^8 basic operations per second. Given the problem constraint on input size N, you must determine your target Big-O complexity BEFORE writing any code:\n- N <= 10: O(N!) or O(2^N) [Permutations, full backtracking]\n- N <= 20: O(2^N) [Subsets, bitmask dynamic programming]\n- N <= 1,000: O(N^2) [Nested loops, dense graph algorithms, Floyd-Warshall]\n- N <= 100,000: O(N log N) [Sorting, divide-and-conquer, heaps, Fenwick/Segment trees]\n- N <= 10,000,000: O(N) [Single-pass linear scans, two pointers, sliding window, prefix sums]\n- N > 10,000,000: O(log N) or O(1) [Binary search, closed-form mathematical equations]"
+        },
+        {
+          "id": "note_dsa_hashing",
+          "title": "Hash Maps & Collision Resolution Strategies",
+          "author": "TakeUForward DSA Compendium",
+          "tag": "Data Structure Internals",
+          "math": "Index = hash(key) % Bucket_Array_Size",
+          "content": "A hash table maps arbitrary keys to bucket indices using a hash function. When two distinct keys map to the same bucket index, collisions are resolved via:\n1. Separate Chaining: Each bucket holds a singly linked list (or balanced Red-Black BST as in Java 8+ HashMap when bucket length > 8).\n2. Open Addressing (Linear Probing, Quadratic Probing, Double Hashing): Stores all elements directly in the table array; on collision, systematically probes subsequent indices until an empty slot is located.\nLoad Factor (alpha = n / m): When the load factor exceeds a threshold (typically 0.75), the table dynamically rehashes into an array of double size to preserve O(1) average lookup time."
+        },
+        {
+          "id": "note_dsa_erickson_proofs",
+          "title": "Algorithmic Correctness Proofs & Induction",
+          "author": "Jeff Erickson (University of Illinois Urbana-Champaign)",
+          "tag": "Theoretical Computer Science",
+          "math": "Inductive Hypothesis: P(k) holds for all k < n ==> P(n) holds",
+          "content": "Jeff Erickson's 'Algorithms' establishes that writing recursive algorithms is mathematically identical to constructing formal inductive proofs:\n- Base Case: Directly solve trivial instances of size 0 or 1.\n- Inductive Step: Assume by induction that the algorithm correctly solves all strictly smaller subproblems; combine their results to solve the target problem of size n.\n- Dynamic Programming: Analyze the directed acyclic graph (DAG) of subproblem dependencies. A topological evaluation order ensures that when evaluating subproblem v, all dependent subproblems u in in-neighbors(v) have already been computed and stored in the memoization table."
+        }
+      ]
+    }
+  }
+}

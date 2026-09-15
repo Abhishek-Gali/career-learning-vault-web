@@ -29,7 +29,11 @@ const App = {
     currentQuizIdx: 0,
     selectedQuizOption: null,
     quizSubmitted: false,
-    quizStats: { correct: 0, incorrect: 0 }
+    quizStats: { correct: 0, incorrect: 0 },
+
+    // Trilingual Structured Course Hub State
+    courses: null,
+    courseLanguage: { ml: 'en', ds: 'en', cyber: 'en', dsa: 'en' }
   },
 
   libraryDocs: [
@@ -139,8 +143,10 @@ const App = {
     await this.loadPlatforms();
     await this.loadChallenges();
     await this.loadInterviewTracks();
+    await this.loadCourseCatalog();
     this.renderLibraryCatalog();
     this.renderDrillsHub();
+    this.renderAllCourseTracks();
 
     if (this.state.challenges.length > 0) {
       await this.selectChallenge(this.state.challenges[0].id);
@@ -864,6 +870,387 @@ const App = {
       `;
     });
     container.innerHTML = html;
+  },
+
+  // ── Trilingual Structured Course Hub & Golden Anchors ──────────────────────
+  async loadCourseCatalog() {
+    try {
+      ['ml', 'ds', 'cyber', 'dsa'].forEach(t => {
+        const saved = localStorage.getItem('vault_course_lang_' + t);
+        if (saved && ['en', 'hi', 'te'].includes(saved)) {
+          this.state.courseLanguage[t] = saved;
+        }
+      });
+
+      const res = await fetch('/api/courses');
+      if (!res.ok) return;
+      const data = await res.json();
+      this.state.courses = data.tracks || {};
+    } catch (e) {
+      console.error('Failed to load course catalog:', e);
+    }
+  },
+
+  renderAllCourseTracks() {
+    ['ds', 'ml', 'cyber', 'dsa'].forEach(t => this.renderCourseTrack(t));
+  },
+
+  switchCourseLanguage(trackKey, langKey) {
+    if (!this.state.courseLanguage) this.state.courseLanguage = {};
+    this.state.courseLanguage[trackKey] = langKey;
+    try {
+      localStorage.setItem('vault_course_lang_' + trackKey, langKey);
+    } catch (e) {
+      console.warn('Could not save course language to localStorage:', e);
+    }
+    this.renderCourseTrack(trackKey);
+  },
+
+  renderCourseTrack(trackKey) {
+    const container = document.getElementById(`course-section-${trackKey}`);
+    if (!container) return;
+    if (!this.state.courses || !this.state.courses[trackKey]) {
+      container.innerHTML = '<div class="p-8 text-center text-slate-400 font-mono text-xs">Loading course syllabus and video masterclasses...</div>';
+      return;
+    }
+
+    const track = this.state.courses[trackKey];
+    const currentLang = (this.state.courseLanguage && this.state.courseLanguage[trackKey]) ? this.state.courseLanguage[trackKey] : 'en';
+    const langData = track.languages && track.languages[currentLang] ? track.languages[currentLang] : (track.languages ? track.languages['en'] : null);
+
+    // Color theme definition
+    const themeMap = {
+      'ml': {
+        accent: '#a855f7',
+        border: 'border-purple-500/30',
+        bg: 'bg-purple-500/10',
+        text: 'text-purple-300',
+        badge: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+        pillActive: 'bg-purple-500/25 text-purple-200 border-purple-500/60 shadow-lg shadow-purple-500/15 ring-1 ring-purple-500/40',
+        cardGlow: 'hover:border-purple-500/50'
+      },
+      'ds': {
+        accent: '#38bdf8',
+        border: 'border-cyan-500/30',
+        bg: 'bg-cyan-500/10',
+        text: 'text-cyan-300',
+        badge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+        pillActive: 'bg-cyan-500/25 text-cyan-200 border-cyan-500/60 shadow-lg shadow-cyan-500/15 ring-1 ring-cyan-500/40',
+        cardGlow: 'hover:border-cyan-500/50'
+      },
+      'cyber': {
+        accent: '#f43f5e',
+        border: 'border-rose-500/30',
+        bg: 'bg-rose-500/10',
+        text: 'text-rose-300',
+        badge: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
+        pillActive: 'bg-rose-500/25 text-rose-200 border-rose-500/60 shadow-lg shadow-rose-500/15 ring-1 ring-rose-500/40',
+        cardGlow: 'hover:border-rose-500/50'
+      },
+      'dsa': {
+        accent: '#f59e0b',
+        border: 'border-amber-500/30',
+        bg: 'bg-amber-500/10',
+        text: 'text-amber-300',
+        badge: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+        pillActive: 'bg-amber-500/25 text-amber-200 border-amber-500/60 shadow-lg shadow-amber-500/15 ring-1 ring-amber-500/40',
+        cardGlow: 'hover:border-amber-500/50'
+      }
+    };
+    const tTheme = themeMap[trackKey] || themeMap['ml'];
+
+    // 1. Executive Header & Language Switcher Bar
+    const languages = [
+      { id: 'en', flag: '🇬🇧', label: 'English', sub: 'Academic & Systems' },
+      { id: 'hi', flag: '🇮🇳', label: 'Hindi', sub: 'Industrial Bootcamp' },
+      { id: 'te', flag: '🇮🇳', label: 'Telugu', sub: 'Vernacular Intuition' }
+    ];
+
+    let langButtonsHtml = languages.map(lang => {
+      const isSelected = lang.id === currentLang;
+      const activeClass = isSelected
+        ? tTheme.pillActive + ' font-bold'
+        : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white';
+      return `
+        <button 
+          onclick="App.switchCourseLanguage('${trackKey}', '${lang.id}')"
+          class="px-3.5 py-2 rounded-xl border text-xs flex items-center gap-2 transition-all cursor-pointer select-none ${activeClass}">
+          <span class="text-base">${lang.flag}</span>
+          <div class="text-left">
+            <div class="leading-tight">${lang.label}</div>
+            <div class="text-[9px] opacity-75 font-normal">${lang.sub}</div>
+          </div>
+          ${isSelected ? '<span class="ml-1 text-emerald-400 text-xs font-bold">✓</span>' : ''}
+        </button>
+      `;
+    }).join('');
+
+    // 2. Universal Golden Anchors (Permanently Pinned, Never Replaced)
+    let goldenAnchorsHtml = '';
+    (track.golden_anchors || []).forEach(anchor => {
+      let syllabusHtml = '';
+      if (anchor.syllabus && anchor.syllabus.length > 0) {
+        syllabusHtml = `
+          <div class="mt-3 pt-3 border-t border-slate-800/80">
+            <details class="group">
+              <summary class="text-xs font-semibold text-slate-300 hover:text-white cursor-pointer flex items-center justify-between select-none py-1">
+                <span class="flex items-center gap-1.5 font-mono text-[11px] text-amber-400 font-bold">
+                  <span>📑</span> <span>Curriculum Syllabus (${anchor.syllabus.length} Modules)</span>
+                </span>
+                <span class="text-[10px] text-slate-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div class="mt-2.5 grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] text-slate-400 font-mono">
+                ${anchor.syllabus.map(item => `
+                  <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800/80 flex items-start gap-2">
+                    <span class="text-amber-400 flex-shrink-0">•</span>
+                    <span class="leading-snug">${item}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </details>
+          </div>
+        `;
+      }
+
+      let extraLinksHtml = '';
+      if (anchor.github_url) {
+        extraLinksHtml += `
+          <a href="${anchor.github_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
+            <span>💻</span> <span>GitHub Repository ↗</span>
+          </a>
+        `;
+      }
+      if (anchor.notes_url) {
+        extraLinksHtml += `
+          <a href="${anchor.notes_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
+            <span>📝</span> <span>Official Lecture Notes (PDF) ↗</span>
+          </a>
+        `;
+      }
+      if (anchor.book_url) {
+        extraLinksHtml += `
+          <a href="${anchor.book_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
+            <span>📖</span> <span>Official Textbook ↗</span>
+          </a>
+        `;
+      }
+
+      goldenAnchorsHtml += `
+        <div class="glass-panel p-5 space-y-3.5 border border-amber-500/35 bg-gradient-to-b from-amber-500/[0.04] to-slate-900/40 shadow-xl relative overflow-hidden flex flex-col justify-between">
+          <div class="space-y-3">
+            <!-- Top Tag & Runtime -->
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-bold font-mono uppercase tracking-wider flex items-center gap-1">
+                  <span>⭐</span> <span>${anchor.badge || 'Essential Golden Anchor'}</span>
+                </span>
+                <span class="text-xs text-slate-400 font-medium">${anchor.institution || ''}</span>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 font-mono text-[11px]">
+                ⏱️ ${anchor.runtime || ''}
+              </span>
+            </div>
+
+            <!-- Course Title & Description -->
+            <div>
+              <h3 class="text-base md:text-lg font-bold text-white tracking-tight leading-snug">${anchor.title}</h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">${anchor.description}</p>
+            </div>
+
+            <!-- Embedded YouTube Video / Playlist Iframe -->
+            <div class="aspect-video w-full rounded-xl overflow-hidden border border-slate-800/90 shadow-2xl bg-black relative">
+              <iframe 
+                class="w-full h-full"
+                src="${anchor.embed_url}" 
+                title="${anchor.title}" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen 
+                loading="lazy">
+              </iframe>
+            </div>
+
+            <!-- Syllabus Dropdown -->
+            ${syllabusHtml}
+          </div>
+
+          <!-- External Links -->
+          ${extraLinksHtml ? `<div class="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-800/60">${extraLinksHtml}</div>` : ''}
+        </div>
+      `;
+    });
+
+    // 3. Dynamic Language Specific Video Courses
+    let languageCoursesHtml = '';
+    if (langData && langData.courses && langData.courses.length > 0) {
+      languageCoursesHtml = langData.courses.map(course => {
+        let externalBtn = '';
+        if (course.web_url || course.github_url) {
+          const url = course.web_url || course.github_url;
+          externalBtn = `
+            <a href="${url}" target="_blank" class="px-3 py-1 rounded-lg bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
+              <span>🔗</span> <span>Open Course Page ↗</span>
+            </a>
+          `;
+        }
+
+        return `
+          <div class="glass-panel p-4 md:p-5 space-y-3 border border-slate-800/80 ${tTheme.cardGlow} transition-all shadow-lg flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs text-slate-400 font-medium">${course.instructor || ''}</span>
+                <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 font-mono text-[10px]">
+                  ⏱️ ${course.runtime || ''}
+                </span>
+              </div>
+              <h4 class="text-sm md:text-base font-bold text-white tracking-tight leading-snug">${course.title}</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">${course.description}</p>
+            </div>
+
+            <!-- Video Player Iframe -->
+            <div class="aspect-video w-full rounded-xl overflow-hidden border border-slate-800/90 shadow-xl bg-black relative my-2">
+              <iframe 
+                class="w-full h-full"
+                src="${course.embed_url}" 
+                title="${course.title}" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen 
+                loading="lazy">
+              </iframe>
+            </div>
+
+            ${externalBtn ? `<div class="pt-1">${externalBtn}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 4. Intermediate Technical Notes & Formulations
+    let intermediateNotesHtml = '';
+    if (track.intermediate_notes && track.intermediate_notes.length > 0) {
+      intermediateNotesHtml = track.intermediate_notes.map((note, idx) => `
+        <div class="glass-panel p-5 space-y-3 border border-slate-800/80 hover:border-slate-700 transition-all shadow-lg">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md ${tTheme.bg} ${tTheme.text} flex items-center justify-center text-xs font-mono font-bold">
+                ${idx + 1}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full ${tTheme.bg} ${tTheme.text} text-[10px] font-mono font-semibold uppercase tracking-wider border ${tTheme.border}">
+                ${note.tag || 'Systems Formulation'}
+              </span>
+            </div>
+            <span class="text-[11px] text-slate-500 font-mono">${note.author || ''}</span>
+          </div>
+
+          <h4 class="text-sm md:text-base font-bold text-white tracking-tight">${note.title}</h4>
+
+          <!-- Math / Formulation Block -->
+          <div class="p-3 rounded-xl bg-slate-950/90 border border-slate-800 font-mono text-xs text-emerald-400 overflow-x-auto shadow-inner leading-relaxed select-all">
+            ${note.math}
+          </div>
+
+          <!-- Deep Explanation Content -->
+          <p class="text-xs text-slate-300 leading-relaxed">${note.content}</p>
+        </div>
+      `).join('');
+    }
+
+    // Assemble Full Section
+    container.innerHTML = `
+      <!-- Track Curriculum Header & Language Switcher -->
+      <div class="glass-panel p-5 md:p-6 space-y-4 border ${tTheme.border} bg-gradient-to-r ${tTheme.bg} via-slate-900/60 to-transparent shadow-xl">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full ${tTheme.badge} text-xs font-bold font-mono tracking-wider">
+                ${track.badge}
+              </span>
+              <span class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 font-semibold">
+                100% Free & Open-Access
+              </span>
+            </div>
+            <h2 class="text-lg md:text-xl font-extrabold text-white tracking-tight">${track.title}</h2>
+            <p class="text-xs text-slate-300 max-w-3xl leading-relaxed">${track.description}</p>
+          </div>
+
+          <!-- Trilingual Switcher Buttons -->
+          <div class="space-y-2 w-full lg:w-auto flex-shrink-0">
+            <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+              <span>🌐</span> <span>Select Lecture Language:</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              ${langButtonsHtml}
+            </div>
+          </div>
+        </div>
+
+        <!-- Golden Anchor Guarantee Notification -->
+        <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-2.5 text-xs text-amber-200">
+          <span class="text-base flex-shrink-0">🔒</span>
+          <span>
+            <strong>Golden Anchors Guarantee:</strong> World-class benchmarks (Karpathy, Stanford, Berkeley, MIT, Striver) remain <strong>permanently pinned below</strong>, unaffected by language changes.
+          </span>
+        </div>
+      </div>
+
+      <!-- SECTION 1: PERMANENT GOLDEN ANCHORS -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">⭐</span>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Universal Golden Anchors (Permanently Pinned)</h3>
+              <p class="text-[11px] text-slate-400">Essential foundational benchmarks that establish global engineering standards across all tracks.</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
+            Constant Across All Languages
+          </span>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          ${goldenAnchorsHtml}
+        </div>
+      </div>
+
+      <!-- SECTION 2: DYNAMIC LANGUAGE SPECIFIC VIDEO MODULES -->
+      <div class="space-y-4 pt-2">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">${langData ? langData.flag : '🌐'}</span>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider">${langData ? langData.label : 'Curated'} — Core Video Modules</h3>
+              <p class="text-[11px] text-slate-400">${langData ? langData.badge : ''} • Select language above to swap this section instantly.</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full ${tTheme.badge} font-bold">
+            ${(langData && langData.courses) ? langData.courses.length : 0} Video Series
+          </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          ${languageCoursesHtml}
+        </div>
+      </div>
+
+      <!-- SECTION 3: INTERMEDIATE TECHNICAL NOTES & FORMULATIONS -->
+      <div class="space-y-4 pt-2">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">📝</span>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Intermediate Systems Notes & Mathematical Derivations</h3>
+              <p class="text-[11px] text-slate-400">Core theoretical principles, asymptotic rules, and equations to master alongside the video courses.</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">
+            Theory & Formulas
+          </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          ${intermediateNotesHtml}
+        </div>
+      </div>
+    `;
   },
 
   // ── Coding Sandbox (Fleet of 312) ─────────────────────────────────────────

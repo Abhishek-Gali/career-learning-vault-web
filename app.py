@@ -39,6 +39,7 @@ BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 CHALLENGES_DIR = DATA_DIR / "challenges"
 INTERVIEWS_DIR = DATA_DIR / "interviews"
+COURSES_FILE = DATA_DIR / "courses" / "course_catalog.json"
 STATIC_DIR = BASE_DIR / "static"
 TEMPLATES_DIR = BASE_DIR / "templates"
 
@@ -683,6 +684,36 @@ def get_interview_questions(track: str, set_id: str):
             return {"track": track, "set_id": set_id, "questions": questions}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error reading questions: {e}")
+
+# ── Trilingual Structured Course Endpoints ──────────────────────────────────
+
+@app.get("/api/courses")
+def get_courses():
+    """Returns the trilingual structured course catalog with video iframes and notes."""
+    if not COURSES_FILE.exists():
+        raise HTTPException(status_code=404, detail="Course catalog not found.")
+    try:
+        with open(COURSES_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as err:
+        raise HTTPException(status_code=500, detail=f"Error reading course catalog: {err}")
+
+@app.get("/api/courses/{track_id}")
+def get_track_course(track_id: str):
+    """Returns structured course data for a specific track (ml, ds, cyber, dsa)."""
+    if not COURSES_FILE.exists():
+        raise HTTPException(status_code=404, detail="Course catalog not found.")
+    try:
+        with open(COURSES_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            track_data = data.get("tracks", {}).get(track_id.lower())
+            if not track_data:
+                raise HTTPException(status_code=404, detail=f"Track '{track_id}' not found in course catalog.")
+            return track_data
+    except HTTPException:
+        raise
+    except Exception as err:
+        raise HTTPException(status_code=500, detail=f"Error reading track course: {err}")
 
 # ── Frontend HTML Route ─────────────────────────────────────────────────────
 
