@@ -33,7 +33,9 @@ const App = {
 
     // Trilingual Structured Course Hub State
     courses: null,
-    courseLanguage: { ml: 'en', ds: 'en', cyber: 'en', dsa: 'en' }
+    courseLanguage: { ml: 'en', ds: 'en', cyber: 'en', dsa: 'en' },
+    activeCourseId: { ml: 'karpathy_zero_to_hero', ds: 'mit_60002', cyber: 'mit_6858_security', dsa: 'striver_a2z_dsa' },
+    activeVideoIdx: { ml: 0, ds: 0, cyber: 0, dsa: 0 }
   },
 
   libraryDocs: [
@@ -903,7 +905,123 @@ const App = {
     } catch (e) {
       console.warn('Could not save course language to localStorage:', e);
     }
+
+    // If currently selected course is not a golden anchor, switch to first course of new language
+    const track = this.state.courses ? this.state.courses[trackKey] : null;
+    if (track) {
+      const isAnchor = (track.golden_anchors || []).some(a => a.id === this.state.activeCourseId[trackKey]);
+      if (!isAnchor) {
+        const langData = track.languages && track.languages[langKey];
+        if (langData && langData.courses && langData.courses.length > 0) {
+          this.state.activeCourseId[trackKey] = langData.courses[0].id;
+          this.state.activeVideoIdx[trackKey] = 0;
+        }
+      }
+    }
+
     this.renderCourseTrack(trackKey);
+  },
+
+  selectCourse(trackKey, courseId) {
+    if (!this.state.activeCourseId) this.state.activeCourseId = {};
+    if (!this.state.activeVideoIdx) this.state.activeVideoIdx = {};
+    this.state.activeCourseId[trackKey] = courseId;
+    this.state.activeVideoIdx[trackKey] = 0;
+    this.renderCourseTrack(trackKey);
+  },
+
+  selectCourseVideo(trackKey, idx) {
+    if (!this.state.activeVideoIdx) this.state.activeVideoIdx = {};
+    this.state.activeVideoIdx[trackKey] = idx;
+
+    const track = this.state.courses ? this.state.courses[trackKey] : null;
+    if (!track) return;
+    const currentLang = (this.state.courseLanguage && this.state.courseLanguage[trackKey]) ? this.state.courseLanguage[trackKey] : 'en';
+    const allCourses = [
+      ...(track.golden_anchors || []),
+      ...((track.languages && track.languages[currentLang]) ? track.languages[currentLang].courses : [])
+    ];
+    const activeCourse = allCourses.find(c => c.id === this.state.activeCourseId[trackKey]) || track.golden_anchors[0];
+    const videos = activeCourse.videos || [];
+    const v = videos[idx];
+    if (!v) return;
+
+    // Smooth theater update
+    const iframe = document.getElementById(`${trackKey}-theater-iframe`);
+    if (iframe) {
+      iframe.src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0`;
+    }
+
+    const titleEl = document.getElementById(`${trackKey}-video-title`);
+    if (titleEl) titleEl.textContent = v.title;
+
+    const durEl = document.getElementById(`${trackKey}-video-dur`);
+    if (durEl && v.duration) durEl.textContent = `⏱️ ${v.duration}`;
+
+    const counterEl = document.getElementById(`${trackKey}-playlist-counter`);
+    if (counterEl) counterEl.textContent = `Lecture ${idx + 1} of ${videos.length}`;
+
+    const barEl = document.getElementById(`${trackKey}-playlist-progress-bar`);
+    if (barEl) barEl.style.width = `${((idx + 1) / videos.length) * 100}%`;
+
+    const ytLink = document.getElementById(`${trackKey}-yt-direct-link`);
+    if (ytLink) ytLink.href = `https://www.youtube.com/watch?v=${v.id}`;
+
+    const prevBtn = document.getElementById(`${trackKey}-prev-btn`);
+    if (prevBtn) {
+      prevBtn.disabled = (idx === 0);
+      prevBtn.style.opacity = (idx === 0) ? '0.35' : '1';
+      prevBtn.style.cursor = (idx === 0) ? 'not-allowed' : 'pointer';
+    }
+
+    const nextBtn = document.getElementById(`${trackKey}-next-btn`);
+    if (nextBtn) {
+      nextBtn.disabled = (idx >= videos.length - 1);
+      nextBtn.style.opacity = (idx >= videos.length - 1) ? '0.35' : '1';
+      nextBtn.style.cursor = (idx >= videos.length - 1) ? 'not-allowed' : 'pointer';
+    }
+
+    // Highlight active playlist item
+    const queue = document.getElementById(`${trackKey}-playlist-queue`);
+    if (queue) {
+      queue.querySelectorAll('.playlist-card').forEach((card, i) => {
+        const isAct = (i === idx);
+        card.classList.toggle('active-playlist-card', isAct);
+        card.classList.toggle('bg-emerald-950/40', isAct);
+        card.classList.toggle('border-emerald-500/60', isAct);
+        card.classList.toggle('ring-1', isAct);
+        card.classList.toggle('ring-emerald-400/50', isAct);
+        const chip = card.querySelector('.playing-badge');
+        if (chip) chip.style.display = isAct ? 'inline-flex' : 'none';
+      });
+      const activeCard = queue.querySelector(`.playlist-card[data-idx="${idx}"]`);
+      if (activeCard) {
+        activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  },
+
+  prevCourseVideo(trackKey) {
+    const cur = (this.state.activeVideoIdx && this.state.activeVideoIdx[trackKey]) || 0;
+    if (cur > 0) {
+      this.selectCourseVideo(trackKey, cur - 1);
+    }
+  },
+
+  nextCourseVideo(trackKey) {
+    const track = this.state.courses ? this.state.courses[trackKey] : null;
+    if (!track) return;
+    const currentLang = (this.state.courseLanguage && this.state.courseLanguage[trackKey]) ? this.state.courseLanguage[trackKey] : 'en';
+    const allCourses = [
+      ...(track.golden_anchors || []),
+      ...((track.languages && track.languages[currentLang]) ? track.languages[currentLang].courses : [])
+    ];
+    const activeCourse = allCourses.find(c => c.id === this.state.activeCourseId[trackKey]) || track.golden_anchors[0];
+    const videos = activeCourse.videos || [];
+    const cur = (this.state.activeVideoIdx && this.state.activeVideoIdx[trackKey]) || 0;
+    if (cur < videos.length - 1) {
+      this.selectCourseVideo(trackKey, cur + 1);
+    }
   },
 
   renderCourseTrack(trackKey) {
@@ -916,9 +1034,9 @@ const App = {
 
     const track = this.state.courses[trackKey];
     const currentLang = (this.state.courseLanguage && this.state.courseLanguage[trackKey]) ? this.state.courseLanguage[trackKey] : 'en';
-    const langData = track.languages && track.languages[currentLang] ? track.languages[currentLang] : (track.languages ? track.languages['en'] : null);
+    const langData = (track.languages && track.languages[currentLang]) ? track.languages[currentLang] : (track.languages ? track.languages['en'] : null);
 
-    // Color theme definition
+    // Track Theme
     const themeMap = {
       'ml': {
         accent: '#a855f7',
@@ -959,7 +1077,31 @@ const App = {
     };
     const tTheme = themeMap[trackKey] || themeMap['ml'];
 
-    // 1. Executive Header & Language Switcher Bar
+    // All available courses for this track: Golden Anchors + Active Language Courses
+    const goldenAnchors = track.golden_anchors || [];
+    const languageCourses = (langData && langData.courses) ? langData.courses : [];
+    const allAvailableCourses = [...goldenAnchors, ...languageCourses];
+
+    // Determine currently active course
+    let activeCourseId = this.state.activeCourseId ? this.state.activeCourseId[trackKey] : null;
+    let activeCourse = allAvailableCourses.find(c => c.id === activeCourseId);
+    if (!activeCourse) {
+      activeCourse = goldenAnchors[0] || allAvailableCourses[0];
+      if (activeCourse) {
+        if (!this.state.activeCourseId) this.state.activeCourseId = {};
+        this.state.activeCourseId[trackKey] = activeCourse.id;
+      }
+    }
+
+    const videos = (activeCourse && activeCourse.videos && activeCourse.videos.length > 0)
+      ? activeCourse.videos
+      : [{ id: 'dQw4w9WgXcQ', title: activeCourse.title, duration: '' }];
+
+    let currentVideoIdx = (this.state.activeVideoIdx && this.state.activeVideoIdx[trackKey]) || 0;
+    if (currentVideoIdx >= videos.length) currentVideoIdx = 0;
+    const activeVideo = videos[currentVideoIdx];
+
+    // 1. Language Switcher Buttons
     const languages = [
       { id: 'en', flag: '🇬🇧', label: 'English', sub: 'Academic & Systems' },
       { id: 'hi', flag: '🇮🇳', label: 'Hindi', sub: 'Industrial Bootcamp' },
@@ -974,156 +1116,118 @@ const App = {
       return `
         <button 
           onclick="App.switchCourseLanguage('${trackKey}', '${lang.id}')"
-          class="px-3.5 py-2 rounded-xl border text-xs flex items-center gap-2 transition-all cursor-pointer select-none ${activeClass}">
+          class="px-3 py-1.5 rounded-xl border text-xs flex items-center gap-2 transition-all cursor-pointer select-none ${activeClass}">
           <span class="text-base">${lang.flag}</span>
-          <div class="text-left">
-            <div class="leading-tight">${lang.label}</div>
-            <div class="text-[9px] opacity-75 font-normal">${lang.sub}</div>
-          </div>
-          ${isSelected ? '<span class="ml-1 text-emerald-400 text-xs font-bold">✓</span>' : ''}
+          <span class="leading-tight">${lang.label}</span>
+          ${isSelected ? '<span class="text-emerald-400 text-xs font-bold">✓</span>' : ''}
         </button>
       `;
     }).join('');
 
-    // 2. Universal Golden Anchors (Permanently Pinned, Never Replaced)
-    let goldenAnchorsHtml = '';
-    (track.golden_anchors || []).forEach(anchor => {
-      let syllabusHtml = '';
-      if (anchor.syllabus && anchor.syllabus.length > 0) {
-        syllabusHtml = `
-          <div class="mt-3 pt-3 border-t border-slate-800/80">
-            <details class="group">
-              <summary class="text-xs font-semibold text-slate-300 hover:text-white cursor-pointer flex items-center justify-between select-none py-1">
-                <span class="flex items-center gap-1.5 font-mono text-[11px] text-amber-400 font-bold">
-                  <span>📑</span> <span>Curriculum Syllabus (${anchor.syllabus.length} Modules)</span>
-                </span>
-                <span class="text-[10px] text-slate-500 group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div class="mt-2.5 grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] text-slate-400 font-mono">
-                ${anchor.syllabus.map(item => `
-                  <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800/80 flex items-start gap-2">
-                    <span class="text-amber-400 flex-shrink-0">•</span>
-                    <span class="leading-snug">${item}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </details>
+    // 2. Course Shelf Tabs (Golden Anchors + Current Language Courses)
+    let courseTabsHtml = '';
+    allAvailableCourses.forEach(c => {
+      const isSelected = (c.id === activeCourse.id);
+      const isAnchor = goldenAnchors.some(a => a.id === c.id);
+      const vidCount = (c.videos || []).length;
+      
+      let tabStyle = 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white';
+      if (isSelected) {
+        tabStyle = isAnchor
+          ? 'bg-amber-500/20 text-amber-200 border-amber-500/60 shadow-lg shadow-amber-500/10 ring-1 ring-amber-500/40 font-bold'
+          : tTheme.pillActive + ' font-bold';
+      }
+
+      courseTabsHtml += `
+        <button 
+          onclick="App.selectCourse('${trackKey}', '${c.id}')"
+          class="px-3.5 py-2 rounded-xl border text-xs flex items-center gap-2 transition-all cursor-pointer select-none flex-shrink-0 ${tabStyle}">
+          <span>${isAnchor ? '⭐' : '🎓'}</span>
+          <span class="truncate max-w-[220px] sm:max-w-xs">${c.title}</span>
+          <span class="text-[10px] font-mono px-1.5 py-0.2 rounded-full ${isAnchor ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400'}">
+            ${vidCount} vids
+          </span>
+        </button>
+      `;
+    });
+
+    // 3. YouTube Playlist Queue Items
+    let playlistItemsHtml = '';
+    videos.forEach((v, i) => {
+      const isPlaying = (i === currentVideoIdx);
+      const cardActiveStyle = isPlaying
+        ? 'active-playlist-card bg-emerald-950/40 border-emerald-500/60 ring-1 ring-emerald-400/50 shadow-md'
+        : 'bg-slate-900/50 border-slate-800/80 hover:bg-slate-800/80 hover:border-slate-700';
+
+      playlistItemsHtml += `
+        <div 
+          data-idx="${i}"
+          onclick="App.selectCourseVideo('${trackKey}', ${i})"
+          class="playlist-card group p-2.5 rounded-xl border flex items-start gap-3 transition-all cursor-pointer select-none ${cardActiveStyle}">
+          
+          <!-- Thumbnail with duration overlay -->
+          <div class="relative w-28 h-16 rounded-lg overflow-hidden bg-black flex-shrink-0 border border-slate-800/80">
+            <img 
+              src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" 
+              alt="${v.title}" 
+              loading="lazy"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onerror="this.style.opacity='0.5'">
+            ${v.duration ? `
+              <span class="absolute bottom-1 right-1 px-1 py-0.2 rounded bg-black/85 text-[9px] font-mono text-slate-200 font-semibold">
+                ${v.duration}
+              </span>
+            ` : ''}
+            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
           </div>
-        `;
-      }
 
-      let extraLinksHtml = '';
-      if (anchor.github_url) {
-        extraLinksHtml += `
-          <a href="${anchor.github_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
-            <span>💻</span> <span>GitHub Repository ↗</span>
-          </a>
-        `;
-      }
-      if (anchor.notes_url) {
-        extraLinksHtml += `
-          <a href="${anchor.notes_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
-            <span>📝</span> <span>Official Lecture Notes (PDF) ↗</span>
-          </a>
-        `;
-      }
-      if (anchor.book_url) {
-        extraLinksHtml += `
-          <a href="${anchor.book_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
-            <span>📖</span> <span>Official Textbook ↗</span>
-          </a>
-        `;
-      }
-
-      goldenAnchorsHtml += `
-        <div class="glass-panel p-5 space-y-3.5 border border-amber-500/35 bg-gradient-to-b from-amber-500/[0.04] to-slate-900/40 shadow-xl relative overflow-hidden flex flex-col justify-between">
-          <div class="space-y-3">
-            <!-- Top Tag & Runtime -->
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-bold font-mono uppercase tracking-wider flex items-center gap-1">
-                  <span>⭐</span> <span>${anchor.badge || 'Essential Golden Anchor'}</span>
-                </span>
-                <span class="text-xs text-slate-400 font-medium">${anchor.institution || ''}</span>
-              </div>
-              <span class="px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 font-mono text-[11px]">
-                ⏱️ ${anchor.runtime || ''}
+          <!-- Title & Number -->
+          <div class="flex-1 min-w-0 space-y-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono font-bold ${isPlaying ? 'text-emerald-400' : 'text-slate-500'}">
+                #${i + 1}
+              </span>
+              <span class="playing-badge text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold ${isPlaying ? 'inline-flex' : 'hidden'} items-center gap-1">
+                ▶ Playing
               </span>
             </div>
-
-            <!-- Course Title & Description -->
-            <div>
-              <h3 class="text-base md:text-lg font-bold text-white tracking-tight leading-snug">${anchor.title}</h3>
-              <p class="text-xs text-slate-400 mt-1 leading-relaxed">${anchor.description}</p>
-            </div>
-
-            <!-- Embedded YouTube Video / Playlist Iframe -->
-            <div class="aspect-video w-full rounded-xl overflow-hidden border border-slate-800/90 shadow-2xl bg-black relative">
-              <iframe 
-                class="w-full h-full"
-                src="${anchor.embed_url}" 
-                title="${anchor.title}" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen 
-                loading="lazy">
-              </iframe>
-            </div>
-
-            <!-- Syllabus Dropdown -->
-            ${syllabusHtml}
+            <h4 class="text-xs font-semibold leading-snug line-clamp-2 ${isPlaying ? 'text-white font-bold' : 'text-slate-300 group-hover:text-white'}">
+              ${v.title}
+            </h4>
           </div>
-
-          <!-- External Links -->
-          ${extraLinksHtml ? `<div class="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-800/60">${extraLinksHtml}</div>` : ''}
         </div>
       `;
     });
 
-    // 3. Dynamic Language Specific Video Courses
-    let languageCoursesHtml = '';
-    if (langData && langData.courses && langData.courses.length > 0) {
-      languageCoursesHtml = langData.courses.map(course => {
-        let externalBtn = '';
-        if (course.web_url || course.github_url) {
-          const url = course.web_url || course.github_url;
-          externalBtn = `
-            <a href="${url}" target="_blank" class="px-3 py-1 rounded-lg bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
-              <span>🔗</span> <span>Open Course Page ↗</span>
-            </a>
-          `;
-        }
-
-        return `
-          <div class="glass-panel p-4 md:p-5 space-y-3 border border-slate-800/80 ${tTheme.cardGlow} transition-all shadow-lg flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-xs text-slate-400 font-medium">${course.instructor || ''}</span>
-                <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 font-mono text-[10px]">
-                  ⏱️ ${course.runtime || ''}
-                </span>
-              </div>
-              <h4 class="text-sm md:text-base font-bold text-white tracking-tight leading-snug">${course.title}</h4>
-              <p class="text-xs text-slate-400 leading-relaxed">${course.description}</p>
-            </div>
-
-            <!-- Video Player Iframe -->
-            <div class="aspect-video w-full rounded-xl overflow-hidden border border-slate-800/90 shadow-xl bg-black relative my-2">
-              <iframe 
-                class="w-full h-full"
-                src="${course.embed_url}" 
-                title="${course.title}" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen 
-                loading="lazy">
-              </iframe>
-            </div>
-
-            ${externalBtn ? `<div class="pt-1">${externalBtn}</div>` : ''}
-          </div>
-        `;
-      }).join('');
+    // Action links for active course
+    let courseLinksHtml = '';
+    if (activeCourse.github_url) {
+      courseLinksHtml += `
+        <a href="${activeCourse.github_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
+          <span>💻</span> <span>GitHub Repo ↗</span>
+        </a>
+      `;
+    }
+    if (activeCourse.notes_url) {
+      courseLinksHtml += `
+        <a href="${activeCourse.notes_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
+          <span>📝</span> <span>Lecture Notes ↗</span>
+        </a>
+      `;
+    }
+    if (activeCourse.book_url) {
+      courseLinksHtml += `
+        <a href="${activeCourse.book_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
+          <span>📖</span> <span>Official Book ↗</span>
+        </a>
+      `;
+    }
+    if (activeCourse.playlist_url) {
+      courseLinksHtml += `
+        <a href="${activeCourse.playlist_url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
+          <span>▶</span> <span>Full Playlist on YouTube ↗</span>
+        </a>
+      `;
     }
 
     // 4. Intermediate Technical Notes & Formulations
@@ -1156,9 +1260,9 @@ const App = {
       `).join('');
     }
 
-    // Assemble Full Section
+    // Full Assembled HTML
     container.innerHTML = `
-      <!-- Track Curriculum Header & Language Switcher -->
+      <!-- Track Header & Language Selector -->
       <div class="glass-panel p-5 md:p-6 space-y-4 border ${tTheme.border} bg-gradient-to-r ${tTheme.bg} via-slate-900/60 to-transparent shadow-xl">
         <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div class="space-y-1">
@@ -1175,8 +1279,8 @@ const App = {
           </div>
 
           <!-- Trilingual Switcher Buttons -->
-          <div class="space-y-2 w-full lg:w-auto flex-shrink-0">
-            <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <div class="space-y-1.5 w-full lg:w-auto flex-shrink-0">
+            <div class="text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
               <span>🌐</span> <span>Select Lecture Language:</span>
             </div>
             <div class="flex flex-wrap items-center gap-2">
@@ -1189,51 +1293,141 @@ const App = {
         <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-2.5 text-xs text-amber-200">
           <span class="text-base flex-shrink-0">🔒</span>
           <span>
-            <strong>Golden Anchors Guarantee:</strong> World-class benchmarks (Karpathy, Stanford, Berkeley, MIT, Striver) remain <strong>permanently pinned below</strong>, unaffected by language changes.
+            <strong>Golden Anchors Guarantee:</strong> World-class benchmarks (Karpathy, Stanford, MIT, Striver) remain <strong>permanently pinned below</strong>, unaffected by language changes.
           </span>
         </div>
       </div>
 
-      <!-- SECTION 1: PERMANENT GOLDEN ANCHORS -->
-      <div class="space-y-4">
+      <!-- COURSE SHELF / TAB SELECTOR (YouTube Style Series Tabs) -->
+      <div class="space-y-2">
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="text-lg">⭐</span>
-            <div>
-              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Universal Golden Anchors (Permanently Pinned)</h3>
-              <p class="text-[11px] text-slate-400">Essential foundational benchmarks that establish global engineering standards across all tracks.</p>
-            </div>
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <span>📺</span> <span>Select Course Series to Watch:</span>
           </div>
-          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
-            Constant Across All Languages
+          <span class="text-[10px] font-mono text-slate-500">
+            Click any course to load its full video playlist
           </span>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          ${goldenAnchorsHtml}
+        <div class="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
+          ${courseTabsHtml}
         </div>
       </div>
 
-      <!-- SECTION 2: DYNAMIC LANGUAGE SPECIFIC VIDEO MODULES -->
-      <div class="space-y-4 pt-2">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="text-lg">${langData ? langData.flag : '🌐'}</span>
-            <div>
-              <h3 class="text-sm font-bold text-white uppercase tracking-wider">${langData ? langData.label : 'Curated'} — Core Video Modules</h3>
-              <p class="text-[11px] text-slate-400">${langData ? langData.badge : ''} • Select language above to swap this section instantly.</p>
+      <!-- YOUTUBE THEATER WATCH VIEW (Main Player + Full Interactive Playlist Queue) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
+        <!-- Left: Main Video Player & Video Info (7 cols on lg) -->
+        <div class="lg:col-span-7 xl:col-span-8 space-y-4">
+          
+          <!-- Big 16:9 Theater Player Screen -->
+          <div class="aspect-video w-full rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl bg-black relative">
+            <iframe 
+              id="${trackKey}-theater-iframe"
+              class="w-full h-full"
+              src="https://www.youtube-nocookie.com/embed/${activeVideo.id}?rel=0" 
+              title="${activeVideo.title}" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <!-- Video Details & Player Controls -->
+          <div class="glass-panel p-4 md:p-5 space-y-3.5 border border-slate-800/80 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="space-y-1 min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="px-2 py-0.5 rounded-full ${tTheme.badge} text-[10px] font-mono font-bold">
+                    ${activeCourse.institution || activeCourse.instructor || 'Instructor'}
+                  </span>
+                  <span id="${trackKey}-video-dur" class="text-[11px] font-mono text-slate-400">
+                    ⏱️ ${activeVideo.duration || activeCourse.runtime || ''}
+                  </span>
+                </div>
+                <h3 id="${trackKey}-video-title" class="text-base md:text-lg font-bold text-white tracking-tight leading-snug">
+                  ${activeVideo.title}
+                </h3>
+              </div>
+
+              <!-- Quick Next / Previous Navigation Controls -->
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <button 
+                  id="${trackKey}-prev-btn"
+                  onclick="App.prevCourseVideo('${trackKey}')"
+                  ${currentVideoIdx === 0 ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : 'style="cursor:pointer;"'}
+                  class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-bold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all">
+                  <span>⏮</span> <span>Prev</span>
+                </button>
+                <button 
+                  id="${trackKey}-next-btn"
+                  onclick="App.nextCourseVideo('${trackKey}')"
+                  ${currentVideoIdx >= videos.length - 1 ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : 'style="cursor:pointer;"'}
+                  class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs hover:brightness-110 flex items-center gap-1.5 transition-all">
+                  <span>Next</span> <span>⏭</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Description & External Action Links -->
+            <p class="text-xs text-slate-400 leading-relaxed pt-1 border-t border-slate-800/60">
+              ${activeCourse.description}
+            </p>
+
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <a 
+                id="${trackKey}-yt-direct-link"
+                href="https://www.youtube.com/watch?v=${activeVideo.id}" 
+                target="_blank" 
+                class="px-3 py-1.5 rounded-lg bg-red-500/15 border border-red-500/30 text-red-300 hover:bg-red-500/25 text-xs font-semibold flex items-center gap-1.5 transition-all">
+                <span>▶</span> <span>Watch on YouTube ↗</span>
+              </a>
+              ${courseLinksHtml}
             </div>
           </div>
-          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full ${tTheme.badge} font-bold">
-            ${(langData && langData.courses) ? langData.courses.length : 0} Video Series
-          </span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          ${languageCoursesHtml}
+
+        <!-- Right: YouTube Full Video Playlist Drawer (5 cols on lg) -->
+        <div class="lg:col-span-5 xl:col-span-4 space-y-2">
+          
+          <!-- Playlist Header & Telemetry -->
+          <div class="glass-panel p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/90 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <div class="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
+                  Full Playlist (${videos.length} Videos)
+                </div>
+                <h4 class="text-xs font-bold text-white truncate">
+                  ${activeCourse.title}
+                </h4>
+              </div>
+              <span id="${trackKey}-playlist-counter" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700/60 flex-shrink-0">
+                Video ${currentVideoIdx + 1} of ${videos.length}
+              </span>
+            </div>
+
+            <!-- Visual Playlist Progress Bar -->
+            <div class="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-800/60">
+              <div 
+                id="${trackKey}-playlist-progress-bar"
+                class="h-1.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 transition-all duration-300" 
+                style="width: ${((currentVideoIdx + 1) / videos.length) * 100}%">
+              </div>
+            </div>
+          </div>
+
+          <!-- Scrollable Full Video Queue (Like YouTube Playlist Sidebar) -->
+          <div 
+            id="${trackKey}-playlist-queue" 
+            class="space-y-2 max-h-[560px] overflow-y-auto pr-1"
+            style="scrollbar-width: thin; scrollbar-color: #334155 #0b1120;">
+            ${playlistItemsHtml}
+          </div>
         </div>
+
       </div>
 
       <!-- SECTION 3: INTERMEDIATE TECHNICAL NOTES & FORMULATIONS -->
-      <div class="space-y-4 pt-2">
+      <div class="space-y-4 pt-4 border-t border-slate-800/80">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="text-lg">📝</span>

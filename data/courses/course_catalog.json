@@ -9,40 +9,181 @@
         {
           "id": "karpathy_zero_to_hero",
           "title": "Andrej Karpathy — Neural Networks: Zero to Hero",
-          "institution": "Independent / Ex-Tesla AI & OpenAI Director",
-          "runtime": "20.5 Hours (8 Deep Dives)",
+          "institution": "Andrej Karpathy (Ex-Tesla AI / OpenAI)",
+          "runtime": "20.5 Hours (10 Lectures)",
           "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
-          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
           "description": "Bottom-up systems deconstruction: build micrograd (DAG autograd engine), makemore (MLP language models), manual tensor backprop, and nanoGPT from scratch in raw Python and C/PyTorch tensors.",
-          "syllabus": [
-            "1. The spelled-out intro to neural networks and backpropagation: building micrograd",
-            "2. The spelled-out intro to language modeling: building makemore",
-            "3. Building makemore Part 2: MLP architecture and cross-entropy loss",
-            "4. Building makemore Part 3: Batch normalization and internal activations",
-            "5. Building makemore Part 4: Manual tensor backpropagation without autograd",
-            "6. Building makemore Part 5: WaveNet architecture and dilated convolutions",
-            "7. Let's build GPT: from scratch, in code, spelled out (nanoGPT)",
-            "8. Let's build the GPT Tokenizer (minBPE Byte-Pair Encoding)"
-          ],
-          "github_url": "https://github.com/karpathy/nn-zero-to-hero"
+          "playlist_url": "https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
+          "github_url": "https://github.com/karpathy/nn-zero-to-hero",
+          "videos": [
+            {
+              "id": "VMj-3S1tku0",
+              "title": "The spelled-out intro to neural networks and backpropagation: building micrograd",
+              "duration": "2:25:52"
+            },
+            {
+              "id": "PaCmpygFfXo",
+              "title": "The spelled-out intro to language modeling: building makemore",
+              "duration": "1:57:45"
+            },
+            {
+              "id": "TCH_1BHY58I",
+              "title": "Building makemore Part 2: MLP",
+              "duration": "1:15:40"
+            },
+            {
+              "id": "P6sfmUTpUmc",
+              "title": "Building makemore Part 3: Activations & Gradients, BatchNorm",
+              "duration": "1:55:58"
+            },
+            {
+              "id": "q8SA3rM6ckI",
+              "title": "Building makemore Part 4: Becoming a Backprop Ninja",
+              "duration": "1:55:24"
+            },
+            {
+              "id": "t3YJ5hKiMQ0",
+              "title": "Building makemore Part 5: Building a WaveNet",
+              "duration": "56:22"
+            },
+            {
+              "id": "kCc8FmEb1nY",
+              "title": "Let's build GPT: from scratch, in code, spelled out.",
+              "duration": "1:56:20"
+            },
+            {
+              "id": "bZQun8Y4L2A",
+              "title": "State of GPT | BRK216HFS",
+              "duration": "42:40"
+            },
+            {
+              "id": "zduSFxRajkE",
+              "title": "Let's build the GPT Tokenizer",
+              "duration": "2:13:35"
+            },
+            {
+              "id": "l8pRSuU81PU",
+              "title": "Let's reproduce GPT-2 (124M)",
+              "duration": "4:01:26"
+            }
+          ]
         },
         {
           "id": "stanford_cs229",
           "title": "Stanford CS229: Machine Learning (Andrew Ng)",
           "institution": "Stanford University",
-          "runtime": "30.0 Hours (20 Lectures)",
+          "runtime": "30.0 Hours (21 Lectures)",
           "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
-          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU",
           "description": "The mathematical benchmark: Ordinary Least Squares, GLMs, SVM duals via Lagrange duality & KKT conditions, VC dimension, EM algorithm for GMMs, and Markov Decision Processes.",
-          "syllabus": [
-            "Lec 1-4: Linear Regression, Batch/Stochastic Gradient Descent, Normal Equations, Locally Weighted Regression",
-            "Lec 5-8: Logistic Regression, Newton-Raphson, Generalized Linear Models, Gaussian Discriminant Analysis, Naive Bayes",
-            "Lec 9-11: Support Vector Machines, Optimal Margin Classifiers, Lagrange Duality, Mercer Kernels",
-            "Lec 12-14: Learning Theory, Bias/Variance Tradeoff, Uniform Convergence, VC Dimension",
-            "Lec 15-17: Unsupervised Learning, K-Means Clustering, EM Algorithm, Factor Analysis, PCA",
-            "Lec 18-20: Independent Component Analysis, Reinforcement Learning, Bellman Equations, Value/Policy Iteration"
-          ],
-          "notes_url": "https://cs229.stanford.edu/main_notes.pdf"
+          "playlist_url": "https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU",
+          "notes_url": "https://cs229.stanford.edu/main_notes.pdf",
+          "videos": [
+            {
+              "id": "jGwO_UgTS7I",
+              "title": "Stanford CS229: Machine Learning Lecture 1 - Andrew Ng (Autumn 2018)",
+              "duration": "1:15:20"
+            },
+            {
+              "id": "4b4MUYve_U8",
+              "title": "Stanford CS229: Machine Learning - Linear Regression and Gradient Descent |  Lecture 2 (Autumn 2018)",
+              "duration": "1:18:17"
+            },
+            {
+              "id": "het9HFqo1TQ",
+              "title": "Locally Weighted & Logistic Regression | Stanford CS229: Machine Learning - Lecture 3 (Autumn 2018)",
+              "duration": "1:19:34"
+            },
+            {
+              "id": "iZTeva0WSTQ",
+              "title": "Lecture 4 - Perceptron & Generalized Linear Model | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:22:02"
+            },
+            {
+              "id": "nt63k3bfXS0",
+              "title": "Lecture 5 - GDA & Naive Bayes | Stanford CS229: Machine Learning Andrew Ng (Autumn 2018)",
+              "duration": "1:18:52"
+            },
+            {
+              "id": "lDwow4aOrtg",
+              "title": "Lecture 6 - Support Vector Machines | Stanford CS229: Machine Learning Andrew Ng (Autumn 2018)",
+              "duration": "1:20:57"
+            },
+            {
+              "id": "8NYoQiRANpg",
+              "title": "Lecture 7 - Kernels | Stanford CS229: Machine Learning Andrew Ng (Autumn 2018)",
+              "duration": "1:20:25"
+            },
+            {
+              "id": "rjbkWSTjHzM",
+              "title": "Lecture 8 - Data Splits, Models & Cross-Validation | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:23:26"
+            },
+            {
+              "id": "iVOxMcumR4A",
+              "title": "Discussion Section: Learning Theory | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:26:03"
+            },
+            {
+              "id": "wr9gUr-eWdA",
+              "title": "Lecture 9 - Decision Trees and Ensemble Methods | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:20:41"
+            },
+            {
+              "id": "MfIjxPh6Pys",
+              "title": "Lecture 10 - Introduction to Neural Networks | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:20:14"
+            },
+            {
+              "id": "zUazLXZZA2U",
+              "title": "Lecture 11 - Backprop & Improving Neural Networks | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:16:38"
+            },
+            {
+              "id": "ORrStCArmP4",
+              "title": "Lecture 12 - Debugging ML Models and Error Analysis | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:18:55"
+            },
+            {
+              "id": "rVfZHWTwXSA",
+              "title": "Lecture 13 - Expectation-Maximization Algorithms | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:20:31"
+            },
+            {
+              "id": "tw6cmL5STuY",
+              "title": "Lecture 14 - EM Algorithm & Factor Analysis | Stanford CS229: Machine Learning Andrew Ng -Autumn2018",
+              "duration": "1:19:48"
+            },
+            {
+              "id": "dyb_cFywuik",
+              "title": "Lecture 15 - PCA and ICA | Stanford CS229: Machine Learning Andrew Ng - Autumn 2018",
+              "duration": "1:18:35"
+            },
+            {
+              "id": "YQA9lLdLig8",
+              "title": "Lecture 16 - Independent Component Analysis & RL | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:18:10"
+            },
+            {
+              "id": "d5gaWTo6kDM",
+              "title": "Lecture 17 - MDPs & Value/Policy Iteration | Stanford CS229: Machine Learning Andrew Ng (Autumn2018)",
+              "duration": "1:19:14"
+            },
+            {
+              "id": "QFu5nuc-S0s",
+              "title": "Lecture 18 - Continous State MDP & Model Simulation | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:20:15"
+            },
+            {
+              "id": "0rt2CsEQv6U",
+              "title": "Lecture 19 - Reward Model & Linear Dynamical System | Stanford CS229: Machine Learning (Autumn 2018)",
+              "duration": "1:21:07"
+            },
+            {
+              "id": "pLhPQynL0tY",
+              "title": "RL Debugging and Diagnostics | Stanford CS229: Machine Learning Andrew Ng - Lecture 20 (Autumn 2018)",
+              "duration": "1:12:43"
+            }
+          ]
         }
       ],
       "languages": {
@@ -55,19 +196,37 @@
               "id": "mit_6s191",
               "title": "MIT 6.S191: Introduction to Deep Learning",
               "instructor": "Alexander & Ava Amini / MIT",
-              "runtime": "15.0 Hours (14 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLtBw6njkvG-WEJ5cnzPkyksgD4_O_2zom",
-              "description": "Modern deep learning architectures: CNNs, Transformers, Generative AI (VAEs, GANs, Diffusion), Reinforcement Learning, and Multi-GPU scaling with Fully Sharded Data Parallel (FSDP).",
-              "web_url": "http://introtodeeplearning.com/"
-            },
-            {
-              "id": "fastai_dl",
-              "title": "Practical Deep Learning for Coders",
-              "instructor": "Jeremy Howard & Rachel Thomas / Fast.ai",
-              "runtime": "25.0 Hours (8 Modules)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLfYUBJiXBWdvdLXQhN7vL5g4k9t4dEv90",
-              "description": "Top-down engineering: PyTorch model training, progressive resizing, learning rate finders, transfer learning, and production deployment.",
-              "web_url": "https://course.fast.ai/"
+              "runtime": "15.0 Hours (12 Lectures)",
+              "description": "Modern deep learning architectures: CNNs, Transformers, Generative AI (VAEs, Diffusion), Reinforcement Learning, and Multi-GPU scaling.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLtBw6njkvG-WEJ5cnzPkyksgD4_O_2zom",
+              "web_url": "http://introtodeeplearning.com/",
+              "videos": [
+                {
+                  "id": "7TmqZ4n2qfg",
+                  "title": "MIT 6.S191: Introduction to Deep Learning (Lecture 1)",
+                  "duration": "48:15"
+                },
+                {
+                  "id": "AhyznRSDjw8",
+                  "title": "MIT 6.S191: Deep Sequence Modeling (Lecture 2)",
+                  "duration": "45:20"
+                },
+                {
+                  "id": "u4g8_lTqP8k",
+                  "title": "MIT 6.S191: Computer Vision & Convolutional Nets (Lecture 3)",
+                  "duration": "51:10"
+                },
+                {
+                  "id": "rZmx4d-jR24",
+                  "title": "MIT 6.S191: Deep Generative Modeling (Lecture 4)",
+                  "duration": "46:30"
+                },
+                {
+                  "id": "yZ0r6H-0Y60",
+                  "title": "MIT 6.S191: Reinforcement Learning (Lecture 5)",
+                  "duration": "44:50"
+                }
+              ]
             }
           ]
         },
@@ -78,30 +237,139 @@
           "courses": [
             {
               "id": "campusx_100days_ml",
-              "title": "100 Days of Machine Learning",
+              "title": "100 Days of Machine Learning in Hindi",
               "instructor": "Nitish Singh / CampusX",
               "runtime": "52.0 Hours (84 Videos)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLKnIA16_RmvbAlyx4_rdtR66B7EHX5k3z",
-              "description": "Comprehensive industrial syllabus in Hindi: data preprocessing, feature engineering, ensemble methods (bagging, boosting, stacking), and production ML pipeline deployment.",
-              "web_url": "https://www.youtube.com/playlist?list=PLKnIA16_RmvbAlyx4_rdtR66B7EHX5k3z"
-            },
-            {
-              "id": "campusx_100days_dl",
-              "title": "100 Days of Deep Learning",
-              "instructor": "Nitish Singh / CampusX",
-              "runtime": "31.0 Hours (40 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLKnIA16_RmvYuZauWaPlRTC54KzpDCFtN",
-              "description": "Perceptrons, backpropagation calculus, ANNs, CNNs, transfer learning, and computer vision models in Hindi.",
-              "web_url": "https://www.youtube.com/@CampusX-official"
-            },
-            {
-              "id": "wscube_ml_hindi",
-              "title": "Machine Learning Full Course (Scikit-Learn)",
-              "instructor": "WsCube Tech Instructor",
-              "runtime": "10.3 Hours (Mega Course)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLjVLYmrlmjGfAUFtJIR4s6uQYk3q9M1sB",
-              "description": "End-to-end classification, regression, and model evaluation workflows in Scikit-Learn with real-world case studies.",
-              "web_url": "https://www.youtube.com/@wscubetech"
+              "description": "Comprehensive industrial syllabus in Hindi: data preprocessing, feature engineering, ensemble methods (bagging, boosting, stacking), and production ML pipelines.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLKnIA16_RmvbAlyx4_rdtR66B7EHX5k3z",
+              "web_url": "https://www.youtube.com/@CampusX-official",
+              "videos": [
+                {
+                  "id": "1z5-O7-5AXk",
+                  "title": "Session 1 - Python Fundamentals | CampusX Data Science Mentorship Program | 7th Nov 2022",
+                  "duration": "2:10:23"
+                },
+                {
+                  "id": "JCkIrdrZEE8",
+                  "title": "Session 2 - Operators + If-Else + Loops  | CampusX Data Science Mentorship Program | 8th Nov 2022",
+                  "duration": "2:11:35"
+                },
+                {
+                  "id": "6HAu0Y9BjA4",
+                  "title": "Session 3 - Python Strings  | CampusX Data Science Mentorship Program | 9th Nov 2022",
+                  "duration": "2:22:54"
+                },
+                {
+                  "id": "7ltjqU5iytY",
+                  "title": "Programming Problems on Strings | Session 3 Supplementary Session",
+                  "duration": "29:12"
+                },
+                {
+                  "id": "vg7BRC7wd0c",
+                  "title": "How to Build a Portfolio Website for Data Science",
+                  "duration": "48:14"
+                },
+                {
+                  "id": "kDIsjtH69G8",
+                  "title": "Session on Week 1 Task Solutions | Paid Members",
+                  "duration": "2:14:42"
+                },
+                {
+                  "id": "J1vdIcg5IZs",
+                  "title": "Session on Time Complexity | Friday Paid Session",
+                  "duration": "1:42:01"
+                },
+                {
+                  "id": "lD4nziSXdMk",
+                  "title": "Week 1 Doubt Clearance + Interview Preparation | Paid Members",
+                  "duration": "1:29:53"
+                },
+                {
+                  "id": "WmbU3WBaoR0",
+                  "title": "Session 4 - Lists in Python | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "2:07:02"
+                },
+                {
+                  "id": "jcQjp11mn1A",
+                  "title": "Session 5 - Tuples + Sets + Dictionary | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "2:16:37"
+                },
+                {
+                  "id": "OOInK25PoFo",
+                  "title": "Session 6 - Functions in Python | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "2:15:47"
+                },
+                {
+                  "id": "tLer7kI2vF0",
+                  "title": "Week 1 Task 3 Solutions | CampusX DSMP 2022-23 | Paid Session",
+                  "duration": "1:06:10"
+                },
+                {
+                  "id": "_PKpXucutB0",
+                  "title": "Career QnA Live Session for Paid Members | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "1:59:43"
+                },
+                {
+                  "id": "w73JmBsrGsY",
+                  "title": "Array Interview Questions | Paid Members | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "2:17:10"
+                },
+                {
+                  "id": "QR5ORwasxxg",
+                  "title": "Interview Questions + Doubt Clearance | Paid Members | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "1:27:11"
+                },
+                {
+                  "id": "uJfX2xkSSNE",
+                  "title": "Week 2 - Task 4 Solutions | Paid Session | Data Science Mentorship Program | DSMP 2022-23",
+                  "duration": "46:08"
+                },
+                {
+                  "id": "Trvqq5w7-0Q",
+                  "title": "OOP Part 1 | Class & Object | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "2:13:57"
+                },
+                {
+                  "id": "-42QuawhWqw",
+                  "title": "Task 5 Solutions | Paid Members | Data Science Mentorship Program (DSMP) 2022-23",
+                  "duration": "47:26"
+                },
+                {
+                  "id": "P4xizq3CiJg",
+                  "title": "OOP Part 2 | Encapsulation & Static Keyword | Static | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "2:15:51"
+                },
+                {
+                  "id": "aQpG2H19BlE",
+                  "title": "Task 6 Solutions | Paid Recording | DSMP 2022-23",
+                  "duration": "45:52"
+                },
+                {
+                  "id": "bEWwM4hXZg8",
+                  "title": "OOP Part 3 | Inheritance & Polymorphism | Static | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "2:14:55"
+                },
+                {
+                  "id": "awjzebtHQ_o",
+                  "title": "OOP Project | Friday Paid Session | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "2:15:09"
+                },
+                {
+                  "id": "TkeG4Jnd86U",
+                  "title": "New Website Launch | DSMP 2022-23",
+                  "duration": "21:17"
+                },
+                {
+                  "id": "HQH5FxvJXzI",
+                  "title": "Week 3 - Interview Questions | Data Science Mentorship Program(DSMP) 2022-23",
+                  "duration": "1:51:19"
+                },
+                {
+                  "id": "IHoa-zhGjWg",
+                  "title": "Task 7 Solutions | Paid Recording | DSMP 2022-23",
+                  "duration": "31:17"
+                }
+              ]
             }
           ]
         },
@@ -112,30 +380,153 @@
           "courses": [
             {
               "id": "nerchuko_ml_telugu",
-              "title": "Machine Learning in Telugu Complete Playlist",
+              "title": "Machine Learning Complete Playlist in Telugu",
               "instructor": "Nerchuko Academy",
               "runtime": "14.5 Hours (58 Videos)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLVG0Zju2HPJe0bhmV6l1MEE-6h0MG-20P",
               "description": "Deep conceptual intuition in Telugu: decision trees, information entropy, linear regression matrices, cross-validation, and ensemble boosting.",
-              "web_url": "https://www.youtube.com/playlist?list=PLVG0Zju2HPJe0bhmV6l1MEE-6h0MG-20P"
+              "playlist_url": "https://www.youtube.com/playlist?list=PLVG0Zju2HPJe0bhmV6l1MEE-6h0MG-20P",
+              "videos": [
+                {
+                  "id": "HfEsZzwTPCI",
+                  "title": "45 Days of Machine Learning with @Nerchuko  || Machine Learning in Telugu || Python in Telugu",
+                  "duration": "15:17"
+                },
+                {
+                  "id": "kO61XbNa1P0",
+                  "title": "Machine Learning in Telugu || Supervised Learning Vs Unsupervised Learning || Nerchuko",
+                  "duration": "21:35"
+                },
+                {
+                  "id": "KrHsWp4HePQ",
+                  "title": "AI vs ML vs DL vs Data Science in Telugu || Data Science in Telugu || Python Coding in Telugu",
+                  "duration": "10:58"
+                },
+                {
+                  "id": "r5uIDvcwjJc",
+                  "title": "How to learn Machine Learning in 3 Months || Machine Learning Roadmap || Nerchuko",
+                  "duration": "11:01"
+                },
+                {
+                  "id": "lKtw5-Hy_PM",
+                  "title": "What is Google Colab?  || Machine Learning in Telugu",
+                  "duration": "6:38"
+                },
+                {
+                  "id": "wC7pbJZB1MU",
+                  "title": "Python Tutorials for beginners || Python for Machine Learning || Python in Telugu || Nerchuko",
+                  "duration": "2:06:38"
+                },
+                {
+                  "id": "VhMEa6xBW1g",
+                  "title": "Statistics for Machine Learning || Machine Learning in Telugu | Python Coding in Telugu | Statistics",
+                  "duration": "14:37"
+                },
+                {
+                  "id": "5NZ4H1IQdu8",
+                  "title": "Where to get the datasets for Machine Learning || Machine Learning in Telugu || Nerchuko",
+                  "duration": "4:26"
+                },
+                {
+                  "id": "7P8Hxf5OYcE",
+                  "title": "Bias, Variance, Overfitting, and Underfitting in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "12:46"
+                },
+                {
+                  "id": "Q2rnxACYSzI",
+                  "title": "Data Preprocessing (A-Z) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "13:12"
+                },
+                {
+                  "id": "N0zKrkH-bGw",
+                  "title": "Data Preprocessing (Implementation) in Telugu || Machine Learning || Nerchuko",
+                  "duration": "9:08"
+                },
+                {
+                  "id": "Hc_aP1-xgYU",
+                  "title": "Simple Linear Regression (Theory) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "11:49"
+                },
+                {
+                  "id": "nPegVII6Z80",
+                  "title": "Simple Linear Regression (Implementation) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "8:32"
+                },
+                {
+                  "id": "8-yutrl4fR8",
+                  "title": "Multiple Linear Regression (Theory) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "21:45"
+                },
+                {
+                  "id": "7zwbgtNkjNI",
+                  "title": "Multiple Linear Regression (Implementation) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "7:34"
+                },
+                {
+                  "id": "ob-AaQLOfuk",
+                  "title": "Polynomial Regression (Theory) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "13:21"
+                },
+                {
+                  "id": "Q3xsfRsSq8Y",
+                  "title": "Polynomial Regression (Implementation) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "10:02"
+                },
+                {
+                  "id": "nQ0Gv_6-5mE",
+                  "title": "Support Vector Regression in Telugu || Machine Learning in Telugu",
+                  "duration": "8:23"
+                },
+                {
+                  "id": "v3YK909_BQY",
+                  "title": "Regression Trees (Part - 1) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "23:19"
+                },
+                {
+                  "id": "Ex_CVaJQP6k",
+                  "title": "Regression Trees (Part - 2) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "26:27"
+                },
+                {
+                  "id": "KOxD9XlVhOc",
+                  "title": "Regression Trees (Implementation) in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "7:57"
+                },
+                {
+                  "id": "gL8_6JgW9sg",
+                  "title": "Ensemble Learning in Telugu || Machine Learning in Telugu || Nerchuko",
+                  "duration": "17:55"
+                },
+                {
+                  "id": "2nQPwnHbHPU",
+                  "title": "Random Forest Regression (Theory) in Telugu || Machine learning in Telugu || Nerchuko",
+                  "duration": "13:25"
+                },
+                {
+                  "id": "eRqi7U63Z04",
+                  "title": "Random Forest Regression (Implementation) in Telugu || Machine learning in Telugu || Nerchuko",
+                  "duration": "5:33"
+                },
+                {
+                  "id": "r9JkTtqLyuw",
+                  "title": "How to handle Imbalanced data using python || Machine Learning in Telugu",
+                  "duration": "13:21"
+                }
+              ]
             },
             {
               "id": "mass_coders_ml_telugu",
-              "title": "Mass Coders Machine Learning Course in Telugu",
+              "title": "Mass Coders Machine Learning Masterclass in Telugu",
               "instructor": "Dodagatta Nihar",
-              "runtime": "6.0 Hours (6 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/Sig7CTTVHcY",
+              "runtime": "6.0 Hours (Full Course)",
               "description": "Supervised, unsupervised, and reinforcement learning paradigms explained with NumPy array manipulation and Pandas dataframes in Telugu.",
-              "web_url": "https://www.youtube.com/watch?v=Sig7CTTVHcY"
-            },
-            {
-              "id": "pythonlife_ml_telugu",
-              "title": "PythonLife Machine Learning & Scikit-Learn Series",
-              "instructor": "Kiran Sagar / PythonLife",
-              "runtime": "8.0 Hours (15+ Modules)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLbMVPNscUopTabwrwhZxVbvCoofSbe86P",
-              "description": "Hands-on machine learning in Telugu: model training, clustering algorithms, classification pipelines, and feature preparation.",
-              "web_url": "https://youtube.com/playlist?list=PLbMVPNscUopTabwrwhZxVbvCoofSbe86P"
+              "playlist_url": "https://www.youtube.com/watch?v=Sig7CTTVHcY",
+              "videos": [
+                {
+                  "id": "Sig7CTTVHcY",
+                  "title": "Mass Coders Machine Learning Full Course in Telugu",
+                  "duration": "5:42:10"
+                }
+              ]
             }
           ]
         }
@@ -174,23 +565,91 @@
       "description": "Bridging statistical theory, empirical feature engineering, relational querying, and scalable distributed data processing pipelines from raw ingestion to model deployment.",
       "golden_anchors": [
         {
-          "id": "ucb_data100",
-          "title": "UC Berkeley DATA 100: Principles & Techniques of Data Science",
-          "institution": "University of California, Berkeley (CDSS)",
-          "runtime": "80.0 Hours (28 Full-Semester Lectures)",
+          "id": "mit_60002",
+          "title": "MIT 6.0002: Introduction to Computational Thinking and Data Science",
+          "institution": "MIT OpenCourseWare (Prof. John Guttag)",
+          "runtime": "18.0 Hours (15 Lectures)",
           "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
-          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLs8w1CNTIV64_hUe8W9_vIcsG_T8xZf9Y",
-          "description": "Upper-division flagship curriculum bridging Data 8 and CS 189: data lifecycle, regex extraction, Pandas/Polars manipulation, OLS projection geometry, SVD, PCA, and data ethics.",
-          "syllabus": [
-            "Lec 1-4: The Data Science Lifecycle, Pandas & Polars Wrangling, Tidy Data",
-            "Lec 5-8: Exploratory Data Analysis, Visualization Principles, Regex Feature Extraction",
-            "Lec 9-12: Constant Model, Loss Functions, OLS Regression, Matrix Formulation",
-            "Lec 13-16: The Hat Matrix Projection, Multiple Regression, Cross-Validation, Regularization (Ridge/Lasso)",
-            "Lec 17-20: Gradient Descent, Convexity, Logistic Regression, Decision Boundaries",
-            "Lec 21-24: Singular Value Decomposition (SVD), Principal Component Analysis (PCA)",
-            "Lec 25-28: Relational SQL, Confounders, Simpson's Paradox, Data Ethics & Governance"
-          ],
-          "notes_url": "https://ds100.org/fa23-course-notes/"
+          "description": "Flagship university curriculum: optimization problems, knapsack dynamic programming, graph models, stochastic simulations, Monte Carlo methods, and experimental design.",
+          "playlist_url": "https://www.youtube.com/playlist?list=PLUl4u3cNGP619EG1wp0kT-7rDE_Az5TNd",
+          "notes_url": "https://ocw.mit.edu/courses/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/",
+          "videos": [
+            {
+              "id": "C1lhuz6pZC0",
+              "title": "1. Introduction, Optimization Problems (MIT 6.0002 Intro to Computational Thinking and Data Science)",
+              "duration": "40:57"
+            },
+            {
+              "id": "uK5yvoXnkSk",
+              "title": "2. Optimization Problems",
+              "duration": "48:04"
+            },
+            {
+              "id": "V_TulH374hw",
+              "title": "3. Graph-theoretic Models",
+              "duration": "50:11"
+            },
+            {
+              "id": "-1BnXEwHUok",
+              "title": "4. Stochastic Thinking",
+              "duration": "49:50"
+            },
+            {
+              "id": "6wUD_gp5WeE",
+              "title": "5. Random Walks",
+              "duration": "49:21"
+            },
+            {
+              "id": "OgO1gpXSUzU",
+              "title": "6. Monte Carlo Simulation",
+              "duration": "50:05"
+            },
+            {
+              "id": "rUxP7TM8-wo",
+              "title": "7. Confidence Intervals",
+              "duration": "50:29"
+            },
+            {
+              "id": "soZv_KKax3E",
+              "title": "8. Sampling and Standard Error",
+              "duration": "46:45"
+            },
+            {
+              "id": "vIFKGFl1Cn8",
+              "title": "9. Understanding Experimental Data",
+              "duration": "47:06"
+            },
+            {
+              "id": "fQvg-hh9dUw",
+              "title": "10. Understanding Experimental Data (cont.)",
+              "duration": "50:33"
+            },
+            {
+              "id": "h0e2HAPTGF4",
+              "title": "11. Introduction to Machine Learning",
+              "duration": "51:31"
+            },
+            {
+              "id": "esmzYhuFnds",
+              "title": "12. Clustering",
+              "duration": "50:40"
+            },
+            {
+              "id": "eg8DJYwdMyg",
+              "title": "13. Classification",
+              "duration": "49:54"
+            },
+            {
+              "id": "K2SC-WPdT6k",
+              "title": "14. Classification and Statistical Sins",
+              "duration": "49:25"
+            },
+            {
+              "id": "iOZVbILaIZc",
+              "title": "15. Statistical Sins and Wrap Up",
+              "duration": "44:43"
+            }
+          ]
         },
         {
           "id": "statlearning_islr",
@@ -198,16 +657,136 @@
           "institution": "Stanford University (Hastie, Tibshirani, James, Witten)",
           "runtime": "15.0 Hours (35 Modular Chapters)",
           "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
-          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLoROMvodv4rOzrYsAxzQyHb8n_RWNuS1e",
           "description": "The authors' official video companion series: resampling methods (k-fold CV, bootstrap), Ridge/Lasso shrinkage, tree ensembles (bagging, random forests, boosting), and survival analysis.",
-          "syllabus": [
-            "Chap 1-3: Statistical Learning Foundations, Linear Regression, Confidence Intervals",
-            "Chap 4-5: Classification (Logistic, LDA, QDA), Resampling Methods (Cross-Validation, Bootstrap)",
-            "Chap 6-7: Linear Model Selection, Ridge Regression, Lasso Regularization, Splines & GAMs",
-            "Chap 8-9: Tree-Based Methods (Bagging, Random Forests, Boosting), Support Vector Machines",
-            "Chap 10-12: Deep Learning, Survival Analysis, Unsupervised Learning (PCA, K-Means, Hierarchical)"
-          ],
-          "book_url": "https://www.statlearning.com/"
+          "playlist_url": "https://www.youtube.com/playlist?list=PLoROMvodv4rOzrYsAxzQyHb8n_RWNuS1e",
+          "book_url": "https://www.statlearning.com/",
+          "videos": [
+            {
+              "id": "LvySJGj-88U",
+              "title": "Statistical Learning: 1.1 Opening Remarks",
+              "duration": "18:19"
+            },
+            {
+              "id": "9vlDVxG4ulA",
+              "title": "Statistical Learning: 8 Years Later (Second Edition of the Course)",
+              "duration": "2:19"
+            },
+            {
+              "id": "B9s8rpdNxU0",
+              "title": "Statistical Learning: 1.2 Examples and Framework",
+              "duration": "12:13"
+            },
+            {
+              "id": "ox0cKk7h4o0",
+              "title": "Statistical Learning: 2.1 Introduction to Regression Models",
+              "duration": "11:42"
+            },
+            {
+              "id": "uFwbrdvrAJs",
+              "title": "Statistical Learning: 2.2 Dimensionality and Structured Models",
+              "duration": "11:41"
+            },
+            {
+              "id": "pvcEQfcO3pk",
+              "title": "Statistical Learning: 2.3 Model Selection and Bias Variance Tradeoff",
+              "duration": "10:05"
+            },
+            {
+              "id": "BMJQ3LQ_QKU",
+              "title": "Statistical Learning: 2.4 Classification",
+              "duration": "15:38"
+            },
+            {
+              "id": "L03A81OgLlk",
+              "title": "Statistical Learning: 2.R Introduction to R",
+              "duration": "14:13"
+            },
+            {
+              "id": "vCHtY6Me5FI",
+              "title": "Statistical Learning: 3.1 Simple linear regression",
+              "duration": "13:02"
+            },
+            {
+              "id": "3GiWpRfkSjc",
+              "title": "Statistical Learning: 3.2 Hypothesis Testing and Confidence Intervals",
+              "duration": "8:25"
+            },
+            {
+              "id": "o9hoLdylWKo",
+              "title": "Statistical Learning: 3.3 Multiple Linear Regression",
+              "duration": "15:38"
+            },
+            {
+              "id": "50sv4UTjE90",
+              "title": "Statistical Learning: 3.4 Some important questions",
+              "duration": "14:52"
+            },
+            {
+              "id": "dEBQmiXv9fk",
+              "title": "Statistical Learning: 3.5 Extensions of the Linear Model",
+              "duration": "14:17"
+            },
+            {
+              "id": "gNZfqHhq_B4",
+              "title": "Statistical Learning: 3.R Regression in R",
+              "duration": "22:11"
+            },
+            {
+              "id": "ju3J7iRy6xI",
+              "title": "Statistical Learning: 4.1 Introduction to Classification Problems",
+              "duration": "10:26"
+            },
+            {
+              "id": "kr_Be9NVXOM",
+              "title": "Statistical Learning: 4.2 Logistic Regression",
+              "duration": "9:08"
+            },
+            {
+              "id": "1uJVE8bkabc",
+              "title": "Statistical Learning: 4.3 Multivariate Logistic Regression",
+              "duration": "9:54"
+            },
+            {
+              "id": "sYDDk6R-be0",
+              "title": "Statistical Learning: 4.4 Logistic Regression Case Control Sampling and Multiclass",
+              "duration": "7:29"
+            },
+            {
+              "id": "oJc2r246VoQ",
+              "title": "Statistical Learning: 4.5 Discriminant Analysis",
+              "duration": "7:13"
+            },
+            {
+              "id": "14JVlzWHKgk",
+              "title": "Statistical Learning: 4.6 Gaussian Discriminant Analysis (One Variable)",
+              "duration": "7:38"
+            },
+            {
+              "id": "aUlTqhDtpnw",
+              "title": "Statistical Learning: 4.7 Gaussian Discriminant Analysis (Many Variables)",
+              "duration": "17:43"
+            },
+            {
+              "id": "n8Nj64FyjSo",
+              "title": "Statistical Learning: 4.8 Generalized Linear Models",
+              "duration": "9:35"
+            },
+            {
+              "id": "giCZkipHEmA",
+              "title": "Statistical Learning: 4.9 Quadratic Discriminant Analysis and Naive Bayes",
+              "duration": "10:08"
+            },
+            {
+              "id": "QEUtuHSipNE",
+              "title": "Statistical Learning: 4.R.1 Logistic Regression",
+              "duration": "10:15"
+            },
+            {
+              "id": "WXhku-ISml8",
+              "title": "Statistical Learning: 4.R.2 Linear Discriminant Analysis",
+              "duration": "8:23"
+            }
+          ]
         }
       ],
       "languages": {
@@ -221,34 +800,218 @@
               "title": "Learning From Data (Introductory Machine Learning)",
               "instructor": "Yaser Abu-Mostafa / Caltech",
               "runtime": "20.0 Hours (18 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLD63A284B7615313A",
               "description": "Statistical learning theory: Hoeffding inequality, uniform convergence bounds, growth function, and VC dimension to establish generalization feasibility.",
-              "web_url": "https://work.caltech.edu/telecourse.html"
+              "playlist_url": "https://www.youtube.com/playlist?list=PLD63A284B7615313A",
+              "web_url": "https://work.caltech.edu/telecourse.html",
+              "videos": [
+                {
+                  "id": "mbyG85GZ0PI",
+                  "title": "Lecture 01 - The Learning Problem",
+                  "duration": "1:21:28"
+                },
+                {
+                  "id": "MEG35RDD7RA",
+                  "title": "Lecture 02 - Is Learning Feasible?",
+                  "duration": "1:16:49"
+                },
+                {
+                  "id": "FIbVs5GbBlQ",
+                  "title": "Lecture 03 -The Linear Model I",
+                  "duration": "1:19:44"
+                },
+                {
+                  "id": "L_0efNkdGMc",
+                  "title": "Lecture 04 - Error and Noise",
+                  "duration": "1:18:22"
+                },
+                {
+                  "id": "SEYAnnLazMU",
+                  "title": "Lecture 05 - Training Versus Testing",
+                  "duration": "1:16:58"
+                },
+                {
+                  "id": "6FWRijsmLtE",
+                  "title": "Lecture 06 - Theory of Generalization",
+                  "duration": "1:18:12"
+                },
+                {
+                  "id": "Dc0sr0kdBVI",
+                  "title": "Lecture 07 - The VC Dimension",
+                  "duration": "1:13:31"
+                },
+                {
+                  "id": "zrEyxfl2-a8",
+                  "title": "Lecture 08 - Bias-Variance Tradeoff",
+                  "duration": "1:16:51"
+                },
+                {
+                  "id": "qSTHZvN8hzs",
+                  "title": "Lecture 09 - The Linear Model II",
+                  "duration": "1:27:14"
+                },
+                {
+                  "id": "Ih5Mr93E-2c",
+                  "title": "Lecture 10 - Neural Networks",
+                  "duration": "1:25:16"
+                },
+                {
+                  "id": "EQWr3GGCdzw",
+                  "title": "Lecture 11 - Overfitting",
+                  "duration": "1:19:49"
+                },
+                {
+                  "id": "I-VfYXzC5ro",
+                  "title": "Lecture 12 - Regularization",
+                  "duration": "1:15:14"
+                },
+                {
+                  "id": "o7zzaKd0Lkk",
+                  "title": "Lecture 13 - Validation",
+                  "duration": "1:26:12"
+                },
+                {
+                  "id": "eHsErlPJWUU",
+                  "title": "Lecture 14 - Support Vector Machines",
+                  "duration": "1:14:16"
+                },
+                {
+                  "id": "XUj5JbQihlU",
+                  "title": "Lecture 15 - Kernel Methods",
+                  "duration": "1:18:19"
+                },
+                {
+                  "id": "O8CfrnOPtLc",
+                  "title": "Lecture 16 - Radial Basis Functions",
+                  "duration": "1:22:08"
+                },
+                {
+                  "id": "EZBUDG12Nr0",
+                  "title": "Lecture 17 - Three Learning Principles",
+                  "duration": "1:16:18"
+                },
+                {
+                  "id": "ihLwJPHkMRY",
+                  "title": "Lecture 18 - Epilogue",
+                  "duration": "1:09:28"
+                }
+              ]
             }
           ]
         },
         "hi": {
           "label": "Hindi (Industrial Bootcamp)",
           "flag": "🇮🇳",
-          "badge": "27-Hour Practical Marathon",
+          "badge": "Feature Engineering & Production ML",
           "courses": [
             {
-              "id": "wscube_ds_hindi",
-              "title": "Data Science Full Course for Beginners in 27 Hours",
-              "instructor": "WsCube Tech Instructors",
-              "runtime": "27.8 Hours (Mega Video)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLjVLYmrlmjGfDNuN_dYV5q4gYg6K_0t1a",
-              "description": "Complete 27-hour practical syllabus: Python syntax, NumPy array vectorization, Pandas aggregations, Seaborn visualization, relational SQL querying, and Scikit-Learn pipelines.",
-              "web_url": "https://www.youtube.com/@wscubetech"
-            },
-            {
               "id": "krish_naik_ds_hindi",
-              "title": "Live Data Science & Feature Engineering Practicum",
+              "title": "Live Data Science & Feature Engineering Practicum in Hindi",
               "instructor": "Krish Naik",
-              "runtime": "22.5 Hours (15 Streams)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLZoTAELRMXVPBTrWtJkn3wWQxZkmTXGwe",
+              "runtime": "22.5 Hours (20 Streams)",
               "description": "Production feature stores, data leakage prevention, handling missingness, exploratory data analysis frameworks, and model evaluation metrics.",
-              "web_url": "https://www.youtube.com/@krishnaik06"
+              "playlist_url": "https://www.youtube.com/playlist?list=PLZoTAELRMXVPBTrWtJkn3wWQxZkmTXGwe",
+              "videos": [
+                {
+                  "id": "bPrmA1SEN2k",
+                  "title": "Complete Road Map To Be Expert In Python- Follow My Way",
+                  "duration": "29:11"
+                },
+                {
+                  "id": "VOpETRQGXy0",
+                  "title": "Complete Roadmap To Follow To  Prepare Machine Learning With All Videos And Materials",
+                  "duration": "18:56"
+                },
+                {
+                  "id": "7S865QCGL74",
+                  "title": "Tutorial 1- Anaconda Installation and Python Basics",
+                  "duration": "19:05"
+                },
+                {
+                  "id": "JSJJ-qOOAXI",
+                  "title": "Why Python is the Best Programming Language For Machine Learning?",
+                  "duration": "5:15"
+                },
+                {
+                  "id": "GA0u6WM7_Eo",
+                  "title": "Tutorial 2 - Python List  and Boolean Variables",
+                  "duration": "21:49"
+                },
+                {
+                  "id": "wlS_fWxIPyQ",
+                  "title": "Tutorial 3- Python Sets, Dictionaries and Tuples",
+                  "duration": "16:05"
+                },
+                {
+                  "id": "vh525RjO6C0",
+                  "title": "Tutorial 4 - Numpy and Inbuilt Functions Tutorial",
+                  "duration": "26:42"
+                },
+                {
+                  "id": "QUClKFFn1Vk",
+                  "title": "Tutorial 5- Pandas, Data Frame and Data Series Part-1",
+                  "duration": "16:49"
+                },
+                {
+                  "id": "tW1BWtQRZ2M",
+                  "title": "Tutorial 6- Pandas,Reading CSV files With Various Parameters- Part 2",
+                  "duration": "29:32"
+                },
+                {
+                  "id": "xx4Vkc5RrWY",
+                  "title": "Tutorial 7- Pandas-Reading JSON,Reading HTML, Read PICKLE, Read EXCEL Files- Part 3",
+                  "duration": "19:31"
+                },
+                {
+                  "id": "czQO1_GEEos",
+                  "title": "Tutorial 8- Matplotlib (Simple Visualization Library)",
+                  "duration": "25:55"
+                },
+                {
+                  "id": "UsglokDLa2o",
+                  "title": "Tutorial 9- Seaborn Tutorial- Distplot, Joinplot, Pairplot  Part 1",
+                  "duration": "21:43"
+                },
+                {
+                  "id": "XezfbWlEVwE",
+                  "title": "Tutorial 10- Seaborn- Countplot(), Violinplot(), Boxplot()- Part2",
+                  "duration": "10:54"
+                },
+                {
+                  "id": "dP170R-wO-8",
+                  "title": "How To Become Expertise in Exploratory Data Analysis",
+                  "duration": "10:05"
+                },
+                {
+                  "id": "Ea_KAcdv1vs",
+                  "title": "Tutorial 11-Exploratory Data Analysis(EDA) of Titanic dataset",
+                  "duration": "31:45"
+                },
+                {
+                  "id": "Vah_RQrlM_k",
+                  "title": "Tutorial 12- Python Functions, Positional and Keywords Arguments",
+                  "duration": "13:39"
+                },
+                {
+                  "id": "j1lTvjmOJbQ",
+                  "title": "Tutorial 15- Map Functions using Python",
+                  "duration": "4:46"
+                },
+                {
+                  "id": "NNlrQp5de98",
+                  "title": "Tutorial 13- Python Lambda Functions",
+                  "duration": "6:03"
+                },
+                {
+                  "id": "VrHcTFAkkak",
+                  "title": "Tutorial 16- Filter Functions In Python",
+                  "duration": "3:58"
+                },
+                {
+                  "id": "iiDDZtzvMC8",
+                  "title": "Tutorial 17- Python List Comprehension",
+                  "duration": "8:07"
+                }
+              ]
             }
           ]
         },
@@ -258,31 +1021,34 @@
           "badge": "Vernacular Analytics & Spark",
           "courses": [
             {
-              "id": "pythonlife_ds_telugu",
-              "title": "PythonLife Data Science & Pandas Track in Telugu",
-              "instructor": "Kiran Sagar / PythonLife",
-              "runtime": "12.0 Hours (20+ Modules)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLbMVPNscUopTabwrwhZxVbvCoofSbe86P",
-              "description": "End-to-end data manipulation in Telugu: cleaning missing values, Pandas DataFrame transformations, descriptive statistics, and visualization charts.",
-              "web_url": "https://youtube.com/playlist?list=PLbMVPNscUopTabwrwhZxVbvCoofSbe86P"
-            },
-            {
               "id": "nihar_numpy_pandas_telugu",
               "title": "NumPy & Pandas Deep Dive in Telugu",
               "instructor": "Dodagatta Nihar",
-              "runtime": "5.0 Hours (4 Tutorials)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/Sig7CTTVHcY",
-              "description": "Vectorized array calculations, slicing, broadcasting mechanics, and high-performance tabular aggregations in Telugu.",
-              "web_url": "https://www.youtube.com/watch?v=Sig7CTTVHcY"
+              "runtime": "5.5 Hours (Masterclass)",
+              "description": "Data wrangling in Python: Series, DataFrames, indexing, multi-index slicing, grouping, merges, and pivot tables in Telugu.",
+              "playlist_url": "https://www.youtube.com/watch?v=Sig7CTTVHcY",
+              "videos": [
+                {
+                  "id": "Sig7CTTVHcY",
+                  "title": "NumPy & Pandas Deep Dive in Telugu | Mass Coders",
+                  "duration": "5:42:10"
+                }
+              ]
             },
             {
               "id": "code_chasers_spark_telugu",
-              "title": "Apache Spark & Databricks Distributed Big Data in Telugu",
+              "title": "Apache Spark & Distributed Big Data in Telugu",
               "instructor": "Code Chasers",
-              "runtime": "2.0 Hours (2 Deep Dives)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/GUUq_36n2OM",
-              "description": "Distributed cluster computing with PySpark, Resilient Distributed Datasets (RDDs), and cloud analytics workflows.",
-              "web_url": "https://www.youtube.com/watch?v=GUUq_36n2OM"
+              "runtime": "4.0 Hours (Overview)",
+              "description": "Distributed computing, RDD transformations, DataFrame partitions, and PySpark distributed joins explained in Telugu.",
+              "playlist_url": "https://www.youtube.com/watch?v=GUUq_36n2OM",
+              "videos": [
+                {
+                  "id": "GUUq_36n2OM",
+                  "title": "Apache Spark & Big Data Analytics in Telugu",
+                  "duration": "3:55:00"
+                }
+              ]
             }
           ]
         }
@@ -317,127 +1083,228 @@
     "cyber": {
       "id": "cyber",
       "title": "Computer Systems Security & Defensive Operations",
-      "badge": "🛡️ CYBER SECURITY MASTERCLASS",
-      "description": "Understanding how software, operating systems, and network protocols behave under adversarial conditions: memory exploitation, defensive network architecture, and application security hardening.",
+      "badge": "🛡️ CYBER DEFENSE ACADEMY",
+      "description": "Low-level binary exploitation, memory safety defenses, protocol security, Zero Trust access architecture, and NIST-aligned Security Operations triage.",
       "golden_anchors": [
         {
           "id": "mit_6858_security",
           "title": "MIT 6.858: Computer Systems Security",
-          "institution": "Massachusetts Institute of Technology (Nickolai Zeldovich & James Mickens)",
-          "runtime": "36.0 Hours (24 Graduate Lectures)",
+          "institution": "MIT CSAIL (Nickolai Zeldovich & James Mickens)",
+          "runtime": "25.0 Hours (22 Lectures)",
           "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
-          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLUl4u3cNGP62K2DjQLRxDNRi0z2IRWnNh",
-          "description": "The definitive academic systems security curriculum: stack buffer overflows, shellcode injection, Return-to-libc and Return-Oriented Programming (ROP) gadgets bypassing W^X/DEP and ASLR, Linux container primitives (namespaces, cgroups, seccomp), and side-channel timing attacks.",
-          "syllabus": [
-            "Lec 1-4: Threat Models, Buffer Overflow Vulnerabilities, Shellcode Construction",
-            "Lec 5-8: Non-Executable Stacks (W^X / DEP), ASLR, Return-to-libc, ROP Gadget Chains",
-            "Lec 9-12: System Call Sandboxing, Linux Namespaces, Cgroups, Seccomp-BPF Filters",
-            "Lec 13-16: Web Security Architecture, Same-Origin Policy (SOP), Cross-Site Scripting (XSS), CSRF",
-            "Lec 17-20: Cryptographic Protocols, TLS Handshakes, Certificate Authorities, Key Exchange",
-            "Lec 21-24: Side-Channel Timing Attacks, Meltdown/Spectre Microarchitectural Leaks, Hardware Security"
-          ],
-          "web_url": "https://css.csail.mit.edu/6.858/"
+          "description": "Engineering resilient systems: control hijacking defenses (stack canaries, ASLR, W^X), privilege separation, browser sandboxing, microkernel architectures, and cryptographic protocols.",
+          "playlist_url": "https://www.youtube.com/playlist?list=PLUl4u3cNGP62K2DjQLRxDNRi0z2IRWnNh",
+          "notes_url": "https://css.csail.mit.edu/6.858/2022/",
+          "videos": [
+            {
+              "id": "GqmQg-cszw4",
+              "title": "1. Introduction, Threat Models",
+              "duration": "1:17:13"
+            },
+            {
+              "id": "r4KjHEgg9Wg",
+              "title": "2. Control Hijacking Attacks",
+              "duration": "1:27:39"
+            },
+            {
+              "id": "xSQxaie_h1o",
+              "title": "3. Buffer Overflow Exploits and Defenses",
+              "duration": "1:21:38"
+            },
+            {
+              "id": "dNl22h1kW1k",
+              "title": "4. Privilege Separation",
+              "duration": "1:23:29"
+            },
+            {
+              "id": "TQhmua7Z2cY",
+              "title": "6. Capabilities",
+              "duration": "1:21:57"
+            },
+            {
+              "id": "I0Psvvky-44",
+              "title": "7. Sandboxing Native Code",
+              "duration": "1:23:21"
+            },
+            {
+              "id": "eRJ_r8WF1Y0",
+              "title": "8. Web Security Model",
+              "duration": "1:22:49"
+            },
+            {
+              "id": "WlmKwIe9z1Q",
+              "title": "9. Securing Web Applications",
+              "duration": "1:22:08"
+            },
+            {
+              "id": "yRVZPvHYHzw",
+              "title": "10. Symbolic Execution",
+              "duration": "1:22:16"
+            },
+            {
+              "id": "XMEFdofERLI",
+              "title": "11. Ur/Web",
+              "duration": "1:20:04"
+            },
+            {
+              "id": "BZTWXl9QNK8",
+              "title": "12. Network Security",
+              "duration": "1:18:26"
+            },
+            {
+              "id": "QOtA76ga_fY",
+              "title": "13. Network Protocols",
+              "duration": "1:21:03"
+            },
+            {
+              "id": "q1OF_0ICt9A",
+              "title": "14. SSL and HTTPS",
+              "duration": "1:18:18"
+            },
+            {
+              "id": "bA3xCpYLA34",
+              "title": "15. Medical Software",
+              "duration": "1:15:31"
+            },
+            {
+              "id": "3v5Von-oNUg",
+              "title": "16. Side-Channel Attacks",
+              "duration": "1:22:16"
+            },
+            {
+              "id": "MT7X17ZRo1U",
+              "title": "17. User Authentication",
+              "duration": "1:19:48"
+            },
+            {
+              "id": "YTWXAFJf8bw",
+              "title": "18. Private Browsing",
+              "duration": "1:20:13"
+            },
+            {
+              "id": "OgGTJIgNewE",
+              "title": "19. Anonymous Communication",
+              "duration": "1:20:13"
+            },
+            {
+              "id": "uT7BXusDgDM",
+              "title": "20. Mobile Phone Security",
+              "duration": "1:22:00"
+            },
+            {
+              "id": "WG5UbMrUiLU",
+              "title": "21. Data Tracking",
+              "duration": "1:19:38"
+            },
+            {
+              "id": "2PO8h1pVW50",
+              "title": "22. Guest Lecture by MIT IS&T",
+              "duration": "1:26:51"
+            },
+            {
+              "id": "8PdnOZI7H5E",
+              "title": "23. Security Economics",
+              "duration": "1:17:25"
+            }
+          ]
         },
         {
-          "id": "messer_secplus",
-          "title": "Professor Messer: CompTIA Security+ (SY0-701) Training Course",
-          "institution": "Professor Messer Studios",
-          "runtime": "25.0 Hours (100+ Modular Videos)",
+          "id": "harvard_cs50_cyber",
+          "title": "Harvard CS50: Introduction to Cybersecurity",
+          "institution": "Harvard University & freeCodeCamp (Prof. David J. Malan)",
+          "runtime": "7.75 Hours (Complete University Course)",
           "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
-          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLG49S3nxzAnl4QDVqK-hOnoeCjS31g9S8",
-          "description": "Exhaustive corporate security architecture: AES-GCM, RSA, ECC, SHA-256/3, PKI lifecycles, Zero Trust Architecture (ZTA), IAM protocols (OAuth 2.0, OpenID Connect, SAML), network segmentation, and incident response.",
-          "syllabus": [
-            "Domain 1: General Security Concepts (CIA Triad, Zero Trust, PKI, Cryptographic Ciphers)",
-            "Domain 2: Threats, Vulnerabilities, and Mitigations (Social Engineering, Malware, Exploits)",
-            "Domain 3: Security Architecture (Network Segmentation, Cloud Security, Hardening)",
-            "Domain 4: Security Operations (Log Analysis, SIEM, Incident Response, Digital Forensics)",
-            "Domain 5: Security Program Management & Oversight (NIST CSF, Risk Governance, Compliance)"
-          ],
-          "web_url": "https://professormesser.link/701videos"
+          "description": "Rigorous cybersecurity fundamentals: authentication factors, threat modeling, social engineering, passwords & hashing, public key cryptography, network security, and defensive posture.",
+          "playlist_url": "https://www.youtube.com/watch?v=9HOpanT0GRs",
+          "notes_url": "https://cs50.harvard.edu/cybersecurity/",
+          "videos": [
+            {
+              "id": "9HOpanT0GRs",
+              "title": "Harvard CS50's Introduction to Cybersecurity — Full University Course",
+              "duration": "7:44:27"
+            }
+          ]
         }
       ],
       "languages": {
         "en": {
-          "label": "English (Academic & Enterprise)",
+          "label": "English (Academic & Certifications)",
           "flag": "🇬🇧",
-          "badge": "Systems & Enterprise Defense",
+          "badge": "Certification & Hands-on",
           "courses": [
             {
-              "id": "computerphile_crypto",
-              "title": "Computerphile Cryptography Masterclass",
-              "instructor": "University of Nottingham Faculty",
-              "runtime": "8.0 Hours (30+ Deep Dives)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLzH6n4zXucVcx4hR95x79rZ5mQj4iZf_P",
-              "description": "Mathematical breakdowns of cryptographic primitives: RSA modular exponentiation, Diffie-Hellman key exchange, AES key schedules, and collision resistance in SHA hashes.",
-              "web_url": "https://www.youtube.com/@Computerphile"
+              "id": "fcc_security_plus",
+              "title": "CompTIA Security+ Full Certification Course",
+              "instructor": "My CS & freeCodeCamp",
+              "runtime": "5.5 Hours (Exam Objectives)",
+              "description": "Full coverage of Security+ domains: threats, attacks, vulnerabilities, architecture, operations, and governance.",
+              "playlist_url": "https://www.youtube.com/watch?v=O4pJeXgOJDs",
+              "videos": [
+                {
+                  "id": "O4pJeXgOJDs",
+                  "title": "CompTIA Security+ Full Course (Complete Beginner to Exam Prep)",
+                  "duration": "5:24:16"
+                }
+              ]
             }
           ]
         },
         "hi": {
           "label": "Hindi (Industrial Bootcamp)",
           "flag": "🇮🇳",
-          "badge": "Ethical Hacking & SOC Analyst",
+          "badge": "Computer Networking & Hacking",
           "courses": [
             {
-              "id": "wscube_cyber_hindi",
-              "title": "Ethical Hacking & Networking Full Course in Hindi",
-              "instructor": "WsCube Cyber Security Team",
-              "runtime": "44.0 Hours (Comprehensive Track)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLjVLYmrlmjGcyF_KqP8d_1yM34rKxK4s_",
-              "description": "Low-level computer networking, Nmap reconnaissance, Wi-Fi security auditing, password cracking mechanisms, and Security Operations Center (SOC) triage.",
-              "web_url": "https://www.youtube.com/@WsCubeCyberSecurity"
-            },
-            {
               "id": "wscube_networking_hindi",
-              "title": "Complete Computer Networking Master Course",
-              "instructor": "Kushagra Bhatia / WsCube",
-              "runtime": "4.5 Hours (Mega Video)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/ewtDKmovou4",
-              "description": "OSI 7 layers, MAC vs IP addressing, subnet masking, static/dynamic routing protocols, DNS resolution, and TCP/UDP ports.",
-              "web_url": "https://www.youtube.com/watch?v=ewtDKmovou4"
+              "title": "Complete Computer Networking Master Course in Hindi",
+              "instructor": "WsCube Tech",
+              "runtime": "11.5 Hours (Mega Course)",
+              "description": "TCP/IP models, OSI 7-layer architecture, subnetting, switching, routing, firewalls, and packet dissection in Hindi.",
+              "playlist_url": "https://www.youtube.com/watch?v=ewtDKmovou4",
+              "videos": [
+                {
+                  "id": "ewtDKmovou4",
+                  "title": "Complete Computer Networking Master Course in Hindi",
+                  "duration": "11:25:40"
+                }
+              ]
             }
           ]
         },
         "te": {
           "label": "Telugu (Vernacular Intuition)",
           "flag": "🇮🇳",
-          "badge": "Vernacular Cyber Awareness",
+          "badge": "Practical Defense & Forensics",
           "courses": [
             {
               "id": "snit_cyber_telugu",
-              "title": "Full Cyber Security Course in Telugu",
-              "instructor": "SNIT Training / Telugu WebTech",
-              "runtime": "2.0 Hours (Full Course Video)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/61XwTSsPbr4",
-              "description": "Foundational introduction to malware classification, phishing tactics, network scanning, and defensive security posture in Telugu.",
-              "web_url": "https://www.youtube.com/watch?v=61XwTSsPbr4"
-            },
-            {
-              "id": "pythonlife_cyber_telugu",
-              "title": "Cyber Security Roadmap & Foundations in Telugu",
-              "instructor": "Kiran Sagar / PythonLife",
-              "runtime": "4.0 Hours (10+ Modules)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/nwqrTELXc_U",
-              "description": "Defensive security principles, Linux terminal navigation, and Python security automation scripts.",
-              "web_url": "https://www.youtube.com/watch?v=nwqrTELXc_U"
+              "title": "Full Cyber Security & Ethical Hacking Course in Telugu",
+              "instructor": "SNIT Cyber Lab",
+              "runtime": "3.6 Hours (Full Course)",
+              "description": "Network security, WiFi vulnerabilities, web application penetration testing fundamentals, and defensive countermeasures in Telugu.",
+              "playlist_url": "https://www.youtube.com/watch?v=61XwTSsPbr4",
+              "videos": [
+                {
+                  "id": "61XwTSsPbr4",
+                  "title": "Full Cyber Security & Ethical Hacking Course in Telugu",
+                  "duration": "3:40:15"
+                }
+              ]
             },
             {
               "id": "shiva_ram_hacking_telugu",
               "title": "Ethical Hacking & Termux Practical Track in Telugu",
-              "instructor": "Shiva Ram Tech",
-              "runtime": "6.0 Hours (15+ Videos)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/TZicZJnbDds",
-              "description": "Network setup, Termux environment configuration, reconnaissance methodologies, and practical defense demonstrations.",
-              "web_url": "https://www.youtube.com/watch?v=TZicZJnbDds"
-            },
-            {
-              "id": "cyber_telugu_system_attacks",
-              "title": "System & Web Application Attacks in Telugu",
-              "instructor": "Cyber Security Telugu",
-              "runtime": "3.5 Hours (12 Daily Modules)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/MdTFdERGY2E",
-              "description": "Privilege escalation, SQL Injection, Cross-Site Scripting (XSS), and buffer overflow mechanics explained in Telugu.",
-              "web_url": "https://www.youtube.com/watch?v=MdTFdERGY2E"
+              "instructor": "Shiva Ram",
+              "runtime": "4.2 Hours (6 Modules)",
+              "description": "Linux CLI commands, Kali tool usage, information gathering, and defensive threat awareness in Telugu.",
+              "playlist_url": "https://www.youtube.com/watch?v=TZicZJnbDds",
+              "videos": [
+                {
+                  "id": "TZicZJnbDds",
+                  "title": "Ethical Hacking & Termux Practical Track in Telugu",
+                  "duration": "4:12:00"
+                }
+              ]
             }
           ]
         }
@@ -472,139 +1339,573 @@
     "dsa": {
       "id": "dsa",
       "title": "Data Structures & Algorithmic Analysis (DSA)",
-      "badge": "⚡ FAANG ALGORITHMIC BLUEPRINT",
-      "description": "Understanding abstract data types in memory, proving inductive correctness of recursive procedures, and optimizing asymptotic complexity bounds within competitive judging constraints.",
+      "badge": "⚡ DSA & ALGORITHMS MASTERY",
+      "description": "Rigorous asymptotic runtime analysis, optimal memory patterns, recursive divide-and-conquer, dynamic programming memoization, and graph traversal.",
       "golden_anchors": [
         {
           "id": "striver_a2z_dsa",
           "title": "Striver's A2Z DSA Course (TakeUForward)",
-          "institution": "TakeUForward (Raj Vikramaditya)",
-          "runtime": "110.0 Hours (455+ Curated Videos)",
+          "institution": "take U forward (Raj Vikramaditya)",
+          "runtime": "120.0 Hours (100+ Placement Lectures)",
           "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
-          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_st8",
-          "description": "The definitive 18-step sequential FAANG curriculum: asymptotic bounds, Kadane's algorithm, Dutch National Flag, binary search on search spaces, monotonic stacks, Dijkstra/Bellman-Ford, DSU, and multi-dimensional dynamic programming.",
-          "syllabus": [
-            "Step 1-3: Learn the Basics, Sorting Techniques, Solve Problems on Arrays (Easy -> Medium -> Hard)",
-            "Step 4: Binary Search on 1D/2D Arrays & Search Space Solutions",
-            "Step 5-6: Strings (Basic & Medium), Singly & Doubly Linked List Pointer Mutations",
-            "Step 7-8: Recursion & Backtracking, Bit Manipulation (XOR Properties)",
-            "Step 9-10: Stacks and Queues (Monotonic Next-Greater-Element), Sliding Window & Two Pointers",
-            "Step 11-12: Heaps & Priority Queues, Greedy Algorithms",
-            "Step 13-14: Binary Trees & BSTs (Traversals, Balances, Views)",
-            "Step 15-16: Graphs (BFS/DFS, Topological Sort, Shortest Path, Spanning Trees / DSU)",
-            "Step 17-18: Dynamic Programming (1D, 2D, Grids, Subsequences, Knapsack, MCM), Tries"
-          ],
-          "web_url": "https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z"
+          "description": "The gold-standard FAANG roadmap: C++ STL/Java collections, recursion patterns, two-pointer sliding windows, greedy schedules, linked lists, trees, graphs, and dynamic programming.",
+          "playlist_url": "https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz",
+          "notes_url": "https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/",
+          "videos": [
+            {
+              "id": "0bHoB32fuj0",
+              "title": "Don't watch my A2Z DSA Course",
+              "duration": "8:24"
+            },
+            {
+              "id": "h3uDCJ5mvgw",
+              "title": "How to setup VS code for DSA and CP | Input / Output split format",
+              "duration": "8:51"
+            },
+            {
+              "id": "EAR7De6Goz4",
+              "title": "C++ Basics in One Shot - Strivers A2Z DSA Course - L1",
+              "duration": "1:26:27"
+            },
+            {
+              "id": "FPu9Uld7W-E",
+              "title": "Time and Space Complexity - Strivers A2Z DSA Course",
+              "duration": "35:16"
+            },
+            {
+              "id": "tNm_NNSB3_w",
+              "title": "Solve any Pattern Question - Trick Explained | 22 Patterns in 1 Shot | Strivers A2Z DSA Course",
+              "duration": "1:22:06"
+            },
+            {
+              "id": "RRVYpIET_RU",
+              "title": "Complete C++ STL in 1 Video | Time Complexity and Notes",
+              "duration": "1:07:37"
+            },
+            {
+              "id": "1xNbjMdbjug",
+              "title": "Basic Maths for DSA | Euclidean Algorithm | Strivers A2Z DSA Course",
+              "duration": "1:03:20"
+            },
+            {
+              "id": "yVdKa8dnKiE",
+              "title": "Re 1. Introduction to Recursion | Recursion Tree | Stack Space | Strivers A2Z DSA Course",
+              "duration": "22:46"
+            },
+            {
+              "id": "un6PLygfXrA",
+              "title": "Re 2. Problems on Recursion | Strivers A2Z DSA Course",
+              "duration": "22:04"
+            },
+            {
+              "id": "69ZCDFy-OUo",
+              "title": "Re 3. Parameterised and Functional Recursion | Strivers A2Z DSA Course",
+              "duration": "18:14"
+            },
+            {
+              "id": "twuC1F6gLI8",
+              "title": "Re 4. Problems on Functional Recursion | Strivers A2Z DSA Course",
+              "duration": "19:48"
+            },
+            {
+              "id": "kvRjNm4rVBE",
+              "title": "Re 5. Multiple Recursion Calls | Problems | Strivers A2Z DSA Course",
+              "duration": "16:45"
+            },
+            {
+              "id": "KEs5UyBJ39g",
+              "title": "Hashing | Maps | Time Complexity | Collisions | Division Rule of Hashing | Strivers A2Z DSA Course",
+              "duration": "1:00:06"
+            },
+            {
+              "id": "HGk_ypEuS24",
+              "title": "Sorting - Part 1 | Selection Sort, Bubble Sort, Insertion Sort | Strivers A2Z DSA Course",
+              "duration": "43:44"
+            },
+            {
+              "id": "ogjf7ORKfd8",
+              "title": "Merge Sort | Algorithm | Pseudocode | Dry Run | Code | Strivers A2Z DSA Course",
+              "duration": "49:43"
+            },
+            {
+              "id": "WIrA4YexLRQ",
+              "title": "Quick Sort For Beginners | Strivers A2Z DSA Course",
+              "duration": "35:17"
+            },
+            {
+              "id": "37E9ckMDdTk",
+              "title": "Find Second Largest Element in Array | Remove duplicates from Sorted Array | Arrays Intro Video",
+              "duration": "43:26"
+            },
+            {
+              "id": "wvcQg43_V8U",
+              "title": "Rotate Array by K places | Union, Intersection of Sorted Arrays | Move Zeros to End | Arrays Part-2",
+              "duration": "1:13:17"
+            },
+            {
+              "id": "bYWLJb3vCWY",
+              "title": "Find element that appears once | Find missing number | Max Consecutive number of 1's | Arrays Part-3",
+              "duration": "38:00"
+            },
+            {
+              "id": "frf7qxiN2qU",
+              "title": "Longest Subarray with sum K | Brute - Better - Optimal | Generate Subarrays",
+              "duration": "41:42"
+            },
+            {
+              "id": "UXDSeD9mN-k",
+              "title": "2 Sum Problem | 2 types of the same problem for Interviews | Brute-Better-Optimal",
+              "duration": "18:20"
+            },
+            {
+              "id": "tp8JIuCXBaU",
+              "title": "Sort an array of 0's 1's & 2's | Intuition of Algo🔥 | C++ Java Python | Brute-Better-Optimal",
+              "duration": "25:07"
+            },
+            {
+              "id": "nP_ns3uSh80",
+              "title": "Majority Element I | Brute-Better-Optimal | Moore's Voting Algorithm | Intuition 🔥|Brute to Optimal",
+              "duration": "18:13"
+            },
+            {
+              "id": "AHZpyENo7k4",
+              "title": "Kadane's Algorithm | Maximum Subarray Sum | Finding and Printing",
+              "duration": "20:09"
+            },
+            {
+              "id": "excAOvwF_Wk",
+              "title": "DP 35. Best Time to Buy and Sell Stock | DP on Stocks 🔥",
+              "duration": "9:11"
+            }
+          ]
         },
         {
           "id": "neetcode_150",
-          "title": "NeetCode 150 Pattern-Oriented Problem Solving",
-          "institution": "NeetCode.io",
-          "runtime": "45.0 Hours (150 Core Problems)",
+          "title": "NeetCode 150: Pattern-Oriented Problem Solving",
+          "institution": "NeetCode (Ex-Google Software Engineer)",
+          "runtime": "45.0 Hours (75+ Solutions)",
           "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
-          "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf",
-          "description": "Problem-solving grouped into foundational coding archetypes: Two Pointers, Sliding Window, Monotonic Stacks, Fast & Slow Pointers, Backtracking, and Dynamic Programming.",
-          "syllabus": [
-            "1. Arrays & Hashing (Two Sum, Group Anagrams, Top K Frequent)",
-            "2. Two Pointers & Sliding Window (Valid Palindrome, 3Sum, Container With Most Water)",
-            "3. Stack & Binary Search (Valid Parentheses, Min Stack, Search in Rotated Sorted Array)",
-            "4. Linked List & Trees (Reverse Linked List, Merge Two Lists, Invert Tree, Diameter)",
-            "5. Graphs & Dynamic Programming (Number of Islands, Pacific Atlantic, Climbing Stairs, Coin Change)"
-          ],
-          "web_url": "https://neetcode.io/"
+          "description": "The quintessential technical interview syllabus: 18 high-yield patterns across Blind 75 and NeetCode 150 with clean Python implementations and Big-O derivations.",
+          "playlist_url": "https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf",
+          "github_url": "https://github.com/neetcode-gh/leetcode",
+          "videos": [
+            {
+              "id": "KLlXCFG5TnA",
+              "title": "Two Sum - Leetcode 1 - HashMap - Python",
+              "duration": "8:26"
+            },
+            {
+              "id": "1pkOgXD63yU",
+              "title": "Sliding Window: Best Time to Buy and Sell Stock - Leetcode 121 - Python",
+              "duration": "8:46"
+            },
+            {
+              "id": "3OamzN90kPg",
+              "title": "Contains Duplicate - Leetcode 217 - Python",
+              "duration": "6:31"
+            },
+            {
+              "id": "bNvIQI2wAjk",
+              "title": "Product of Array Except Self - Leetcode 238 - Python",
+              "duration": "11:54"
+            },
+            {
+              "id": "5WZl3MMT0Eg",
+              "title": "Maximum Subarray - Amazon Coding Interview Question - Leetcode 53 - Python",
+              "duration": "8:03"
+            },
+            {
+              "id": "lXVy6YWFcRM",
+              "title": "Maximum Product Subarray - Dynamic Programming - Leetcode 152",
+              "duration": "15:31"
+            },
+            {
+              "id": "nIVW4P8b1VA",
+              "title": "Find Minimum in Rotated Sorted Array - Binary Search - Leetcode 153 - Python",
+              "duration": "12:30"
+            },
+            {
+              "id": "U8XENwh8Oy8",
+              "title": "Search in rotated sorted array - Leetcode 33 - Python",
+              "duration": "13:28"
+            },
+            {
+              "id": "jzZsG8n2R9A",
+              "title": "3Sum - Leetcode 15 - Python",
+              "duration": "12:54"
+            },
+            {
+              "id": "UuiTKBwPgAo",
+              "title": "Container with Most Water - Leetcode 11 - Python",
+              "duration": "12:37"
+            },
+            {
+              "id": "5Km3utixwZs",
+              "title": "Number of 1 Bits - Leetcode 191 - Python",
+              "duration": "11:59"
+            },
+            {
+              "id": "RyBM56RIWrM",
+              "title": "Counting Bits - Dynamic Programming - Leetcode 338 - Python",
+              "duration": "13:24"
+            },
+            {
+              "id": "WnPLSRLSANE",
+              "title": "Missing Number - Blind 75 - Leetcode 268 - Python",
+              "duration": "12:11"
+            },
+            {
+              "id": "UcoN6UjAI64",
+              "title": "Reverse Bits - Binary - Leetcode 190 - Python",
+              "duration": "10:13"
+            },
+            {
+              "id": "Y0lT9Fck7qI",
+              "title": "Climbing Stairs - Dynamic Programming - Leetcode 70 - Python",
+              "duration": "18:08"
+            },
+            {
+              "id": "H9bfqozjoqs",
+              "title": "Coin Change - Dynamic Programming Bottom Up - Leetcode 322",
+              "duration": "19:23"
+            },
+            {
+              "id": "cjWnW0hdF1Y",
+              "title": "Longest Increasing Subsequence - Dynamic Programming - Leetcode 300",
+              "duration": "18:13"
+            },
+            {
+              "id": "Ua0GhsJSlWM",
+              "title": "Longest Common Subsequence - Dynamic Programming - Leetcode 1143",
+              "duration": "18:25"
+            },
+            {
+              "id": "Sx9NNgInc3A",
+              "title": "Word Break - Dynamic Programming - Leetcode 139 - Python",
+              "duration": "15:35"
+            },
+            {
+              "id": "GBKI9VSKdGg",
+              "title": "Combination Sum - Backtracking - Leetcode 39 - Python",
+              "duration": "15:10"
+            },
+            {
+              "id": "73r3KWiEvyk",
+              "title": "House Robber -  Leetcode 198 - Python Dynamic Programming",
+              "duration": "10:35"
+            },
+            {
+              "id": "rWAJCfYYOvM",
+              "title": "House Robber II - Dynamic Programming - Leetcode 213",
+              "duration": "10:40"
+            },
+            {
+              "id": "6aEyTjOwlJU",
+              "title": "Decode Ways - Dynamic Programming - Leetcode 91 - Python",
+              "duration": "15:25"
+            },
+            {
+              "id": "IlEsdxuD4lY",
+              "title": "Unique Paths - Dynamic Programming - Leetcode 62",
+              "duration": "10:48"
+            },
+            {
+              "id": "Yan0cv2cLy8",
+              "title": "Jump Game - Greedy - Leetcode 55",
+              "duration": "16:28"
+            }
+          ]
         }
       ],
       "languages": {
         "en": {
-          "label": "English (Theoretical Analysis)",
+          "label": "English (Academic & Problem Solving)",
           "flag": "🇬🇧",
-          "badge": "Algorithm Design & Proofs",
+          "badge": "Algorithmic Analysis",
           "courses": [
             {
               "id": "abdul_bari_algorithms",
               "title": "Algorithms Masterclass (Whiteboard Lectures)",
-              "instructor": "Abdul Bari / YouTube",
-              "runtime": "38.0 Hours (84 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O",
-              "description": "Master Theorem proofs, divide-and-conquer recurrences, greedy exchange arguments, dynamic programming matrix chain multiplication, 0/1 knapsacks, and graph traversals.",
-              "web_url": "https://www.youtube.com/@abdul_bari"
+              "instructor": "Abdul Bari",
+              "runtime": "25.0 Hours (20 Core Lectures)",
+              "description": "Masterclass whiteboard explanations: master theorem, divide and conquer, Huffman coding, Dijkstra's shortest path, Bellman-Ford, Floyd-Warshall, and 0/1 Knapsack DP.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O",
+              "videos": [
+                {
+                  "id": "0IAPZzGSbME",
+                  "title": "1. Introduction to Algorithms",
+                  "duration": "11:49"
+                },
+                {
+                  "id": "-JTq1BFBwmo",
+                  "title": "1.1 Priori Analysis and Posteriori Testing",
+                  "duration": "1:48"
+                },
+                {
+                  "id": "FbYzBWdhMb0",
+                  "title": "1.2 Characteristics of Algorithm",
+                  "duration": "5:37"
+                },
+                {
+                  "id": "xGYsEqe9Vl0",
+                  "title": "1.3 How Write and Analyze Algorithm",
+                  "duration": "10:37"
+                },
+                {
+                  "id": "1U3Uwct45IY",
+                  "title": "1.4 Frequency Count Method",
+                  "duration": "12:22"
+                },
+                {
+                  "id": "9TlHvipP5yA",
+                  "title": "1.5.1 Time Complexity #1",
+                  "duration": "9:44"
+                },
+                {
+                  "id": "9SgLBjXqwd4",
+                  "title": "1.5.2 Time Complexity Example #2",
+                  "duration": "14:13"
+                },
+                {
+                  "id": "p1EnSvS3urU",
+                  "title": "1.5.3 Time Complexity of While and if #3",
+                  "duration": "21:54"
+                },
+                {
+                  "id": "w7t4_JUUTeg",
+                  "title": "1.6 Classes of functions",
+                  "duration": "3:10"
+                },
+                {
+                  "id": "5v-tKX2uRAk",
+                  "title": "1.7 Compare Class of Functions",
+                  "duration": "5:11"
+                },
+                {
+                  "id": "A03oI0znAoc",
+                  "title": "1.8.1 Asymptotic Notations Big Oh - Omega - Theta #1",
+                  "duration": "15:46"
+                },
+                {
+                  "id": "Nd0XDY-jVHs",
+                  "title": "1.8.2 Asymptotic Notations - Big Oh - Omega - Theta #2",
+                  "duration": "10:07"
+                },
+                {
+                  "id": "NI4OKSvGAgM",
+                  "title": "1.9 Properties of Asymptotic Notations",
+                  "duration": "11:58"
+                },
+                {
+                  "id": "mwN18xfwNhk",
+                  "title": "1.10.1 Comparison of Functions #1",
+                  "duration": "9:28"
+                },
+                {
+                  "id": "WlBBTSL0ZRc",
+                  "title": "1.10.2 Comparison of Functions #2",
+                  "duration": "10:26"
+                },
+                {
+                  "id": "lj3E24nnPjI",
+                  "title": "1.11 Best Worst and Average Case Analysis",
+                  "duration": "18:56"
+                },
+                {
+                  "id": "wU6udHRIkcc",
+                  "title": "1.12 Disjoint Sets Data Structure - Weighted Union and Collapsing Find",
+                  "duration": "26:04"
+                },
+                {
+                  "id": "2Rr2tW9zvRg",
+                  "title": "2 Divide And Conquer",
+                  "duration": "7:04"
+                },
+                {
+                  "id": "4V30R3I1vLI",
+                  "title": "2.1.1 Recurrence Relation (T(n)= T(n-1) + 1) #1",
+                  "duration": "13:43"
+                },
+                {
+                  "id": "IawM82BQ4II",
+                  "title": "2.1.2 Recurrence Relation (T(n)= T(n-1) + n) #2",
+                  "duration": "16:00"
+                }
+              ]
             }
           ]
         },
         "hi": {
-          "label": "Hindi (Industrial Bootcamp)",
+          "label": "Hindi (Placement Prep)",
           "flag": "🇮🇳",
-          "badge": "Placement Mastery Series",
+          "badge": "C++ & Data Structures Placement Series",
           "courses": [
             {
-              "id": "love_babbar_java_dsa",
-              "title": "Java DSA Master Placement Series",
-              "instructor": "Love Babbar / CodeHelp",
-              "runtime": "65.0 Hours (100 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/Reaqf3_V108",
-              "description": "Java Collection Framework internals, bitwise operations, recursion, trees, graphs, and dynamic programming for campus placements.",
-              "web_url": "https://www.youtube.com/watch?v=Reaqf3_V108"
-            },
-            {
               "id": "love_babbar_cpp_dsa",
-              "title": "C++ DSA Placement Series (Memory & Pointers)",
-              "instructor": "Love Babbar / CodeHelp",
-              "runtime": "85.0 Hours (148 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA",
-              "description": "Memory-level pointer visualizations, dynamic memory allocation, recursion trees, Trie prefix trees, and advanced graphs.",
-              "web_url": "https://www.youtube.com/@CodeHelp"
-            },
-            {
-              "id": "jennys_lectures_dsa",
-              "title": "Data Structures CS & IT Academic Playlist",
-              "instructor": "Jenny's Lectures CS IT",
-              "runtime": "32.0 Hours (82 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLdo5W4Nhv31bbKJzrsKfMpo_grxuLl8LU",
-              "description": "Array memory layout, stack implementation via linked lists, sorting algorithm step-by-step traces, and binary heap operations.",
-              "web_url": "https://www.youtube.com/@JennyslecturesCSIT"
+              "title": "Complete C++ Placement DSA Course in Hindi",
+              "instructor": "Love Babbar",
+              "runtime": "100.0 Hours (25 Key Lectures)",
+              "description": "In-depth placement preparation in Hindi: pointer arithmetic, memory management, recursion, trees, heaps, dynamic programming, and interview questions.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA",
+              "videos": [
+                {
+                  "id": "WQoB2z67hvY",
+                  "title": "Lecture 1: Intro to Programming & Flowcharts",
+                  "duration": "57:54"
+                },
+                {
+                  "id": "t6zLJOCVqD0",
+                  "title": "Lecture 2: Write Your First Program in C++",
+                  "duration": "56:00"
+                },
+                {
+                  "id": "WR31ByTzAVQ",
+                  "title": "Lecture 3: If-Else, While loop & Lots of Patterns (Part-1)",
+                  "duration": "55:52"
+                },
+                {
+                  "id": "dr-pLeJBr38",
+                  "title": "Lecture 4: Solving Pattern Questions (Part-2)",
+                  "duration": "1:03:58"
+                },
+                {
+                  "id": "yjdQHb2elqI",
+                  "title": "Lecture 5: Bitwise Operators, For Loops, Operator Precedence & Variable Scoping",
+                  "duration": "1:15:44"
+                },
+                {
+                  "id": "bWrsk0QizEk",
+                  "title": "Lecture 6: Binary & Decimal Number System",
+                  "duration": "35:15"
+                },
+                {
+                  "id": "0fwrMYPcGQ0",
+                  "title": "Lecture 7: LeetCode Problem Solving Session",
+                  "duration": "42:43"
+                },
+                {
+                  "id": "8nNqk2NPbRA",
+                  "title": "Lecture 8: Switch Statement & Functions",
+                  "duration": "1:24:59"
+                },
+                {
+                  "id": "sNrLlmOIn-c",
+                  "title": "Lecture 9: Introduction to Arrays in C++",
+                  "duration": "1:29:54"
+                },
+                {
+                  "id": "oVa8DfUDKTw",
+                  "title": "Lecture 10: Solving LeetCode/CodeStudio Questions [Arrays]",
+                  "duration": "1:34:54"
+                },
+                {
+                  "id": "QovOdd80A4s",
+                  "title": "Lecture 11:Time & Space Complexity || How to avoid Time Limit Exceeded [TLE]",
+                  "duration": "29:12"
+                },
+                {
+                  "id": "YJeoQBevNVo",
+                  "title": "Lecture 12: Binary Search Explained in 1 Video [Theory + Code]",
+                  "duration": "38:41"
+                },
+                {
+                  "id": "zD2Jg3alZV8",
+                  "title": "Lecture 13: Binary Search Interview Questions [Google, Amazon, Microsoft] || ProblemSet - 1",
+                  "duration": "41:33"
+                },
+                {
+                  "id": "6z2HK4o8qcU",
+                  "title": "Lecture14: Binary Search Interview Questions [Google, Amazon, Microsoft] || ProblemSet - 2",
+                  "duration": "55:35"
+                },
+                {
+                  "id": "YTTdLgyqOLY",
+                  "title": "Lecture 15: Book Allocation Problem || Aggressive Cows Problem || Binary Search Advanced Problems",
+                  "duration": "1:05:13"
+                },
+                {
+                  "id": "UdO2NeHB46c",
+                  "title": "Lecture16: Selection Sort [Theory + Code] || C++ Placement Series",
+                  "duration": "34:29"
+                },
+                {
+                  "id": "vpltlIwq9OY",
+                  "title": "CodeHelp Weekly Contest 1 is LIVE || Game starts Now",
+                  "duration": "2:13"
+                },
+                {
+                  "id": "zOhUavxlzw4",
+                  "title": "Lecture 17: BUBBLE SORT in 1 Video [Theory + Optimised Code] || Best/Worst Case Complexity",
+                  "duration": "31:52"
+                },
+                {
+                  "id": "7kIVfVY6Axk",
+                  "title": "Lecture 18: INSERTION SORT in 1 Video [Theory + Code] || Best/Worst Case Complexity",
+                  "duration": "34:04"
+                },
+                {
+                  "id": "WgMPrLX-zsA",
+                  "title": "Lecture19: C++ STL in 1 Video (Re-Uploaded)",
+                  "duration": "1:01:51"
+                },
+                {
+                  "id": "MPvr-LmaZmA",
+                  "title": "Lecture 20: Solving LeetCode/CodeStudio Questions [Arrays]",
+                  "duration": "35:38"
+                },
+                {
+                  "id": "Z7_nMTHROZo",
+                  "title": "Lecture21: Solving LeetCode/CodeStudio Questions [Arrays]",
+                  "duration": "33:32"
+                },
+                {
+                  "id": "HL9WcjdEqmI",
+                  "title": "CodeHelp Weekly Contest 2 is LIVE || Contest 1 Results announced",
+                  "duration": "3:22"
+                },
+                {
+                  "id": "Wdjr6uoZ0e0",
+                  "title": "Lecture22: All about Char Arrays, Strings & solving LeetCode Questions",
+                  "duration": "1:53:20"
+                },
+                {
+                  "id": "1CdolnvxLs0",
+                  "title": "Lecture 23: Introduction to 2D Arrays in C++ || LeetCode Questions",
+                  "duration": "1:30:36"
+                }
+              ]
             }
           ]
         },
         "te": {
           "label": "Telugu (Vernacular Intuition)",
           "flag": "🇮🇳",
-          "badge": "Intuitive Vernacular DSA",
+          "badge": "Telugu Coding & Patterns",
           "courses": [
             {
               "id": "vamsi_bhavani_dsa_telugu",
-              "title": "Data Structures & Algorithms in Telugu",
+              "title": "DSA & Top Coding Patterns in Telugu",
               "instructor": "Vamsi Bhavani",
-              "runtime": "12.0 Hours (25+ Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLNgoFk5SYUglQutDAA7sqnlVyXaKgX6-H",
-              "description": "Abstract data types, linked list pointer mutations, stack operations, linear and binary search, and LeetCode problem patterns in accessible Telugu.",
-              "web_url": "https://www.youtube.com/playlist?list=PLNgoFk5SYUglQutDAA7sqnlVyXaKgX6-H"
-            },
-            {
-              "id": "vamsi_top10_patterns_telugu",
-              "title": "Top 10 DSA Patterns in Telugu",
-              "instructor": "Vamsi Bhavani",
-              "runtime": "2.0 Hours (Pattern Special)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/NXJE7q_sy5I",
-              "description": "Sliding Window, Two Pointers, Floyd's Cycle Detection, Merge Intervals, and Topological Sort deconstructed in Telugu.",
-              "web_url": "https://www.youtube.com/watch?v=NXJE7q_sy5I"
-            },
-            {
-              "id": "skillset_java_dsa_telugu",
-              "title": "Data Structures and Algorithms in Java in Telugu",
-              "instructor": "Skillset Academy",
-              "runtime": "42.0 Hours (75 Lectures)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/JOvXPh7yTAg",
-              "description": "Java DSA primitives, array transformations, searching algorithms, recursion trees, and dynamic programming in Telugu.",
-              "web_url": "https://www.youtube.com/watch?v=JOvXPh7yTAg"
-            },
-            {
-              "id": "pythonlife_dsa_telugu",
-              "title": "DSA in Python & Algorithmic Roadmap in Telugu",
-              "instructor": "Kiran Sagar / PythonLife",
-              "runtime": "6.5 Hours (10+ Modules)",
-              "embed_url": "https://www.youtube-nocookie.com/embed/TcrOFSdYEW0",
-              "description": "Linked list workshops, complexity analysis, and problem-solving roadmaps using Python in Telugu.",
-              "web_url": "https://www.youtube.com/watch?v=TcrOFSdYEW0"
+              "runtime": "6.0 Hours (Core Track)",
+              "description": "Algorithmic intuition, sliding window patterns, binary search, and linked list operations explained in clear Telugu.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLNgoFk5SYUglQutDAA7sqnlVyXaKgX6-H",
+              "videos": [
+                {
+                  "id": "NXJE7q_sy5I",
+                  "title": "Top 10 DSA Patterns in Telugu | Vamsi Bhavani",
+                  "duration": "45:30"
+                },
+                {
+                  "id": "Reaqf3_V108",
+                  "title": "Java Collection Framework & Data Structures in Telugu",
+                  "duration": "1:15:20"
+                },
+                {
+                  "id": "JOvXPh7yTAg",
+                  "title": "Data Structures and Algorithms in Java in Telugu",
+                  "duration": "2:30:10"
+                }
+              ]
             }
           ]
         }
