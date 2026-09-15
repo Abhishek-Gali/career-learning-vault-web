@@ -38,7 +38,7 @@
   </script>
 
   <!-- Refero Design & Watermelon UI Styles -->
-  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.2.0">
+  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.3.0">
 
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
@@ -295,23 +295,24 @@
       <!-- =================================================================== -->
       <section id="view-datascience" class="track-view space-y-6">
         <!-- Hero Header (Clean & Compact, No Picture) -->
-        <div class="glass-panel p-6 relative overflow-hidden border border-cyan-500/20">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold">
-              <span>📊 Analytics, SQL & Exploratory Modeling</span>
-              <span>•</span>
-              <span>30-Day Master Syllabus</span>
+        <!-- Compact Sleek Hero Header -->
+        <div class="glass-panel px-5 py-3 relative overflow-hidden border border-cyan-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
+          <div class="space-y-0.5 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Data Science Master Track</h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[11px] font-semibold">
+                <span>📊</span> <span>Analytics & SQL</span>
+              </span>
             </div>
-            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Data Science Master Track</h1>
-            <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-4xl">
-              Foundations of inferential thinking, tabular data manipulation with Pandas, advanced relational SQL window operations, statistical hypothesis testing, and Level 1–3 interview prep.
+            <p class="text-xs text-slate-400">
+              Foundations of inferential thinking, Pandas wrangling, advanced SQL window functions, and Level 1–3 prep.
             </p>
-            <div class="flex flex-wrap items-center gap-2 pt-2 text-xs">
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📅 30-Day Master Plan</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📘 4 Core Textbooks</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📋 5 Cheatsheets</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🎓 60 Level Interview Qs</span>
-            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📅 30-Day Plan</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📘 4 Textbooks</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📋 5 Cheats</span>
+            <span class="px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono text-[11px] font-semibold">🎓 60 Level Qs</span>
           </div>
         </div>
 
@@ -543,21 +544,24 @@
       <!-- VIEW 2: MACHINE LEARNING TRACK                                      -->
       <!-- =================================================================== -->
       <section id="view-ml" class="track-view space-y-6 hidden">
-        <div class="glass-panel p-6 relative overflow-hidden border border-purple-500/20">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
-              <span>🧠 Supervised, Deep Learning & Mathematical Foundations</span>
+        <!-- Compact Sleek Hero Header -->
+        <div class="glass-panel px-5 py-3 relative overflow-hidden border border-purple-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
+          <div class="space-y-0.5 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Machine Learning & Deep Learning</h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-[11px] font-semibold">
+                <span>🧠</span> <span>ISLP & Deep Nets</span>
+              </span>
             </div>
-            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Machine Learning & Deep Learning</h1>
-            <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-4xl">
-              Stanford's Introduction to Statistical Learning (ISLP), Cambridge's Mathematics for Machine Learning, D2L.ai interactive 1000-page deep learning, Stanford CS229/CS230 cheat sheets, and StatQuest visual breakdowns.
+            <p class="text-xs text-slate-400">
+              Stanford ISLP statistical modeling, Cambridge math foundations, D2L.ai, and Level 1–3 interview prep.
             </p>
-            <div class="flex flex-wrap items-center gap-2 pt-2 text-xs">
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📘 Stanford ISLP</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📘 D2L.ai (1000+ Pages)</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📋 Stanford CS229/230</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🎓 60 Level Interview Qs</span>
-            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📘 Stanford ISLP</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📐 Cambridge Math</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">🔥 PyTorch CS230</span>
+            <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-[11px] font-semibold">🎓 60 Level Qs</span>
           </div>
         </div>
 
@@ -745,21 +749,24 @@
       <!-- VIEW 3: CYBER SECURITY TRACK                                        -->
       <!-- =================================================================== -->
       <section id="view-cyber" class="track-view space-y-6 hidden">
-        <div class="glass-panel p-6 relative overflow-hidden border border-rose-500/20">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-semibold">
-              <span>🛡️ Defensive Operations & Incident Response</span>
+        <!-- Compact Sleek Hero Header -->
+        <div class="glass-panel px-5 py-3 relative overflow-hidden border border-rose-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
+          <div class="space-y-0.5 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Cyber Security & SOC Operations</h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-[11px] font-semibold">
+                <span>🛡️</span> <span>SOC & Triage</span>
+              </span>
             </div>
-            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Cyber Security & SOC Operations</h1>
-            <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-4xl">
-              Official ISC2 Certified in Cybersecurity (CC) exam preparation banks, NIST SP 800-61 Rev 2 incident handling guides, NIST CSF 2.0 frameworks, OWASP cheat sheets, and threat forensic playbooks.
+            <p class="text-xs text-slate-400">
+              ISC2 CC exam prep banks, NIST SP 800-61 Rev 2 triage, Wireshark PCAP analysis, and Sysmon hunting.
             </p>
-            <div class="flex flex-wrap items-center gap-2 pt-2 text-xs">
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🎓 128 ISC2 CC Exam Qs</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📕 NIST SP 800-61 / CSF 2.0</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📋 OWASP Series</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📦 3 Threat Scenarios</span>
-            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">🎓 128 ISC2 CC Qs</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">🦈 Wireshark GUI</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">🔍 Sysmon Hunter</span>
+            <span class="px-2.5 py-1 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 font-mono text-[11px] font-semibold">📦 3 Scenarios</span>
           </div>
         </div>
 
@@ -851,20 +858,23 @@
       <!-- VIEW 4: DSA & ALGORITHMS TRACK                                      -->
       <!-- =================================================================== -->
       <section id="view-dsa" class="track-view space-y-6 hidden">
-        <div class="glass-panel p-6 relative overflow-hidden border border-amber-500/20">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold">
-              <span>⚡ FAANG Curriculum & Algorithm Blueprint</span>
+        <!-- Compact Sleek Hero Header -->
+        <div class="glass-panel px-5 py-3 relative overflow-hidden border border-amber-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
+          <div class="space-y-0.5 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Data Structures & Algorithms (DSA)</h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-semibold">
+                <span>⚡</span> <span>FAANG Blueprint</span>
+              </span>
             </div>
-            <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Data Structures & Algorithms (DSA)</h1>
-            <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-4xl">
-              NeetCode 150 & Blind 75 Master Roadmap, Python 3 Big-O Time & Space Complexity Reference Card, and Level 1–3 technical interview practice drills.
+            <p class="text-xs text-slate-400">
+              NeetCode 150 & Blind 75 Master Roadmap, Python 3 Big-O Complexity, and Level 1–3 interview drills.
             </p>
-            <div class="flex flex-wrap items-center gap-2 pt-2 text-xs">
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🗺️ Blind 75 / NeetCode 150</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">📊 Big-O Python 3 Matrix</span>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono">🎓 60 Level Interview Qs</span>
-            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">🗺️ Blind 75 / NeetCode 150</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📊 Big-O Matrix</span>
+            <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[11px] font-semibold">🎓 60 Level Qs</span>
           </div>
         </div>
 
@@ -988,34 +998,32 @@
       <!-- =================================================================== -->
       <section id="view-sandbox" class="track-view space-y-5 hidden">
         <!-- Hero Header (Clean & Compact, No Picture) -->
-        <div class="glass-panel p-6 relative overflow-hidden border border-emerald-500/20">
-          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div class="space-y-2">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
-                <span>🚀 10-Platform Coding Fleet</span>
-                <span>•</span>
-                <span>3.0s Subprocess Runner</span>
-                <span>•</span>
-                <span>Python 3.13 Standard Library</span>
-              </div>
-              <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Interactive Python Coding Sandbox</h1>
-              <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-3xl">
-                312 curated, interview-grade coding challenges from Placement Prep, GUVI, HackerRank, LeetCode, GeeksforGeeks, Codewars, HackerEarth, CodeChef, Programiz, and W3Schools.
-              </p>
+        <!-- Compact Sleek Hero Header -->
+        <div class="glass-panel px-5 py-3 relative overflow-hidden border border-emerald-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-lg">
+          <div class="space-y-0.5 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Interactive Python Coding Sandbox</h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[11px] font-semibold">
+                <span>🚀</span> <span>10-Platform Fleet</span>
+              </span>
+              <span class="text-[11px] text-slate-500 font-mono hidden sm:inline">• 3.0s Isolated Runner • Python 3.13</span>
             </div>
-            <!-- Global Completion Progress Card -->
-            <div class="flex-shrink-0 p-3.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 min-w-[220px] shadow-lg">
-              <div class="flex items-center justify-between text-xs mb-1.5">
-                <span class="text-slate-400 font-semibold">Track Completion</span>
-                <span id="global-solved-count" class="text-emerald-400 font-mono font-bold">0 / 312</span>
-              </div>
-              <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden mb-1.5">
-                <div id="global-progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-              </div>
-              <div class="flex items-center justify-between text-[11px] text-slate-400">
-                <span>Target: 312 Solved</span>
-                <span id="global-solved-percent" class="text-emerald-300 font-mono">0.0%</span>
-              </div>
+            <p class="text-xs text-slate-400">
+              312 curated challenges from Placement Prep, GUVI, HackerRank, LeetCode, GfG, Codewars, HackerEarth, CodeChef, Programiz, and W3Schools.
+            </p>
+          </div>
+          <!-- Compact Global Completion Progress Card -->
+          <div class="flex-shrink-0 px-3.5 py-1.5 rounded-lg bg-slate-900/90 border border-emerald-500/30 min-w-[200px] shadow">
+            <div class="flex items-center justify-between text-[11px] mb-1">
+              <span class="text-slate-400 font-semibold">Track Completion</span>
+              <span id="global-solved-count" class="text-emerald-400 font-mono font-bold">0 / 312</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden mb-1">
+              <div id="global-progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-slate-400">
+              <span>Target: 312 Solved</span>
+              <span id="global-solved-percent" class="text-emerald-300 font-mono">0.0%</span>
             </div>
           </div>
         </div>
@@ -1242,16 +1250,23 @@
       <!-- VIEW 6: VAULT LIBRARY (ALL PDFS & CHEATSHEETS)                      -->
       <!-- =================================================================== -->
       <section id="view-library" class="track-view space-y-6 hidden">
-        <div class="glass-panel p-6 space-y-2 border border-cyan-500/20">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold">
-            <span>📁 Centralized Resource Repository</span>
-            <span>•</span>
-            <span>100% Free & Legal</span>
+        <!-- Compact Sleek Hero Header -->
+        <div class="glass-panel px-5 py-3 relative overflow-hidden border border-cyan-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
+          <div class="space-y-0.5 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Vault Library: Textbooks & Cheat Sheets</h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[11px] font-semibold">
+                <span>📁</span> <span>100% Free & Legal</span>
+              </span>
+            </div>
+            <p class="text-xs text-slate-400">
+              Instant 1-click access to all 28+ open textbooks, cheat sheets, official documentation, and curated study guides.
+            </p>
           </div>
-          <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Vault Library: Textbooks & Cheat Sheets</h1>
-          <p class="text-xs md:text-sm text-slate-300">
-            Instant 1-click access to all 28+ open textbooks, cheat sheets, official documentation, and curated study guides.
-          </p>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📘 16 Textbooks</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📋 12 Cheatsheets</span>
+          </div>
         </div>
 
         <div class="space-y-4">
@@ -1267,7 +1282,7 @@
   </div>
 
   <!-- App Scripts -->
-  <script src="/static/js/timer.js?v=2.2.0"></script>
-  <script src="/static/js/app.js?v=2.2.0"></script>
+  <script src="/static/js/timer.js?v=2.3.0"></script>
+  <script src="/static/js/app.js?v=2.3.0"></script>
 </body>
 </html>

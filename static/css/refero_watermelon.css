@@ -728,3 +728,17 @@ header.app-header {
 }
 
 
+
+/* ── Sub-tab Navigation Buttons ────────────────────────────────────────────── */
+.subtab-btn {
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  user-select: none;
+}
