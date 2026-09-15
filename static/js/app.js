@@ -258,6 +258,73 @@ const App = {
     });
   },
 
+  formatSetName(setId, rawName) {
+    const formattedMap = {
+      'ml_level1_foundations': '🌱 Level 1: Foundations',
+      'ml_level2_intermediate': '⚡ Level 2: Intermediate',
+      'ml_level3_advanced': '🔥 Level 3: Advanced Mastery',
+      'ds_level1_foundations': '🌱 Level 1: Foundations',
+      'ds_level2_intermediate': '⚡ Level 2: Intermediate',
+      'ds_level3_advanced': '🔥 Level 3: Advanced Mastery',
+      'dsa_level1_foundations': '🌱 Level 1: Foundations',
+      'dsa_level2_intermediate': '⚡ Level 2: Intermediate',
+      'dsa_level3_advanced': '🔥 Level 3: Advanced Mastery',
+      'domain1_security_principles': '🛡️ Domain 1: Security Principles',
+      'domain2_bcp_dr_incident_response': '🔄 Domain 2: BCP & Incident Response',
+      'domain3_access_controls': '🔑 Domain 3: Access Controls',
+      'domain4_network_security': '🌐 Domain 4: Network Security',
+      'domain5_security_operations': '⚙️ Domain 5: Security Operations'
+    };
+    if (formattedMap[setId]) return formattedMap[setId];
+    return (rawName || setId).replace(/(\w+)\s*Level(\d+)\s*(.*)/i, '$1 Level $2: $3');
+  },
+
+  getTrackTheme(trackPrefix) {
+    const themes = {
+      'ml': {
+        name: 'Machine Learning',
+        active: 'bg-purple-500/20 text-purple-300 border-purple-500/50 shadow-lg shadow-purple-500/10 ring-1 ring-purple-500/30',
+        badge: 'bg-purple-500/30 text-purple-200',
+        gradient: 'from-purple-500 via-pink-500 to-indigo-500',
+        iconBg: 'bg-purple-500/15 border-purple-500/30 text-purple-300',
+        selectedCard: 'bg-purple-500/15 border-purple-500 text-white shadow-lg shadow-purple-500/10 ring-1 ring-purple-500/50',
+        selectedBadge: 'bg-purple-500 text-slate-950 font-black border-purple-400',
+        btnNext: 'from-purple-500 to-pink-500 text-white hover:from-purple-400 hover:to-pink-400'
+      },
+      'ds': {
+        name: 'Data Science',
+        active: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-500/30',
+        badge: 'bg-cyan-500/30 text-cyan-200',
+        gradient: 'from-cyan-500 via-blue-500 to-teal-500',
+        iconBg: 'bg-cyan-500/15 border-cyan-500/30 text-cyan-300',
+        selectedCard: 'bg-cyan-500/15 border-cyan-500 text-white shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-500/50',
+        selectedBadge: 'bg-cyan-500 text-slate-950 font-black border-cyan-400',
+        btnNext: 'from-cyan-500 to-blue-500 text-white hover:from-cyan-400 hover:to-blue-400'
+      },
+      'cyber': {
+        name: 'Cyber Security',
+        active: 'bg-rose-500/20 text-rose-300 border-rose-500/50 shadow-lg shadow-rose-500/10 ring-1 ring-rose-500/30',
+        badge: 'bg-rose-500/30 text-rose-200',
+        gradient: 'from-rose-500 via-pink-500 to-orange-500',
+        iconBg: 'bg-rose-500/15 border-rose-500/30 text-rose-300',
+        selectedCard: 'bg-rose-500/15 border-rose-500 text-white shadow-lg shadow-rose-500/10 ring-1 ring-rose-500/50',
+        selectedBadge: 'bg-rose-500 text-white font-black border-rose-400',
+        btnNext: 'from-rose-500 to-orange-500 text-white hover:from-rose-400 hover:to-orange-400'
+      },
+      'dsa': {
+        name: 'DSA & Algorithms',
+        active: 'bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-lg shadow-amber-500/10 ring-1 ring-amber-500/30',
+        badge: 'bg-amber-500/30 text-amber-200',
+        gradient: 'from-amber-500 via-orange-500 to-yellow-500',
+        iconBg: 'bg-amber-500/15 border-amber-500/30 text-amber-300',
+        selectedCard: 'bg-amber-500/15 border-amber-500 text-white shadow-lg shadow-amber-500/10 ring-1 ring-amber-500/50',
+        selectedBadge: 'bg-amber-500 text-slate-950 font-black border-amber-400',
+        btnNext: 'from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400'
+      }
+    };
+    return themes[trackPrefix] || themes['ml'];
+  },
+
   activatePrepSubtab(trackPrefix) {
     const trackMap = {
       'ds': 'data_science',
@@ -271,7 +338,9 @@ const App = {
     this.state.activeTrackKey = trackKey;
     const trackObj = this.state.interviewTracks[trackKey];
     if (trackObj && trackObj.sets && trackObj.sets.length > 0) {
-      this.state.activeSetId = trackObj.sets[0].id;
+      if (!this.state.activeSetId || !trackObj.sets.some(s => s.id === this.state.activeSetId)) {
+        this.state.activeSetId = trackObj.sets[0].id;
+      }
       this.renderTrackLevelSelectors(trackPrefix, trackObj.sets);
       this.loadQuizQuestions(trackPrefix);
     }
@@ -281,17 +350,19 @@ const App = {
     const container = document.getElementById(`${trackPrefix}-level-selector`);
     if (!container) return;
 
+    const theme = this.getTrackTheme(trackPrefix);
     let html = '';
     sets.forEach(set => {
       const isSelected = this.state.activeSetId === set.id;
+      const displayName = this.formatSetName(set.id, set.name);
       html += `
-        <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
+        <button class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 ${
           isSelected 
-            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 shadow-md shadow-emerald-500/10' 
-            : 'bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700'
+            ? theme.active 
+            : 'bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700 hover:bg-slate-800/60'
         }" data-set="${set.id}" data-pfx="${trackPrefix}">
-          <span>${set.name}</span>
-          <span class="px-1.5 py-0.2 text-[10px] rounded-full bg-slate-800 text-slate-300 font-mono">${set.question_count} Qs</span>
+          <span>${displayName}</span>
+          <span class="px-2 py-0.5 text-[10px] rounded-full ${isSelected ? theme.badge : 'bg-slate-800 text-slate-400'} font-mono">${set.question_count} Qs</span>
         </button>
       `;
     });
@@ -299,12 +370,12 @@ const App = {
     container.innerHTML = html;
 
     container.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.onclick = () => {
         this.state.activeSetId = btn.dataset.set;
         this.state.quizStats = { correct: 0, incorrect: 0 };
         this.renderTrackLevelSelectors(btn.dataset.pfx, sets);
         this.loadQuizQuestions(btn.dataset.pfx);
-      });
+      };
     });
   },
 
@@ -331,15 +402,17 @@ const App = {
     const container = document.getElementById(`${trackPrefix}-quiz-container`);
     if (!container) return;
 
+    const theme = this.getTrackTheme(trackPrefix);
     const qList = this.state.quizQuestions;
     if (!qList || qList.length === 0) {
-      container.innerHTML = '<div class="p-8 text-center text-slate-400">Loading question set...</div>';
+      container.innerHTML = '<div class="p-12 text-center text-slate-400 font-mono text-xs">Loading questions for this level...</div>';
       return;
     }
 
     const q = qList[this.state.currentQuizIdx];
     const qNum = this.state.currentQuizIdx + 1;
     const totalQ = qList.length;
+    const progressPct = ((qNum / totalQ) * 100).toFixed(1);
 
     const questionPrompt = q.stem || q.question || q.prompt || 'Question prompt not specified.';
     const correctKey = (q.correct_key || q.answer || q.correct || '').toString().trim().toUpperCase();
@@ -359,33 +432,37 @@ const App = {
     }
 
     let optionsHtml = '';
-    optionsList.forEach(opt => {
+    optionsList.forEach((opt, optIdx) => {
       const isChosen = this.state.selectedQuizOption === opt.key;
-      let cardStyle = 'bg-slate-900/60 border-slate-800/80 hover:border-slate-700 hover:bg-slate-800/50';
-      let badgeStyle = 'bg-slate-800 text-slate-300 border border-slate-700';
+      let cardStyle = 'bg-slate-950/50 border-slate-800/80 hover:border-slate-600 hover:bg-slate-900/80 hover:translate-x-1 shadow-sm';
+      let badgeStyle = 'bg-slate-900 text-slate-300 border border-slate-700/80 group-hover:border-slate-500 group-hover:text-white';
+      let statusBadge = '';
 
       if (this.state.quizSubmitted) {
         const isCorrect = (opt.key === correctKey);
         if (isCorrect) {
-          cardStyle = 'bg-emerald-950/40 border-emerald-500/80 text-emerald-200 shadow-lg shadow-emerald-950/30';
-          badgeStyle = 'bg-emerald-500 text-black font-black';
+          cardStyle = 'bg-emerald-950/60 border-emerald-400 text-emerald-100 shadow-xl shadow-emerald-950/40 ring-1 ring-emerald-400/50';
+          badgeStyle = 'bg-emerald-500 text-slate-950 font-black border-emerald-400';
+          statusBadge = '<span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold ml-auto flex items-center gap-1">✓ Correct Answer</span>';
         } else if (isChosen) {
-          cardStyle = 'bg-rose-950/40 border-rose-500/80 text-rose-200 shadow-lg shadow-rose-950/30';
-          badgeStyle = 'bg-rose-500 text-white font-black';
+          cardStyle = 'bg-rose-950/60 border-rose-500 text-rose-100 shadow-xl shadow-rose-950/40 ring-1 ring-rose-500/50';
+          badgeStyle = 'bg-rose-500 text-white font-black border-rose-400';
+          statusBadge = '<span class="text-[11px] px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold ml-auto flex items-center gap-1">✗ Your Choice</span>';
         } else {
-          cardStyle = 'bg-slate-900/40 border-slate-800/40 opacity-50';
+          cardStyle = 'bg-slate-950/30 border-slate-900/40 text-slate-500 opacity-40 cursor-default';
         }
       } else if (isChosen) {
-        cardStyle = 'bg-emerald-500/15 border-emerald-500 text-white shadow-md shadow-emerald-500/10';
-        badgeStyle = 'bg-emerald-500 text-black font-black';
+        cardStyle = theme.selectedCard;
+        badgeStyle = theme.selectedBadge;
       }
 
       optionsHtml += `
-        <div class="p-4 rounded-xl border transition-all cursor-pointer flex items-start gap-3.5 ${cardStyle}" onclick="App.selectQuizOption('${opt.key}', '${trackPrefix}')">
-          <span class="w-7 h-7 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-bold ${badgeStyle}">
-            ${opt.key}
+        <div class="group p-4 rounded-xl border transition-all duration-200 cursor-pointer flex items-start gap-3.5 relative overflow-hidden select-none ${cardStyle}" onclick="App.selectQuizOption('${opt.key}', '${trackPrefix}')">
+          <span class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-mono font-bold transition-all ${badgeStyle}">
+            ${this.state.quizSubmitted && opt.key === correctKey ? '✓' : opt.key}
           </span>
-          <span class="text-sm leading-relaxed flex-1">${opt.text}</span>
+          <span class="text-sm leading-relaxed flex-1 pt-0.5 font-medium">${opt.text}</span>
+          ${statusBadge}
         </div>
       `;
     });
@@ -395,11 +472,11 @@ const App = {
       const userGotCorrect = (this.state.selectedQuizOption === correctKey);
       
       rationaleHtml = `
-        <div class="mt-5 p-5 rounded-xl ${userGotCorrect ? 'bg-emerald-950/30 border-emerald-500/40' : 'bg-rose-950/30 border-rose-500/40'} border space-y-3">
-          <div class="flex items-center gap-2">
-            <span class="text-base">${userGotCorrect ? '🎉' : '💡'}</span>
-            <span class="font-bold text-sm ${userGotCorrect ? 'text-emerald-400' : 'text-rose-400'}">
-              ${userGotCorrect ? 'Correct Answer!' : `Incorrect — The correct answer is Option ${correctKey}`}
+        <div class="mt-6 p-5 rounded-2xl ${userGotCorrect ? 'bg-emerald-950/30 border-emerald-500/40' : 'bg-rose-950/30 border-rose-500/40'} border space-y-3.5 shadow-xl">
+          <div class="flex items-center gap-2.5">
+            <span class="text-lg">${userGotCorrect ? '🎉' : '💡'}</span>
+            <span class="font-bold text-sm ${userGotCorrect ? 'text-emerald-300' : 'text-rose-300'}">
+              ${userGotCorrect ? 'Excellent! You answered correctly.' : `Pedagogical Feedback — Correct Answer is Option ${correctKey}`}
             </span>
           </div>
       `;
@@ -407,20 +484,21 @@ const App = {
       if (q.rationales && typeof q.rationales === 'object') {
         if (q.rationales.correct) {
           rationaleHtml += `
-            <div class="p-3 rounded-lg bg-black/40 text-xs text-emerald-300 font-medium leading-relaxed">
-              <strong class="text-white">Core Principle:</strong> ${q.rationales.correct}
+            <div class="p-3.5 rounded-xl bg-black/40 border border-slate-800/80 text-xs text-emerald-300 font-medium leading-relaxed">
+              <strong class="text-white block mb-1">Core Technical Principle:</strong>
+              ${q.rationales.correct}
             </div>
           `;
         }
-        rationaleHtml += '<div class="space-y-1.5 pt-2 text-xs text-slate-300">';
+        rationaleHtml += '<div class="space-y-2 pt-1 text-xs text-slate-300">';
         optionsList.forEach(opt => {
           const rText = q.rationales[opt.key];
           if (rText) {
             const isOptCorrect = (opt.key === correctKey);
             rationaleHtml += `
-              <div class="p-2 rounded bg-black/20">
-                <strong class="${isOptCorrect ? 'text-emerald-400' : 'text-slate-400'}">Option ${opt.key}:</strong> 
-                <span class="text-slate-300">${rText}</span>
+              <div class="p-2.5 rounded-lg ${isOptCorrect ? 'bg-emerald-950/20 border border-emerald-500/20' : 'bg-black/30 border border-slate-800/40'} flex items-start gap-2">
+                <span class="font-mono font-bold ${isOptCorrect ? 'text-emerald-400' : 'text-slate-400'} flex-shrink-0">Option ${opt.key}:</span> 
+                <span class="text-slate-300 leading-relaxed">${rText}</span>
               </div>
             `;
           }
@@ -428,55 +506,89 @@ const App = {
         rationaleHtml += '</div>';
       } else if (q.explanation) {
         rationaleHtml += `
-          <div class="p-3 rounded-lg bg-black/40 text-xs text-slate-300 leading-relaxed">
-            <strong class="text-emerald-400">Explanation:</strong> ${q.explanation}
+          <div class="p-3.5 rounded-xl bg-black/40 border border-slate-800/80 text-xs text-slate-300 leading-relaxed">
+            <strong class="text-emerald-400 block mb-1">Detailed Explanation:</strong>
+            ${q.explanation}
           </div>
         `;
       }
       rationaleHtml += '</div>';
     }
 
-    const topicText = q.domain_name || q.sub_objective || q.topic || q.level_name || 'Technical Assessment';
+    const topicText = q.domain_name || q.sub_objective || q.topic || q.level_name || 'Interview Assessment';
     const totalAnswered = this.state.quizStats.correct + this.state.quizStats.incorrect;
     const accuracy = totalAnswered > 0 ? Math.round((this.state.quizStats.correct / totalAnswered) * 100) : 0;
 
     container.innerHTML = `
-      <div class="space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-mono text-emerald-400 font-bold tracking-wider uppercase">QUESTION ${qNum} OF ${totalQ}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">${q.cognitive_level || 'STANDARD'}</span>
+      <!-- Top Accent Line -->
+      <div class="h-1 -mx-6 -mt-6 md:-mx-8 md:-mt-8 mb-5 bg-gradient-to-r ${theme.gradient}"></div>
+
+      <div class="space-y-5">
+        <!-- Telemetry & Header -->
+        <div class="space-y-3 pb-3 border-b border-slate-800/80">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full ${theme.iconBg} font-mono text-xs font-bold tracking-wider uppercase">
+                <span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span>
+                Question ${qNum} of ${totalQ}
+              </span>
+              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono border border-slate-700/60">
+                ${q.cognitive_level || 'STANDARD'}
+              </span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-slate-400 font-mono hidden sm:inline-flex items-center gap-1.5">
+                <span>📂</span> <span class="truncate max-w-xs">${topicText}</span>
+              </span>
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">
+                <span>Score:</span>
+                <span class="text-white">${this.state.quizStats.correct}/${totalAnswered}</span>
+                <span class="text-emerald-300">(${accuracy}%)</span>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 text-xs">
-            <span class="text-slate-400 font-mono truncate max-w-xs">${topicText}</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono font-bold">
-              Score: ${this.state.quizStats.correct}/${totalAnswered} (${accuracy}%)
-            </span>
+
+          <!-- Question Progress Bar -->
+          <div class="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-800/60">
+            <div class="h-1.5 rounded-full bg-gradient-to-r ${theme.gradient} transition-all duration-500 shadow-sm" style="width: ${progressPct}%"></div>
           </div>
         </div>
 
-        <h3 class="text-base md:text-lg font-semibold text-slate-100 leading-relaxed pt-1">
-          ${questionPrompt}
-        </h3>
+        <!-- Question Prompt -->
+        <div class="space-y-2 py-1">
+          <div class="flex items-start gap-3">
+            <div class="w-7 h-7 rounded-lg ${theme.iconBg} flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5 shadow-inner">
+              ?
+            </div>
+            <h3 class="text-base md:text-lg font-bold text-white leading-relaxed tracking-tight flex-1">
+              ${questionPrompt}
+            </h3>
+          </div>
+        </div>
 
-        <div class="space-y-2.5 pt-2">
+        <!-- Option Cards (A, B, C, D) -->
+        <div class="space-y-2.5 pt-1">
           ${optionsHtml}
         </div>
 
         ${rationaleHtml}
 
-        <div class="flex items-center justify-between pt-5 border-t border-slate-800 mt-6">
-          <button class="btn-secondary text-xs" onclick="App.prevQuizQuestion('${trackPrefix}')" ${qNum === 1 ? 'disabled' : ''}>
-            ← Previous
+        <!-- Footer Controls -->
+        <div class="flex items-center justify-between pt-5 border-t border-slate-800/80 mt-6">
+          <button class="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5 hover:text-white" onclick="App.prevQuizQuestion('${trackPrefix}')" ${qNum === 1 ? 'disabled style="opacity:0.3;cursor:not-allowed;"' : ''}>
+            <span>←</span> <span>Previous</span>
           </button>
           
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-3">
+            <span class="text-[11px] text-slate-500 font-mono hidden md:inline">
+              Press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-slate-300 text-[10px]">A</kbd>-<kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-slate-300 text-[10px]">D</kbd> or <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-slate-300 text-[10px]">Enter</kbd>
+            </span>
             ${!this.state.quizSubmitted ? `
-              <button class="btn-primary text-xs px-5 py-2" onclick="App.submitQuizAnswer('${trackPrefix}')">
-                <span>Check Answer</span>
+              <button class="px-6 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:from-emerald-400 hover:to-teal-400 shadow-lg shadow-emerald-950/50 hover:shadow-emerald-500/20 transition-all flex items-center gap-1.5" onclick="App.submitQuizAnswer('${trackPrefix}')">
+                <span>⚡</span> <span>Check Answer</span>
               </button>
             ` : `
-              <button class="btn-coral text-xs px-5 py-2" onclick="App.nextQuizQuestion('${trackPrefix}')">
+              <button class="px-6 py-2 rounded-xl text-xs font-bold bg-gradient-to-r ${theme.btnNext} shadow-lg transition-all flex items-center gap-1.5" onclick="App.nextQuizQuestion('${trackPrefix}')">
                 <span>${qNum < totalQ ? 'Next Question →' : 'Complete Set 🎉'}</span>
               </button>
             `}
@@ -508,6 +620,14 @@ const App = {
 
     this.state.quizSubmitted = true;
     this.renderQuizCard(trackPrefix);
+
+    if (this.state.selectedQuizOption === correctKey && typeof confetti === 'function') {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 }
+      });
+    }
   },
 
   nextQuizQuestion(trackPrefix) {
@@ -518,6 +638,13 @@ const App = {
       this.renderQuizCard(trackPrefix);
     } else {
       const accuracy = Math.round((this.state.quizStats.correct / this.state.quizQuestions.length) * 100);
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 150,
+          spread: 90,
+          origin: { y: 0.5 }
+        });
+      }
       alert(`🎉 Set Completed! Your score: ${this.state.quizStats.correct}/${this.state.quizQuestions.length} (${accuracy}%)`);
     }
   },
@@ -1538,3 +1665,34 @@ window.addEventListener('DOMContentLoaded', () => {
     };
   });
 });
+
+  // Global Quiz Keyboard Shortcuts (A, B, C, D, Enter)
+  window.addEventListener('keydown', (e) => {
+    // Only if not inside an input, textarea or editor
+    if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+    
+    const activeView = App.state.activeView;
+    const pfxMap = { 'machine_learning': 'ml', 'data_science': 'ds', 'cybersecurity': 'cyber', 'dsa': 'dsa' };
+    const pfx = pfxMap[App.state.activeTrackKey];
+    if (!pfx) return;
+
+    // Check if prep subtab is active
+    const prepSubtab = document.getElementById(`subtab-${pfx}-prep`);
+    if (!prepSubtab || prepSubtab.classList.contains('hidden')) return;
+
+    const key = e.key.toUpperCase();
+    if (['A', 'B', 'C', 'D'].includes(key) || ['1', '2', '3', '4'].includes(e.key)) {
+      const optKey = ['1', '2', '3', '4'].includes(e.key) ? String.fromCharCode(64 + parseInt(e.key)) : key;
+      App.selectQuizOption(optKey, pfx);
+    } else if (e.key === 'Enter') {
+      if (!App.state.quizSubmitted) {
+        App.submitQuizAnswer(pfx);
+      } else {
+        App.nextQuizQuestion(pfx);
+      }
+    } else if (e.key === 'ArrowLeft') {
+      App.prevQuizQuestion(pfx);
+    } else if (e.key === 'ArrowRight' && App.state.quizSubmitted) {
+      App.nextQuizQuestion(pfx);
+    }
+  });
