@@ -38,7 +38,7 @@
   </script>
 
   <!-- Refero Design & Watermelon UI Styles -->
-  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.4.0">
+  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.5.0">
 
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
@@ -237,18 +237,30 @@
           </div>
         </div>
 
-        <div class="sidebar-item" data-view="dsa">
+        <div class="sidebar-item" data-view="dsa-blueprint">
           <div class="sidebar-indicator"></div>
           <span class="text-base">⚡</span>
           <div class="flex-1">
-            <div class="leading-tight">DSA & Algorithms</div>
-            <div class="text-[10px] text-slate-400 font-normal">Blind 75 & Complexity</div>
+            <div class="leading-tight">DSA Blueprint & Matrix</div>
+            <div class="text-[10px] text-slate-400 font-normal">Blind 75 & Big-O Matrix</div>
           </div>
         </div>
 
         <div class="pt-2">
           <div class="px-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Hands-On Practice</div>
           
+          <div class="sidebar-item" data-view="dsa-drills">
+            <div class="sidebar-indicator"></div>
+            <span class="text-base">🎯</span>
+            <div class="flex-1 flex items-center justify-between">
+              <div>
+                <div class="leading-tight">DSA Interview Drills</div>
+                <div class="text-[10px] text-slate-400 font-normal">Levels 1–3 Interactive</div>
+              </div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-mono font-bold">60 Qs</span>
+            </div>
+          </div>
+
           <div class="sidebar-item" data-view="sandbox">
             <div class="sidebar-indicator"></div>
             <span class="text-base">💻</span>
@@ -855,39 +867,32 @@
       </section>
 
       <!-- =================================================================== -->
-      <!-- VIEW 4: DSA & ALGORITHMS TRACK                                      -->
+      <!-- VIEW 4A: DSA BLUEPRINT & COMPLEXITY MATRIX (STANDALONE)             -->
       <!-- =================================================================== -->
-      <section id="view-dsa" class="track-view space-y-6 hidden">
+      <section id="view-dsa-blueprint" class="track-view space-y-6 hidden">
         <!-- Compact Sleek Hero Header -->
         <div class="glass-panel px-5 py-3 relative overflow-hidden border border-amber-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
           <div class="space-y-0.5 min-w-0">
             <div class="flex items-center gap-2.5 flex-wrap">
-              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Data Structures & Algorithms (DSA)</h1>
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">DSA Blueprint & Complexity Matrix</h1>
               <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-semibold">
                 <span>⚡</span> <span>FAANG Blueprint</span>
               </span>
             </div>
             <p class="text-xs text-slate-400">
-              NeetCode 150 & Blind 75 Master Roadmap, Python 3 Big-O Complexity, and Level 1–3 interview drills.
+              NeetCode 150 & Blind 75 Master Roadmap with Python 3 Time & Space Complexity Reference.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
             <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">🗺️ Blind 75 / NeetCode 150</span>
             <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-slate-300 font-mono text-[11px]">📊 Big-O Matrix</span>
-            <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[11px] font-semibold">🎓 60 Level Qs</span>
+            <button onclick="App.switchView('dsa-drills')" class="px-2.5 py-1 rounded-lg bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:bg-amber-500/25 text-[11px] font-semibold transition-all flex items-center gap-1.5 cursor-pointer">
+              <span>🎯 Launch Drills</span> <span>→</span>
+            </button>
           </div>
         </div>
 
-        <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
-          <button class="subtab-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30" data-subtab="dsa-resources">
-            📚 Blueprint & Complexity Matrix
-          </button>
-          <button class="subtab-btn px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white" data-subtab="dsa-prep">
-            🎯 Interactive DSA Drills (Levels 1–3)
-          </button>
-        </div>
-
-        <div id="subtab-dsa-resources" class="space-y-6">
+        <div class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
             <div class="glass-panel p-4 space-y-2">
               <div class="flex justify-between items-center text-xs font-bold text-emerald-400">
@@ -985,9 +990,53 @@
               </table>
             </div>
           </div>
+
+          <!-- Bottom Transition Callout Card -->
+          <div class="glass-panel p-4 border border-amber-500/20 bg-gradient-to-r from-amber-500/5 via-slate-900 to-transparent flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🎯</span>
+              <div>
+                <h4 class="text-xs font-bold text-white">Ready for live algorithmic screening?</h4>
+                <p class="text-[11px] text-slate-400">Practice 60 Level-Based DSA Interview Questions across Foundations, Intermediate, and Advanced Mastery.</p>
+              </div>
+            </div>
+            <button onclick="App.switchView('dsa-drills')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-xs font-bold hover:brightness-110 shadow-lg shadow-amber-500/10 flex items-center gap-2 flex-shrink-0 transition-all cursor-pointer">
+              <span>Open Standalone DSA Drills</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Backward Compatibility Alias -->
+      <div id="view-dsa" class="hidden"></div>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 4B: INTERACTIVE DSA INTERVIEW DRILLS (STANDALONE)              -->
+      <!-- =================================================================== -->
+      <section id="view-dsa-drills" class="track-view space-y-6 hidden">
+        <!-- Compact Sleek Hero Header -->
+        <div class="glass-panel px-5 py-3 relative overflow-hidden border border-amber-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
+          <div class="space-y-0.5 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight">Interactive DSA Interview Drills</h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-semibold">
+                <span>🎯</span> <span>Interview Simulator</span>
+              </span>
+            </div>
+            <p class="text-xs text-slate-400">
+              60 Level-Based Algorithmic Challenges (Levels 1–3) with deep option-by-option pedagogical rationales and live scoring.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
+            <button onclick="App.switchView('dsa-blueprint')" class="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-white text-[11px] font-semibold transition-all flex items-center gap-1.5 cursor-pointer">
+              <span>← Blueprint & Matrix</span>
+            </button>
+            <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[11px] font-semibold">🎓 60 Level Qs</span>
+          </div>
         </div>
 
-        <div id="subtab-dsa-prep" class="space-y-4 hidden">
+        <div class="space-y-4">
           <div class="flex flex-wrap items-center gap-2 pb-2" id="dsa-level-selector"></div>
           <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl" id="dsa-quiz-container"></div>
         </div>
@@ -1282,7 +1331,7 @@
   </div>
 
   <!-- App Scripts -->
-  <script src="/static/js/timer.js?v=2.4.0"></script>
-  <script src="/static/js/app.js?v=2.4.0"></script>
+  <script src="/static/js/timer.js?v=2.5.0"></script>
+  <script src="/static/js/app.js?v=2.5.0"></script>
 </body>
 </html>

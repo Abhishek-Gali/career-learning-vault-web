@@ -202,6 +202,7 @@ const App = {
   },
 
   switchView(viewName) {
+    if (viewName === 'dsa') viewName = 'dsa-blueprint';
     this.state.activeView = viewName;
     document.querySelectorAll('.sidebar-item').forEach(item => {
       item.classList.toggle('active', item.dataset.view === viewName);
@@ -212,6 +213,10 @@ const App = {
     const target = document.getElementById(`view-${viewName}`);
     if (target) {
       target.classList.remove('hidden');
+    }
+
+    if (viewName === 'dsa-drills') {
+      this.activatePrepSubtab('dsa');
     }
 
     if (viewName === 'sandbox') {
@@ -1672,13 +1677,16 @@ window.addEventListener('DOMContentLoaded', () => {
     if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
     
     const activeView = App.state.activeView;
+    const isDsaDrills = activeView === 'dsa-drills';
     const pfxMap = { 'machine_learning': 'ml', 'data_science': 'ds', 'cybersecurity': 'cyber', 'dsa': 'dsa' };
-    const pfx = pfxMap[App.state.activeTrackKey];
+    const pfx = isDsaDrills ? 'dsa' : pfxMap[App.state.activeTrackKey];
     if (!pfx) return;
 
-    // Check if prep subtab is active
-    const prepSubtab = document.getElementById(`subtab-${pfx}-prep`);
-    if (!prepSubtab || prepSubtab.classList.contains('hidden')) return;
+    // Check if prep subtab or standalone view is active
+    if (!isDsaDrills) {
+      const prepSubtab = document.getElementById(`subtab-${pfx}-prep`);
+      if (!prepSubtab || prepSubtab.classList.contains('hidden')) return;
+    }
 
     const key = e.key.toUpperCase();
     if (['A', 'B', 'C', 'D'].includes(key) || ['1', '2', '3', '4'].includes(e.key)) {
