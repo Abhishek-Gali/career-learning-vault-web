@@ -360,6 +360,32 @@ def get_platforms():
         platforms.append(p_copy)
     return {"platforms": platforms, "total_challenges": len(_CHALLENGES_CACHE)}
 
+def compute_subdivision(category: str, tags: List[str]) -> str:
+    combined = f"{category} {' '.join(tags)}".lower()
+    if any(k in combined for k in ['array', 'hash', 'matrix', 'prefix sum', 'set', 'table']):
+        if 'two pointer' in combined or 'sliding window' in combined:
+            return 'Two Pointers & Sliding Window'
+        return 'Arrays & Hashing'
+    if any(k in combined for k in ['two pointer', 'sliding window', 'fast-slow']):
+        return 'Two Pointers & Sliding Window'
+    if any(k in combined for k in ['stack', 'queue', 'deque']):
+        return 'Stacks & Queues'
+    if any(k in combined for k in ['binary search', 'search']):
+        return 'Binary Search'
+    if any(k in combined for k in ['linked list']):
+        return 'Linked Lists'
+    if any(k in combined for k in ['tree', 'graph', 'bfs', 'dfs', 'trie', 'bst']):
+        return 'Trees & Graphs'
+    if any(k in combined for k in ['dynamic programming', 'dp', 'recursion', 'backtrack', 'kadane']):
+        return 'Dynamic Programming'
+    if any(k in combined for k in ['greedy', 'interval']):
+        return 'Greedy'
+    if any(k in combined for k in ['bit', 'math', 'number theory', 'geometry', 'combinatorics', 'statistics']):
+        return 'Math & Bit Manipulation'
+    if any(k in combined for k in ['string', 'regex', 'suffix']):
+        return 'Strings'
+    return 'Core Programming & Logic'
+
 @app.get("/api/challenges")
 def get_challenges(
     platform: Optional[str] = None,
@@ -385,14 +411,19 @@ def get_challenges(
             if search_lower not in text:
                 continue
 
+        cat = ch.get("category", "Algorithms")
+        tags = ch.get("tags", [])
+        sub = compute_subdivision(cat, tags)
+
         results.append({
             "id": ch.get("id"),
             "title": ch.get("title"),
             "platform": ch.get("platform", "Foundational"),
             "normalized_platform": ch_plat,
             "difficulty": ch.get("difficulty", "Easy"),
-            "category": ch.get("category", "Algorithms"),
-            "tags": ch.get("tags", []),
+            "category": cat,
+            "subdivision": sub,
+            "tags": tags,
             "function_name": ch.get("function_name", "solution"),
             "visible_tests_count": len(ch.get("visible_tests", [])),
             "hidden_tests_count": len(ch.get("hidden_tests", []))
@@ -434,6 +465,7 @@ def get_challenge_detail(challenge_id: str):
         "normalized_platform": ch.get("normalized_platform", "foundational"),
         "difficulty": ch.get("difficulty", "Easy"),
         "category": ch.get("category", "Algorithms"),
+        "subdivision": compute_subdivision(ch.get("category", ""), ch.get("tags", [])),
         "tags": ch.get("tags", []),
         "function_name": ch.get("function_name", "solution"),
         "description": ch.get("description", ""),

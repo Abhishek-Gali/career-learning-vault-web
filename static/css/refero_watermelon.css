@@ -565,3 +565,149 @@ header.app-header {
   tab-size: 4;
 }
 
+/* ── NeetCode Roadmap Grid System (Platforms & Subdivisions) ──────────────── */
+.view-mode-btn {
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.view-mode-btn.active {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34d399 !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+}
+
+.neetcode-accordion {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+}
+
+.neetcode-accordion:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.neetcode-accordion-header {
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: rgba(20, 29, 50, 0.5);
+  transition: var(--transition-smooth);
+  user-select: none;
+}
+
+.neetcode-accordion-header:hover {
+  background: rgba(30, 41, 69, 0.7);
+}
+
+.neetcode-chevron {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.neetcode-accordion.is-open .neetcode-chevron {
+  transform: rotate(180deg);
+  color: #34d399;
+}
+
+.neetcode-accordion-body {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: none;
+}
+
+.neetcode-accordion.is-open .neetcode-accordion-body {
+  display: block;
+}
+
+/* Subdivisions (e.g. Arrays, Strings, Two Pointers) */
+.subdivision-block {
+  margin-bottom: 1.25rem;
+  background: rgba(10, 15, 28, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.subdivision-header {
+  padding: 0.6rem 0.9rem;
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* NeetCode Problem Table */
+.neetcode-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.neetcode-table th {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.neetcode-table td {
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.neetcode-table tr:last-child td {
+  border-bottom: none;
+}
+
+.neetcode-table tr:hover td {
+  background: rgba(30, 41, 59, 0.45);
+}
+
+/* Custom Checkbox */
+.problem-checkbox {
+  width: 1.05rem;
+  height: 1.05rem;
+  cursor: pointer;
+  accent-color: #10b981;
+  border-radius: 4px;
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: var(--transition-smooth);
+}
+
+/* Frequency Meter (5-block bar) */
+.freq-meter {
+  display: inline-flex;
+  gap: 2.5px;
+  align-items: center;
+}
+
+.freq-block {
+  width: 5px;
+  height: 12px;
+  border-radius: 1.5px;
+  background: rgba(148, 163, 184, 0.18);
+  transition: var(--transition-smooth);
+}
+
+.freq-block.active {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+}
+
+

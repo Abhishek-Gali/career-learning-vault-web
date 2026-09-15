@@ -19,6 +19,7 @@ const App = {
     isRunning: false,
     solvedChallenges: new Set(),
     sandboxTab: 'problem', // 'problem' | 'catalog'
+    sandboxMode: 'grid', // 'grid' | 'ide'
     
     // Interview Quiz Engine State
     interviewTracks: {},
@@ -164,6 +165,7 @@ const App = {
           data.solved_ids.forEach(id => this.state.solvedChallenges.add(id));
           localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
           this.updateGlobalSolvedProgress();
+          this.renderNeetCodeGrid();
           this.renderChallengeList();
           this.renderChallengeDropdown();
           if (this.state.activeChallenge) {
@@ -609,6 +611,93 @@ const App = {
     });
   },
 
+  computeSubdivision(category, tags) {
+    const combined = `${category || ''} ${(tags || []).join(' ')}`.toLowerCase();
+    if (combined.includes('two pointer') || combined.includes('sliding window') || combined.includes('fast-slow')) {
+      return 'Two Pointers & Sliding Window';
+    }
+    if (combined.includes('array') || combined.includes('hash') || combined.includes('matrix') || combined.includes('prefix sum') || combined.includes('set') || combined.includes('table')) {
+      return 'Arrays & Hashing';
+    }
+    if (combined.includes('stack') || combined.includes('queue') || combined.includes('deque')) {
+      return 'Stacks & Queues';
+    }
+    if (combined.includes('binary search') || combined.includes('search')) {
+      return 'Binary Search';
+    }
+    if (combined.includes('linked list')) {
+      return 'Linked Lists';
+    }
+    if (combined.includes('tree') || combined.includes('graph') || combined.includes('bfs') || combined.includes('dfs') || combined.includes('trie') || combined.includes('bst')) {
+      return 'Trees & Graphs';
+    }
+    if (combined.includes('dynamic programming') || combined.includes('dp') || combined.includes('recursion') || combined.includes('backtrack') || combined.includes('kadane')) {
+      return 'Dynamic Programming';
+    }
+    if (combined.includes('greedy') || combined.includes('interval')) {
+      return 'Greedy';
+    }
+    if (combined.includes('bit') || combined.includes('math') || combined.includes('number theory') || combined.includes('geometry') || combined.includes('combinatorics') || combined.includes('statistics')) {
+      return 'Math & Bit Manipulation';
+    }
+    if (combined.includes('string') || combined.includes('regex') || combined.includes('suffix')) {
+      return 'Strings';
+    }
+    return 'Core Programming & Logic';
+  },
+
+  renderFrequencyBars(ch) {
+    let count = 4;
+    const plat = ch.platform || '';
+    const diff = (ch.difficulty || 'Easy').toLowerCase();
+
+    if (plat.includes('Placement') || plat.includes('LeetCode') || plat.includes('Foundational')) {
+      count = diff === 'easy' ? 5 : 4;
+    } else if (diff === 'easy') {
+      count = 5;
+    } else if (diff === 'medium') {
+      count = 4;
+    } else {
+      count = 3;
+    }
+
+    let bars = '<div class="freq-meter" title="Interview Yield: ' + count + '/5">';
+    for (let i = 0; i < 5; i++) {
+      bars += `<span class="freq-block ${i < count ? 'active' : ''}"></span>`;
+    }
+    bars += '</div>';
+    return bars;
+  },
+
+  switchSandboxMode(mode) {
+    this.state.sandboxMode = mode;
+    const gridView = document.getElementById('sandbox-grid-view');
+    const ideView = document.getElementById('sandbox-ide-view');
+    const btnGrid = document.getElementById('btn-mode-grid');
+    const btnIde = document.getElementById('btn-mode-ide');
+
+    if (mode === 'grid') {
+      if (gridView) gridView.classList.remove('hidden');
+      if (ideView) ideView.classList.add('hidden');
+      if (btnGrid) {
+        btnGrid.className = 'view-mode-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-2';
+      }
+      if (btnIde) {
+        btnIde.className = 'view-mode-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white flex items-center gap-2';
+      }
+      this.renderNeetCodeGrid();
+    } else {
+      if (gridView) gridView.classList.add('hidden');
+      if (ideView) ideView.classList.remove('hidden');
+      if (btnIde) {
+        btnIde.className = 'view-mode-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-2';
+      }
+      if (btnGrid) {
+        btnGrid.className = 'view-mode-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white flex items-center gap-2';
+      }
+    }
+  },
+
   async loadChallenges() {
     const plat = this.state.selectedPlatform;
     const diff = this.state.selectedDifficulty;
@@ -620,7 +709,7 @@ const App = {
       const data = await res.json();
       let all = data.challenges || [];
 
-      // Apply Status Filter
+      // Apply Status Filter (All / Unsolved / Solved)
       if (this.state.selectedStatus === 'solved') {
         all = all.filter(ch => this.state.solvedChallenges.has(ch.id));
       } else if (this.state.selectedStatus === 'unsolved') {
@@ -628,12 +717,265 @@ const App = {
       }
 
       this.state.challenges = all;
+      this.renderNeetCodeGrid();
       this.renderChallengeList();
       this.renderChallengeDropdown();
       this.updateGlobalSolvedProgress();
     } catch (e) {
       console.error('Failed to load challenges:', e);
     }
+  },
+
+  renderNeetCodeGrid() {
+    const container = document.getElementById('neetcode-roadmap-container');
+    if (!container) return;
+
+    const orderedPlatformNames = [
+      "LeetCode",
+      "HackerRank",
+      "GeeksforGeeks",
+      "CodeChef",
+      "GUVI - CodeKata",
+      "Placement Preparation",
+      "Codewars",
+      "HackerEarth",
+      "Programiz",
+      "W3Schools",
+      "Foundational Sandbox"
+    ];
+
+    const platformsMap = new Map();
+    orderedPlatformNames.forEach(p => platformsMap.set(p, []));
+
+    this.state.challenges.forEach(ch => {
+      let platName = ch.platform || "Foundational Sandbox";
+      let matchedKey = null;
+      for (const pName of orderedPlatformNames) {
+        if (pName.toLowerCase() === platName.toLowerCase() || platName.toLowerCase().includes(pName.toLowerCase().split(' ')[0])) {
+          matchedKey = pName;
+          break;
+        }
+      }
+      if (!matchedKey) matchedKey = platName;
+      if (!platformsMap.has(matchedKey)) {
+        platformsMap.set(matchedKey, []);
+      }
+      platformsMap.get(matchedKey).push(ch);
+    });
+
+    let html = '';
+
+    platformsMap.forEach((pChallenges, platName) => {
+      if (pChallenges.length === 0 && (this.state.searchQuery || this.state.selectedDifficulty !== 'All' || this.state.selectedStatus !== 'all')) {
+        return;
+      }
+
+      const platSolvedCount = pChallenges.filter(ch => this.state.solvedChallenges.has(ch.id)).length;
+      const platTotal = pChallenges.length;
+      const platPct = platTotal > 0 ? (platSolvedCount / platTotal) * 100 : 0;
+
+      // Group by subdivision
+      const subMap = new Map();
+      const SUBDIVISION_ORDER = [
+        'Arrays & Hashing',
+        'Two Pointers & Sliding Window',
+        'Stacks & Queues',
+        'Binary Search',
+        'Linked Lists',
+        'Trees & Graphs',
+        'Dynamic Programming',
+        'Greedy',
+        'Math & Bit Manipulation',
+        'Strings',
+        'Core Programming & Logic'
+      ];
+      SUBDIVISION_ORDER.forEach(s => subMap.set(s, []));
+
+      pChallenges.forEach(ch => {
+        const sub = ch.subdivision || this.computeSubdivision(ch.category, ch.tags || []);
+        if (!subMap.has(sub)) subMap.set(sub, []);
+        subMap.get(sub).push(ch);
+      });
+
+      html += `
+        <div class="neetcode-accordion is-open rounded-xl overflow-hidden border border-slate-800/80 mb-4" data-platform="${platName}">
+          <!-- Website Accordion Header (like NeetCode) -->
+          <div class="neetcode-accordion-header p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800/60 transition-all select-none">
+            <div class="flex items-center gap-3">
+              <span class="neetcode-chevron text-slate-400 font-bold">▼</span>
+              <span class="text-base font-bold text-white tracking-tight flex items-center gap-2">
+                <span class="text-emerald-400">🌐</span>
+                <span>${platName}</span>
+              </span>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">${platTotal} Challenges</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="text-xs font-mono text-slate-300">
+                <strong class="text-emerald-400">${platSolvedCount}</strong> / ${platTotal}
+              </span>
+              <div class="w-24 md:w-36 bg-slate-800 rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-500" style="width: ${platPct.toFixed(1)}%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Website Accordion Body (Subdivisions like Arrays, Strings, etc.) -->
+          <div class="neetcode-accordion-body p-4 pt-2 space-y-4 bg-slate-950/40">
+      `;
+
+      let hasSubdivisions = false;
+      subMap.forEach((subChallenges, subName) => {
+        if (subChallenges.length === 0) return;
+        hasSubdivisions = true;
+
+        const subSolvedCount = subChallenges.filter(ch => this.state.solvedChallenges.has(ch.id)).length;
+        const subTotal = subChallenges.length;
+        const subPct = subTotal > 0 ? (subSolvedCount / subTotal) * 100 : 0;
+
+        html += `
+          <div class="subdivision-block">
+            <!-- Subdivision Header (like Arrays in screenshot) -->
+            <div class="subdivision-header px-3.5 py-2.5 border-b border-slate-800/80 bg-slate-900/90 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-cyan-400 text-xs">📂</span>
+                <span class="text-white font-bold text-xs">${subName}</span>
+                <span class="text-[11px] text-slate-500 font-mono">(${subTotal})</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-[11px] font-mono text-slate-400">
+                  <span class="text-emerald-400 font-semibold">${subSolvedCount}</span> / ${subTotal}
+                </span>
+                <div class="w-16 md:w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: ${subPct.toFixed(1)}%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NeetCode-Style Table -->
+            <div class="overflow-x-auto">
+              <table class="neetcode-table w-full text-left">
+                <thead>
+                  <tr class="text-slate-400 border-b border-slate-800/60 text-[11px]">
+                    <th class="w-12 text-center py-2 px-3">Status</th>
+                    <th class="py-2 px-3">Problem</th>
+                    <th class="w-24 py-2 px-3">Difficulty</th>
+                    <th class="w-24 text-center py-2 px-3">Frequency</th>
+                    <th class="w-32 py-2 px-3">Category</th>
+                    <th class="w-28 text-right py-2 px-3">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/40">
+        `;
+
+        subChallenges.forEach(ch => {
+          const isSolved = this.state.solvedChallenges.has(ch.id);
+          const diffBadge = ch.difficulty.toLowerCase() === 'easy' ? 'badge-easy' :
+                            ch.difficulty.toLowerCase() === 'medium' ? 'badge-medium' : 'badge-hard';
+          const freqBars = this.renderFrequencyBars(ch);
+
+          html += `
+            <tr class="hover:bg-slate-800/50 transition-colors group ${isSolved ? 'bg-emerald-950/10' : ''}" data-row-cid="${ch.id}">
+              <td class="py-2.5 px-3 text-center">
+                <input type="checkbox" class="problem-checkbox" data-cid="${ch.id}" ${isSolved ? 'checked' : ''} title="Mark solved/unsolved">
+              </td>
+              <td class="py-2.5 px-3 font-medium">
+                <a href="javascript:void(0)" class="text-slate-200 hover:text-emerald-300 transition-colors flex items-center gap-2 problem-open-link font-medium" data-cid="${ch.id}">
+                  <span class="${isSolved ? 'line-through text-slate-400' : ''}">${ch.title}</span>
+                </a>
+              </td>
+              <td class="py-2.5 px-3">
+                <span class="text-[11px] px-2 py-0.5 rounded-full font-semibold ${diffBadge}">${ch.difficulty}</span>
+              </td>
+              <td class="py-2.5 px-3 text-center">
+                ${freqBars}
+              </td>
+              <td class="py-2.5 px-3">
+                <span class="text-[11px] text-slate-400 font-mono truncate block max-w-[150px]">${ch.category}</span>
+              </td>
+              <td class="py-2.5 px-3 text-right">
+                <button class="btn-solve-now px-2.5 py-1 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/30 text-[11px] font-semibold transition-all inline-flex items-center gap-1" data-cid="${ch.id}">
+                  <span>▶</span> <span>Solve</span>
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+
+        html += `
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      });
+
+      if (!hasSubdivisions && pChallenges.length > 0) {
+        html += '<div class="text-xs text-slate-500 font-mono p-3">No problems matching filter.</div>';
+      }
+
+      html += `
+          </div>
+        </div>
+      `;
+    });
+
+    if (!html) {
+      container.innerHTML = '<div class="p-12 text-center text-slate-400 text-xs font-mono">No problems match the selected platform, difficulty, or search query.</div>';
+      return;
+    }
+
+    container.innerHTML = html;
+
+    // Bind accordion toggles
+    container.querySelectorAll('.neetcode-accordion-header').forEach(hdr => {
+      hdr.addEventListener('click', (e) => {
+        if (e.target.closest('button') || e.target.closest('input')) return;
+        const acc = hdr.closest('.neetcode-accordion');
+        acc.classList.toggle('is-open');
+      });
+    });
+
+    // Bind checkboxes
+    container.querySelectorAll('.problem-checkbox').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const cid = e.target.dataset.cid;
+        this.toggleChallengeSolvedById(cid);
+      });
+    });
+
+    // Bind problem open links and Solve buttons
+    container.querySelectorAll('.problem-open-link, .btn-solve-now').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const cid = btn.dataset.cid;
+        this.selectChallenge(cid, true);
+      });
+    });
+  },
+
+  toggleChallengeSolvedById(cid) {
+    if (!cid) return;
+    const currentlySolved = this.state.solvedChallenges.has(cid);
+    if (currentlySolved) {
+      this.state.solvedChallenges.delete(cid);
+    } else {
+      this.state.solvedChallenges.add(cid);
+    }
+
+    localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
+    this.updateGlobalSolvedProgress();
+    this.renderNeetCodeGrid();
+    this.renderChallengeList();
+    this.renderChallengeDropdown();
+    if (this.state.activeChallenge && this.state.activeChallenge.id === cid) {
+      this.updateActiveChallengeSolvedUI();
+    }
+
+    // Sync to SQLite in background
+    fetch('/api/mark-solved', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ challenge_id: cid, solved: !currentlySolved })
+    }).catch(err => console.warn('mark-solved error:', err));
   },
 
   renderChallengeDropdown() {
@@ -666,7 +1008,7 @@ const App = {
     if (!listEl) return;
 
     if (this.state.challenges.length === 0) {
-      listEl.innerHTML = '<div class="p-8 text-center text-slate-400 text-xs font-mono">No challenges matching the active filter.</div>';
+      listEl.innerHTML = '<div class="p-8 text-center text-slate-400 text-xs font-mono">No challenges matching active filter.</div>';
       return;
     }
 
@@ -702,14 +1044,13 @@ const App = {
 
     listEl.querySelectorAll('.challenge-item').forEach(item => {
       item.addEventListener('click', () => {
-        this.selectChallenge(item.dataset.cid);
-        // Switch tab to problem view so user sees problem & examples right beside editor
+        this.selectChallenge(item.dataset.cid, true);
         this.switchSandboxTab('problem');
       });
     });
   },
 
-  async selectChallenge(cid) {
+  async selectChallenge(cid, autoOpenIde = false) {
     try {
       const res = await fetch(`/api/challenges/${cid}`);
       if (!res.ok) return;
@@ -718,9 +1059,18 @@ const App = {
       this.state.editorContent = ch.initial_code;
       this.state.testResults = null;
 
+      const ideTitle = document.getElementById('ide-active-title');
+      if (ideTitle) {
+        ideTitle.textContent = `${ch.platform}: ${ch.title}`;
+      }
+
       this.renderChallengeDetail();
       this.renderChallengeList();
       this.renderChallengeDropdown();
+
+      if (autoOpenIde) {
+        this.switchSandboxMode('ide');
+      }
     } catch (e) {
       console.error('Failed to fetch challenge detail:', e);
     }
@@ -788,7 +1138,6 @@ const App = {
       }
     }
 
-    // Solved Status UI
     this.updateActiveChallengeSolvedUI();
 
     const editor = document.getElementById('code-editor');
@@ -838,26 +1187,7 @@ const App = {
   toggleActiveChallengeSolved() {
     const ch = this.state.activeChallenge;
     if (!ch) return;
-
-    const currentlySolved = this.state.solvedChallenges.has(ch.id);
-    if (currentlySolved) {
-      this.state.solvedChallenges.delete(ch.id);
-    } else {
-      this.state.solvedChallenges.add(ch.id);
-    }
-
-    localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
-    this.updateActiveChallengeSolvedUI();
-    this.updateGlobalSolvedProgress();
-    this.renderChallengeList();
-    this.renderChallengeDropdown();
-
-    // Background sync to SQLite
-    fetch('/api/mark-solved', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ challenge_id: ch.id, solved: !currentlySolved })
-    }).catch(err => console.warn('mark-solved error:', err));
+    this.toggleChallengeSolvedById(ch.id);
   },
 
   switchSandboxTab(tabName) {
@@ -881,7 +1211,29 @@ const App = {
   },
 
   bindSandboxEvents() {
-    // Tab switching
+    // View Mode Switcher
+    const btnModeGrid = document.getElementById('btn-mode-grid');
+    const btnModeIde = document.getElementById('btn-mode-ide');
+    const btnBackGrid = document.getElementById('btn-back-to-grid');
+    if (btnModeGrid) btnModeGrid.addEventListener('click', () => this.switchSandboxMode('grid'));
+    if (btnModeIde) btnModeIde.addEventListener('click', () => this.switchSandboxMode('ide'));
+    if (btnBackGrid) btnBackGrid.addEventListener('click', () => this.switchSandboxMode('grid'));
+
+    // Expand / Collapse All
+    const btnExpand = document.getElementById('btn-expand-all');
+    const btnCollapse = document.getElementById('btn-collapse-all');
+    if (btnExpand) {
+      btnExpand.addEventListener('click', () => {
+        document.querySelectorAll('.neetcode-accordion').forEach(a => a.classList.add('is-open'));
+      });
+    }
+    if (btnCollapse) {
+      btnCollapse.addEventListener('click', () => {
+        document.querySelectorAll('.neetcode-accordion').forEach(a => a.classList.remove('is-open'));
+      });
+    }
+
+    // Tab switching inside IDE left pane
     const tabProblem = document.getElementById('tab-btn-problem');
     const tabCatalog = document.getElementById('tab-btn-catalog');
     if (tabProblem) tabProblem.addEventListener('click', () => this.switchSandboxTab('problem'));
@@ -896,7 +1248,7 @@ const App = {
     if (dropdown) {
       dropdown.addEventListener('change', (e) => {
         if (e.target.value) {
-          this.selectChallenge(e.target.value);
+          this.selectChallenge(e.target.value, true);
           this.switchSandboxTab('problem');
         }
       });
@@ -1007,13 +1359,13 @@ const App = {
       this.renderTestResults(report, runHidden);
 
       if (report.status === 'PASS' && runHidden) {
-        // Mark challenge solved!
         this.state.solvedChallenges.add(this.state.activeChallenge.id);
         localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
         this.updateActiveChallengeSolvedUI();
         this.updateGlobalSolvedProgress();
         this.renderChallengeList();
         this.renderChallengeDropdown();
+        this.renderNeetCodeGrid();
 
         if (typeof confetti === 'function') {
           confetti({

@@ -1067,132 +1067,173 @@
           </div>
         </div>
 
-        <!-- 2-Column Grid: Problem & Examples (Left) beside Editor & Console (Right) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-          
-          <!-- LEFT COLUMN: Problem Description, Constraints & Sample Test Cases (Beside the Editor!) -->
-          <div class="lg:col-span-5 flex flex-col space-y-3">
-            
-            <!-- Tab Navigation Header -->
-            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-              <div class="flex items-center gap-1.5">
-                <button id="tab-btn-problem" class="sandbox-tab-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-                  📄 Problem & Examples
-                </button>
-                <button id="tab-btn-catalog" class="sandbox-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white">
-                  📋 Problem Catalog (<span id="catalog-tab-count">312</span>)
-                </button>
-              </div>
-              <button id="active-ch-status-pill" class="text-xs font-mono px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 hover:border-slate-500 transition-all cursor-pointer" title="Click to toggle solved status">
-                ○ Unsolved
-              </button>
+        <!-- View Mode Switcher: NeetCode Roadmap Grid vs Interactive IDE -->
+        <div class="flex flex-wrap items-center justify-between border-b border-slate-800/80 pb-3 gap-3">
+          <div class="flex items-center gap-2">
+            <button id="btn-mode-grid" class="view-mode-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-2">
+              <span>📋</span> <span>NeetCode Roadmap Grid (Websites & Subdivisions)</span>
+            </button>
+            <button id="btn-mode-ide" class="view-mode-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white flex items-center gap-2">
+              <span>💻</span> <span>Interactive IDE & Runner View</span>
+            </button>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-expand-all" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white bg-slate-800/60 border border-slate-700/60 transition-all">
+              Expand All
+            </button>
+            <button id="btn-collapse-all" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white bg-slate-800/60 border border-slate-700/60 transition-all">
+              Collapse All
+            </button>
+          </div>
+        </div>
+
+        <!-- ── VIEW CONTAINER A: NEETCODE ROADMAP GRID (DEFAULT) ─────────────── -->
+        <div id="sandbox-grid-view" class="space-y-4">
+          <div id="neetcode-roadmap-container" class="space-y-4">
+            <!-- Dynamically populated Website Accordions & Subdivisions like Arrays -->
+          </div>
+        </div>
+
+        <!-- ── VIEW CONTAINER B: INTERACTIVE IDE & SOLVER VIEW ───────────────── -->
+        <div id="sandbox-ide-view" class="space-y-4 hidden">
+          <!-- Back to grid bar -->
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+            <button id="btn-back-to-grid" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-emerald-400 hover:text-white border border-emerald-500/30 hover:bg-emerald-950/40 flex items-center gap-2 transition-all">
+              <span>←</span> <span>Back to NeetCode Roadmap Grid</span>
+            </button>
+            <div class="text-xs font-mono text-slate-400 flex items-center gap-2">
+              <span>Active Challenge:</span>
+              <strong id="ide-active-title" class="text-white font-semibold">Select a problem</strong>
             </div>
-
-            <!-- Tab View A: Problem Statement, Constraints & SAMPLE TEST CASES -->
-            <div id="pane-problem-detail" class="glass-panel p-5 space-y-4 max-h-[780px] overflow-y-auto">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span id="ch-difficulty" class="text-xs px-2.5 py-0.5 rounded-full font-semibold badge-easy">Easy</span>
-                  <span id="ch-platform" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">Platform</span>
-                  <span id="ch-category" class="text-xs text-slate-400 font-medium">Category</span>
-                </div>
-                <span id="ch-function" class="text-xs font-mono text-cyan-300 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800">def solution()</span>
-              </div>
-
-              <h2 id="ch-title" class="text-lg md:text-xl font-bold text-white tracking-tight">Select a problem from the catalog</h2>
-              
-              <div id="ch-description" class="text-xs md:text-sm text-slate-300 leading-relaxed space-y-2"></div>
-              
-              <!-- Constraints & Targets -->
-              <div id="ch-constraints-container">
-                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Constraints & Targets</div>
-                <div id="ch-constraints" class="p-3 rounded-lg bg-slate-900/90 border border-slate-800 text-xs text-cyan-300 font-mono"></div>
-              </div>
-
-              <!-- SAMPLE TEST CASES (Examples Box) -->
-              <div id="ch-examples-container" class="space-y-2">
-                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                  <span>📋</span> <span>Sample Test Cases</span>
-                </div>
-                <div id="ch-examples-list" class="space-y-2">
-                  <!-- Injected Examples -->
-                </div>
-              </div>
-
-              <!-- Solved Congratulations Banner -->
-              <div id="ch-solved-alert" class="hidden p-3.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-2.5 font-mono">
-                <span class="text-xl">🎉</span>
-                <div>
-                  <span class="font-bold">Challenge Solved!</span> All test cases passed with 100% accuracy.
-                </div>
-              </div>
-            </div>
-
-            <!-- Tab View B: Problem Catalog List -->
-            <div id="pane-problem-catalog" class="glass-panel p-3 flex flex-col h-[780px] hidden">
-              <div class="flex justify-between items-center px-2 py-1 mb-2 border-b border-slate-800">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">All Challenges</span>
-                <span class="text-xs text-emerald-400 font-mono">Python 3.13</span>
-              </div>
-              <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="challenge-list"></div>
-            </div>
-
           </div>
 
-          <!-- RIGHT COLUMN: Code Editor, Action Buttons & Test Results -->
-          <div class="lg:col-span-7 space-y-4">
+          <!-- 2-Column Grid: Problem & Examples (Left) beside Editor & Console (Right) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
             
-            <div class="glass-panel overflow-hidden border border-slate-700/60 shadow-xl">
-              <div class="editor-header flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-slate-800">
-                <div class="flex items-center gap-2 text-xs font-mono text-slate-300">
-                  <span>🐍</span>
-                  <span class="font-semibold text-white">Python 3 Solution Editor</span>
-                  <span class="text-slate-600">•</span>
-                  <span class="text-emerald-400 text-[11px]">Subprocess Isolated (3.0s limit)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button id="btn-reset-code" class="btn-secondary text-xs py-1 px-2.5 hover:text-white" title="Reset starter code">
-                    ↺ Reset Code
-                  </button>
-                  <button id="btn-reveal-solution" class="btn-secondary text-xs py-1 px-2.5 text-amber-300 border-amber-900/50 hover:bg-amber-950/40" title="Reveal canonical solution">
-                    💡 Optimal Solution
-                  </button>
-                </div>
-              </div>
+            <!-- LEFT COLUMN: Problem Description, Constraints & Sample Test Cases (Beside the Editor!) -->
+            <div class="lg:col-span-5 flex flex-col space-y-3">
               
-              <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="# Write your Python solution here..."></textarea>
-
-              <div class="p-3 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
-                <div class="text-[11px] text-slate-400 font-mono">
-                  Press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-slate-300 text-[10px]">Ctrl+Enter</kbd> to run sample tests
-                </div>
-                <div class="flex items-center gap-2.5">
-                  <button id="btn-run-samples" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-950/40 flex items-center gap-1.5 transition-all">
-                    <span>▶</span> <span>Run Sample Cases</span>
+              <!-- Tab Navigation Header -->
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-1.5">
+                  <button id="tab-btn-problem" class="sandbox-tab-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                    📄 Problem & Examples
                   </button>
-                  <button id="btn-run-code" class="btn-primary text-xs py-1.5 px-4 flex items-center gap-1.5 shadow-lg shadow-emerald-950/50">
-                    <span>⚡</span> <span>Submit Solution (Hidden Cases)</span>
+                  <button id="tab-btn-catalog" class="sandbox-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white">
+                    📋 Problem Catalog (<span id="catalog-tab-count">312</span>)
                   </button>
                 </div>
+                <button id="active-ch-status-pill" class="text-xs font-mono px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 hover:border-slate-500 transition-all cursor-pointer" title="Click to toggle solved status">
+                  ○ Unsolved
+                </button>
               </div>
+
+              <!-- Tab View A: Problem Statement, Constraints & SAMPLE TEST CASES -->
+              <div id="pane-problem-detail" class="glass-panel p-5 space-y-4 max-h-[780px] overflow-y-auto">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span id="ch-difficulty" class="text-xs px-2.5 py-0.5 rounded-full font-semibold badge-easy">Easy</span>
+                    <span id="ch-platform" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">Platform</span>
+                    <span id="ch-category" class="text-xs text-slate-400 font-medium">Category</span>
+                  </div>
+                  <span id="ch-function" class="text-xs font-mono text-cyan-300 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800">def solution()</span>
+                </div>
+
+                <h2 id="ch-title" class="text-lg md:text-xl font-bold text-white tracking-tight">Select a problem from the catalog</h2>
+                
+                <div id="ch-description" class="text-xs md:text-sm text-slate-300 leading-relaxed space-y-2"></div>
+                
+                <!-- Constraints & Targets -->
+                <div id="ch-constraints-container">
+                  <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Constraints & Targets</div>
+                  <div id="ch-constraints" class="p-3 rounded-lg bg-slate-900/90 border border-slate-800 text-xs text-cyan-300 font-mono"></div>
+                </div>
+
+                <!-- SAMPLE TEST CASES (Examples Box) -->
+                <div id="ch-examples-container" class="space-y-2">
+                  <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <span>📋</span> <span>Sample Test Cases</span>
+                  </div>
+                  <div id="ch-examples-list" class="space-y-2">
+                    <!-- Injected Examples -->
+                  </div>
+                </div>
+
+                <!-- Solved Congratulations Banner -->
+                <div id="ch-solved-alert" class="hidden p-3.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-2.5 font-mono">
+                  <span class="text-xl">🎉</span>
+                  <div>
+                    <span class="font-bold">Challenge Solved!</span> All test cases passed with 100% accuracy.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab View B: Problem Catalog List -->
+              <div id="pane-problem-catalog" class="glass-panel p-3 flex flex-col h-[780px] hidden">
+                <div class="flex justify-between items-center px-2 py-1 mb-2 border-b border-slate-800">
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-400">All Challenges</span>
+                  <span class="text-xs text-emerald-400 font-mono">Python 3.13</span>
+                </div>
+                <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="challenge-list"></div>
+              </div>
+
             </div>
 
-            <!-- Execution Telemetry & Results Terminal -->
-            <div class="results-terminal glass-panel p-4 border border-slate-800 bg-slate-950/90">
-              <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Execution Telemetry & Validation</span>
-                  <span id="terminal-status-badge"></span>
+            <!-- RIGHT COLUMN: Code Editor, Action Buttons & Test Results -->
+            <div class="lg:col-span-7 space-y-4">
+              
+              <div class="glass-panel overflow-hidden border border-slate-700/60 shadow-xl">
+                <div class="editor-header flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-slate-800">
+                  <div class="flex items-center gap-2 text-xs font-mono text-slate-300">
+                    <span>🐍</span>
+                    <span class="font-semibold text-white">Python 3 Solution Editor</span>
+                    <span class="text-slate-600">•</span>
+                    <span class="text-emerald-400 text-[11px]">Subprocess Isolated (3.0s limit)</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button id="btn-reset-code" class="btn-secondary text-xs py-1 px-2.5 hover:text-white" title="Reset starter code">
+                      ↺ Reset Code
+                    </button>
+                    <button id="btn-reveal-solution" class="btn-secondary text-xs py-1 px-2.5 text-amber-300 border-amber-900/50 hover:bg-amber-950/40" title="Reveal canonical solution">
+                      💡 Optimal Solution
+                    </button>
+                  </div>
                 </div>
-                <span class="text-xs text-slate-500 font-mono">Timeout Limit: 3.00s</span>
-              </div>
-              <div id="results-container">
-                <div class="text-slate-500 text-xs font-mono py-6 text-center">
-                  Click 'Run Sample Cases' or 'Submit Solution' to execute code against tests.
-                </div>
-              </div>
-            </div>
+                
+                <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="# Write your Python solution here..."></textarea>
 
+                <div class="p-3 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                  <div class="text-[11px] text-slate-400 font-mono">
+                    Press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-slate-300 text-[10px]">Ctrl+Enter</kbd> to run sample tests
+                  </div>
+                  <div class="flex items-center gap-2.5">
+                    <button id="btn-run-samples" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-950/40 flex items-center gap-1.5 transition-all">
+                      <span>▶</span> <span>Run Sample Cases</span>
+                    </button>
+                    <button id="btn-run-code" class="btn-primary text-xs py-1.5 px-4 flex items-center gap-1.5 shadow-lg shadow-emerald-950/50">
+                      <span>⚡</span> <span>Submit Solution (Hidden Cases)</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Execution Telemetry & Results Terminal -->
+              <div class="results-terminal glass-panel p-4 border border-slate-800 bg-slate-950/90">
+                <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Execution Telemetry & Validation</span>
+                    <span id="terminal-status-badge"></span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-mono">Timeout Limit: 3.00s</span>
+                </div>
+                <div id="results-container">
+                  <div class="text-slate-500 text-xs font-mono py-6 text-center">
+                    Click 'Run Sample Cases' or 'Submit Solution' to execute code against tests.
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
