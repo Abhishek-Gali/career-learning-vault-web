@@ -779,14 +779,15 @@ def list_admin_users(admin: Dict[str, Any] = Depends(require_admin)):
 @app.post("/api/admin/users/create")
 def admin_create_user(req: CreateUserRequest, admin: Dict[str, Any] = Depends(require_admin)):
     """Admin provisions a new user with temporary password and designated role."""
-    uname = req.username.strip()
-    if len(uname) < 3 or not uname.replace("_", "").isalnum():
-        raise HTTPException(status_code=400, detail="Username must be 3-30 alphanumeric characters (or underscores).")
+    uname = req.username.strip().lower()
+    if not re.match(r"^[a-zA-Z0-9_.@-]{3,50}$", uname):
+        raise HTTPException(status_code=400, detail="Username must be 3-50 characters (letters, numbers, underscores, dots, hyphens, or email).")
     if len(req.password) < 6:
         raise HTTPException(status_code=400, detail="Initial password must be at least 6 characters.")
     if req.role not in ("student", "admin"):
         raise HTTPException(status_code=400, detail="Role must be 'student' or 'admin'.")
 
+    full_name_clean = sanitize_user_input(req.full_name, max_len=60) if req.full_name else uname
     now_iso = datetime.datetime.now(timezone.utc).isoformat()
     hashed = hash_password(req.password)
 
@@ -796,7 +797,7 @@ def admin_create_user(req: CreateUserRequest, admin: Dict[str, Any] = Depends(re
             cur.execute("""
                 INSERT INTO users (username, full_name, password_hash, role, is_active, created_at, created_by)
                 VALUES (?, ?, ?, ?, 1, ?, ?)
-            """, (uname, req.full_name or uname, hashed, req.role, now_iso, admin["username"]))
+            """, (uname, full_name_clean, hashed, req.role, now_iso, admin["username"]))
             user_id = cur.lastrowid
             conn.commit()
 
@@ -806,12 +807,12 @@ def admin_create_user(req: CreateUserRequest, admin: Dict[str, Any] = Depends(re
                 "user": {
                     "id": user_id,
                     "username": uname,
-                    "full_name": req.full_name or uname,
+                    "full_name": full_name_clean,
                     "role": req.role
                 }
             }
     except sqlite3.IntegrityError:
-        raise HTTPException(status_code=409, detail=f"Username '{uname}' already exists.")
+        raise HTTPException(status_code=409, detail=f"Username '{uname}' already exists. Please choose another username.")
 
 @app.post("/api/admin/users/{user_id}/reset-password")
 def admin_reset_password(user_id: int, req: ResetPasswordRequest, admin: Dict[str, Any] = Depends(require_admin)):

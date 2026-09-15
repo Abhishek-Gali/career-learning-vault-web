@@ -3203,8 +3203,15 @@ const App = {
   openCreateUserModal() {
     const m = document.getElementById('modal-create-user');
     const err = document.getElementById('create-user-error');
+    const uInput = document.getElementById('create-username');
+    const fInput = document.getElementById('create-fullname');
+    const pInput = document.getElementById('create-password');
+    if (uInput) uInput.value = '';
+    if (fInput) fInput.value = '';
+    if (pInput) pInput.value = '';
     if (err) err.classList.add('hidden');
     if (m) m.classList.remove('hidden');
+    if (uInput) setTimeout(() => uInput.focus(), 80);
   },
 
   closeCreateUserModal() {
@@ -3214,11 +3221,32 @@ const App = {
 
   async handleCreateUser(e) {
     if (e) e.preventDefault();
-    const uname = document.getElementById('create-username').value.trim();
-    const fname = document.getElementById('create-fullname').value.trim();
-    const pwd = document.getElementById('create-password').value;
-    const role = document.getElementById('create-role').value;
+    const unameInput = document.getElementById('create-username');
+    const fnameInput = document.getElementById('create-fullname');
+    const pwdInput = document.getElementById('create-password');
+    const roleInput = document.getElementById('create-role');
     const err = document.getElementById('create-user-error');
+    const submitBtn = document.getElementById('create-user-submit-btn');
+
+    if (!unameInput || !pwdInput) return;
+    const uname = unameInput.value.trim().toLowerCase();
+    const fname = fnameInput ? fnameInput.value.trim() : '';
+    const pwd = pwdInput.value;
+    const role = roleInput ? roleInput.value : 'student';
+
+    if (!uname || !pwd) {
+      if (err) {
+        err.classList.remove('hidden');
+        err.textContent = 'Please fill out username and password.';
+      }
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Provisioning...</span>';
+    }
+    if (err) err.classList.add('hidden');
 
     try {
       const res = await fetch('/api/admin/users/create', {
@@ -3228,9 +3256,18 @@ const App = {
       });
       const data = await res.json();
       if (res.ok && data.status === 'ok') {
+        unameInput.value = '';
+        if (fnameInput) fnameInput.value = '';
+        pwdInput.value = '';
         this.closeCreateUserModal();
-        this.loadAdminUsers();
+        await this.loadAdminUsers();
+        alert(`✓ Account @${uname} has been successfully provisioned into the vault!`);
       } else {
+        if (res.status === 401) {
+          this.closeCreateUserModal();
+          this.handleSessionExpired('Your administrator session has expired. Please sign in again.');
+          return;
+        }
         if (err) {
           err.classList.remove('hidden');
           err.textContent = data.detail || 'Failed to create user.';
@@ -3240,6 +3277,11 @@ const App = {
       if (err) {
         err.classList.remove('hidden');
         err.textContent = 'Network error provisioning user.';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Provision Account</span>';
       }
     }
   },
