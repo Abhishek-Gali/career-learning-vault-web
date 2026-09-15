@@ -211,7 +211,8 @@ const App = {
       const v = item.dataset.view;
       const isMatch = (v === viewName) ||
                       (viewName === 'dsa-blueprint' && v === 'dsa') ||
-                      (viewName === 'drills' && (v === 'dsa-drills' || v === 'drills'));
+                      (viewName === 'drills' && (v === 'dsa-drills' || v === 'drills')) ||
+                      (viewName === 'quiz' && (v === 'dsa-drills' || v === 'drills'));
       item.classList.toggle('active', isMatch);
     });
 
@@ -226,17 +227,7 @@ const App = {
       if (!this.state.activeTrackKey) {
         this.state.activeTrackKey = 'machine_learning';
       }
-      const pfxMap = { 'machine_learning': 'ml', 'data_science': 'ds', 'cybersecurity': 'cyber', 'dsa': 'dsa' };
-      const pfx = pfxMap[this.state.activeTrackKey] || 'ml';
-
-      const trackObj = this.state.interviewTracks[this.state.activeTrackKey];
-      if (trackObj && trackObj.sets && trackObj.sets.length > 0) {
-        if (!this.state.activeSetId || !trackObj.sets.some(s => s.id === this.state.activeSetId)) {
-          this.state.activeSetId = trackObj.sets[0].id;
-        }
-      }
       this.renderDrillsHub();
-      this.loadQuizQuestions(pfx);
     }
 
     if (viewName === 'sandbox') {
@@ -350,7 +341,7 @@ const App = {
     return themes[trackPrefix] || themes['ml'];
   },
 
-  openDrillsForTrack(trackPrefix, setId) {
+  openDrillsForTrack(trackPrefix, setId = null) {
     const trackMap = {
       'ds': 'data_science',
       'ml': 'machine_learning',
@@ -361,23 +352,57 @@ const App = {
     this.state.activeTrackKey = trackKey;
 
     const trackObj = this.state.interviewTracks[trackKey];
-    if (trackObj && trackObj.sets && trackObj.sets.length > 0) {
-      if (setId && trackObj.sets.some(s => s.id === setId)) {
-        this.state.activeSetId = setId;
-      } else {
-        this.state.activeSetId = trackObj.sets[0].id;
-      }
+    let targetSetId = setId;
+    if (!targetSetId && trackObj && trackObj.sets && trackObj.sets.length > 0) {
+      targetSetId = trackObj.sets[0].id;
     }
 
-    this.state.quizStats = { correct: 0, incorrect: 0 };
-    this.switchView('drills');
-    this.renderDrillsHub();
-    this.loadQuizQuestions(trackPrefix);
+    this.startQuizSession(trackKey, trackPrefix, targetSetId);
+  },
 
-    setTimeout(() => {
-      const quizEl = document.getElementById('unified-quiz-container');
-      if (quizEl) quizEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 120);
+  startQuizSession(trackKey, pfx, setId) {
+    this.state.activeTrackKey = trackKey;
+    this.state.activeSetId = setId;
+    this.state.quizStats = { correct: 0, incorrect: 0 };
+    this.state.currentQuizIdx = 0;
+    this.state.selectedQuizOption = null;
+    this.state.quizSubmitted = false;
+
+    if (!pfx) {
+      const pfxMap = { 'machine_learning': 'ml', 'data_science': 'ds', 'cybersecurity': 'cyber', 'dsa': 'dsa' };
+      pfx = pfxMap[trackKey] || 'ml';
+    }
+
+    // Update session header telemetry in view-quiz
+    const trackMeta = {
+      'machine_learning': { name: '🧠 AIML', color: 'bg-purple-500/20 text-purple-300 border-purple-500/30' },
+      'data_science': { name: '📊 DATA SCIENCE', color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
+      'cybersecurity': { name: '🛡️ CYBER SECURITY', color: 'bg-rose-500/20 text-rose-300 border-rose-500/30' },
+      'dsa': { name: '⚡ DSA', color: 'bg-amber-500/20 text-amber-300 border-amber-500/30' }
+    }[trackKey] || { name: '🎯 DRILLS', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' };
+
+    const badgeEl = document.getElementById('quiz-session-domain-badge');
+    if (badgeEl) {
+      badgeEl.className = `px-2.5 py-1 rounded-full text-xs font-bold font-mono border ${trackMeta.color}`;
+      badgeEl.textContent = trackMeta.name;
+    }
+
+    const titleEl = document.getElementById('quiz-session-level-title');
+    if (titleEl) {
+      const trackObj = this.state.interviewTracks[trackKey];
+      const setObj = (trackObj?.sets || []).find(s => s.id === setId);
+      const levelTitle = setObj ? this.formatSetName(setObj.id, setObj.name) : (setId || 'Practice Level');
+      titleEl.textContent = levelTitle;
+    }
+
+    // Switch to dedicated quiz view
+    this.switchView('quiz');
+
+    // Load questions and render card
+    this.loadQuizQuestions(pfx);
+
+    // Scroll to top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 
   activatePrepSubtab(trackPrefix) {
@@ -502,16 +527,7 @@ const App = {
         const pfx = btn.dataset.pfx;
         const setId = btn.dataset.set;
 
-        this.state.activeTrackKey = trackKey;
-        this.state.activeSetId = setId;
-        this.state.quizStats = { correct: 0, incorrect: 0 };
-        this.renderDrillsHub();
-        this.loadQuizQuestions(pfx);
-
-        setTimeout(() => {
-          const quizEl = document.getElementById('unified-quiz-container');
-          if (quizEl) quizEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 80);
+        this.startQuizSession(trackKey, pfx, setId);
       };
     });
   },
@@ -1812,8 +1828,14 @@ window.addEventListener('DOMContentLoaded', () => {
     if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
     
     const activeView = App.state.activeView;
-    const isDrillsView = activeView === 'drills' || activeView === 'dsa-drills' || activeView === 'interview-drills';
-    if (!isDrillsView) return;
+    const isDrillsOrQuizView = activeView === 'drills' || activeView === 'dsa-drills' || activeView === 'interview-drills' || activeView === 'quiz';
+    if (!isDrillsOrQuizView) return;
+
+    // Esc key returns to drills catalog if in quiz view
+    if (e.key === 'Escape' && activeView === 'quiz') {
+      App.switchView('drills');
+      return;
+    }
 
     const pfxMap = { 'machine_learning': 'ml', 'data_science': 'ds', 'cybersecurity': 'cyber', 'dsa': 'dsa' };
     const pfx = pfxMap[App.state.activeTrackKey] || 'ml';

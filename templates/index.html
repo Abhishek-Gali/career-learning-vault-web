@@ -38,7 +38,7 @@
   </script>
 
   <!-- Refero Design & Watermelon UI Styles -->
-  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.6.0">
+  <link rel="stylesheet" href="/static/css/refero_watermelon.css?v=2.7.0">
 
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
@@ -1035,12 +1035,33 @@
         <div class="space-y-3.5" id="drills-domain-cards-container">
           <!-- Populated dynamically by App.renderDrillsHub() -->
         </div>
+      </section>
 
-        <!-- Active Quiz Card Container -->
-        <div class="pt-2">
-          <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl transition-all" id="unified-quiz-container">
-            <!-- Populated dynamically by App.renderQuizCard() -->
+      <!-- =================================================================== -->
+      <!-- VIEW: DEDICATED INTERACTIVE QUIZ SESSION (NEW SEPARATE PAGE)        -->
+      <!-- =================================================================== -->
+      <section id="view-quiz" class="track-view space-y-6 hidden">
+        <!-- Top Navigation Bar with Back Button and Telemetry -->
+        <div class="glass-panel px-5 py-3 relative overflow-hidden border border-slate-700/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg">
+          <div class="flex items-center gap-3">
+            <button onclick="App.switchView('drills')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-500 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow">
+              <span>←</span>
+              <span>Back to Drills Hub</span>
+            </button>
+            <div class="h-4 w-[1px] bg-slate-800 hidden sm:block"></div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="quiz-session-domain-badge" class="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30">🧠 AIML</span>
+              <span id="quiz-session-level-title" class="text-xs font-bold text-white">Level 1: Foundations</span>
+            </div>
           </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-mono text-slate-400">Shortcuts: <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-mono">A</kbd>–<kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-mono">D</kbd> select • <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-mono">Enter</kbd> submit • <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-mono">Esc</kbd> back</span>
+          </div>
+        </div>
+
+        <!-- Dedicated Quiz Card -->
+        <div class="glass-panel p-6 md:p-8 max-w-4xl mx-auto border border-slate-700/60 shadow-2xl transition-all" id="unified-quiz-container">
+          <!-- Populated dynamically by App.renderQuizCard() -->
         </div>
       </section>
 
@@ -1337,7 +1358,7 @@
   </div>
 
   <!-- App Scripts -->
-  <script src="/static/js/timer.js?v=2.6.0"></script>
-  <script src="/static/js/app.js?v=2.6.0"></script>
+  <script src="/static/js/timer.js?v=2.7.0"></script>
+  <script src="/static/js/app.js?v=2.7.0"></script>
 </body>
 </html>
