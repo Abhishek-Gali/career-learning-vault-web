@@ -1,0 +1,178 @@
+[
+  {
+    "item_id": "ML-L2-025",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Feature Engineering & Dimensionality Reduction",
+    "stem": "Why can feature scaling materially affect k-nearest neighbors (k-NN)?",
+    "options": {
+      "A": "Distance calculations can be dominated by high-magnitude features, changing which points count as neighbors.",
+      "B": "k-NN automatically rescales every feature using the target labels.",
+      "C": "Scaling changes the number of classes.",
+      "D": "Scaling makes Euclidean distance independent of units."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "k-NN commonly relies on distances; a feature measured in thousands can dominate one measured in fractions unless scaling or an alternative distance is used.",
+      "A": "Correct.",
+      "B": "Standard k-NN does not learn a supervised rescaling automatically.",
+      "C": "Scaling changes feature representation, not class labels.",
+      "D": "Scaling can reduce unit dependence but does not make the distance intrinsically unit-independent."
+    }
+  },
+  {
+    "item_id": "ML-L2-026",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Feature Engineering & Dimensionality Reduction",
+    "stem": "What does standardization using x' = (x - mean) / standard deviation primarily accomplish?",
+    "options": {
+      "A": "It centers each feature and expresses deviations in standard-deviation units, which can improve numerical conditioning for scale-sensitive algorithms.",
+      "B": "It guarantees every feature is uniformly distributed.",
+      "C": "It removes all outliers.",
+      "D": "It makes correlated features independent."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Standardization changes location and scale but does not enforce a distributional shape or remove dependence between features.",
+      "A": "Correct.",
+      "B": "A z-score transformation does not make a feature uniform.",
+      "C": "Outliers remain and can strongly influence mean and standard deviation.",
+      "D": "Correlation structure is not generally eliminated by per-feature scaling."
+    }
+  },
+  {
+    "item_id": "ML-L2-027",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Feature Engineering & Dimensionality Reduction",
+    "stem": "What is the primary objective of PCA?",
+    "options": {
+      "A": "Find orthogonal directions capturing decreasing amounts of variance and represent the data in a lower-dimensional coordinate system.",
+      "B": "Maximize class-label separation using only the labels.",
+      "C": "Guarantee every reduced feature is sparse.",
+      "D": "Select features by their p-values."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "PCA is an unsupervised linear dimensionality-reduction method based on variance/covariance structure. The components are orthogonal directions ordered by explained variance.",
+      "A": "Correct.",
+      "B": "Standard PCA ignores class labels.",
+      "C": "PCA components are generally dense linear combinations.",
+      "D": "P-values are not part of standard PCA."
+    }
+  },
+  {
+    "item_id": "ML-L2-028",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Feature Engineering & Dimensionality Reduction",
+    "stem": "Why should PCA be fit only on the training portion inside a cross-validation pipeline?",
+    "options": {
+      "A": "The principal axes are learned from feature covariance, so fitting PCA on held-out data leaks information about the validation distribution.",
+      "B": "PCA cannot operate on validation data.",
+      "C": "PCA changes labels and therefore must be fit on y.",
+      "D": "Cross-validation forbids dimensionality reduction."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "PCA learns directions from the feature distribution. If those directions are computed using held-out folds, the representation of training examples has been informed by held-out information.",
+      "A": "Correct.",
+      "B": "The fitted transformation can be applied to validation data after fitting on training data.",
+      "C": "Standard PCA is unsupervised and does not need y.",
+      "D": "Dimensionality reduction is commonly nested in a pipeline with CV."
+    }
+  },
+  {
+    "item_id": "ML-L2-029",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Feature Engineering & Dimensionality Reduction",
+    "stem": "If PCA's first component explains 60% of the variance and the second explains 25%, what is the cumulative explained variance of the first two components?",
+    "options": {
+      "A": "35%",
+      "B": "60%",
+      "C": "75%",
+      "D": "85%"
+    },
+    "correct_key": "D",
+    "rationales": {
+      "correct": "Cumulative explained variance is the sum of the component-wise explained variance ratios: 0.60 + 0.25 = 0.85.",
+      "A": "This subtracts rather than adds the component ratios.",
+      "B": "60% is only the first component.",
+      "C": "25% is added to 50%, not 60%.",
+      "D": "Correct: 85%."
+    }
+  },
+  {
+    "item_id": "ML-L2-030",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Feature Engineering & Dimensionality Reduction",
+    "stem": "A numeric feature contains extreme outliers. Which preprocessing choice is often more robust than mean/std standardization when the feature distribution is heavy-tailed?",
+    "options": {
+      "A": "A robust scaler based on statistics such as the median and interquartile range.",
+      "B": "Replacing every value by its class label.",
+      "C": "Sorting the column before training.",
+      "D": "Multiplying the feature by a very large constant."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Median and IQR are less sensitive to extreme values than mean and standard deviation, making robust scaling a common alternative for heavy-tailed data.",
+      "A": "Correct.",
+      "B": "This discards the original feature and introduces target leakage if labels are used.",
+      "C": "Ordering values does not normalize their scale.",
+      "D": "A constant multiplier changes scale but does not fix outlier sensitivity."
+    }
+  },
+  {
+    "item_id": "ML-L2-031",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Feature Engineering & Dimensionality Reduction",
+    "stem": "Which statement best describes one-hot encoding for a nominal categorical variable?",
+    "options": {
+      "A": "It represents categories as indicator columns without imposing an ordinal numeric relationship among the categories.",
+      "B": "It assigns larger integers to imply stronger category membership.",
+      "C": "It computes PCA scores for each category.",
+      "D": "It necessarily reduces dimensionality to one feature."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "One-hot encoding creates binary indicators. Unlike ordinal encoding, the integer labels do not suggest that category 3 is 'more' than category 1.",
+      "A": "Correct.",
+      "B": "That describes a potential problem with naive integer/ordinal encoding for nominal categories.",
+      "C": "PCA is unrelated to the encoding definition.",
+      "D": "One-hot encoding usually increases the feature count."
+    }
+  },
+  {
+    "item_id": "ML-L2-032",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Feature Engineering & Dimensionality Reduction",
+    "stem": "A feature has 40% missing values, and missingness itself may indicate a meaningful operational state. Which design can preserve that signal without blindly imputing it away?",
+    "options": {
+      "A": "Impute a chosen value and add an explicit missing-indicator feature when the fact of missingness may be predictive.",
+      "B": "Delete every row containing a missing value regardless of sample size.",
+      "C": "Replace missing values with the target label.",
+      "D": "Fill missing values using the full dataset after the test set is scored."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "An imputed value alone can hide the distinction between observed values and structural missingness. A missingness indicator can let the model learn that distinction. The imputation parameters themselves should be learned on training data within the pipeline.",
+      "A": "Correct.",
+      "B": "Dropping rows can discard large amounts of data and create selection bias.",
+      "C": "Using y to fill X leaks target information.",
+      "D": "Test data must remain isolated from training transformations."
+    }
+  }
+]

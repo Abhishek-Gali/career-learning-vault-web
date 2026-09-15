@@ -1,0 +1,178 @@
+[
+  {
+    "item_id": "ML-L2-009",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Regularization & Generalization",
+    "stem": "A training loss is very low, but validation loss has begun increasing for several epochs. What phenomenon is most directly indicated?",
+    "options": {
+      "A": "Overfitting: optimization on the training data is continuing while out-of-sample performance degrades.",
+      "B": "Underfitting caused by insufficient model capacity.",
+      "C": "A guarantee that the test distribution equals the training distribution.",
+      "D": "An automatic improvement in calibration."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A widening train/validation gap with worsening validation loss is a classic signal that the model is fitting idiosyncrasies of the training set.",
+      "A": "Correct.",
+      "B": "Underfitting typically produces poor training performance as well.",
+      "C": "Validation behavior cannot establish distribution identity.",
+      "D": "Loss curves do not guarantee calibrated probabilities."
+    }
+  },
+  {
+    "item_id": "ML-L2-010",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Regularization & Generalization",
+    "stem": "In penalized empirical risk minimization, what is the primary statistical role of regularization?",
+    "options": {
+      "A": "To constrain model complexity or parameter magnitude to trade some training fit for potentially better generalization.",
+      "B": "To guarantee zero training error.",
+      "C": "To make the training set larger without collecting data.",
+      "D": "To eliminate measurement noise from the labels."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Regularization encodes a preference for simpler parameterizations or functions, often reducing variance at the cost of some training fit.",
+      "A": "Correct.",
+      "B": "Regularization can increase training error by design.",
+      "C": "It changes the objective, not the sample count.",
+      "D": "It does not directly clean labels."
+    }
+  },
+  {
+    "item_id": "ML-L2-011",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Regularization & Generalization",
+    "stem": "For L1-regularized linear models, why can some coefficients become exactly zero?",
+    "options": {
+      "A": "The absolute-value penalty has a subgradient structure that creates sparse optima under suitable conditions.",
+      "B": "L1 literally deletes random columns from the dataset before training.",
+      "C": "L1 changes every feature into a binary feature.",
+      "D": "L1 guarantees that all coefficients are nonzero."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The kink of |w_j| at zero makes zero a favorable optimum for some coordinates when the data-fit gradient is not large enough to overcome the penalty.",
+      "A": "Correct.",
+      "B": "Feature selection is an optimization consequence, not random column deletion.",
+      "C": "The feature representation is not automatically binarized.",
+      "D": "L1 is associated with sparsity, not dense solutions."
+    }
+  },
+  {
+    "item_id": "ML-L2-012",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Regularization & Generalization",
+    "stem": "In scikit-learn LogisticRegression, the parameter C controls regularization strength. What happens as C becomes smaller?",
+    "options": {
+      "A": "Regularization becomes stronger.",
+      "B": "Regularization becomes weaker.",
+      "C": "The optimizer necessarily switches from L2 to L1.",
+      "D": "The number of classes is reduced."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "C is the inverse of regularization strength in scikit-learn's formulation: smaller C means stronger regularization.",
+      "A": "Correct.",
+      "B": "This reverses the documented parameterization.",
+      "C": "The penalty choice is controlled separately.",
+      "D": "C does not alter the class set."
+    }
+  },
+  {
+    "item_id": "ML-L2-013",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Regularization & Generalization",
+    "stem": "A model has high bias and high training error. Which intervention is most directly motivated by that diagnosis?",
+    "options": {
+      "A": "Increase effective model capacity, improve features, or reduce excessive regularization.",
+      "B": "Add more regularization before changing anything else.",
+      "C": "Use the test set to choose hyperparameters repeatedly.",
+      "D": "Randomly permute all labels."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "High bias means the current hypothesis class or training setup is systematically unable to fit the signal. More capacity, better representation, or less regularization are standard responses.",
+      "A": "Correct.",
+      "B": "More regularization normally increases bias.",
+      "C": "Repeated test-set tuning causes optimistic evaluation.",
+      "D": "Permuting labels destroys the supervised signal."
+    }
+  },
+  {
+    "item_id": "ML-L2-014",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Regularization & Generalization",
+    "stem": "Why can increasing model capacity sometimes improve both training and validation performance before eventually hurting validation performance?",
+    "options": {
+      "A": "Additional capacity can first reduce underfitting, then cross into a regime where variance/overfitting dominates.",
+      "B": "Validation error must monotonically increase with capacity.",
+      "C": "Higher capacity always removes bias without affecting variance.",
+      "D": "Capacity changes only inference latency, never statistical performance."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The bias-variance tradeoff is not simply 'more complex is worse': early capacity gains can capture real structure, while excessive flexibility can fit noise.",
+      "A": "Correct.",
+      "B": "The validation curve can be non-monotonic.",
+      "C": "Capacity can affect both bias and variance.",
+      "D": "Capacity directly affects fitting behavior and generalization."
+    }
+  },
+  {
+    "item_id": "ML-L2-015",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Regularization & Generalization",
+    "stem": "Dropout during neural-network training is best understood as which mechanism?",
+    "options": {
+      "A": "Randomly masking activations/units during training to discourage co-adaptation and act as a form of stochastic regularization.",
+      "B": "Permanently deleting neurons before training and never changing them.",
+      "C": "Increasing the learning rate only at inference time.",
+      "D": "Replacing the loss function with accuracy."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "During training, dropout samples subnetworks by zeroing selected activations. The stochastic perturbation regularizes learning; inference uses the full network with appropriate scaling/implementation semantics.",
+      "A": "Correct.",
+      "B": "The masks are stochastic during training, not permanent architecture deletions.",
+      "C": "Dropout is not an inference-time learning-rate operation.",
+      "D": "The training objective can remain cross-entropy or another chosen loss."
+    }
+  },
+  {
+    "item_id": "ML-L2-016",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Regularization & Generalization",
+    "stem": "A validation score looks excellent only after the same validation set has been used to tune dozens of hyperparameters. What is the main concern?",
+    "options": {
+      "A": "Selection overfitting: the validation set has become part of the tuning process and its score can become optimistic.",
+      "B": "The model is necessarily underfit.",
+      "C": "The validation set has become statistically independent of the tuning process.",
+      "D": "Hyperparameter tuning cannot overfit."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Repeatedly adapting decisions to validation results can overfit to that finite validation set. A final untouched test set or nested validation strategy is used when an unbiased final estimate matters.",
+      "A": "Correct.",
+      "B": "Excellent tuned validation performance does not diagnose underfitting.",
+      "C": "It is directly dependent because tuning decisions use it.",
+      "D": "Model selection can overfit."
+    }
+  }
+]

@@ -1,0 +1,178 @@
+[
+  {
+    "item_id": "ML-L2-033",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Tree Ensembles & Kernel Methods",
+    "stem": "Why do random forests often generalize better than a single fully grown decision tree?",
+    "options": {
+      "A": "Averaging many decorrelated trees can reduce variance while retaining nonlinear interactions.",
+      "B": "Random forests eliminate all bias.",
+      "C": "Every tree receives exactly the same features and bootstrap sample.",
+      "D": "A random forest is always linear in the original features."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Bagging reduces variance by averaging unstable base learners, while feature subsampling helps decorrelate trees. The result can be much more stable than one high-variance tree.",
+      "A": "Correct.",
+      "B": "Ensembling can retain bias; it is not a universal bias eliminator.",
+      "C": "Randomization is used specifically to diversify trees.",
+      "D": "Tree ensembles represent nonlinear functions."
+    }
+  },
+  {
+    "item_id": "ML-L2-034",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Tree Ensembles & Kernel Methods",
+    "stem": "In gradient boosting, what is the high-level role of each successive weak learner?",
+    "options": {
+      "A": "It is trained to reduce current model error, commonly by fitting the negative gradient/residual structure of the current loss.",
+      "B": "It independently replaces the entire ensemble.",
+      "C": "It is trained only on the original unmodified labels with no relationship to the current model.",
+      "D": "It randomly permutes the target to reduce variance."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Boosting constructs an additive model sequentially. Each learner is chosen to improve the current ensemble, often by approximating a gradient direction of the loss.",
+      "A": "Correct.",
+      "B": "The learner contributes an incremental function to the ensemble.",
+      "C": "Its training target is derived from the current model and chosen loss, directly or indirectly.",
+      "D": "Target permutation would destroy the learning signal."
+    }
+  },
+  {
+    "item_id": "ML-L2-035",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Tree Ensembles & Kernel Methods",
+    "stem": "A boosted-tree model overfits after hundreds of stages. Which change directly reduces ensemble complexity while preserving the sequential boosting idea?",
+    "options": {
+      "A": "Reduce the number of boosting stages, decrease tree depth, increase regularization, or use a smaller learning rate with appropriate early stopping.",
+      "B": "Increase the number of stages without validation monitoring.",
+      "C": "Randomly reorder class labels.",
+      "D": "Remove the validation set."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Boosting has several complexity controls: number/depth of base learners, shrinkage, subsampling, and regularization. Early stopping can select an appropriate number of stages.",
+      "A": "Correct.",
+      "B": "More stages can worsen overfitting.",
+      "C": "Label randomization destroys signal.",
+      "D": "Validation monitoring is useful for detecting the point at which generalization degrades."
+    }
+  },
+  {
+    "item_id": "ML-L2-036",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Tree Ensembles & Kernel Methods",
+    "stem": "Why are decision trees generally less sensitive to monotonic feature scaling than distance-based algorithms such as k-NN?",
+    "options": {
+      "A": "A standard decision tree chooses threshold splits based on ordering; multiplying a feature by a positive constant preserves that ordering with transformed thresholds.",
+      "B": "Trees ignore numeric features.",
+      "C": "Trees automatically compute Euclidean distances.",
+      "D": "Scaling converts a tree into a linear model."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "For a strictly monotonic rescaling such as multiplication by a positive constant, the ranking/order of feature values is preserved, so equivalent threshold partitions remain available.",
+      "A": "Correct.",
+      "B": "Trees can use numeric features directly.",
+      "C": "Distance computation is not how ordinary axis-aligned tree splits are selected.",
+      "D": "Scaling does not change tree models into linear models."
+    }
+  },
+  {
+    "item_id": "ML-L2-037",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Tree Ensembles & Kernel Methods",
+    "stem": "What is the key idea behind the kernel trick in an SVM?",
+    "options": {
+      "A": "Compute inner products in an implicit feature space using a kernel function without explicitly constructing all transformed coordinates.",
+      "B": "Replace the training labels with kernel values.",
+      "C": "Guarantee that every kernelized classifier is linear in the original input space.",
+      "D": "Avoid all computational cost associated with pairwise similarities."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A valid positive-semidefinite kernel can represent inner products in a feature space. Algorithms such as kernel SVMs can work through kernel evaluations rather than explicitly materializing the mapping.",
+      "A": "Correct.",
+      "B": "Kernels operate on input pairs, not label replacement.",
+      "C": "The classifier is linear in feature space but can be nonlinear in the original input space.",
+      "D": "Kernel methods may require many pairwise kernel evaluations and can become computationally costly."
+    }
+  },
+  {
+    "item_id": "ML-L2-038",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Tree Ensembles & Kernel Methods",
+    "stem": "For an RBF-kernel SVM, increasing gamma while keeping C fixed generally makes the kernel similarity decay more rapidly with distance. What is the likely modeling effect?",
+    "options": {
+      "A": "The decision boundary can become more local and flexible, increasing the risk of fitting fine-grained structure or noise.",
+      "B": "The model is forced to become a straight line.",
+      "C": "All training points become equally similar.",
+      "D": "The number of support vectors must become exactly zero."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "For the RBF kernel K(x,x') = exp(-gamma ||x-x'||²), larger gamma creates narrower similarity neighborhoods, allowing more localized decision structure.",
+      "A": "Correct.",
+      "B": "A larger gamma generally increases flexibility rather than enforcing linearity.",
+      "C": "Similarity becomes more localized, not uniform.",
+      "D": "Support-vector count depends on the data, C, gamma, and optimization outcome."
+    }
+  },
+  {
+    "item_id": "ML-L2-039",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Tree Ensembles & Kernel Methods",
+    "stem": "In a soft-margin SVM, what is the conceptual role of C?",
+    "options": {
+      "A": "It controls the tradeoff between a wider margin and penalties for violating the margin or misclassifying training examples.",
+      "B": "It directly sets the number of classes.",
+      "C": "It is the RBF gamma parameter.",
+      "D": "It forces all support vectors to disappear."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The soft-margin formulation balances margin size against slack/violation penalties. Larger C penalizes violations more heavily, usually permitting a narrower margin to fit training data more aggressively.",
+      "A": "Correct.",
+      "B": "C is not a class-count parameter.",
+      "C": "Gamma controls kernel width/locality for kernels such as RBF; it is a different hyperparameter.",
+      "D": "Support vectors generally remain part of the solution."
+    }
+  },
+  {
+    "item_id": "ML-L2-040",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Tree Ensembles & Kernel Methods",
+    "stem": "A random forest has 500 trees and the validation prediction hardly changes when increasing to 700 trees. What is the most reasonable interpretation?",
+    "options": {
+      "A": "The ensemble may already have reached a point of diminishing variance reduction; more trees can stabilize estimates but may add little predictive gain.",
+      "B": "The forest has become underfit because too many trees always increase bias.",
+      "C": "The extra trees must be using test-set information.",
+      "D": "Random forests stop working after 500 trees by definition."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "As the number of sufficiently diverse trees increases, averaging can approach a stable prediction; extra trees often yield diminishing returns rather than a guaranteed accuracy jump.",
+      "A": "Correct.",
+      "B": "Adding trees to a fixed random-forest design is not generally a monotonic bias-increasing operation.",
+      "C": "No test leakage follows from the tree count itself.",
+      "D": "There is no universal 500-tree limit."
+    }
+  }
+]

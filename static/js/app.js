@@ -289,7 +289,13 @@ const App = {
       'domain2_bcp_dr_incident_response': '🔄 Domain 2: BCP & Incident Response',
       'domain3_access_controls': '🔑 Domain 3: Access Controls',
       'domain4_network_security': '🌐 Domain 4: Network Security',
-      'domain5_security_operations': '⚙️ Domain 5: Security Operations'
+      'domain5_security_operations': '⚙️ Domain 5: Security Operations',
+      'ml_topic_loss_optimization': '📉 Loss Functions & Optimization',
+      'ml_topic_regularization': '🎯 Regularization & Generalization',
+      'ml_topic_model_evaluation': '🧪 Evaluation & Experimental Design',
+      'ml_topic_feature_engineering': '📐 Feature Eng & PCA',
+      'ml_topic_tree_ensembles': '🌲 Tree Ensembles & Kernel Methods',
+      'ml_topic_unsupervised_learning': '🧩 Unsupervised & Calibration'
     };
     if (formattedMap[setId]) return formattedMap[setId];
     return (rawName || setId).replace(/(\w+)\s*Level(\d+)\s*(.*)/i, '$1 Level $2: $3');

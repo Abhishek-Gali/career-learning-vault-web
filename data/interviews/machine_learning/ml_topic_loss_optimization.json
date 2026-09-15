@@ -1,0 +1,178 @@
+[
+  {
+    "item_id": "ML-L2-001",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Loss Functions & Optimization",
+    "stem": "Why is Cross-Entropy Loss generally preferred over Mean Squared Error (MSE) when training a multiclass classification neural network with a Softmax output?",
+    "options": {
+      "A": "With Softmax, MSE can introduce a saturating activation-derivative factor into the gradient, while cross-entropy gives the familiar probability-error gradient (p - y).",
+      "B": "Cross-Entropy is always cheaper in FLOPs than MSE on every accelerator.",
+      "C": "MSE is non-convex for ordinary linear regression, while Cross-Entropy is always strictly convex for every neural network.",
+      "D": "Cross-Entropy guarantees zero test-set generalization error."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "For logits z followed by Softmax p, cross-entropy has a gradient with respect to logits of p - y. Pairing squared error with a saturating probability activation can introduce an additional activation-Jacobian factor, reducing gradient magnitude in confident regions. The advantage is primarily gradient dynamics, not a blanket FLOP claim.",
+      "A": "Correct: the key optimization distinction is the gradient supplied to the logits.",
+      "B": "Hardware/runtime depends on implementation and tensor shapes; this is not the reason CE is preferred.",
+      "C": "MSE is convex for linear regression, and neural-network losses are generally non-convex.",
+      "D": "Training loss choice does not guarantee generalization."
+    }
+  },
+  {
+    "item_id": "ML-L2-002",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Loss Functions & Optimization",
+    "stem": "A classifier produces logits [2, 0, -1] for one three-class example whose true class is the first class. What does multiplying every logit by the same positive constant primarily do?",
+    "options": {
+      "A": "It leaves the Softmax probabilities unchanged because Softmax is invariant to positive scaling.",
+      "B": "It changes the confidence distribution: larger positive scaling makes the Softmax distribution more concentrated on the largest logit.",
+      "C": "It changes the predicted class only if the scaling constant is exactly zero.",
+      "D": "It always makes cross-entropy loss exactly zero."
+    },
+    "correct_key": "B",
+    "rationales": {
+      "correct": "Softmax is invariant to adding the same constant to every logit, not to multiplying all logits by a positive constant. Scaling changes the relative exponential gaps and therefore confidence.",
+      "A": "The invariance is to additive shifts, not positive multiplicative scaling.",
+      "B": "Correct: larger positive scale sharpens the distribution around the largest logit.",
+      "C": "A positive scaling preserves the argmax, but probabilities and loss change; scaling by zero collapses logits rather than selectively changing the class.",
+      "D": "Zero loss would require probability 1 on the true class in the ideal limit, not merely positive rescaling."
+    }
+  },
+  {
+    "item_id": "ML-L2-003",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Loss Functions & Optimization",
+    "stem": "In gradient descent, the learning rate is increased by 100x and the training loss starts oscillating and diverging. What is the most direct interpretation?",
+    "options": {
+      "A": "The optimizer is likely taking steps that are too large relative to the local curvature or gradient scale.",
+      "B": "The data must contain label leakage.",
+      "C": "The model has become statistically unbiased.",
+      "D": "The loss function has stopped being differentiable."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Gradient-based optimization can become unstable when the step size is too large. Overshooting a minimum can produce oscillation or divergence.",
+      "A": "Correct: excessive step size is the first hypothesis to test given the controlled change.",
+      "B": "Leakage affects evaluation validity, not necessarily immediate optimization stability.",
+      "C": "Bias is a statistical property, not a diagnosis for exploding optimization trajectories.",
+      "D": "A large learning rate does not remove differentiability."
+    }
+  },
+  {
+    "item_id": "ML-L2-004",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Loss Functions & Optimization",
+    "stem": "Which statement best distinguishes Batch Gradient Descent from Stochastic Gradient Descent (SGD)?",
+    "options": {
+      "A": "Batch GD uses the entire training set to compute each update, whereas SGD uses one example per update.",
+      "B": "Batch GD cannot optimize differentiable losses.",
+      "C": "SGD always reaches the exact global optimum faster than Batch GD.",
+      "D": "Batch GD is identical to Newton's method."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The defining difference is the amount of data used to estimate each gradient update. SGD uses a noisy per-example estimate; mini-batch methods interpolate between the extremes.",
+      "A": "Correct.",
+      "B": "Batch GD is explicitly designed for differentiable optimization objectives.",
+      "C": "SGD can converge faster in wall-clock or useful training progress in some settings, but it does not universally reach a global optimum faster.",
+      "D": "Newton's method uses curvature information such as a Hessian; Batch GD does not require that."
+    }
+  },
+  {
+    "item_id": "ML-L2-005",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Loss Functions & Optimization",
+    "stem": "Why is log-sum-exp numerically stabilized by subtracting the maximum logit before exponentiation?",
+    "options": {
+      "A": "Subtracting the maximum prevents unnecessarily large exponentials while preserving the resulting Softmax probabilities.",
+      "B": "It forces all logits to become positive before exponentiation.",
+      "C": "It changes the ranking of classes in a controlled way.",
+      "D": "It converts cross-entropy into MSE."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "For any constant c, softmax(z) = softmax(z + c). Choosing c = -max(z) keeps exponentials in a safer numeric range while leaving the probability distribution unchanged.",
+      "A": "Correct: this is the core stability trick behind log-sum-exp style computations.",
+      "B": "The shifted maximum is zero and the remaining logits are non-positive.",
+      "C": "Subtracting a common constant does not change ordering.",
+      "D": "It is a numerical reformulation of the same objective, not a loss conversion."
+    }
+  },
+  {
+    "item_id": "ML-L2-006",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Loss Functions & Optimization",
+    "stem": "A convex differentiable objective has a Lipschitz-continuous gradient. What is the main risk of choosing a learning rate far above the inverse gradient-Lipschitz scale?",
+    "options": {
+      "A": "Iterates can overshoot the minimizer and diverge instead of descending reliably.",
+      "B": "The model is guaranteed to underfit.",
+      "C": "The objective becomes non-convex.",
+      "D": "The training labels are automatically shuffled."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "For smooth convex objectives, step-size bounds are tied to how quickly gradients can change. Excessive steps can overshoot and cause divergence even though the objective itself remains convex.",
+      "A": "Correct.",
+      "B": "Large steps do not imply a particular bias/variance outcome; instability is the relevant issue.",
+      "C": "Optimization hyperparameters do not alter the mathematical convexity of the objective.",
+      "D": "Learning rate has no relationship to label ordering."
+    }
+  },
+  {
+    "item_id": "ML-L2-007",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Loss Functions & Optimization",
+    "stem": "A binary classifier is trained with binary cross-entropy. What does a very confident wrong prediction typically produce compared with a confident correct prediction?",
+    "options": {
+      "A": "A much larger loss because -log(p_true) becomes large as the probability assigned to the true class approaches zero.",
+      "B": "Exactly the same loss because confidence is ignored.",
+      "C": "A negative loss that rewards confident mistakes.",
+      "D": "A loss of exactly one in every implementation."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Cross-entropy strongly penalizes assigning very small probability to the observed label because the negative logarithm grows without bound as p_true approaches zero.",
+      "A": "Correct.",
+      "B": "Confidence is explicitly reflected in the logarithm.",
+      "C": "The standard cross-entropy contribution is non-negative for probabilities in (0,1].",
+      "D": "Its numerical value depends on the predicted probability and reduction."
+    }
+  },
+  {
+    "item_id": "ML-L2-008",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Loss Functions & Optimization",
+    "stem": "What is the optimization effect of adding L2 regularization λ||w||² to a differentiable training objective?",
+    "options": {
+      "A": "It adds a gradient term proportional to w, discouraging large parameter magnitudes.",
+      "B": "It forces every weight to become exactly zero after one update.",
+      "C": "It removes the need for a validation set.",
+      "D": "It makes all nonlinear models convex."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Differentiating λ||w||² contributes a term proportional to w (2λw under this convention), pulling parameters toward zero and controlling complexity.",
+      "A": "Correct.",
+      "B": "L2 usually shrinks weights continuously; exact zeros are more characteristic of L1 solutions.",
+      "C": "Regularization does not replace honest validation.",
+      "D": "Adding an L2 penalty does not make an arbitrary neural-network objective convex."
+    }
+  }
+]

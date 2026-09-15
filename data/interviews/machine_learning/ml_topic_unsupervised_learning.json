@@ -1,0 +1,178 @@
+[
+  {
+    "item_id": "ML-L2-041",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Unsupervised Learning & Probability",
+    "stem": "What objective does standard k-means minimize?",
+    "options": {
+      "A": "The within-cluster sum of squared Euclidean distances from observations to their assigned cluster centroids (inertia).",
+      "B": "Cross-entropy between predicted classes and labels.",
+      "C": "The determinant of the covariance matrix of the whole dataset.",
+      "D": "Classification accuracy against hidden labels."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "K-means alternates between assigning points to the nearest centroid and recomputing centroids, decreasing the sum of squared within-cluster distances toward a local optimum.",
+      "A": "Correct.",
+      "B": "K-means is unsupervised and does not require labels.",
+      "C": "That is not the standard k-means objective.",
+      "D": "Hidden labels are unavailable to the standard algorithm."
+    }
+  },
+  {
+    "item_id": "ML-L2-042",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Unsupervised Learning & Probability",
+    "stem": "Why can k-means produce different solutions on the same dataset when initialized differently?",
+    "options": {
+      "A": "Its iterative coordinate-descent-like procedure can converge to different local minima of the non-convex clustering objective.",
+      "B": "The squared-distance objective is strictly concave.",
+      "C": "Centroids are selected deterministically by class labels.",
+      "D": "Initialization never affects clustering."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "The k-means objective is not convex jointly over assignments and centroids, so different starting centroids can lead to different local optima. Multiple initializations are used to mitigate this.",
+      "A": "Correct.",
+      "B": "The objective is not strictly concave.",
+      "C": "Standard k-means does not use labels.",
+      "D": "Initialization can materially affect the result."
+    }
+  },
+  {
+    "item_id": "ML-L2-043",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Unsupervised Learning & Probability",
+    "stem": "Why is standard k-means a poor default for clusters that are strongly non-spherical and connected in curved shapes such as concentric rings?",
+    "options": {
+      "A": "Its centroid-and-Euclidean-distance objective favors compact Voronoi-like partitions rather than arbitrary curved connectivity.",
+      "B": "K-means can only process categorical variables.",
+      "C": "K-means requires class labels.",
+      "D": "K-means always returns one cluster."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Euclidean distance to a centroid works well for roughly compact, similarly shaped groups. Curved manifolds often require a different similarity or clustering formulation.",
+      "A": "Correct.",
+      "B": "Categorical-only is not the issue; standard k-means is numeric and distance-based.",
+      "C": "It is unsupervised.",
+      "D": "The user chooses k."
+    }
+  },
+  {
+    "item_id": "ML-L2-044",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Unsupervised Learning & Probability",
+    "stem": "An anomaly-detection feature is highly skewed and varies over orders of magnitude. Why might a log transform improve a distance-based clustering workflow?",
+    "options": {
+      "A": "It can compress extreme scale differences and reduce the dominance of very large values, depending on the data-generating process.",
+      "B": "It guarantees Gaussianity in every dataset.",
+      "C": "It deletes every outlier.",
+      "D": "It makes Euclidean distance independent of feature scaling."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A logarithm can compress multiplicative scale and reduce skew for positive-valued variables. It does not guarantee a particular distribution or remove all outliers.",
+      "A": "Correct.",
+      "B": "Transformations can improve symmetry but do not guarantee normality.",
+      "C": "Outliers remain as transformed observations.",
+      "D": "Distances remain sensitive to the transformed feature scales."
+    }
+  },
+  {
+    "item_id": "ML-L2-045",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Unsupervised Learning & Probability",
+    "stem": "What is the silhouette coefficient trying to capture for a clustering assignment?",
+    "options": {
+      "A": "How similar a sample is to its own cluster compared with the nearest alternative cluster, balancing cohesion and separation.",
+      "B": "Training-set accuracy of a classifier.",
+      "C": "The probability that every cluster has equal size.",
+      "D": "The number of principal components in the dataset."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Silhouette compares within-cluster dissimilarity with the nearest-cluster dissimilarity, producing values that are higher when points are cohesive to their assigned cluster and separated from alternatives.",
+      "A": "Correct.",
+      "B": "It is an internal clustering criterion, not classification accuracy.",
+      "C": "Cluster-size equality is not required.",
+      "D": "PCA dimensionality is unrelated."
+    }
+  },
+  {
+    "item_id": "ML-L2-046",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Unsupervised Learning & Probability",
+    "stem": "A classifier outputs high confidence probabilities but is systematically overconfident. Which post-training technique is specifically designed to improve probability calibration?",
+    "options": {
+      "A": "Temperature scaling or another calibrated probability mapping fitted on held-out validation data.",
+      "B": "Randomly permuting the test labels.",
+      "C": "Increasing the classification threshold to 0.99 for every application.",
+      "D": "Replacing all probabilities with the argmax class index."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Calibration methods learn a mapping from model scores to probabilities using held-out data. Temperature scaling is a common post-hoc method for neural classifiers.",
+      "A": "Correct.",
+      "B": "Test-label permutation destroys evaluation validity.",
+      "C": "A threshold changes decisions, not the underlying calibration curve.",
+      "D": "Hard class indices discard probability information."
+    }
+  },
+  {
+    "item_id": "ML-L2-047",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Unsupervised Learning & Probability",
+    "stem": "Why can perplexity or likelihood-based criteria and clustering silhouette scores tell you different things about a model or representation?",
+    "options": {
+      "A": "They optimize different notions of fit: probabilistic criteria evaluate probability assignments under a model, while silhouette evaluates geometric cohesion/separation of clusters.",
+      "B": "They are mathematically identical metrics with different names.",
+      "C": "Silhouette is computed from class labels in all cases.",
+      "D": "Likelihood can only be used for supervised learning."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Different evaluation criteria encode different assumptions and goals. A representation can have good geometric separation yet fit a probabilistic model poorly, or vice versa.",
+      "A": "Correct.",
+      "B": "They are not equivalent.",
+      "C": "Silhouette is usually an internal metric and can be computed without labels.",
+      "D": "Likelihood is central to many unsupervised probabilistic models."
+    }
+  },
+  {
+    "item_id": "ML-L2-048",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Unsupervised Learning & Probability",
+    "stem": "A clustering result has a lower within-cluster SSE when k increases from 4 to 8. Why does this alone not prove k=8 is the better model?",
+    "options": {
+      "A": "The k-means objective is non-increasing as more clusters are allowed, so lower SSE alone rewards additional complexity and needs a model-selection or domain criterion.",
+      "B": "Lower SSE is mathematically impossible when k increases.",
+      "C": "SSE is independent of k.",
+      "D": "A larger k automatically means more underfitting."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "With more centroids, points have more opportunities to be close to a centroid, so inertia generally decreases. The elbow method, silhouette, stability, downstream utility, or domain constraints can help choose k.",
+      "A": "Correct.",
+      "B": "Lower or equal inertia is expected as flexibility increases.",
+      "C": "The objective explicitly depends on assignments and number of centroids.",
+      "D": "Increasing k can instead lead to over-fragmentation/overfitting of the geometry."
+    }
+  }
+]

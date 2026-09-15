@@ -1,0 +1,178 @@
+[
+  {
+    "item_id": "ML-L2-017",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Model Evaluation & Experimental Design",
+    "stem": "A fraud dataset has 0.2% positive cases. A classifier predicts every transaction as legitimate and obtains 99.8% accuracy. What is the strongest immediate criticism?",
+    "options": {
+      "A": "Accuracy is dominated by the majority class and can hide near-zero recall for fraud.",
+      "B": "Accuracy is mathematically impossible on imbalanced data.",
+      "C": "The model must have perfect calibration.",
+      "D": "ROC-AUC is necessarily zero."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "With extreme class imbalance, the majority-class baseline can obtain high accuracy while completely failing the minority class. Precision, recall, PR-AUC, cost-sensitive metrics, and threshold analysis may be more informative.",
+      "A": "Correct.",
+      "B": "Accuracy remains mathematically valid; it is the interpretation that is problematic.",
+      "C": "Accuracy says nothing about probability calibration.",
+      "D": "A constant-negative classifier has ROC-AUC around 0.5 under standard score conventions, not necessarily zero."
+    }
+  },
+  {
+    "item_id": "ML-L2-018",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Model Evaluation & Experimental Design",
+    "stem": "For a rare-event detector, the business cost of false negatives is much higher than false positives. Which evaluation design is most appropriate?",
+    "options": {
+      "A": "Choose and report metrics and an operating threshold that explicitly reflect the asymmetric costs, such as recall at an acceptable precision or expected cost.",
+      "B": "Optimize accuracy at a fixed threshold of 0.5 regardless of costs.",
+      "C": "Ignore the confusion matrix because it is threshold-dependent.",
+      "D": "Report only training loss."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Classification metrics depend on the operating threshold, and threshold selection should reflect the actual cost of errors. A cost matrix can be converted into expected cost or used to select a point on the precision-recall tradeoff.",
+      "A": "Correct.",
+      "B": "A 0.5 threshold has no universal decision-theoretic justification.",
+      "C": "Threshold dependence is a reason to analyze the confusion matrix, not ignore it.",
+      "D": "Training loss does not measure the business operating point."
+    }
+  },
+  {
+    "item_id": "ML-L2-019",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Model Evaluation & Experimental Design",
+    "stem": "Why is fitting a StandardScaler on the entire dataset before cross-validation a form of leakage?",
+    "options": {
+      "A": "The scaling parameters (mean and variance) use information from validation folds, allowing held-out data to influence training transformations.",
+      "B": "Scaling always changes class labels.",
+      "C": "StandardScaler can only be used after cross-validation is complete.",
+      "D": "Cross-validation requires raw, unscaled data."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Any learned preprocessing parameter must be estimated using the training portion of each fold. Otherwise the held-out fold contributes information to the feature transformation.",
+      "A": "Correct.",
+      "B": "Standardization does not alter y.",
+      "C": "The scaler should be inside a pipeline so each fold fits it on its training split.",
+      "D": "Scaled features are perfectly compatible with cross-validation when preprocessing is correctly nested."
+    }
+  },
+  {
+    "item_id": "ML-L2-020",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Model Evaluation & Experimental Design",
+    "stem": "You have multiple records per patient and want to estimate performance on unseen patients. Which split strategy is most defensible?",
+    "options": {
+      "A": "Group-aware splitting so records from the same patient do not appear in both training and evaluation folds.",
+      "B": "Randomly split individual rows without considering patient identity.",
+      "C": "Put all patients in every fold and average the training scores.",
+      "D": "Duplicate each patient into every fold to increase sample size."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Patient-level dependence makes row-wise random splitting optimistic because the model can exploit patient-specific signals seen in training. Group-aware cross-validation keeps groups disjoint.",
+      "A": "Correct.",
+      "B": "This risks leakage through repeated subjects.",
+      "C": "Training scores are not an out-of-sample estimate.",
+      "D": "Duplicating groups across folds violates independence."
+    }
+  },
+  {
+    "item_id": "ML-L2-021",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Model Evaluation & Experimental Design",
+    "stem": "What is the fundamental purpose of a final untouched test set after model selection?",
+    "options": {
+      "A": "To provide a final estimate of generalization after the model, preprocessing choices, and hyperparameters have been selected without using that test set.",
+      "B": "To supply gradients during backpropagation.",
+      "C": "To tune the learning rate until performance peaks.",
+      "D": "To increase the effective training sample count by copying labels."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "A final holdout protects the estimate from selection bias caused by repeated experimentation. It should be used sparingly, ideally only for final assessment.",
+      "A": "Correct.",
+      "B": "The test set is not part of gradient computation.",
+      "C": "Using the test set for tuning defeats its role.",
+      "D": "Test data should not be duplicated into training just to increase sample count."
+    }
+  },
+  {
+    "item_id": "ML-L2-022",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Model Evaluation & Experimental Design",
+    "stem": "Which statement about stratified cross-validation in classification is most accurate?",
+    "options": {
+      "A": "It attempts to preserve class proportions across folds, which can make estimates more stable when class frequencies matter.",
+      "B": "It guarantees every fold has identical predictions.",
+      "C": "It eliminates all forms of data leakage automatically.",
+      "D": "It is equivalent to training one model on the full dataset."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Stratification preserves approximate class composition across folds. It addresses split representation, not every other experimental-design problem.",
+      "A": "Correct.",
+      "B": "It controls sampling proportions, not predictions.",
+      "C": "Preprocessing leakage and grouping issues still require appropriate pipelines/splitters.",
+      "D": "Cross-validation fits multiple training subsets."
+    }
+  },
+  {
+    "item_id": "ML-L2-023",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Model Evaluation & Experimental Design",
+    "stem": "A model's ROC-AUC is high, but its precision is unacceptable at the production threshold. What is the correct conclusion?",
+    "options": {
+      "A": "Ranking quality may be good, but the chosen operating threshold or probability quality is not meeting the deployment requirement.",
+      "B": "The ROC-AUC calculation must be wrong.",
+      "C": "High ROC-AUC mathematically guarantees high precision at every threshold.",
+      "D": "Precision is independent of prevalence."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "ROC-AUC summarizes ranking across thresholds and is not a guarantee about any single operating point. Precision is also prevalence-sensitive.",
+      "A": "Correct.",
+      "B": "The two metrics answer different questions and can legitimately disagree at a threshold.",
+      "C": "AUC does not guarantee threshold-specific precision.",
+      "D": "Precision = TP/(TP+FP) depends strongly on base rates for a fixed detector quality."
+    }
+  },
+  {
+    "item_id": "ML-L2-024",
+    "track": "MACHINE_LEARNING",
+    "level": 2,
+    "level_name": "Level 2: Intermediate Statistical Learning",
+    "topic": "Model Evaluation & Experimental Design",
+    "stem": "A probability model predicts 0.8 on a group of examples, and about 80% of those examples are actually positive. What property does this suggest?",
+    "options": {
+      "A": "Calibration at that probability level: among cases predicted near 0.8, the empirical positive frequency is near 0.8.",
+      "B": "The model has 80% accuracy overall.",
+      "C": "The classifier has 80% recall regardless of threshold.",
+      "D": "The model ranks every positive above every negative."
+    },
+    "correct_key": "A",
+    "rationales": {
+      "correct": "Calibration concerns agreement between predicted probabilities and observed frequencies. One well-calibrated probability bin does not establish global calibration.",
+      "A": "Correct.",
+      "B": "Calibration does not determine accuracy.",
+      "C": "Recall is a separate thresholded metric.",
+      "D": "Ranking quality is not implied by calibration."
+    }
+  }
+]
