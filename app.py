@@ -197,24 +197,22 @@ def init_db():
             conn.execute("CREATE INDEX IF NOT EXISTS idx_custom_courses_user ON user_custom_courses(user_id, track_key)")
             conn.commit()
 
-            # Seed / Verify Super Admin Account ('admin' / 'Abhishek Gali')
+            # Seed Super Admin Account ONLY IF users table is completely empty (first-time deployment)
             cur = conn.cursor()
-            cur.execute("SELECT id, password_hash FROM users WHERE username = 'admin'")
-            admin_row = cur.fetchone()
+            cur.execute("SELECT COUNT(*) FROM users")
+            user_count = cur.fetchone()[0]
             now_iso = datetime.datetime.now(timezone.utc).isoformat()
-            if not admin_row:
+            if user_count == 0:
                 hashed = hash_password(ADMIN_DEFAULT_PASSWORD)
                 conn.execute("""
                     INSERT INTO users (username, full_name, password_hash, role, is_active, created_at, created_by)
                     VALUES ('admin', 'Abhishek Gali', ?, 'admin', 1, ?, 'system')
                 """, (hashed, now_iso))
                 conn.commit()
-                print(f"[Auth Engine] Initialized Super Admin account 'admin' (Abhishek Gali).")
+                print(f"[Auth Engine] Initialized initial Super Admin account 'admin'.")
             else:
-                hashed = hash_password(ADMIN_DEFAULT_PASSWORD)
-                conn.execute("UPDATE users SET password_hash = ?, full_name = 'Abhishek Gali' WHERE username = 'admin'", (hashed,))
-                conn.commit()
-                print(f"[Auth Engine] Verified Super Admin account 'admin'.")
+                # Existing users detected: NEVER touch, update, or overwrite user accounts or passwords!
+                print(f"[Auth Engine] Existing users verified ({user_count} accounts). User records preserved untouched.")
 
             # Safe Non-Destructive Legacy Data Migration to Admin user (ID = 1)
             try:
@@ -264,8 +262,14 @@ app.add_middleware(
 )
 
 @app.middleware("http")
-async def add_no_cache_header(request: Request, call_next):
+async def security_and_cache_middleware(request: Request, call_next):
     response = await call_next(request)
+    # Defense-in-depth HTTP security headers (Anti-Clickjacking, Anti-MIME sniffing, Anti-XSS)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+
     if request.url.path.startswith("/static/"):
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         response.headers["Pragma"] = "no-cache"
@@ -518,6 +522,60 @@ class QuizRecordRequest(BaseModel):
     correct_count: int
     total_questions: int
 
+import html
+from urllib.parse import urlparse
+
+ALLOWED_TRACK_KEYS = {"ml", "ds", "cyber", "dsa"}
+
+def sanitize_user_input(text: Optional[str], max_len: int = 120, allow_empty: bool = True) -> str:
+    """
+    Sanitizes user-provided text to prevent Stored XSS and injection attacks:
+    - Strips leading/trailing whitespace
+    - Removes control characters and null bytes
+    - Strips raw HTML/XML tags
+    - Escapes HTML entities (e.g. < > & " ')
+    - Enforces length bounds
+    """
+    if not text:
+        return "" if allow_empty else None
+    
+    # Remove null bytes and control chars (except standard whitespace)
+    cleaned = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]", "", str(text)).strip()
+    
+    # Strip HTML tags
+    cleaned = re.sub(r"<[^>]*>", "", cleaned).strip()
+    
+    # Escape HTML special characters
+    cleaned = html.escape(cleaned, quote=True)
+    
+    # Enforce max length
+    return cleaned[:max_len]
+
+def validate_youtube_url(url: str) -> str:
+    """
+    Validates that a URL is strictly a valid HTTPS YouTube watch or playlist URL.
+    Rejects JavaScript URIs, SSRF targets, HTML tags, quotes, and malicious injections.
+    """
+    if not url:
+        raise HTTPException(status_code=400, detail="URL cannot be empty.")
+    
+    cleaned = url.strip()
+    
+    # Immediate injection character checks
+    if any(char in cleaned for char in ['<', '>', '"', "'", '`', ';', ' ']):
+        raise HTTPException(status_code=400, detail="Invalid characters detected in URL.")
+    
+    if not cleaned.startswith("https://"):
+        raise HTTPException(status_code=400, detail="Only secure HTTPS YouTube URLs are accepted.")
+    
+    # Hostname check
+    parsed = urlparse(cleaned)
+    allowed_hosts = {"youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be"}
+    if parsed.netloc.lower() not in allowed_hosts:
+        raise HTTPException(status_code=400, detail="Only official YouTube links (youtube.com / youtu.be) are supported.")
+        
+    return cleaned
+
 class AddCustomVideoRequest(BaseModel):
     track_key: str
     url: str
@@ -542,7 +600,7 @@ def get_current_user(
         token = vault_session
 
     if not token:
-        raise HTTPException(status_code=401, detail="Authentication required.")
+        raise HTTPException(status_code=401, detail="Authentication required. Please log in to continue.", headers={"WWW-Authenticate": "Bearer"})
 
     with sqlite3.connect(str(DB_PATH)) as conn:
         conn.row_factory = sqlite3.Row
@@ -555,7 +613,7 @@ def get_current_user(
         """, (token,))
         row = cur.fetchone()
         if not row:
-            raise HTTPException(status_code=401, detail="Invalid or expired session token.")
+            raise HTTPException(status_code=401, detail="Your session has expired or is invalid. Please log in again.", headers={"WWW-Authenticate": "Bearer"})
 
         # Check expiration
         try:
@@ -563,7 +621,7 @@ def get_current_user(
             if datetime.datetime.now(timezone.utc) > exp:
                 conn.execute("DELETE FROM user_sessions WHERE token = ?", (token,))
                 conn.commit()
-                raise HTTPException(status_code=401, detail="Session has expired. Please log in again.")
+                raise HTTPException(status_code=401, detail="Your session has expired. Please log in again.", headers={"WWW-Authenticate": "Bearer"})
         except Exception:
             pass
 
@@ -1331,15 +1389,21 @@ def get_user_custom_courses(track_key: Optional[str] = None, user: Dict[str, Any
 @app.post("/api/custom-courses/add")
 def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any] = Depends(get_current_user)):
     """
-    Ingests YouTube video or playlist URL:
+    Ingests YouTube video or playlist URL with defense-in-depth sanitization:
+    - Strictly validates HTTPS YouTube domain
+    - Sanitizes titles against Stored XSS and SQL injection
     - If playlist (list=...): creates a separate course tab with all playlist videos.
     - If individual video: appends to candidate's 'Personal' collection.
     """
-    url = req.url.strip()
-    if not url:
-        raise HTTPException(status_code=400, detail="URL cannot be empty.")
+    track_key = req.track_key.strip().lower()
+    if track_key not in ALLOWED_TRACK_KEYS:
+        raise HTTPException(status_code=400, detail=f"Invalid track key. Allowed tracks: {', '.join(sorted(ALLOWED_TRACK_KEYS))}")
 
-    custom_name = req.title.strip() if req.title and req.title.strip() else None
+    url = validate_youtube_url(req.url)
+    custom_name = sanitize_user_input(req.title, max_len=100) if req.title else None
+    if custom_name and len(custom_name.strip()) == 0:
+        custom_name = None
+
     now_iso = datetime.datetime.now(timezone.utc).isoformat()
 
     # Check for Playlist
@@ -1355,7 +1419,10 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
             course_id = f"playlist_{pid}"
             extracted_title, videos = fetch_playlist_metadata(url, pid, custom_name)
             # Custom name takes top priority if user provided one
-            title = custom_name or extracted_title or f"Playlist {pid[:8]}"
+            title = custom_name or sanitize_user_input(extracted_title, max_len=100) or f"Playlist {pid[:8]}"
+            # Sanitize titles in video list
+            for v in videos:
+                v["title"] = sanitize_user_input(v.get("title", ""), max_len=150)
 
             conn.execute("""
                 INSERT INTO user_custom_courses (user_id, track_key, course_id, course_type, title, videos_json, added_at)
@@ -1364,7 +1431,7 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
                     title = excluded.title,
                     videos_json = excluded.videos_json,
                     added_at = excluded.added_at
-            """, (user["id"], req.track_key, course_id, title, json.dumps(videos), now_iso))
+            """, (user["id"], track_key, course_id, title, json.dumps(videos), now_iso))
             conn.commit()
 
             return {
@@ -1377,12 +1444,13 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
             }
         else:
             # Individual Video
-            vid_match = re.search(r"(?:v=|\/|embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})", url)
+            vid_match = re.search(r"(?:v=|\/embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})", url)
             if not vid_match:
                 raise HTTPException(status_code=400, detail="Invalid YouTube URL. Please provide a valid video or playlist link.")
 
             vid = vid_match.group(1)
-            video_title = custom_name or fetch_youtube_oembed(vid)
+            raw_title = custom_name or fetch_youtube_oembed(vid)
+            video_title = sanitize_user_input(raw_title, max_len=150)
             video_entry = {
                 "id": vid,
                 "title": video_title,
@@ -1393,7 +1461,7 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
             cur.execute("""
                 SELECT title, videos_json FROM user_custom_courses 
                 WHERE user_id = ? AND track_key = ? AND course_id = 'personal'
-            """, (user["id"], req.track_key))
+            """, (user["id"], track_key))
             existing_row = cur.fetchone()
 
             if existing_row:
@@ -1407,14 +1475,14 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
                 conn.execute("""
                     UPDATE user_custom_courses SET videos_json = ?, added_at = ?
                     WHERE user_id = ? AND track_key = ? AND course_id = 'personal'
-                """, (json.dumps(v_list), now_iso, user["id"], req.track_key))
+                """, (json.dumps(v_list), now_iso, user["id"], track_key))
             else:
                 v_list = [video_entry]
                 personal_title = "Personal"
                 conn.execute("""
                     INSERT INTO user_custom_courses (user_id, track_key, course_id, course_type, title, videos_json, added_at)
                     VALUES (?, ?, 'personal', 'personal', ?, ?, ?)
-                """, (user["id"], req.track_key, personal_title, json.dumps(v_list), now_iso))
+                """, (user["id"], track_key, personal_title, json.dumps(v_list), now_iso))
 
             conn.commit()
 
@@ -1430,38 +1498,60 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
 
 @app.post("/api/custom-courses/rename")
 def rename_custom_course(req: RenameCustomCourseRequest, user: Dict[str, Any] = Depends(get_current_user)):
-    """Allows user to give custom names to any custom playlist or personal collection."""
-    new_name = req.new_title.strip()
-    if not new_name:
-        raise HTTPException(status_code=400, detail="Course name cannot be empty.")
+    """Allows user to give custom names to any custom playlist or personal collection with input sanitization."""
+    track_key = req.track_key.strip().lower()
+    if track_key not in ALLOWED_TRACK_KEYS:
+        raise HTTPException(status_code=400, detail="Invalid track key.")
+
+    course_id = req.course_id.strip()
+    if not re.match(r"^[a-zA-Z0-9_-]{1,64}$", course_id):
+        raise HTTPException(status_code=400, detail="Invalid course identifier format.")
+
+    new_name = sanitize_user_input(req.new_title, max_len=100)
+    if not new_name or not new_name.strip():
+        raise HTTPException(status_code=400, detail="Course name cannot be empty or contain only tags.")
+
     with sqlite3.connect(str(DB_PATH)) as conn:
         conn.execute("""
             UPDATE user_custom_courses SET title = ?
             WHERE user_id = ? AND track_key = ? AND course_id = ?
-        """, (new_name, user["id"], req.track_key, req.course_id))
+        """, (new_name, user["id"], track_key, course_id))
         conn.commit()
     return {"status": "ok", "new_title": new_name}
 
 @app.delete("/api/custom-courses/{course_id}")
 def delete_custom_course(course_id: str, track_key: Optional[str] = None, user: Dict[str, Any] = Depends(get_current_user)):
     """Deletes a custom playlist or personal course collection."""
+    cid = course_id.strip()
+    if not re.match(r"^[a-zA-Z0-9_-]{1,64}$", cid):
+        raise HTTPException(status_code=400, detail="Invalid course identifier format.")
+    if track_key and track_key.strip().lower() not in ALLOWED_TRACK_KEYS:
+        raise HTTPException(status_code=400, detail="Invalid track key.")
+
     with sqlite3.connect(str(DB_PATH)) as conn:
         if track_key:
             conn.execute("""
                 DELETE FROM user_custom_courses 
                 WHERE user_id = ? AND track_key = ? AND course_id = ?
-            """, (user["id"], track_key, course_id))
+            """, (user["id"], track_key.strip().lower(), cid))
         else:
             conn.execute("""
                 DELETE FROM user_custom_courses 
                 WHERE user_id = ? AND course_id = ?
-            """, (user["id"], course_id))
+            """, (user["id"], cid))
         conn.commit()
-    return {"status": "ok", "message": f"Course '{course_id}' removed from shelf."}
+    return {"status": "ok", "message": f"Course '{cid}' removed from shelf."}
 
 @app.delete("/api/custom-courses/{course_id}/video/{video_id}")
 def remove_video_from_custom_course(course_id: str, video_id: str, track_key: Optional[str] = None, user: Dict[str, Any] = Depends(get_current_user)):
-    """Removes a single video from a custom course or personal collection."""
+    """Removes a single video from a custom course or personal collection with input validation."""
+    cid = course_id.strip()
+    vid = video_id.strip()
+    if not re.match(r"^[a-zA-Z0-9_-]{1,64}$", cid) or not re.match(r"^[a-zA-Z0-9_-]{1,64}$", vid):
+        raise HTTPException(status_code=400, detail="Invalid identifier format.")
+    if track_key and track_key.strip().lower() not in ALLOWED_TRACK_KEYS:
+        raise HTTPException(status_code=400, detail="Invalid track key.")
+
     with sqlite3.connect(str(DB_PATH)) as conn:
         conn.row_factory = sqlite3.Row
         cur = conn.cursor()
@@ -1469,12 +1559,12 @@ def remove_video_from_custom_course(course_id: str, video_id: str, track_key: Op
             cur.execute("""
                 SELECT id, track_key, videos_json FROM user_custom_courses
                 WHERE user_id = ? AND track_key = ? AND course_id = ?
-            """, (user["id"], track_key, course_id))
+            """, (user["id"], track_key.strip().lower(), cid))
         else:
             cur.execute("""
                 SELECT id, track_key, videos_json FROM user_custom_courses
                 WHERE user_id = ? AND course_id = ?
-            """, (user["id"], course_id))
+            """, (user["id"], cid))
         row = cur.fetchone()
         if not row:
             raise HTTPException(status_code=404, detail="Course not found.")

@@ -54,6 +54,36 @@ const App = {
     return headers;
   },
 
+  escapeHtml(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  },
+
+  handleSessionExpired(message = 'Your session has expired. Please sign in again to continue.') {
+    this.state.authToken = '';
+    this.state.currentUser = null;
+    try {
+      localStorage.removeItem('vault_auth_token');
+      sessionStorage.removeItem('vault_auth_token');
+    } catch (e) {}
+
+    const loginView = document.getElementById('view-login');
+    if (loginView) {
+      loginView.classList.remove('hidden');
+      const errAlert = document.getElementById('login-error-alert');
+      const errMsg = document.getElementById('login-error-message');
+      if (errAlert && errMsg) {
+        errMsg.textContent = message;
+        errAlert.classList.remove('hidden');
+      }
+    }
+  },
+
   async checkAuth() {
     try {
       const res = await fetch('/api/auth/me', { headers: this.getAuthHeaders() });
@@ -64,6 +94,13 @@ const App = {
         const loginView = document.getElementById('view-login');
         if (loginView) loginView.classList.add('hidden');
         return true;
+      } else if (res.status === 401) {
+        // Clear stale/expired token immediately
+        try {
+          localStorage.removeItem('vault_auth_token');
+          sessionStorage.removeItem('vault_auth_token');
+        } catch (e) {}
+        this.state.authToken = '';
       }
     } catch (e) {
       console.warn('Auth validation failed:', e);
@@ -1166,10 +1203,19 @@ const App = {
         await this.loadCustomCourses();
         this.selectCourse(trackKey, data.course_id);
       } else {
+        if (res.status === 401) {
+          if (statusEl) {
+            statusEl.classList.remove('text-slate-400', 'text-emerald-400');
+            statusEl.classList.add('text-rose-400');
+            statusEl.textContent = '⚠️ Your session has expired. Please sign in again.';
+          }
+          this.handleSessionExpired('Your session has expired. Please sign in again to add custom videos.');
+          return;
+        }
         if (statusEl) {
           statusEl.classList.remove('text-slate-400', 'text-emerald-400');
           statusEl.classList.add('text-rose-400');
-          statusEl.textContent = `⚠️ ${data.detail || 'Could not add video or playlist URL.'}`;
+          statusEl.textContent = `⚠️ ${this.escapeHtml(data.detail || 'Could not add video or playlist URL.')}`;
         }
       }
     } catch (err) {
@@ -1203,6 +1249,8 @@ const App = {
       if (res.ok) {
         await this.loadCustomCourses();
         this.renderCourseTrack(trackKey);
+      } else if (res.status === 401) {
+        this.handleSessionExpired('Your session has expired. Please sign in again.');
       }
     } catch (e) {
       console.error("Failed to rename course:", e);
@@ -1226,6 +1274,8 @@ const App = {
           this.state.activeVideoIdx[trackKey] = 0;
         }
         this.renderCourseTrack(trackKey);
+      } else if (res.status === 401) {
+        this.handleSessionExpired('Your session has expired. Please sign in again.');
       }
     } catch (e) {
       console.error('Failed to delete custom course:', e);
@@ -1245,6 +1295,8 @@ const App = {
           this.state.activeVideoIdx[trackKey] = curIdx - 1;
         }
         this.renderCourseTrack(trackKey);
+      } else if (res.status === 401) {
+        this.handleSessionExpired('Your session has expired. Please sign in again.');
       }
     } catch (e) {
       console.error('Failed to remove video:', e);
@@ -1680,7 +1732,7 @@ const App = {
       }
 
       const icon = isAnchor ? '⭐' : (c.course_type === 'personal' ? '📌' : (isCustom ? '📑' : '🎓'));
-      const escapedTitle = (c.title || '').replace(/'/g, "\\'").replace(/"/g, "&quot;");
+      const escapedTitle = this.escapeHtml(c.title || '').replace(/'/g, "\\'");
       const renameBtn = isCustom
         ? `<button onclick="event.stopPropagation(); App.renameCustomCourse('${trackKey}', '${c.id}', '${escapedTitle}')" title="Rename Course/Playlist" class="p-0.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition">✏️</button>`
         : '';
@@ -1693,7 +1745,7 @@ const App = {
           onclick="App.selectCourse('${trackKey}', '${c.id}')"
           class="px-3.5 py-2 rounded-xl border text-xs flex items-center gap-2 transition-all cursor-pointer select-none flex-shrink-0 ${tabStyle}">
           <span>${icon}</span>
-          <span class="truncate max-w-[220px] sm:max-w-xs">${c.title}</span>
+          <span class="truncate max-w-[220px] sm:max-w-xs">${this.escapeHtml(c.title)}</span>
           <span class="text-[10px] font-mono px-1.5 py-0.2 rounded-full ${isAnchor ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400'}">
             ${vidCount} vids
           </span>
@@ -1730,7 +1782,7 @@ const App = {
           <div class="relative w-28 h-16 rounded-lg overflow-hidden bg-black flex-shrink-0 border border-slate-800/80">
             <img 
               src="${thumbUrl}" 
-              alt="${v.title}" 
+              alt="${this.escapeHtml(v.title)}" 
               loading="lazy"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               onerror="this.style.opacity='0.5'">
@@ -1756,7 +1808,7 @@ const App = {
               ${removeVidBtn}
             </div>
             <h4 class="text-xs font-semibold leading-snug line-clamp-2 ${isPlaying ? 'text-white font-bold' : 'text-slate-300 group-hover:text-white'}">
-              ${v.title}
+              ${this.escapeHtml(v.title)}
             </h4>
           </div>
         </div>
