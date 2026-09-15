@@ -10,12 +10,15 @@ const App = {
     platforms: [],
     selectedPlatform: 'all',
     selectedDifficulty: 'All',
+    selectedStatus: 'all', // 'all' | 'unsolved' | 'solved'
     searchQuery: '',
     challenges: [],
     activeChallenge: null,
     editorContent: '',
     testResults: null,
     isRunning: false,
+    solvedChallenges: new Set(),
+    sandboxTab: 'problem', // 'problem' | 'catalog'
     
     // Interview Quiz Engine State
     interviewTracks: {},
@@ -130,6 +133,8 @@ const App = {
   async init() {
     this.bindSidebarNavigation();
     this.bindSubtabNavigation();
+    this.initSolvedState();
+    this.bindSandboxEvents();
     await this.loadPlatforms();
     await this.loadChallenges();
     await this.loadInterviewTracks();
@@ -138,6 +143,50 @@ const App = {
     if (this.state.challenges.length > 0) {
       await this.selectChallenge(this.state.challenges[0].id);
     }
+  },
+
+  // ── Challenge Completion Persistence ──────────────────────────────────────
+  initSolvedState() {
+    try {
+      const local = JSON.parse(localStorage.getItem('vault_solved_challenges') || '[]');
+      if (Array.isArray(local)) {
+        local.forEach(id => this.state.solvedChallenges.add(id));
+      }
+    } catch (e) {
+      console.warn('Could not read local solved challenges:', e);
+    }
+
+    // Sync with SQLite backend
+    fetch('/api/solved-challenges')
+      .then(r => r.json())
+      .then(data => {
+        if (data && Array.isArray(data.solved_ids)) {
+          data.solved_ids.forEach(id => this.state.solvedChallenges.add(id));
+          localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
+          this.updateGlobalSolvedProgress();
+          this.renderChallengeList();
+          this.renderChallengeDropdown();
+          if (this.state.activeChallenge) {
+            this.updateActiveChallengeSolvedUI();
+          }
+        }
+      })
+      .catch(err => console.warn('Solved challenges sync failed:', err));
+  },
+
+  updateGlobalSolvedProgress() {
+    const count = this.state.solvedChallenges.size;
+    const total = 312;
+    const pct = Math.min(100, (count / total) * 100);
+
+    const countEl = document.getElementById('global-solved-count');
+    if (countEl) countEl.textContent = `${count} / ${total}`;
+
+    const barEl = document.getElementById('global-progress-bar');
+    if (barEl) barEl.style.width = `${pct.toFixed(1)}%`;
+
+    const pctEl = document.getElementById('global-solved-percent');
+    if (pctEl) pctEl.textContent = `${pct.toFixed(1)}%`;
   },
 
   // ── Sidebar Navigation ────────────────────────────────────────────────────
@@ -564,48 +613,85 @@ const App = {
     const plat = this.state.selectedPlatform;
     const diff = this.state.selectedDifficulty;
     const q = encodeURIComponent(this.state.searchQuery || '');
-    const url = `/api/challenges?platform=${plat}&difficulty=${diff}&search=${q}&limit=200`;
+    const url = `/api/challenges?platform=${plat}&difficulty=${diff}&search=${q}&limit=500`;
 
     try {
       const res = await fetch(url);
       const data = await res.json();
-      this.state.challenges = data.challenges || [];
+      let all = data.challenges || [];
+
+      // Apply Status Filter
+      if (this.state.selectedStatus === 'solved') {
+        all = all.filter(ch => this.state.solvedChallenges.has(ch.id));
+      } else if (this.state.selectedStatus === 'unsolved') {
+        all = all.filter(ch => !this.state.solvedChallenges.has(ch.id));
+      }
+
+      this.state.challenges = all;
       this.renderChallengeList();
+      this.renderChallengeDropdown();
+      this.updateGlobalSolvedProgress();
     } catch (e) {
       console.error('Failed to load challenges:', e);
     }
   },
 
+  renderChallengeDropdown() {
+    const dropdown = document.getElementById('challenge-select-dropdown');
+    if (!dropdown) return;
+
+    let html = `<option value="">-- Jump to Challenge (${this.state.challenges.length}) --</option>`;
+    this.state.challenges.forEach(ch => {
+      const isSolved = this.state.solvedChallenges.has(ch.id);
+      const mark = isSolved ? '✓ ' : '○ ';
+      const isSelected = this.state.activeChallenge && this.state.activeChallenge.id === ch.id;
+      html += `<option value="${ch.id}" ${isSelected ? 'selected' : ''}>${mark}${ch.platform}: ${ch.title}</option>`;
+    });
+
+    dropdown.innerHTML = html;
+  },
+
   renderChallengeList() {
     const listEl = document.getElementById('challenge-list');
     const countBadge = document.getElementById('challenge-count-badge');
+    const tabCount = document.getElementById('catalog-tab-count');
+
     if (countBadge) {
       countBadge.textContent = `${this.state.challenges.length} Available`;
+    }
+    if (tabCount) {
+      tabCount.textContent = this.state.challenges.length;
     }
 
     if (!listEl) return;
 
     if (this.state.challenges.length === 0) {
-      listEl.innerHTML = '<div class="p-8 text-center text-slate-400 text-xs">No challenges matching filter.</div>';
+      listEl.innerHTML = '<div class="p-8 text-center text-slate-400 text-xs font-mono">No challenges matching the active filter.</div>';
       return;
     }
 
     let html = '';
     this.state.challenges.forEach(ch => {
       const isSelected = this.state.activeChallenge && this.state.activeChallenge.id === ch.id;
+      const isSolved = this.state.solvedChallenges.has(ch.id);
       const diffClass = ch.difficulty.toLowerCase() === 'easy' ? 'badge-easy' : 
                         ch.difficulty.toLowerCase() === 'medium' ? 'badge-medium' : 'badge-hard';
       
+      const solvedBadge = isSolved
+        ? '<span class="text-[10px] px-2 py-0.5 rounded-full badge-solved font-bold flex items-center gap-1"><span>✓</span> <span>Solved</span></span>'
+        : '<span class="text-[10px] px-2 py-0.5 rounded-full badge-unsolved font-medium flex items-center gap-1"><span>○</span> <span>Unsolved</span></span>';
+
       html += `
-        <div class="challenge-item ${isSelected ? 'active' : ''}" data-cid="${ch.id}">
+        <div class="challenge-item ${isSelected ? 'active' : ''} ${isSolved ? 'is-solved' : ''}" data-cid="${ch.id}">
           <div class="flex-1 min-w-0 pr-2">
             <div class="flex items-center gap-2 mb-1">
               <span class="text-[10px] px-2 py-0.5 rounded-full ${diffClass} font-semibold">${ch.difficulty}</span>
-              <span class="text-[11px] text-slate-400 truncate">${ch.platform}</span>
+              <span class="text-[11px] text-slate-400 truncate font-mono">${ch.platform}</span>
+              ${solvedBadge}
             </div>
             <h4 class="text-xs md:text-sm font-semibold text-white truncate">${ch.title}</h4>
           </div>
-          <div class="text-right flex flex-col items-end">
+          <div class="text-right flex flex-col items-end flex-shrink-0">
             <span class="text-[11px] text-slate-500 font-mono">${ch.visible_tests_count + ch.hidden_tests_count} Tests</span>
           </div>
         </div>
@@ -617,6 +703,8 @@ const App = {
     listEl.querySelectorAll('.challenge-item').forEach(item => {
       item.addEventListener('click', () => {
         this.selectChallenge(item.dataset.cid);
+        // Switch tab to problem view so user sees problem & examples right beside editor
+        this.switchSandboxTab('problem');
       });
     });
   },
@@ -632,6 +720,7 @@ const App = {
 
       this.renderChallengeDetail();
       this.renderChallengeList();
+      this.renderChallengeDropdown();
     } catch (e) {
       console.error('Failed to fetch challenge detail:', e);
     }
@@ -655,14 +744,52 @@ const App = {
 
     document.getElementById('ch-description').innerHTML = this.formatMarkdown(ch.description);
     
+    // Constraints & Targets
     const constEl = document.getElementById('ch-constraints');
-    if (constEl) {
+    const constContainer = document.getElementById('ch-constraints-container');
+    if (constEl && constContainer) {
       if (ch.constraints) {
-        constEl.innerHTML = `<div class="mt-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 text-xs text-slate-300 font-mono"><strong class="text-emerald-400">Constraints:</strong><br>${ch.constraints}</div>`;
+        constEl.textContent = ch.constraints;
+        constContainer.classList.remove('hidden');
       } else {
-        constEl.innerHTML = '';
+        constContainer.classList.add('hidden');
       }
     }
+
+    // SAMPLE TEST CASES (Examples Box right beside the Editor!)
+    const examplesContainer = document.getElementById('ch-examples-container');
+    const examplesList = document.getElementById('ch-examples-list');
+    if (examplesList && examplesContainer) {
+      if (ch.visible_tests && ch.visible_tests.length > 0) {
+        let exHtml = '';
+        ch.visible_tests.forEach((vt, idx) => {
+          let inpStr = '';
+          if (typeof vt.input === 'object' && vt.input !== null && !Array.isArray(vt.input)) {
+            inpStr = Object.entries(vt.input)
+              .map(([k, v]) => `${k} = ${typeof v === 'object' ? JSON.stringify(v) : v}`)
+              .join(', ');
+          } else {
+            inpStr = typeof vt.input === 'object' ? JSON.stringify(vt.input) : String(vt.input);
+          }
+          const outStr = typeof vt.expected === 'object' ? JSON.stringify(vt.expected) : String(vt.expected);
+
+          exHtml += `
+            <div class="example-card space-y-1">
+              <div class="text-amber-400 font-bold text-[11px] tracking-wide">Example ${idx + 1}:</div>
+              <div class="text-slate-200"><span class="text-slate-400 font-medium">Input:</span> ${this.escapeHtml(inpStr)}</div>
+              <div class="text-emerald-400 font-semibold"><span class="text-slate-400 font-medium">Output:</span> ${this.escapeHtml(outStr)}</div>
+            </div>
+          `;
+        });
+        examplesList.innerHTML = exHtml;
+        examplesContainer.classList.remove('hidden');
+      } else {
+        examplesContainer.classList.add('hidden');
+      }
+    }
+
+    // Solved Status UI
+    this.updateActiveChallengeSolvedUI();
 
     const editor = document.getElementById('code-editor');
     if (editor) {
@@ -672,10 +799,150 @@ const App = {
     const resultsContainer = document.getElementById('results-container');
     if (resultsContainer) {
       resultsContainer.innerHTML = `
-        <div class="text-slate-500 text-xs font-mono py-4 text-center">
-          Click "Run Test Suite" to execute your solution against ${ch.visible_tests.length + ch.hidden_tests_count} test cases.
+        <div class="text-slate-500 text-xs font-mono py-6 text-center">
+          Click 'Run Sample Cases' or 'Submit Solution' to execute code against tests.
         </div>
       `;
+    }
+  },
+
+  updateActiveChallengeSolvedUI() {
+    const ch = this.state.activeChallenge;
+    if (!ch) return;
+
+    const isSolved = this.state.solvedChallenges.has(ch.id);
+    const statusPill = document.getElementById('active-ch-status-pill');
+    const solvedAlert = document.getElementById('ch-solved-alert');
+
+    if (statusPill) {
+      if (isSolved) {
+        statusPill.innerHTML = '<span>✓ Solved</span>';
+        statusPill.className = 'text-xs font-mono px-3 py-1 rounded-full badge-solved font-bold cursor-pointer transition-all';
+        statusPill.title = 'Click to mark as unsolved';
+      } else {
+        statusPill.innerHTML = '<span>○ Unsolved</span>';
+        statusPill.className = 'text-xs font-mono px-3 py-1 rounded-full badge-unsolved font-medium cursor-pointer transition-all hover:border-slate-500';
+        statusPill.title = 'Click to mark as solved';
+      }
+    }
+
+    if (solvedAlert) {
+      if (isSolved) {
+        solvedAlert.classList.remove('hidden');
+      } else {
+        solvedAlert.classList.add('hidden');
+      }
+    }
+  },
+
+  toggleActiveChallengeSolved() {
+    const ch = this.state.activeChallenge;
+    if (!ch) return;
+
+    const currentlySolved = this.state.solvedChallenges.has(ch.id);
+    if (currentlySolved) {
+      this.state.solvedChallenges.delete(ch.id);
+    } else {
+      this.state.solvedChallenges.add(ch.id);
+    }
+
+    localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
+    this.updateActiveChallengeSolvedUI();
+    this.updateGlobalSolvedProgress();
+    this.renderChallengeList();
+    this.renderChallengeDropdown();
+
+    // Background sync to SQLite
+    fetch('/api/mark-solved', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ challenge_id: ch.id, solved: !currentlySolved })
+    }).catch(err => console.warn('mark-solved error:', err));
+  },
+
+  switchSandboxTab(tabName) {
+    this.state.sandboxTab = tabName;
+    const tabProblem = document.getElementById('tab-btn-problem');
+    const tabCatalog = document.getElementById('tab-btn-catalog');
+    const paneDetail = document.getElementById('pane-problem-detail');
+    const paneCatalog = document.getElementById('pane-problem-catalog');
+
+    if (tabName === 'problem') {
+      if (tabProblem) tabProblem.className = 'sandbox-tab-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+      if (tabCatalog) tabCatalog.className = 'sandbox-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white';
+      if (paneDetail) paneDetail.classList.remove('hidden');
+      if (paneCatalog) paneCatalog.classList.add('hidden');
+    } else {
+      if (tabCatalog) tabCatalog.className = 'sandbox-tab-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+      if (tabProblem) tabProblem.className = 'sandbox-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white';
+      if (paneCatalog) paneCatalog.classList.remove('hidden');
+      if (paneDetail) paneDetail.classList.add('hidden');
+    }
+  },
+
+  bindSandboxEvents() {
+    // Tab switching
+    const tabProblem = document.getElementById('tab-btn-problem');
+    const tabCatalog = document.getElementById('tab-btn-catalog');
+    if (tabProblem) tabProblem.addEventListener('click', () => this.switchSandboxTab('problem'));
+    if (tabCatalog) tabCatalog.addEventListener('click', () => this.switchSandboxTab('catalog'));
+
+    // Solved pill toggle
+    const statusPill = document.getElementById('active-ch-status-pill');
+    if (statusPill) statusPill.addEventListener('click', () => this.toggleActiveChallengeSolved());
+
+    // Quick Challenge Dropdown
+    const dropdown = document.getElementById('challenge-select-dropdown');
+    if (dropdown) {
+      dropdown.addEventListener('change', (e) => {
+        if (e.target.value) {
+          this.selectChallenge(e.target.value);
+          this.switchSandboxTab('problem');
+        }
+      });
+    }
+
+    // Status filter pills (All / Unsolved / Solved)
+    document.querySelectorAll('.status-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.status-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        this.state.selectedStatus = pill.dataset.status;
+        this.loadChallenges();
+      });
+    });
+
+    // Run Sample Cases button
+    const btnSamples = document.getElementById('btn-run-samples');
+    if (btnSamples) btnSamples.addEventListener('click', () => this.runCode(false));
+
+    // Submit Solution button
+    const btnRun = document.getElementById('btn-run-code');
+    if (btnRun) btnRun.addEventListener('click', () => this.runCode(true));
+
+    // Reset & Reveal
+    const btnReset = document.getElementById('btn-reset-code');
+    if (btnReset) btnReset.addEventListener('click', () => this.resetCode());
+
+    const btnReveal = document.getElementById('btn-reveal-solution');
+    if (btnReveal) btnReveal.addEventListener('click', () => this.revealSolution());
+
+    // Code Editor keyboard shortcuts: Tab key & Ctrl+Enter
+    const editor = document.getElementById('code-editor');
+    if (editor) {
+      editor.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const start = editor.selectionStart;
+          const end = editor.selectionEnd;
+          editor.value = editor.value.substring(0, start) + '    ' + editor.value.substring(end);
+          editor.selectionStart = editor.selectionEnd = start + 4;
+          this.state.editorContent = editor.value;
+        } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          this.runCode(false);
+        }
+      });
     }
   },
 
@@ -689,26 +956,37 @@ const App = {
       .replace(/\n/g, '<br>');
   },
 
-  async runCode() {
+  escapeHtml(str) {
+    if (typeof str !== 'string') str = String(str);
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  },
+
+  async runCode(runHidden = true) {
     if (!this.state.activeChallenge || this.state.isRunning) return;
 
     const editor = document.getElementById('code-editor');
     const userCode = editor ? editor.value : this.state.editorContent;
     this.state.editorContent = userCode;
 
-    const runBtn = document.getElementById('btn-run-code');
+    const runBtn = runHidden ? document.getElementById('btn-run-code') : document.getElementById('btn-run-samples');
     const resultsContainer = document.getElementById('results-container');
+    const terminalBadge = document.getElementById('terminal-status-badge');
 
     this.state.isRunning = true;
     if (runBtn) {
-      runBtn.innerHTML = '<span class="animate-spin inline-block mr-1">⚙</span> Running...';
+      runBtn.innerHTML = '<span class="animate-spin inline-block mr-1">⚙</span> Executing...';
       runBtn.disabled = true;
     }
 
     if (resultsContainer) {
       resultsContainer.innerHTML = `
-        <div class="flex items-center justify-center gap-3 py-6 text-emerald-400 text-xs font-mono">
-          <span class="animate-spin">⚙</span> Executing code inside isolated subprocess sandbox (3.0s timeout)...
+        <div class="flex items-center justify-center gap-3 py-8 text-emerald-400 text-xs font-mono">
+          <span class="animate-spin">⚙</span> Executing code inside isolated subprocess sandbox (3.0s limit)...
         </div>
       `;
     }
@@ -720,21 +998,31 @@ const App = {
         body: JSON.stringify({
           challenge_id: this.state.activeChallenge.id,
           code: userCode,
-          run_hidden: true
+          run_hidden: runHidden
         })
       });
 
       const report = await res.json();
       this.state.testResults = report;
-      this.renderTestResults(report);
+      this.renderTestResults(report, runHidden);
 
-      if (report.status === 'PASS' && typeof confetti === 'function') {
-        confetti({
-          particleCount: 120,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ['#10b981', '#34d399', '#f43f5e', '#fb7185', '#38bdf8']
-        });
+      if (report.status === 'PASS' && runHidden) {
+        // Mark challenge solved!
+        this.state.solvedChallenges.add(this.state.activeChallenge.id);
+        localStorage.setItem('vault_solved_challenges', JSON.stringify(Array.from(this.state.solvedChallenges)));
+        this.updateActiveChallengeSolvedUI();
+        this.updateGlobalSolvedProgress();
+        this.renderChallengeList();
+        this.renderChallengeDropdown();
+
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#10b981', '#34d399', '#f43f5e', '#fb7185', '#38bdf8']
+          });
+        }
       }
     } catch (err) {
       if (resultsContainer) {
@@ -746,31 +1034,53 @@ const App = {
       }
     } finally {
       this.state.isRunning = false;
-      if (runBtn) {
-        runBtn.innerHTML = '<span>⚡</span> <span>Run Test Suite</span>';
-        runBtn.disabled = false;
+      const btnSamples = document.getElementById('btn-run-samples');
+      if (btnSamples) {
+        btnSamples.innerHTML = '<span>▶</span> <span>Run Sample Cases</span>';
+        btnSamples.disabled = false;
+      }
+      const btnSubmit = document.getElementById('btn-run-code');
+      if (btnSubmit) {
+        btnSubmit.innerHTML = '<span>⚡</span> <span>Submit Solution (Hidden Cases)</span>';
+        btnSubmit.disabled = false;
       }
     }
   },
 
-  renderTestResults(report) {
+  renderTestResults(report, runHidden) {
     const container = document.getElementById('results-container');
+    const terminalBadge = document.getElementById('terminal-status-badge');
     if (!container) return;
 
     const isPass = report.status === 'PASS';
     const statusColor = isPass ? 'text-emerald-400' : report.status === 'TIMEOUT' ? 'text-amber-400' : 'text-rose-400';
+    const modeLabel = runHidden ? 'Full Test Suite (With Hidden Cases)' : 'Sample Test Cases Only';
+
+    if (terminalBadge) {
+      terminalBadge.innerHTML = `<span class="text-[11px] px-2 py-0.5 rounded-full font-mono font-semibold ${isPass ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/30' : 'bg-rose-950/80 text-rose-300 border border-rose-500/30'}">${report.status} (${report.passed_count}/${report.total_count})</span>`;
+    }
 
     let html = `
-      <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/90 border border-slate-800 mb-3">
+      <div class="flex flex-wrap items-center justify-between p-3 rounded-lg bg-slate-900/90 border border-slate-800 mb-3 gap-2">
         <div class="flex items-center gap-2">
           <span class="text-sm font-bold ${statusColor}">● ${report.status}</span>
-          <span class="text-xs text-slate-400 font-mono">(${report.passed_count}/${report.total_count} Passed)</span>
+          <span class="text-xs text-slate-300 font-mono">(${report.passed_count}/${report.total_count} Passed)</span>
+          <span class="text-slate-600">•</span>
+          <span class="text-[11px] text-slate-400 font-mono">${modeLabel}</span>
         </div>
         <div class="text-xs font-mono text-slate-400">
-          Runtime: <span class="text-white">${report.runtime_ms} ms</span>
+          Runtime: <span class="text-white font-semibold">${report.runtime_ms} ms</span>
         </div>
       </div>
     `;
+
+    if (isPass && runHidden) {
+      html += `
+        <div class="mb-3 p-3 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-2 font-mono">
+          <span>🎉</span> <span><strong>All tests passed!</strong> Challenge has been saved as <strong>✓ Solved</strong>.</span>
+        </div>
+      `;
+    }
 
     if (report.error_message) {
       html += `
@@ -786,6 +1096,13 @@ const App = {
         const passClass = r.passed ? 'test-card-pass' : 'test-card-fail';
         const badge = r.passed ? '<span class="text-emerald-400 font-bold">✓ PASS</span>' : '<span class="text-rose-400 font-bold">✗ FAIL</span>';
         
+        let inpDisplay = '';
+        if (typeof r.input === 'object' && r.input !== null) {
+          inpDisplay = Object.entries(r.input).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(', ');
+        } else {
+          inpDisplay = JSON.stringify(r.input);
+        }
+
         html += `
           <div class="${passClass}">
             <div class="flex justify-between items-center text-xs font-semibold mb-1">
@@ -794,15 +1111,15 @@ const App = {
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono mt-1">
               <div class="bg-black/40 p-1.5 rounded">
-                <span class="text-slate-400">Input:</span> ${JSON.stringify(r.input)}
+                <span class="text-slate-400">Input:</span> ${this.escapeHtml(inpDisplay)}
               </div>
               <div class="bg-black/40 p-1.5 rounded">
-                <span class="text-slate-400">Expected:</span> <span class="text-emerald-300">${JSON.stringify(r.expected)}</span>
+                <span class="text-slate-400">Expected:</span> <span class="text-emerald-300">${this.escapeHtml(JSON.stringify(r.expected))}</span>
               </div>
             </div>
             ${!r.passed ? `
               <div class="mt-1.5 p-1.5 rounded bg-rose-950/40 border border-rose-900 text-xs font-mono">
-                <span class="text-rose-300">Got:</span> <span class="text-white">${JSON.stringify(r.got)}</span>
+                <span class="text-rose-300">Got:</span> <span class="text-white">${this.escapeHtml(JSON.stringify(r.got))}</span>
               </div>
             ` : ''}
           </div>
@@ -864,13 +1181,4 @@ window.addEventListener('DOMContentLoaded', () => {
       App.loadChallenges();
     });
   });
-
-  const btnRun = document.getElementById('btn-run-code');
-  if (btnRun) btnRun.addEventListener('click', () => App.runCode());
-
-  const btnReset = document.getElementById('btn-reset-code');
-  if (btnReset) btnReset.addEventListener('click', () => App.resetCode());
-
-  const btnReveal = document.getElementById('btn-reveal-solution');
-  if (btnReveal) btnReveal.addEventListener('click', () => App.revealSolution());
 });

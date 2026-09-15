@@ -319,6 +319,10 @@ class TimerSyncRequest(BaseModel):
     elapsed_seconds: int
     is_active: bool = True
 
+class MarkSolvedRequest(BaseModel):
+    challenge_id: str
+    solved: bool = True
+
 # ── API Endpoints ──────────────────────────────────────────────────────────
 
 @app.get("/api/health")
@@ -361,7 +365,7 @@ def get_challenges(
     platform: Optional[str] = None,
     difficulty: Optional[str] = None,
     search: Optional[str] = None,
-    limit: int = 100,
+    limit: int = 500,
     offset: int = 0
 ):
     """Filter challenges by platform, difficulty, or search keyword."""
@@ -468,6 +472,39 @@ def run_code_endpoint(req: CodeRunRequest):
         print(f"Error logging submission: {db_err}")
 
     return report
+
+@app.get("/api/solved-challenges")
+def get_solved_challenges():
+    """Returns list of challenge IDs marked as passed in the database."""
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            cursor = conn.execute(
+                "SELECT DISTINCT challenge_id FROM challenge_submissions WHERE status = 'PASS'"
+            )
+            solved_ids = [row[0] for row in cursor.fetchall()]
+        return {"status": "ok", "solved_ids": solved_ids, "count": len(solved_ids)}
+    except Exception as err:
+        return {"status": "error", "solved_ids": [], "count": 0, "detail": str(err)}
+
+@app.post("/api/mark-solved")
+def mark_solved_endpoint(req: MarkSolvedRequest):
+    """Allows client to mark or unmark a challenge as solved in persistent SQLite storage."""
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            if req.solved:
+                conn.execute(
+                    "INSERT INTO challenge_submissions (challenge_id, status, passed_count, total_count, runtime_ms, submitted_at) VALUES (?, 'PASS', 1, 1, 0.0, ?)",
+                    (req.challenge_id, datetime.datetime.now(datetime.timezone.utc).isoformat())
+                )
+            else:
+                conn.execute(
+                    "DELETE FROM challenge_submissions WHERE challenge_id = ?",
+                    (req.challenge_id,)
+                )
+            conn.commit()
+        return {"status": "ok", "challenge_id": req.challenge_id, "solved": req.solved}
+    except Exception as err:
+        return {"status": "error", "detail": str(err)}
 
 # ── Activity-Gated Focus Timer Endpoints ────────────────────────────────────
 

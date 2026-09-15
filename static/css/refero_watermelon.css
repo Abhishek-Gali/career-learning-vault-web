@@ -471,3 +471,97 @@ header.app-header {
   padding: 4px 10px;
   border-radius: var(--radius-full);
 }
+
+/* Solved Badges & Completion States */
+.badge-solved {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+}
+
+.badge-unsolved {
+  background: rgba(148, 163, 184, 0.12);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.challenge-item.is-solved {
+  border-left: 3px solid #10b981;
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.challenge-item.is-solved:hover {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+/* Status Filter Pills */
+.status-pill {
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.status-pill:hover {
+  color: #ffffff;
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.status-pill.active {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+}
+
+/* Sample Test Case Cards */
+.example-card {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.9rem;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 0.75rem;
+  transition: var(--transition-smooth);
+}
+
+.example-card:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(20, 29, 52, 0.95);
+}
+
+/* Sandbox Left Pane Tabs */
+.sandbox-tab-btn {
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.sandbox-tab-btn.active {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #34d399 !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+/* Editor Textarea */
+.editor-textarea {
+  width: 100%;
+  min-height: 380px;
+  background: #090d16;
+  color: #e2e8f0;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  padding: 1rem;
+  border: none;
+  resize: vertical;
+  outline: none;
+  tab-size: 4;
+}
+
