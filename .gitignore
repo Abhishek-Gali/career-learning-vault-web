@@ -9,9 +9,10 @@ venv/
 ENV/
 .env
 
-# SQLite local databases
-*.db
+# SQLite local databases (preserve web_vault.db so user accounts & data persist on commit)
 *.sqlite3
+interview_history.db
+!data/web_vault.db
 
 # OS metadata
 .DS_Store

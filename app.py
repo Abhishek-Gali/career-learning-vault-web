@@ -55,11 +55,14 @@ if not CHALLENGES_DIR.exists() and (VAULT_LOCAL / "Coding_Sandbox" / "challenges
     CHALLENGES_DIR = VAULT_LOCAL / "Coding_Sandbox" / "challenges"
 
 # SQLite Database Resolution:
-if (VAULT_LOCAL / "interview_history.db").exists():
-    DB_PATH = VAULT_LOCAL / "interview_history.db"
-else:
-    DB_PATH = DATA_DIR / "web_vault.db"
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+# Prioritize DATA_DIR / "web_vault.db" so that all user data, accounts, and progress are tracked in git and persist across commits/deploys.
+DB_PATH = DATA_DIR / "web_vault.db"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+if not DB_PATH.exists() and (VAULT_LOCAL / "interview_history.db").exists():
+    try:
+        shutil.copyfile(VAULT_LOCAL / "interview_history.db", DB_PATH)
+    except Exception:
+        pass
 
 import sqlite3
 
@@ -519,6 +522,12 @@ class AddCustomVideoRequest(BaseModel):
     track_key: str
     url: str
     title: Optional[str] = None
+
+class RenameCustomCourseRequest(BaseModel):
+    track_key: str
+    course_id: str
+    new_title: str
+
 
 # ── Authentication & RBAC Dependencies ──────────────────────────────────────
 def get_current_user(
@@ -1310,6 +1319,7 @@ def get_user_custom_courses(track_key: Optional[str] = None, user: Dict[str, Any
                 vids = []
             courses_by_track[t].append({
                 "id": r["course_id"],
+                "course_id": r["course_id"],
                 "course_type": r["course_type"],
                 "title": r["title"],
                 "videos": vids,
@@ -1329,6 +1339,7 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
     if not url:
         raise HTTPException(status_code=400, detail="URL cannot be empty.")
 
+    custom_name = req.title.strip() if req.title and req.title.strip() else None
     now_iso = datetime.datetime.now(timezone.utc).isoformat()
 
     # Check for Playlist
@@ -1342,7 +1353,9 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
         if is_playlist:
             pid = playlist_match.group(1)
             course_id = f"playlist_{pid}"
-            title, videos = fetch_playlist_metadata(url, pid, req.title)
+            extracted_title, videos = fetch_playlist_metadata(url, pid, custom_name)
+            # Custom name takes top priority if user provided one
+            title = custom_name or extracted_title or f"Playlist {pid[:8]}"
 
             conn.execute("""
                 INSERT INTO user_custom_courses (user_id, track_key, course_id, course_type, title, videos_json, added_at)
@@ -1369,21 +1382,22 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
                 raise HTTPException(status_code=400, detail="Invalid YouTube URL. Please provide a valid video or playlist link.")
 
             vid = vid_match.group(1)
-            title = req.title.strip() if req.title else fetch_youtube_oembed(vid)
+            video_title = custom_name or fetch_youtube_oembed(vid)
             video_entry = {
                 "id": vid,
-                "title": title,
+                "title": video_title,
                 "duration": ""
             }
 
             course_id = "personal"
             cur.execute("""
-                SELECT videos_json FROM user_custom_courses 
+                SELECT title, videos_json FROM user_custom_courses 
                 WHERE user_id = ? AND track_key = ? AND course_id = 'personal'
             """, (user["id"], req.track_key))
             existing_row = cur.fetchone()
 
             if existing_row:
+                personal_title = existing_row["title"] or "Personal"
                 try:
                     v_list = json.loads(existing_row["videos_json"])
                 except Exception:
@@ -1396,10 +1410,11 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
                 """, (json.dumps(v_list), now_iso, user["id"], req.track_key))
             else:
                 v_list = [video_entry]
+                personal_title = "Personal"
                 conn.execute("""
                     INSERT INTO user_custom_courses (user_id, track_key, course_id, course_type, title, videos_json, added_at)
-                    VALUES (?, ?, 'personal', 'personal', 'Personal', ?, ?)
-                """, (user["id"], req.track_key, json.dumps(v_list), now_iso))
+                    VALUES (?, ?, 'personal', 'personal', ?, ?, ?)
+                """, (user["id"], req.track_key, personal_title, json.dumps(v_list), now_iso))
 
             conn.commit()
 
@@ -1407,33 +1422,59 @@ def add_custom_video_or_playlist(req: AddCustomVideoRequest, user: Dict[str, Any
                 "status": "ok",
                 "type": "personal",
                 "course_id": "personal",
-                "title": "Personal",
+                "title": personal_title,
                 "video": video_entry,
                 "video_count": len(v_list),
-                "message": f"Video '{title}' added to your Personal collection ({len(v_list)} total)!"
+                "message": f"Video '{video_title}' added to your {personal_title} collection ({len(v_list)} total)!"
             }
 
-@app.delete("/api/custom-courses/{course_id}")
-def delete_custom_course(course_id: str, track_key: str, user: Dict[str, Any] = Depends(get_current_user)):
-    """Deletes a custom playlist or personal course collection."""
+@app.post("/api/custom-courses/rename")
+def rename_custom_course(req: RenameCustomCourseRequest, user: Dict[str, Any] = Depends(get_current_user)):
+    """Allows user to give custom names to any custom playlist or personal collection."""
+    new_name = req.new_title.strip()
+    if not new_name:
+        raise HTTPException(status_code=400, detail="Course name cannot be empty.")
     with sqlite3.connect(str(DB_PATH)) as conn:
         conn.execute("""
-            DELETE FROM user_custom_courses 
+            UPDATE user_custom_courses SET title = ?
             WHERE user_id = ? AND track_key = ? AND course_id = ?
-        """, (user["id"], track_key, course_id))
+        """, (new_name, user["id"], req.track_key, req.course_id))
+        conn.commit()
+    return {"status": "ok", "new_title": new_name}
+
+@app.delete("/api/custom-courses/{course_id}")
+def delete_custom_course(course_id: str, track_key: Optional[str] = None, user: Dict[str, Any] = Depends(get_current_user)):
+    """Deletes a custom playlist or personal course collection."""
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        if track_key:
+            conn.execute("""
+                DELETE FROM user_custom_courses 
+                WHERE user_id = ? AND track_key = ? AND course_id = ?
+            """, (user["id"], track_key, course_id))
+        else:
+            conn.execute("""
+                DELETE FROM user_custom_courses 
+                WHERE user_id = ? AND course_id = ?
+            """, (user["id"], course_id))
         conn.commit()
     return {"status": "ok", "message": f"Course '{course_id}' removed from shelf."}
 
 @app.delete("/api/custom-courses/{course_id}/video/{video_id}")
-def remove_video_from_custom_course(course_id: str, video_id: str, track_key: str, user: Dict[str, Any] = Depends(get_current_user)):
+def remove_video_from_custom_course(course_id: str, video_id: str, track_key: Optional[str] = None, user: Dict[str, Any] = Depends(get_current_user)):
     """Removes a single video from a custom course or personal collection."""
     with sqlite3.connect(str(DB_PATH)) as conn:
         conn.row_factory = sqlite3.Row
         cur = conn.cursor()
-        cur.execute("""
-            SELECT videos_json FROM user_custom_courses
-            WHERE user_id = ? AND track_key = ? AND course_id = ?
-        """, (user["id"], track_key, course_id))
+        if track_key:
+            cur.execute("""
+                SELECT id, track_key, videos_json FROM user_custom_courses
+                WHERE user_id = ? AND track_key = ? AND course_id = ?
+            """, (user["id"], track_key, course_id))
+        else:
+            cur.execute("""
+                SELECT id, track_key, videos_json FROM user_custom_courses
+                WHERE user_id = ? AND course_id = ?
+            """, (user["id"], course_id))
         row = cur.fetchone()
         if not row:
             raise HTTPException(status_code=404, detail="Course not found.")
@@ -1446,16 +1487,29 @@ def remove_video_from_custom_course(course_id: str, video_id: str, track_key: st
         if not v_list:
             conn.execute("""
                 DELETE FROM user_custom_courses
-                WHERE user_id = ? AND track_key = ? AND course_id = ?
-            """, (user["id"], track_key, course_id))
+                WHERE id = ?
+            """, (row["id"],))
         else:
             conn.execute("""
                 UPDATE user_custom_courses SET videos_json = ?
-                WHERE user_id = ? AND track_key = ? AND course_id = ?
-            """, (json.dumps(v_list), user["id"], track_key, course_id))
+                WHERE id = ?
+            """, (json.dumps(v_list), row["id"]))
         conn.commit()
 
     return {"status": "ok", "remaining_videos": len(v_list)}
+
+@app.get("/api/admin/export-db")
+def export_database_backup(user: Dict[str, Any] = Depends(get_current_user)):
+    """Allows administrator to download the complete SQLite database backup file."""
+    if user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin authorization required.")
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=404, detail="Database file not found.")
+    return FileResponse(
+        path=str(DB_PATH),
+        media_type="application/octet-stream",
+        filename="web_vault_backup.db"
+    )
 
 # ── Frontend HTML Route ─────────────────────────────────────────────────────
 

@@ -1078,15 +1078,20 @@ const App = {
     const languageCourses = (langData && langData.courses) ? langData.courses : [];
     
     const trackCustoms = (this.state.customCourses && this.state.customCourses[trackKey]) ? this.state.customCourses[trackKey] : [];
-    const formattedCustomCourses = trackCustoms.map(c => ({
-      id: c.course_id,
-      title: c.course_type === 'personal' ? '📌 Personal' : c.title,
-      instructor: c.course_type === 'personal' ? 'My Saved Videos' : 'Custom Playlist',
-      institution: 'Custom Ingestion',
-      course_type: c.course_type,
-      isCustom: true,
-      videos: c.videos || []
-    }));
+    const formattedCustomCourses = trackCustoms.map(c => {
+      const cId = c.course_id || c.id;
+      const isPersonal = (c.course_type === 'personal' || cId === 'personal');
+      return {
+        id: cId,
+        course_id: cId,
+        title: c.title || (isPersonal ? '📌 Personal' : 'Custom Playlist'),
+        instructor: isPersonal ? 'My Saved Videos' : (c.title || 'Custom Playlist'),
+        institution: 'Custom Ingestion',
+        course_type: isPersonal ? 'personal' : (c.course_type || 'playlist'),
+        isCustom: true,
+        videos: c.videos || []
+      };
+    });
 
     return [...goldenAnchors, ...languageCourses, ...formattedCustomCourses];
   },
@@ -1113,12 +1118,14 @@ const App = {
   async handleAddCustomVideo(e, trackKey) {
     if (e) e.preventDefault();
     const inputEl = document.getElementById(`${trackKey}-custom-url-input`);
+    const titleEl = document.getElementById(`${trackKey}-custom-title-input`);
     const statusEl = document.getElementById(`${trackKey}-custom-status`);
     const btnEl = document.getElementById(`${trackKey}-custom-submit-btn`);
 
     if (!inputEl) return;
     const url = inputEl.value.trim();
     if (!url) return;
+    const customTitle = titleEl ? titleEl.value.trim() : '';
 
     if (btnEl) {
       btnEl.disabled = true;
@@ -1134,12 +1141,13 @@ const App = {
       const res = await fetch('/api/custom-courses/add', {
         method: 'POST',
         headers: this.getAuthHeaders(),
-        body: JSON.stringify({ track_key: trackKey, url: url })
+        body: JSON.stringify({ track_key: trackKey, url: url, title: customTitle })
       });
       const data = await res.json();
 
       if (res.ok && data.status === 'ok') {
         inputEl.value = '';
+        if (titleEl) titleEl.value = '';
         if (statusEl) {
           statusEl.classList.remove('text-slate-400', 'text-rose-400');
           statusEl.classList.add('text-emerald-400');
@@ -1173,8 +1181,31 @@ const App = {
     } finally {
       if (btnEl) {
         btnEl.disabled = false;
-        btnEl.innerHTML = '<span>Add to Track</span><span>→</span>';
+        btnEl.innerHTML = '<span>Save to Track</span><span>→</span>';
       }
+    }
+  },
+
+  async renameCustomCourse(trackKey, courseId, currentTitle) {
+    const cleanTitle = (currentTitle || '').replace(/^[📌📑\s]+/, '');
+    const newTitle = prompt("Enter a custom name for this course / playlist:", cleanTitle);
+    if (!newTitle || !newTitle.trim() || newTitle.trim() === cleanTitle) return;
+    try {
+      const res = await fetch('/api/custom-courses/rename', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({
+          track_key: trackKey,
+          course_id: courseId,
+          new_title: newTitle.trim()
+        })
+      });
+      if (res.ok) {
+        await this.loadCustomCourses();
+        this.renderCourseTrack(trackKey);
+      }
+    } catch (e) {
+      console.error("Failed to rename course:", e);
     }
   },
 
@@ -1394,7 +1425,13 @@ const App = {
     const origin = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin !== 'null')
       ? encodeURIComponent(window.location.origin)
       : '';
-    let url = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&enablejsapi=1`;
+    let url;
+    if (videoId && videoId.startsWith('videoseries?list=')) {
+      const listId = videoId.replace('videoseries?list=', '');
+      url = `https://www.youtube-nocookie.com/embed/videoseries?list=${listId}&enablejsapi=1`;
+    } else {
+      url = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&enablejsapi=1`;
+    }
     if (autoplay) url += '&autoplay=1';
     if (origin) url += `&origin=${origin}`;
     return url;
@@ -1466,7 +1503,14 @@ const App = {
     if (barEl) barEl.style.width = `${((idx + 1) / videos.length) * 100}%`;
 
     const ytLink = document.getElementById(`${trackKey}-yt-direct-link`);
-    if (ytLink) ytLink.href = `https://www.youtube.com/watch?v=${v.id}`;
+    if (ytLink) {
+      if (v.id.startsWith('videoseries')) {
+        const listMatch = v.id.match(/list=([a-zA-Z0-9_-]+)/);
+        ytLink.href = listMatch ? `https://www.youtube.com/playlist?list=${listMatch[1]}` : `https://www.youtube.com/`;
+      } else {
+        ytLink.href = `https://www.youtube.com/watch?v=${v.id}`;
+      }
+    }
 
     const prevBtn = document.getElementById(`${trackKey}-prev-btn`);
     if (prevBtn) {
@@ -1636,6 +1680,10 @@ const App = {
       }
 
       const icon = isAnchor ? '⭐' : (c.course_type === 'personal' ? '📌' : (isCustom ? '📑' : '🎓'));
+      const escapedTitle = (c.title || '').replace(/'/g, "\\'").replace(/"/g, "&quot;");
+      const renameBtn = isCustom
+        ? `<button onclick="event.stopPropagation(); App.renameCustomCourse('${trackKey}', '${c.id}', '${escapedTitle}')" title="Rename Course/Playlist" class="p-0.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition">✏️</button>`
+        : '';
       const deleteBtn = (isCustom && c.course_type !== 'personal')
         ? `<button onclick="event.stopPropagation(); App.deleteCustomCourse('${trackKey}', '${c.id}')" title="Delete playlist course" class="p-0.5 rounded text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition">✕</button>`
         : '';
@@ -1649,6 +1697,7 @@ const App = {
           <span class="text-[10px] font-mono px-1.5 py-0.2 rounded-full ${isAnchor ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400'}">
             ${vidCount} vids
           </span>
+          ${renameBtn}
           ${deleteBtn}
         </button>
       `;
@@ -1666,6 +1715,11 @@ const App = {
         ? `<button onclick="event.stopPropagation(); App.removeVideoFromCustomCourse('${trackKey}', '${activeCourse.id}', '${v.id}')" title="Remove from Personal" class="p-1 rounded text-slate-500 hover:text-rose-400 hover:bg-slate-800 transition text-xs flex-shrink-0 ml-auto">✕</button>`
         : '';
 
+      const isPlaylistId = v.id && v.id.startsWith('videoseries');
+      const thumbUrl = isPlaylistId
+        ? 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60" fill="%230f172a"><rect width="100" height="60" fill="%230f172a"/><path d="M40 20 L65 30 L40 40 Z" fill="%2310b981"/><line x1="20" y1="15" x2="80" y2="15" stroke="%23334155" stroke-width="3"/><line x1="20" y1="45" x2="80" y2="45" stroke="%23334155" stroke-width="3"/></svg>'
+        : `https://img.youtube.com/vi/${v.id}/mqdefault.jpg`;
+
       playlistItemsHtml += `
         <div 
           data-idx="${i}"
@@ -1675,7 +1729,7 @@ const App = {
           <!-- Thumbnail with duration overlay -->
           <div class="relative w-28 h-16 rounded-lg overflow-hidden bg-black flex-shrink-0 border border-slate-800/80">
             <img 
-              src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" 
+              src="${thumbUrl}" 
               alt="${v.title}" 
               loading="lazy"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -1820,20 +1874,28 @@ const App = {
             <span class="custom-shelf-badge">Playlist → 📑 New Course Tab</span>
           </div>
         </div>
-        <form onsubmit="App.handleAddCustomVideo(event, '${trackKey}')" class="flex flex-col sm:flex-row items-center gap-2">
-          <div class="relative flex-1 w-full">
+        <form onsubmit="App.handleAddCustomVideo(event, '${trackKey}')" class="grid grid-cols-1 sm:grid-cols-12 gap-2">
+          <div class="relative sm:col-span-7 w-full">
             <input 
               type="url" 
               id="${trackKey}-custom-url-input" 
               required 
-              placeholder="Paste YouTube URL (e.g. https://www.youtube.com/watch?v=... or https://www.youtube.com/playlist?list=...)" 
+              placeholder="Paste YouTube URL (e.g. https://www.youtube.com/watch?v=... or playlist?list=...)" 
               class="w-full pl-8 pr-3 py-2 rounded-xl bg-slate-950/90 border border-slate-800 text-xs text-slate-100 placeholder-slate-500 focus:border-emerald-500 focus:outline-none transition">
             <span class="absolute left-2.5 top-2.5 text-slate-500 text-xs">🔗</span>
+          </div>
+          <div class="relative sm:col-span-3 w-full">
+            <input 
+              type="text" 
+              id="${trackKey}-custom-title-input" 
+              placeholder="Custom Name / Title (optional)" 
+              class="w-full pl-8 pr-3 py-2 rounded-xl bg-slate-950/90 border border-slate-800 text-xs text-slate-100 placeholder-slate-500 focus:border-emerald-500 focus:outline-none transition">
+            <span class="absolute left-2.5 top-2.5 text-slate-500 text-xs">🏷️</span>
           </div>
           <button 
             type="submit" 
             id="${trackKey}-custom-submit-btn"
-            class="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs hover:brightness-110 flex items-center justify-center gap-1.5 transition flex-shrink-0 cursor-pointer shadow-md shadow-emerald-500/20">
+            class="sm:col-span-2 w-full px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs hover:brightness-110 flex items-center justify-center gap-1.5 transition flex-shrink-0 cursor-pointer shadow-md shadow-emerald-500/20">
             <span>Add to Track</span>
             <span>→</span>
           </button>
@@ -1919,7 +1981,7 @@ const App = {
             <div class="flex flex-wrap items-center gap-2 pt-1">
               <a 
                 id="${trackKey}-yt-direct-link"
-                href="https://www.youtube.com/watch?v=${activeVideo.id}" 
+                href="${activeVideo.id.startsWith('videoseries') ? `https://www.youtube.com/playlist?list=${(activeVideo.id.match(/list=([a-zA-Z0-9_-]+)/) || [])[1] || ''}` : `https://www.youtube.com/watch?v=${activeVideo.id}`}" 
                 target="_blank" 
                 class="px-3 py-1.5 rounded-lg bg-red-500/15 border border-red-500/30 text-red-300 hover:bg-red-500/25 text-xs font-semibold flex items-center gap-1.5 transition-all">
                 <span>▶</span> <span>Watch on YouTube ↗</span>
