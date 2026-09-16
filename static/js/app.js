@@ -3128,9 +3128,10 @@ const App = {
         }
       }
 
-      // Also refresh IP Threat Defense and Security Logs
+      // Also refresh IP Threat Defense, Security Logs, and Daily Telemetry
       this.loadBannedIPs();
       this.loadSecurityLogs();
+      this.loadAdminDailyAnalytics();
     } catch (e) {
       console.warn('Failed to load admin users:', e);
     }
@@ -3336,6 +3337,245 @@ const App = {
     }
   },
 
+  // ── Daily Candidate Learning Telemetry & Activity Tracker ─────────────────
+  async loadAdminDailyAnalytics() {
+    if (!this.state.currentUser || this.state.currentUser.role !== 'admin') return;
+
+    const days = this.state.adminAnalyticsDays || 14;
+    const userId = this.state.adminAnalyticsUserId || '';
+
+    // Populate user filter dropdown if needed
+    const selectEl = document.getElementById('admin-analytics-user-select');
+    if (selectEl && this.state.adminUsers && selectEl.options.length <= 1) {
+      let optHtml = '<option value="">All Candidates</option>';
+      this.state.adminUsers.forEach(u => {
+        optHtml += `<option value="${u.id}" ${String(u.id) === String(userId) ? 'selected' : ''}>@${u.username} (${u.full_name || u.username})</option>`;
+      });
+      selectEl.innerHTML = optHtml;
+    }
+
+    try {
+      let url = `/api/admin/analytics/daily?days=${days}`;
+      if (userId) url += `&user_id=${userId}`;
+
+      const res = await fetch(url, { headers: this.getAuthHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+
+      // Render today summary strip
+      const todayData = data.today || {};
+      const activeEl = document.getElementById('admin-today-active-users');
+      if (activeEl) activeEl.textContent = todayData.active_users_count || 0;
+
+      const focusEl = document.getElementById('admin-today-focus-hours');
+      if (focusEl) focusEl.textContent = `${todayData.total_focus_hours || 0.0} hrs`;
+
+      const qEl = document.getElementById('admin-today-questions-solved');
+      if (qEl) qEl.textContent = todayData.total_questions_solved || 0;
+
+      // Render Table Records
+      this.renderAdminDailyTable(data.records || []);
+    } catch (err) {
+      console.warn('Failed to load admin daily analytics:', err);
+    }
+  },
+
+  renderAdminDailyTable(records) {
+    const tbody = document.getElementById('admin-daily-analytics-body');
+    if (!tbody) return;
+
+    if (!Array.isArray(records) || records.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="py-6 text-center text-slate-500 font-mono">No daily candidate activity recorded in selected timeframe.</td></tr>';
+      return;
+    }
+
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    tbody.innerHTML = records.map(r => {
+      const isToday = r.date === todayStr;
+      const dateBadge = isToday 
+        ? `<span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/30 text-[10px]">${r.date} (Today)</span>`
+        : `<span class="text-slate-300 font-mono text-[11px]">${r.date}</span>`;
+
+      const hrs = (r.focus_hours || 0.0).toFixed(1);
+      const hoursBadge = r.focus_seconds > 0 
+        ? `<span class="font-mono text-amber-400 font-bold">${hrs} hrs</span> <span class="text-[10px] text-slate-500">(${r.focus_seconds}s)</span>`
+        : `<span class="text-slate-600 font-mono">0.0 hrs</span>`;
+
+      // Question breakdown pills
+      const sbBadge = `<span class="px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30" title="Coding Sandbox Fleet">⚡ ${r.sandbox_solved} SB</span>`;
+      const compBadge = `<span class="px-1.5 py-0.2 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30" title="Elite 450 Compendium">💎 ${r.compendium_solved} Comp</span>`;
+      const quizBadge = `<span class="px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30" title="Interview Drills Quizzes">🎯 ${r.quiz_questions} Quiz</span>`;
+
+      const totalQBadge = r.total_questions > 0
+        ? `<span class="font-mono font-black text-purple-300 text-sm">${r.total_questions} Total</span>`
+        : `<span class="text-slate-600 font-mono">0</span>`;
+
+      return `
+        <tr class="hover:bg-slate-900/40 transition-colors">
+          <td class="py-3 px-3">${dateBadge}</td>
+          <td class="py-3 px-3">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-white">${this.escapeHtml(r.full_name || r.username)}</span>
+              <span class="text-[11px] text-slate-400 font-mono">@${this.escapeHtml(r.username)}</span>
+            </div>
+          </td>
+          <td class="py-3 px-3">${hoursBadge}</td>
+          <td class="py-3 px-3">
+            <div class="flex items-center gap-1.5 flex-wrap text-[10px] font-mono">
+              ${r.sandbox_solved > 0 ? sbBadge : ''}
+              ${r.compendium_solved > 0 ? compBadge : ''}
+              ${r.quiz_questions > 0 ? quizBadge : ''}
+              ${r.total_questions === 0 ? '<span class="text-slate-600">No questions solved</span>' : ''}
+              <div class="ml-auto">${totalQBadge}</div>
+            </div>
+          </td>
+          <td class="py-3 px-3 text-center font-mono font-bold ${r.activity_count > 0 ? 'text-emerald-400' : 'text-slate-600'}">
+            ${r.activity_count || 0}
+          </td>
+          <td class="py-3 px-3 text-right">
+            <button 
+              onclick="App.openUserActivityModal(${r.user_id})" 
+              class="px-2.5 py-1 rounded-lg bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 text-[11px] font-bold transition cursor-pointer">
+              📊 Inspect Timeline
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  },
+
+  setAdminAnalyticsDays(days) {
+    this.state.adminAnalyticsDays = days;
+    ['7d', '14d', '30d'].forEach(d => {
+      const btn = document.getElementById(`btn-analytics-${d}`);
+      if (!btn) return;
+      const isMatch = (d === `${days}d`);
+      btn.className = isMatch 
+        ? 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-purple-500/20 text-purple-300 transition cursor-pointer'
+        : 'px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition cursor-pointer';
+    });
+    this.loadAdminDailyAnalytics();
+  },
+
+  handleAdminAnalyticsUserChange(userId) {
+    this.state.adminAnalyticsUserId = userId;
+    this.loadAdminDailyAnalytics();
+  },
+
+  async openUserActivityModal(userId) {
+    const modal = document.getElementById('modal-user-activity-detail');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+
+    // Show loading placeholders
+    const nameEl = document.getElementById('modal-activity-fullname');
+    if (nameEl) nameEl.textContent = 'Loading Candidate Profile...';
+
+    try {
+      const res = await fetch(`/api/admin/users/${userId}/activity`, { headers: this.getAuthHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+      const u = data.user || {};
+      const stats = data.stats || {};
+      const breakdown = data.daily_breakdown || [];
+      const events = data.recent_activities || [];
+
+      // Populate Header
+      if (nameEl) nameEl.textContent = u.full_name || u.username;
+      const unameEl = document.getElementById('modal-activity-username');
+      if (unameEl) unameEl.textContent = `@${u.username}`;
+
+      const avatarEl = document.getElementById('modal-activity-avatar');
+      if (avatarEl) avatarEl.textContent = (u.full_name || u.username).slice(0, 2).toUpperCase();
+
+      const roleEl = document.getElementById('modal-activity-role');
+      if (roleEl) {
+        roleEl.textContent = (u.role || 'student').toUpperCase();
+        roleEl.className = u.role === 'admin' 
+          ? 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-bold'
+          : 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold';
+      }
+
+      // Populate Telemetry Cards
+      const totQEl = document.getElementById('modal-activity-total-questions');
+      if (totQEl) totQEl.textContent = stats.total_questions_solved || 0;
+
+      const qBreakdownEl = document.getElementById('modal-activity-questions-breakdown');
+      if (qBreakdownEl) qBreakdownEl.textContent = `${stats.total_sandbox_solved || 0} SB | ${stats.total_compendium_solved || 0} Comp | ${stats.total_quiz_questions || 0} Quiz`;
+
+      const totHrsEl = document.getElementById('modal-activity-total-hours');
+      if (totHrsEl) totHrsEl.textContent = `${stats.total_focus_hours || 0.0} hrs`;
+
+      const totSecEl = document.getElementById('modal-activity-total-seconds');
+      if (totSecEl) totSecEl.textContent = `${stats.total_focus_seconds || 0} seconds active`;
+
+      const daysEl = document.getElementById('modal-activity-active-days');
+      if (daysEl) daysEl.textContent = stats.active_days_count || 0;
+
+      const accEl = document.getElementById('modal-activity-quiz-acc');
+      const accPct = stats.total_quiz_questions > 0 
+        ? Math.round((stats.total_quiz_correct / stats.total_quiz_questions) * 100)
+        : 0;
+      if (accEl) accEl.textContent = `${accPct}%`;
+
+      const quizCntEl = document.getElementById('modal-activity-quiz-count');
+      if (quizCntEl) quizCntEl.textContent = `${stats.total_quizzes_completed || 0} quizzes completed`;
+
+      // Populate 30-Day Breakdown Table
+      const dailyTbody = document.getElementById('modal-activity-daily-tbody');
+      if (dailyTbody) {
+        if (breakdown.length === 0) {
+          dailyTbody.innerHTML = '<tr><td colspan="6" class="py-6 text-center text-slate-500">No activity recorded for this candidate in the last 30 days.</td></tr>';
+        } else {
+          dailyTbody.innerHTML = breakdown.map(b => `
+            <tr class="hover:bg-slate-900/60 transition-colors">
+              <td class="py-2.5 px-3 font-bold text-slate-200">${b.date}</td>
+              <td class="py-2.5 px-3 font-bold ${b.focus_seconds > 0 ? 'text-amber-400' : 'text-slate-600'}">${b.focus_hours} hrs (${b.focus_seconds}s)</td>
+              <td class="py-2.5 px-3 ${b.sandbox_solved > 0 ? 'text-purple-300 font-bold' : 'text-slate-600'}">${b.sandbox_solved} solved</td>
+              <td class="py-2.5 px-3 ${b.compendium_solved > 0 ? 'text-cyan-300 font-bold' : 'text-slate-600'}">${b.compendium_solved} solved</td>
+              <td class="py-2.5 px-3 ${b.quiz_questions > 0 ? 'text-emerald-300 font-bold' : 'text-slate-600'}">${b.quiz_correct}/${b.quiz_questions} correct</td>
+              <td class="py-2.5 px-3 text-right font-black ${b.total_questions > 0 ? 'text-purple-400 text-sm' : 'text-slate-600'}">${b.total_questions} Total</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      // Populate Events Timeline Stream
+      const eventsContainer = document.getElementById('modal-activity-events-container');
+      if (eventsContainer) {
+        if (events.length === 0) {
+          eventsContainer.innerHTML = '<div class="text-slate-500 italic">No recent activity events recorded.</div>';
+        } else {
+          eventsContainer.innerHTML = events.map(e => {
+            const timeStr = (e.created_at || '').slice(11, 19);
+            const dateStr = (e.date_str || '');
+            let typeColor = 'text-cyan-400';
+            if (e.activity_type.includes('SOLVED')) typeColor = 'text-purple-400';
+            if (e.activity_type.includes('QUIZ')) typeColor = 'text-amber-400';
+            if (e.activity_type === 'LOGIN') typeColor = 'text-emerald-400';
+
+            return `
+              <div class="flex items-start gap-2 py-1 border-b border-slate-900/50">
+                <span class="text-slate-500 text-[10px]">${dateStr} ${timeStr}</span>
+                <span class="font-bold ${typeColor}">[${e.activity_type}]</span>
+                <span class="text-slate-300 flex-1">${this.escapeHtml(e.summary)}</span>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+    } catch (err) {
+      console.warn('Failed to load user activity modal:', err);
+    }
+  },
+
+  closeUserActivityModal() {
+    const modal = document.getElementById('modal-user-activity-detail');
+    if (modal) modal.classList.add('hidden');
+  },
+
   renderAdminStats(users) {
     const total = users.length;
     const activeStudents = users.filter(u => u.role === 'student' && u.is_active).length;
@@ -3399,6 +3639,12 @@ const App = {
           <td class="py-3 px-3 font-mono text-[11px] text-slate-500">${createdStr}</td>
           <td class="py-3 px-3 text-right">
             <div class="flex items-center justify-end gap-1.5">
+              <button 
+                onclick="App.openUserActivityModal(${u.id})" 
+                class="px-2 py-1 rounded-lg bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 text-[11px] font-semibold transition-all cursor-pointer" 
+                title="View Daily Activity & Telemetry">
+                📊 Activity
+              </button>
               <button 
                 onclick="App.openResetPasswordModal(${u.id}, '${u.username}')" 
                 class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-[11px] font-semibold transition-all cursor-pointer" 

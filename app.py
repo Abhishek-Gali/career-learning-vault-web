@@ -217,6 +217,22 @@ def record_failed_login(key: str):
 def clear_failed_logins(key: str):
     _FAILED_LOGINS.pop(key, None)
 
+def log_user_activity(user_id: int, activity_type: str, summary: str, details: Optional[Dict[str, Any]] = None):
+    """Records a fine-grained timestamped activity event into user_activity_logs."""
+    try:
+        now = datetime.datetime.now(timezone.utc)
+        now_iso = now.isoformat()
+        date_str = now.strftime("%Y-%m-%d")
+        details_json = json.dumps(details) if details else None
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            conn.execute("""
+                INSERT INTO user_activity_logs (user_id, activity_type, summary, details_json, created_at, date_str)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (user_id, activity_type, summary, details_json, now_iso, date_str))
+            conn.commit()
+    except Exception as err:
+        print(f"[Activity Logger Error] {err}")
+
 # ── Candidate Auto-Sync & Roster Persistence ────────────────────────────────
 def sync_persistent_users_file():
     """Saves all non-admin candidate accounts into data/persistent_users.json."""
@@ -414,13 +430,31 @@ def init_db():
                 )
             """)
 
+            # 10. User Activity Logs Table (Fine-Grained Chronological Activity Stream)
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS user_activity_logs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    activity_type TEXT NOT NULL,
+                    summary TEXT NOT NULL,
+                    details_json TEXT,
+                    created_at TEXT NOT NULL,
+                    date_str TEXT NOT NULL
+                )
+            """)
+
             # Performance & FK Indexes
             conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_user ON user_sessions(user_id)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_expires ON user_sessions(expires_at)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_progress_user ON user_challenge_progress(user_id, challenge_id)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_progress_submitted ON user_challenge_progress(submitted_at)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_quiz_user ON user_quiz_history(user_id, track_key)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_quiz_completed ON user_quiz_history(completed_at)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_custom_courses_user ON user_custom_courses(user_id, track_key)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_compendium_user ON user_compendium_progress(user_id)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_compendium_solved ON user_compendium_progress(solved_at)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_activity_user_date ON user_activity_logs(user_id, date_str)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_activity_date ON user_activity_logs(date_str)")
             conn.commit()
 
             # Seed Super Admin Account ONLY IF users table is completely empty (first-time deployment)
@@ -480,7 +514,7 @@ PING_COUNT = 0
 app = FastAPI(
     title="Career Learning Vault — Cloud API",
     description="Full-stack Multi-Tenant AI, Data Science & Cybersecurity Sandbox Hub",
-    version="3.8.0"
+    version="3.9.0"
 )
 
 app.add_middleware(
@@ -1019,6 +1053,9 @@ def login_endpoint(req: LoginRequest, request: Request, response: Response):
         )
         conn.commit()
 
+        # Log User Login Activity
+        log_user_activity(user["id"], "LOGIN", f"Signed in to workspace (IP: {client_ip})", {"ip": client_ip, "remember_me": req.remember_me})
+
         # Set HttpOnly Session Cookie (Accessible via browser requests & sendBeacon)
         max_age_sec = days * 86400
         response.set_cookie(
@@ -1324,6 +1361,323 @@ def admin_get_security_logs(limit: int = 50, admin: Dict[str, Any] = Depends(req
         logs = [dict(r) for r in cur.fetchall()]
     return {"status": "ok", "logs": logs, "count": len(logs)}
 
+# ── Admin Daily Candidate Learning Telemetry & Activity Tracking ───────────
+
+@app.get("/api/admin/analytics/daily")
+def admin_get_daily_analytics(
+    days: int = 14,
+    user_id: Optional[int] = None,
+    admin: Dict[str, Any] = Depends(require_admin)
+):
+    """
+    Returns aggregated daily learning telemetry across all users or a specific user:
+    - Questions solved per day (Coding Sandbox + Compendium + Quiz drills)
+    - Active study focus time per day
+    - Granular activity event count per day
+    """
+    days = max(1, min(days, 90))
+    start_date = (datetime.date.today() - datetime.timedelta(days=days)).isoformat()
+    today_str = datetime.date.today().isoformat()
+
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+
+        # Build candidate filter if user_id requested
+        user_filter_sql = "WHERE id = ?" if user_id else ""
+        user_params = (user_id,) if user_id else ()
+        cur.execute(f"SELECT id, username, full_name, role, is_active FROM users {user_filter_sql} ORDER BY id ASC", user_params)
+        users_map = {row["id"]: dict(row) for row in cur.fetchall()}
+
+        if user_id and user_id not in users_map:
+            raise HTTPException(status_code=404, detail="User not found.")
+
+        # Data map keyed by (user_id, date_str)
+        daily_map: Dict[tuple, Dict[str, Any]] = {}
+
+        def get_entry(uid: int, d_str: str) -> Dict[str, Any]:
+            key = (uid, d_str)
+            if key not in daily_map:
+                u_info = users_map.get(uid, {"username": f"user_{uid}", "full_name": f"User {uid}", "role": "student"})
+                daily_map[key] = {
+                    "date": d_str,
+                    "user_id": uid,
+                    "username": u_info.get("username"),
+                    "full_name": u_info.get("full_name") or u_info.get("username"),
+                    "role": u_info.get("role", "student"),
+                    "focus_seconds": 0,
+                    "focus_hours": 0.0,
+                    "sandbox_solved": 0,
+                    "compendium_solved": 0,
+                    "quiz_questions": 0,
+                    "quiz_correct": 0,
+                    "total_questions": 0,
+                    "activity_count": 0
+                }
+            return daily_map[key]
+
+        # 1. Focus tracker
+        focus_query = "SELECT user_id, date_str, seconds_active FROM user_focus_tracker WHERE date_str >= ?"
+        focus_params = [start_date]
+        if user_id:
+            focus_query += " AND user_id = ?"
+            focus_params.append(user_id)
+        cur.execute(focus_query, focus_params)
+        for r in cur.fetchall():
+            if r["user_id"] in users_map:
+                entry = get_entry(r["user_id"], r["date_str"])
+                entry["focus_seconds"] += r["seconds_active"] or 0
+
+        # 2. Sandbox challenges solved (distinct per user and date)
+        sb_query = """
+            SELECT user_id, substr(submitted_at, 1, 10) as d_str, COUNT(DISTINCT challenge_id) as cnt
+            FROM user_challenge_progress
+            WHERE status = 'PASS' AND substr(submitted_at, 1, 10) >= ?
+        """
+        sb_params = [start_date]
+        if user_id:
+            sb_query += " AND user_id = ?"
+            sb_params.append(user_id)
+        sb_query += " GROUP BY user_id, d_str"
+        cur.execute(sb_query, sb_params)
+        for r in cur.fetchall():
+            if r["user_id"] in users_map and r["d_str"]:
+                entry = get_entry(r["user_id"], r["d_str"])
+                entry["sandbox_solved"] += r["cnt"] or 0
+
+        # 3. Compendium problems solved
+        comp_query = """
+            SELECT user_id, substr(solved_at, 1, 10) as d_str, COUNT(DISTINCT problem_id) as cnt
+            FROM user_compendium_progress
+            WHERE substr(solved_at, 1, 10) >= ?
+        """
+        comp_params = [start_date]
+        if user_id:
+            comp_query += " AND user_id = ?"
+            comp_params.append(user_id)
+        comp_query += " GROUP BY user_id, d_str"
+        cur.execute(comp_query, comp_params)
+        for r in cur.fetchall():
+            if r["user_id"] in users_map and r["d_str"]:
+                entry = get_entry(r["user_id"], r["d_str"])
+                entry["compendium_solved"] += r["cnt"] or 0
+
+        # 4. Quiz history questions
+        quiz_query = """
+            SELECT user_id, substr(completed_at, 1, 10) as d_str,
+                   SUM(total_questions) as total_q, SUM(correct_count) as correct_q
+            FROM user_quiz_history
+            WHERE substr(completed_at, 1, 10) >= ?
+        """
+        quiz_params = [start_date]
+        if user_id:
+            quiz_query += " AND user_id = ?"
+            quiz_params.append(user_id)
+        quiz_query += " GROUP BY user_id, d_str"
+        cur.execute(quiz_query, quiz_params)
+        for r in cur.fetchall():
+            if r["user_id"] in users_map and r["d_str"]:
+                entry = get_entry(r["user_id"], r["d_str"])
+                entry["quiz_questions"] += r["total_q"] or 0
+                entry["quiz_correct"] += r["correct_q"] or 0
+
+        # 5. Activity logs count
+        act_query = """
+            SELECT user_id, date_str, COUNT(*) as cnt
+            FROM user_activity_logs
+            WHERE date_str >= ?
+        """
+        act_params = [start_date]
+        if user_id:
+            act_query += " AND user_id = ?"
+            act_params.append(user_id)
+        act_query += " GROUP BY user_id, date_str"
+        cur.execute(act_query, act_params)
+        for r in cur.fetchall():
+            if r["user_id"] in users_map and r["date_str"]:
+                entry = get_entry(r["user_id"], r["date_str"])
+                entry["activity_count"] += r["cnt"] or 0
+
+        # Finalize and sort daily records
+        daily_records = []
+        today_active_users = set()
+        today_focus_seconds = 0
+        today_questions_solved = 0
+
+        for entry in daily_map.values():
+            entry["focus_hours"] = round(entry["focus_seconds"] / 3600.0, 1)
+            entry["total_questions"] = entry["sandbox_solved"] + entry["compendium_solved"] + entry["quiz_questions"]
+            
+            if entry["date"] == today_str:
+                if entry["focus_seconds"] > 0 or entry["total_questions"] > 0 or entry["activity_count"] > 0:
+                    today_active_users.add(entry["user_id"])
+                    today_focus_seconds += entry["focus_seconds"]
+                    today_questions_solved += entry["total_questions"]
+
+            # Filter out completely inactive blank days
+            if entry["focus_seconds"] > 0 or entry["total_questions"] > 0 or entry["activity_count"] > 0:
+                daily_records.append(entry)
+
+        # Sort descending by date, then total_questions, then focus_seconds
+        daily_records.sort(key=lambda x: (x["date"], x["total_questions"], x["focus_seconds"]), reverse=True)
+
+        return {
+            "status": "ok",
+            "days": days,
+            "today": {
+                "date": today_str,
+                "active_users_count": len(today_active_users),
+                "total_focus_seconds": today_focus_seconds,
+                "total_focus_hours": round(today_focus_seconds / 3600.0, 1),
+                "total_questions_solved": today_questions_solved
+            },
+            "records": daily_records,
+            "total_records": len(daily_records)
+        }
+
+@app.get("/api/admin/users/{user_id}/activity")
+def admin_get_user_activity_detail(user_id: int, admin: Dict[str, Any] = Depends(require_admin)):
+    """
+    Returns complete detailed historical activity timeline and daily metrics for a single candidate.
+    """
+    with sqlite3.connect(str(DB_PATH)) as conn:
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+
+        cur.execute("SELECT id, username, full_name, role, is_active, created_at, created_by FROM users WHERE id = ?", (user_id,))
+        user_row = cur.fetchone()
+        if not user_row:
+            raise HTTPException(status_code=404, detail="User not found.")
+
+        user_info = dict(user_row)
+
+        # Cumulative totals
+        cur.execute("SELECT COALESCE(SUM(seconds_active), 0) FROM user_focus_tracker WHERE user_id = ?", (user_id,))
+        total_focus_sec = cur.fetchone()[0]
+
+        cur.execute("SELECT COUNT(DISTINCT challenge_id) FROM user_challenge_progress WHERE user_id = ? AND status = 'PASS'", (user_id,))
+        total_sandbox = cur.fetchone()[0]
+
+        cur.execute("SELECT COUNT(DISTINCT problem_id) FROM user_compendium_progress WHERE user_id = ?", (user_id,))
+        total_compendium = cur.fetchone()[0]
+
+        cur.execute("SELECT COALESCE(SUM(total_questions), 0), COALESCE(SUM(correct_count), 0), COUNT(*) FROM user_quiz_history WHERE user_id = ?", (user_id,))
+        q_row = cur.fetchone()
+        total_quiz_q = q_row[0]
+        total_quiz_correct = q_row[1]
+        total_quizzes = q_row[2]
+
+        total_questions = total_sandbox + total_compendium + total_quiz_q
+
+        # Distinct active dates count
+        cur.execute("""
+            SELECT COUNT(DISTINCT d) FROM (
+                SELECT date_str as d FROM user_focus_tracker WHERE user_id = ? AND seconds_active > 0
+                UNION
+                SELECT substr(submitted_at, 1, 10) as d FROM user_challenge_progress WHERE user_id = ?
+                UNION
+                SELECT substr(solved_at, 1, 10) as d FROM user_compendium_progress WHERE user_id = ?
+                UNION
+                SELECT substr(completed_at, 1, 10) as d FROM user_quiz_history WHERE user_id = ?
+                UNION
+                SELECT date_str as d FROM user_activity_logs WHERE user_id = ?
+            )
+        """, (user_id, user_id, user_id, user_id, user_id))
+        active_days_count = cur.fetchone()[0]
+
+        # Recent 50 chronological activity events
+        cur.execute("""
+            SELECT id, activity_type, summary, details_json, created_at, date_str
+            FROM user_activity_logs
+            WHERE user_id = ?
+            ORDER BY id DESC
+            LIMIT 50
+        """, (user_id,))
+        recent_events = []
+        for r in cur.fetchall():
+            d = dict(r)
+            if d.get("details_json"):
+                try:
+                    d["details"] = json.loads(d["details_json"])
+                except Exception:
+                    d["details"] = None
+            else:
+                d["details"] = None
+            recent_events.append(d)
+
+        # Last 30 days daily breakdown
+        thirty_days_ago = (datetime.date.today() - datetime.timedelta(days=30)).isoformat()
+        daily_breakdown = []
+        
+        cur.execute("""
+            SELECT date_str, seconds_active, goal_completed
+            FROM user_focus_tracker
+            WHERE user_id = ? AND date_str >= ?
+            ORDER BY date_str DESC
+        """, (user_id, thirty_days_ago))
+        focus_by_date = {r["date_str"]: r["seconds_active"] for r in cur.fetchall()}
+
+        cur.execute("""
+            SELECT substr(submitted_at, 1, 10) as d_str, COUNT(DISTINCT challenge_id) as cnt
+            FROM user_challenge_progress
+            WHERE user_id = ? AND status = 'PASS' AND substr(submitted_at, 1, 10) >= ?
+            GROUP BY d_str
+        """, (user_id, thirty_days_ago))
+        sb_by_date = {r["d_str"]: r["cnt"] for r in cur.fetchall()}
+
+        cur.execute("""
+            SELECT substr(solved_at, 1, 10) as d_str, COUNT(DISTINCT problem_id) as cnt
+            FROM user_compendium_progress
+            WHERE user_id = ? AND substr(solved_at, 1, 10) >= ?
+            GROUP BY d_str
+        """, (user_id, thirty_days_ago))
+        comp_by_date = {r["d_str"]: r["cnt"] for r in cur.fetchall()}
+
+        cur.execute("""
+            SELECT substr(completed_at, 1, 10) as d_str, SUM(total_questions) as total_q, SUM(correct_count) as correct_q
+            FROM user_quiz_history
+            WHERE user_id = ? AND substr(completed_at, 1, 10) >= ?
+            GROUP BY d_str
+        """, (user_id, thirty_days_ago))
+        quiz_by_date = {r["d_str"]: {"total": r["total_q"], "correct": r["correct_q"]} for r in cur.fetchall()}
+
+        all_dates = sorted(set(list(focus_by_date.keys()) + list(sb_by_date.keys()) + list(comp_by_date.keys()) + list(quiz_by_date.keys())), reverse=True)
+        
+        for d in all_dates:
+            f_sec = focus_by_date.get(d, 0)
+            sb_c = sb_by_date.get(d, 0)
+            comp_c = comp_by_date.get(d, 0)
+            qz_info = quiz_by_date.get(d, {"total": 0, "correct": 0})
+            tot_q = sb_c + comp_c + qz_info["total"]
+            daily_breakdown.append({
+                "date": d,
+                "focus_seconds": f_sec,
+                "focus_hours": round(f_sec / 3600.0, 1),
+                "sandbox_solved": sb_c,
+                "compendium_solved": comp_c,
+                "quiz_questions": qz_info["total"],
+                "quiz_correct": qz_info["correct"],
+                "total_questions": tot_q
+            })
+
+    return {
+        "status": "ok",
+        "user": user_info,
+        "stats": {
+            "total_focus_seconds": total_focus_sec,
+            "total_focus_hours": round(total_focus_sec / 3600.0, 1),
+            "total_sandbox_solved": total_sandbox,
+            "total_compendium_solved": total_compendium,
+            "total_quizzes_completed": total_quizzes,
+            "total_quiz_questions": total_quiz_q,
+            "total_quiz_correct": total_quiz_correct,
+            "total_questions_solved": total_questions,
+            "active_days_count": active_days_count
+        },
+        "daily_breakdown": daily_breakdown,
+        "recent_activities": recent_events
+    }
+
 # ── Keep-Alive & Platform Catalog Routes ────────────────────────────────────
 
 @app.get("/api/health")
@@ -1416,6 +1770,8 @@ def toggle_compendium_problem(
                 new_state = False
             
             conn.commit()
+            if new_state:
+                log_user_activity(user_id, "COMPENDIUM_SOLVED", f"Solved Elite 450 Problem: #{pid}", {"problem_id": pid})
             return {"status": "SUCCESS", "problem_id": pid, "solved": new_state}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {e}")
@@ -1581,6 +1937,10 @@ def run_code_endpoint(req: CodeRunRequest, user: Dict[str, Any] = Depends(get_cu
                 )
             )
             conn.commit()
+            if report.get("status") == "PASS":
+                ch_title = ch.get("title", req.challenge_id)
+                ch_plat = ch.get("platform", "Sandbox")
+                log_user_activity(user["id"], "CHALLENGE_SOLVED", f"Solved Coding Challenge: {ch_title} ({ch_plat})", {"challenge_id": req.challenge_id, "platform": ch_plat, "runtime_ms": report.get("runtime_ms", 0.0)})
     except Exception as db_err:
         print(f"Error logging submission: {db_err}")
 
@@ -1612,6 +1972,10 @@ def mark_solved_endpoint(req: MarkSolvedRequest, user: Dict[str, Any] = Depends(
                        VALUES (?, ?, 'PASS', 1, 1, 0.0, ?)""",
                     (user["id"], req.challenge_id, datetime.datetime.now(timezone.utc).isoformat())
                 )
+                ch = _CHALLENGES_CACHE.get(req.challenge_id)
+                ch_title = ch.get("title", req.challenge_id) if ch else req.challenge_id
+                ch_plat = ch.get("platform", "Sandbox") if ch else "Sandbox"
+                log_user_activity(user["id"], "CHALLENGE_SOLVED", f"Marked Challenge Solved: {ch_title} ({ch_plat})", {"challenge_id": req.challenge_id, "platform": ch_plat})
             else:
                 conn.execute(
                     "DELETE FROM user_challenge_progress WHERE user_id = ? AND challenge_id = ?",
@@ -1728,6 +2092,16 @@ def record_quiz_result(req: QuizRecordRequest, user: Dict[str, Any] = Depends(ge
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (user["id"], req.track_key, req.set_id, req.correct_count, req.total_questions, acc, now_iso))
         conn.commit()
+    
+    track_title = req.track_key.replace("_", " ").title()
+    log_user_activity(user["id"], "QUIZ_COMPLETED", f"Completed {track_title} Quiz ({req.correct_count}/{req.total_questions} correct, {acc}%)", {
+        "track_key": req.track_key,
+        "set_id": req.set_id,
+        "correct_count": req.correct_count,
+        "total_questions": req.total_questions,
+        "accuracy_pct": acc
+    })
+
     return {"status": "ok", "accuracy_pct": acc}
 
 # ── Interview Quizzes Endpoints ─────────────────────────────────────────────

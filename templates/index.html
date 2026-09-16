@@ -1697,6 +1697,92 @@
           </div>
         </div>
 
+        <!-- ================================================================= -->
+        <!-- DAILY CANDIDATE LEARNING TELEMETRY & ACTIVITY TRACKER             -->
+        <!-- ================================================================= -->
+        <div class="glass-panel p-5 rounded-2xl border border-purple-500/30 space-y-4 shadow-xl">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-lg">
+                📊
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+                  <span>Daily Candidate Learning Telemetry & Activity Tracker</span>
+                  <span class="text-[10px] px-2 py-0.2 rounded-full bg-purple-500/20 text-purple-300 font-mono font-bold">PER-DAY METRICS</span>
+                </h3>
+                <p class="text-[11px] text-slate-400">Track questions solved, active focus study time, and learning milestones per day across all candidates.</p>
+              </div>
+            </div>
+
+            <!-- Controls: User Filter & Timeframe Selector -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <select 
+                id="admin-analytics-user-select" 
+                onchange="App.handleAdminAnalyticsUserChange(this.value)"
+                class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:border-purple-500/60 focus:outline-none cursor-pointer">
+                <option value="">All Candidates</option>
+              </select>
+
+              <div class="flex items-center bg-slate-950 border border-slate-800 rounded-xl p-0.5" id="analytics-timeframe-buttons">
+                <button onclick="App.setAdminAnalyticsDays(7)" id="btn-analytics-7d" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition cursor-pointer">7D</button>
+                <button onclick="App.setAdminAnalyticsDays(14)" id="btn-analytics-14d" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-purple-500/20 text-purple-300 transition cursor-pointer">14D</button>
+                <button onclick="App.setAdminAnalyticsDays(30)" id="btn-analytics-30d" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition cursor-pointer">30D</button>
+              </div>
+
+              <button onclick="App.loadAdminDailyAnalytics()" class="px-2.5 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition cursor-pointer" title="Refresh Telemetry">
+                🔄
+              </button>
+            </div>
+          </div>
+
+          <!-- Today Summary Strip -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-center justify-between">
+              <div>
+                <div class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Today's Active Candidates</div>
+                <div class="text-lg font-black text-emerald-400 font-mono" id="admin-today-active-users">--</div>
+              </div>
+              <span class="text-xl opacity-60">👥</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-center justify-between">
+              <div>
+                <div class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Today's Focus Study Time</div>
+                <div class="text-lg font-black text-amber-400 font-mono" id="admin-today-focus-hours">-- hrs</div>
+              </div>
+              <span class="text-xl opacity-60">⏱️</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-center justify-between">
+              <div>
+                <div class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Today's Questions Solved</div>
+                <div class="text-lg font-black text-purple-400 font-mono" id="admin-today-questions-solved">--</div>
+              </div>
+              <span class="text-xl opacity-60">⚡</span>
+            </div>
+          </div>
+
+          <!-- Daily Telemetry Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="text-[11px] font-mono uppercase tracking-wider text-slate-400 bg-slate-950/60 border-b border-slate-800">
+                <tr>
+                  <th class="py-2.5 px-3">Date</th>
+                  <th class="py-2.5 px-3">Candidate</th>
+                  <th class="py-2.5 px-3">Active Study Time</th>
+                  <th class="py-2.5 px-3">Questions Solved (Breakdown)</th>
+                  <th class="py-2.5 px-3 text-center">Activities</th>
+                  <th class="py-2.5 px-3 text-right">Details</th>
+                </tr>
+              </thead>
+              <tbody id="admin-daily-analytics-body" class="divide-y divide-slate-800/60 font-sans">
+                <tr>
+                  <td colspan="6" class="py-6 text-center text-slate-500 font-mono">Loading daily candidate telemetry...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <!-- User Directory Table Card -->
         <div class="glass-panel p-5 rounded-2xl border border-slate-800 space-y-4 shadow-xl">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
@@ -1916,6 +2002,102 @@
           <button type="submit" class="px-4 py-1.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:brightness-110">Save New Password</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: CANDIDATE DAILY ACTIVITY & TELEMETRY DETAIL                   -->
+  <!-- ===================================================================== -->
+  <div id="modal-user-activity-detail" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-panel w-full max-w-4xl max-h-[90vh] p-6 sm:p-7 rounded-3xl border border-purple-500/40 bg-slate-900/95 shadow-2xl shadow-black/90 flex flex-col space-y-4 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-cyan-500 to-emerald-500"></div>
+
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3.5 flex-shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center font-bold text-sm text-purple-300 font-mono" id="modal-activity-avatar">
+            US
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
+              <span id="modal-activity-fullname">Candidate Name</span>
+              <span id="modal-activity-role" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold">STUDENT</span>
+            </h3>
+            <p class="text-xs text-slate-400 font-mono" id="modal-activity-username">@username</p>
+          </div>
+        </div>
+        <button onclick="App.closeUserActivityModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-sm transition cursor-pointer">✕</button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="flex-1 overflow-y-auto space-y-5 pr-1 custom-scrollbar">
+        <!-- Telemetry Cards Strip -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase">Total Questions Solved</div>
+            <div class="text-xl font-black text-purple-400 font-mono" id="modal-activity-total-questions">--</div>
+            <div class="text-[9px] text-slate-400 font-mono" id="modal-activity-questions-breakdown">0 SB | 0 Comp | 0 Quiz</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase">Total Focus Study Time</div>
+            <div class="text-xl font-black text-amber-400 font-mono" id="modal-activity-total-hours">-- hrs</div>
+            <div class="text-[9px] text-slate-400 font-mono" id="modal-activity-total-seconds">0 seconds</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase">Active Learning Days</div>
+            <div class="text-xl font-black text-emerald-400 font-mono" id="modal-activity-active-days">--</div>
+            <div class="text-[9px] text-slate-400 font-mono">Days with activity</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-1">
+            <div class="text-[10px] font-mono text-slate-500 uppercase">Quiz Accuracy</div>
+            <div class="text-xl font-black text-cyan-400 font-mono" id="modal-activity-quiz-acc">--%</div>
+            <div class="text-[9px] text-slate-400 font-mono" id="modal-activity-quiz-count">0 quizzes completed</div>
+          </div>
+        </div>
+
+        <!-- Section 1: 30-Day Per-Day History Breakdown -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold text-slate-300 font-mono uppercase tracking-wider flex items-center gap-2">
+            <span>📅 Per-Day Activity Breakdown (Last 30 Days)</span>
+          </h4>
+          <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950/50">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="text-[10px] font-mono uppercase tracking-wider text-slate-400 bg-slate-950 border-b border-slate-800">
+                <tr>
+                  <th class="py-2.5 px-3">Date</th>
+                  <th class="py-2.5 px-3">Focus Study Time</th>
+                  <th class="py-2.5 px-3">Sandbox (312)</th>
+                  <th class="py-2.5 px-3">Compendium (447)</th>
+                  <th class="py-2.5 px-3">Quizzes (280)</th>
+                  <th class="py-2.5 px-3 text-right">Total Questions</th>
+                </tr>
+              </thead>
+              <tbody id="modal-activity-daily-tbody" class="divide-y divide-slate-800/60 font-mono text-[11px]">
+                <tr>
+                  <td colspan="6" class="py-6 text-center text-slate-500">Loading daily breakdown...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 2: Recent Activity Event Log Stream -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold text-slate-300 font-mono uppercase tracking-wider flex items-center gap-2">
+            <span>⚡ Chronological Event Log Stream</span>
+          </h4>
+          <div id="modal-activity-events-container" class="max-h-56 overflow-y-auto space-y-1.5 p-3 rounded-2xl border border-slate-800 bg-slate-950/70 font-mono text-xs custom-scrollbar">
+            <div class="text-slate-500 italic">No recent activity events.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="border-t border-slate-800 pt-3 flex items-center justify-end flex-shrink-0">
+        <button onclick="App.closeUserActivityModal()" class="px-4 py-2 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/40 text-xs font-bold hover:bg-purple-500/30 transition cursor-pointer">
+          Close Telemetry View
+        </button>
+      </div>
     </div>
   </div>
 
