@@ -18,7 +18,9 @@
           "tags": [
             "Array",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_002",
@@ -26,7 +28,9 @@
           "difficulty": "Easy",
           "tags": [
             "Array"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-and-minimum-in-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_003",
@@ -36,7 +40,9 @@
             "Array",
             "Heap",
             "QuickSelect"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/kth-smallest-element5615/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_004",
@@ -45,7 +51,9 @@
           "tags": [
             "Array",
             "Dutch National Flag"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sort-an-array-of-0s-1s-and-2s4231/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_005",
@@ -54,7 +62,9 @@
           "tags": [
             "Array",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/move-all-negative-elements-to-end1813/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_006",
@@ -63,7 +73,9 @@
           "tags": [
             "Array",
             "Set"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/union-of-two-arrays3538/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_007",
@@ -71,7 +83,9 @@
           "difficulty": "Easy",
           "tags": [
             "Array"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/cyclically-rotate-an-array-by-one2614/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_008",
@@ -80,7 +94,9 @@
           "tags": [
             "Array",
             "Dynamic Programming"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-largest-sum-contiguous-subarray-kadanes-algo/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_009",
@@ -89,7 +105,9 @@
           "tags": [
             "Array",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimise-the-maximum-difference-between-heights-minimise-heights/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_010",
@@ -99,7 +117,9 @@
             "Array",
             "Greedy",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-number-of-jumps-1587115620/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_011",
@@ -108,7 +128,9 @@
           "tags": [
             "Array",
             "Floyd Cycle"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-duplicate-in-an-array-of-n-1-integers/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_012",
@@ -117,7 +139,9 @@
           "tags": [
             "Array",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-two-sorted-arrays-1587115620/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_013",
@@ -126,7 +150,9 @@
           "tags": [
             "Array",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/kadanes-algorithm-v-v-v-v-v-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_014",
@@ -135,7 +161,9 @@
           "tags": [
             "Array",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-overlapping-intervals/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_015",
@@ -144,7 +172,9 @@
           "tags": [
             "Array",
             "Math"
-          ]
+          ],
+          "source_url": "https://leetcode.com/problems/next-permutation/",
+          "source_platform": "LeetCode"
         },
         {
           "id": "arr_016",
@@ -153,7 +183,9 @@
           "tags": [
             "Array",
             "Merge Sort"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-inversions/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_017",
@@ -162,7 +194,9 @@
           "tags": [
             "Array",
             "DP"
-          ]
+          ],
+          "source_url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+          "source_platform": "LeetCode"
         },
         {
           "id": "arr_018",
@@ -171,7 +205,9 @@
           "tags": [
             "Array",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-all-pairs-on-integer-array-whose-sum-is-equal-to-given-number/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_019",
@@ -180,7 +216,9 @@
           "tags": [
             "Array",
             "Three Pointers"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-common-elements-in-3-sorted-arrays/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_020",
@@ -189,7 +227,9 @@
           "tags": [
             "Array",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/array-of-alternate-ve-and-ve-nos1401/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_021",
@@ -199,7 +239,9 @@
             "Array",
             "Prefix Sum",
             "Hash Set"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-if-there-is-any-subarray-with-sum-equal-to-0/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_022",
@@ -209,7 +251,9 @@
             "Array",
             "Math",
             "BigInt"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/factorials-of-large-numbers2508/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_023",
@@ -218,7 +262,9 @@
           "tags": [
             "Array",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-maximum-product-subarray/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_024",
@@ -227,7 +273,9 @@
           "tags": [
             "Array",
             "Hash Set"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-longest-consecutive-subsequence/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_025",
@@ -236,7 +284,9 @@
           "tags": [
             "Array",
             "Boyer-Moore Majority"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/given-an-array-of-size-n-and-a-number-k-find-all-elements-that-appear-more-than-n-k-times/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_026",
@@ -245,7 +295,9 @@
           "tags": [
             "Array",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-profit-by-buying-and-selling-a-share-at-most-twice/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_027",
@@ -254,7 +306,9 @@
           "tags": [
             "Array",
             "Hash Set"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/array-subset-of-another-array2317/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_028",
@@ -263,7 +317,9 @@
           "tags": [
             "Array",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-triplet-that-sum-to-a-given-value/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_029",
@@ -273,7 +329,9 @@
             "Array",
             "Two Pointer",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/trapping-rain-water-1587115620/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_030",
@@ -282,7 +340,9 @@
           "tags": [
             "Array",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/chocolate-distribution-problem3825/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_031",
@@ -291,7 +351,9 @@
           "tags": [
             "Array",
             "Sliding Window"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/smallest-subarray-with-sum-greater-than-x5651/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_032",
@@ -300,7 +362,9 @@
           "tags": [
             "Array",
             "Three Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/three-way-partitioning/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_033",
@@ -309,7 +373,9 @@
           "tags": [
             "Array",
             "Sliding Window"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-swaps-required-bring-elements-less-equal-k-together/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_034",
@@ -318,7 +384,9 @@
           "tags": [
             "Array",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/palindromic-array-1587115620/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_035",
@@ -327,7 +395,9 @@
           "tags": [
             "Array",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-median-0553/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "arr_036",
@@ -336,7 +406,9 @@
           "tags": [
             "Array",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+          "source_platform": "LeetCode"
         }
       ]
     },
@@ -353,7 +425,9 @@
           "tags": [
             "Matrix",
             "Traversal"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/spiral-traversal-on-a-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_002",
@@ -362,7 +436,9 @@
           "tags": [
             "Matrix",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/search-an-element-in-a-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_003",
@@ -371,7 +447,9 @@
           "tags": [
             "Matrix",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-median-in-a-row-wise-sorted-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_004",
@@ -380,7 +458,9 @@
           "tags": [
             "Matrix",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-row-with-maximum-no-of-1s/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_005",
@@ -389,7 +469,9 @@
           "tags": [
             "Matrix",
             "Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-elements-in-sorted-order-using-row-column-wise-sorted-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_006",
@@ -399,7 +481,9 @@
             "Matrix",
             "Histogram",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-size-rectangle-in-a-binary-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_007",
@@ -408,7 +492,9 @@
           "tags": [
             "Matrix",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-a-specific-pair-in-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_008",
@@ -417,7 +503,9 @@
           "tags": [
             "Matrix",
             "In-place"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rotate-matrix-by-90-degrees/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_009",
@@ -427,7 +515,9 @@
             "Matrix",
             "Binary Search",
             "Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/kth-smallest-element-in-a-row-column-wise-sorted-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "mat_010",
@@ -436,7 +526,9 @@
           "tags": [
             "Matrix",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/common-elements-in-all-rows-of-a-given-matrix/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -453,7 +545,9 @@
           "tags": [
             "String",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-a-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_002",
@@ -462,7 +556,9 @@
           "tags": [
             "String",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-whether-a-string-is-palindrome-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_003",
@@ -471,7 +567,9 @@
           "tags": [
             "String",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-duplicate-characters-in-a-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_004",
@@ -480,7 +578,9 @@
           "tags": [
             "String",
             "Theory"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/why-strings-are-immutable-in-java-c-string-concepts/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_005",
@@ -488,7 +588,9 @@
           "difficulty": "Easy",
           "tags": [
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-code-to-check-whether-one-string-is-a-rotation-of-another/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_006",
@@ -496,7 +598,9 @@
           "difficulty": "Medium",
           "tags": [
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-program-to-check-whether-a-string-is-a-valid-shuffle-of-two-strings-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_007",
@@ -505,7 +609,9 @@
           "tags": [
             "String",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-and-say-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_008",
@@ -515,7 +621,9 @@
             "String",
             "DP",
             "Expand Center"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-program-to-find-the-longest-palindrome-in-a-string-longest-palindromic-substring/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_009",
@@ -524,7 +632,9 @@
           "tags": [
             "String",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-longest-recurring-subsequence-in-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_010",
@@ -533,7 +643,9 @@
           "tags": [
             "String",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-all-subsequences-of-a-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_011",
@@ -542,7 +654,9 @@
           "tags": [
             "String",
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-all-the-permutations-of-the-given-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_012",
@@ -551,7 +665,9 @@
           "tags": [
             "String",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/split-the-binary-string-into-two-substring-with-equal-0s-and-1s/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_013",
@@ -560,7 +676,9 @@
           "tags": [
             "String",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/word-wrap-problem-very-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_014",
@@ -569,7 +687,9 @@
           "tags": [
             "String",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/edit-distance-very-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_015",
@@ -578,7 +698,9 @@
           "tags": [
             "String",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-next-greater-number-with-same-set-of-digits-very-very-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_016",
@@ -587,7 +709,9 @@
           "tags": [
             "String",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/balanced-parenthesis-problem-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_017",
@@ -597,7 +721,9 @@
             "String",
             "DP",
             "Trie"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/word-break-problem-very-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_018",
@@ -606,7 +732,9 @@
           "tags": [
             "String",
             "Rolling Hash"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rabin-karp-algorithm-for-pattern-searching/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_019",
@@ -615,7 +743,9 @@
           "tags": [
             "String",
             "LPS Array"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/kmp-algorithm-for-pattern-searching/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_020",
@@ -623,7 +753,9 @@
           "difficulty": "Easy",
           "tags": [
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/convert-a-sentence-into-its-equivalent-mobile-numeric-keypad-sequence/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_021",
@@ -632,7 +764,9 @@
           "tags": [
             "String",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-number-of-bracket-reversals-needed-to-make-an-expression-balanced/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_022",
@@ -641,7 +775,9 @@
           "tags": [
             "String",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-all-palindromic-subsequences-in-a-given-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_023",
@@ -651,7 +787,9 @@
             "String",
             "DFS",
             "Grid"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-of-number-of-given-string-in-2d-character-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_024",
@@ -660,7 +798,9 @@
           "tags": [
             "String",
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/search-a-word-in-a-2d-grid-of-characters/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_025",
@@ -668,7 +808,9 @@
           "difficulty": "Hard",
           "tags": [
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/boyer-moore-algorithm-for-pattern-searching/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_026",
@@ -677,7 +819,9 @@
           "tags": [
             "String",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/converting-roman-numerals-to-decimal/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_027",
@@ -686,7 +830,9 @@
           "tags": [
             "String",
             "Trie"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-common-prefix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_028",
@@ -695,7 +841,9 @@
           "tags": [
             "String",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/number-of-flips-to-make-binary-string-alternate/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_029",
@@ -704,7 +852,9 @@
           "tags": [
             "String",
             "Hash Set"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-first-repeated-word-in-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_030",
@@ -713,7 +863,9 @@
           "tags": [
             "String",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-number-of-swaps-for-bracket-balancing/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_031",
@@ -722,7 +874,9 @@
           "tags": [
             "String",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-longest-common-subsequence-between-two-strings/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_032",
@@ -731,7 +885,9 @@
           "tags": [
             "String",
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/program-to-generate-all-possible-valid-ip-addresses-from-given-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_033",
@@ -740,7 +896,9 @@
           "tags": [
             "String",
             "Sliding Window"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-program-to-find-the-smallest-window-that-contains-all-characters-of-string-itself/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_034",
@@ -750,7 +908,9 @@
             "String",
             "Heap",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rearrange-characters-in-a-string-such-that-no-two-adjacent-are-same/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_035",
@@ -759,7 +919,9 @@
           "tags": [
             "String",
             "KMP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-characters-to-be-added-at-front-to-make-string-palindrome/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_036",
@@ -768,7 +930,9 @@
           "tags": [
             "String",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/given-a-sequence-of-words-print-all-anagrams-together/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_037",
@@ -777,7 +941,9 @@
           "tags": [
             "String",
             "Sliding Window"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_038",
@@ -787,7 +953,9 @@
             "String",
             "Stack",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/recursively-remove-all-adjacent-duplicates/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_039",
@@ -796,7 +964,9 @@
           "tags": [
             "String",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/string-matching-where-one-string-contains-wildcard-characters/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_040",
@@ -805,7 +975,9 @@
           "tags": [
             "String",
             "Simulation"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/function-to-find-number-of-customers-who-could-not-get-a-computer/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_041",
@@ -814,7 +986,9 @@
           "tags": [
             "String",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/transform-one-string-to-another-using-minimum-number-of-given-operations/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_042",
@@ -823,7 +997,9 @@
           "tags": [
             "String",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-two-given-strings-are-isomorphic-to-each-other/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "str_043",
@@ -832,7 +1008,9 @@
           "tags": [
             "String",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/recursively-print-all-sentences-that-can-be-formed-from-list-of-word-lists/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -848,7 +1026,9 @@
           "difficulty": "Easy",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-first-and-last-positions-of-an-element-in-a-sorted-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_002",
@@ -856,7 +1036,9 @@
           "difficulty": "Easy",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-a-fixed-point-value-equal-to-index-in-a-given-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_003",
@@ -864,7 +1046,9 @@
           "difficulty": "Medium",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/search-in-a-rotated-sorted-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_004",
@@ -872,7 +1056,9 @@
           "difficulty": "Easy",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/square-root-of-an-integer/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_005",
@@ -880,7 +1066,9 @@
           "difficulty": "Easy",
           "tags": [
             "Searching"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-and-minimum-of-an-array-using-minimum-number-of-comparisons/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_006",
@@ -889,7 +1077,9 @@
           "tags": [
             "Ternary Search",
             "Geometry"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/optimum-location-of-point-to-minimize-total-distance/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_007",
@@ -898,7 +1088,9 @@
           "tags": [
             "Searching",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-repeating-and-the-missing-element/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_008",
@@ -906,7 +1098,9 @@
           "difficulty": "Easy",
           "tags": [
             "Boyer-Moore Majority"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-majority-element-in-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_009",
@@ -914,7 +1108,9 @@
           "difficulty": "Easy",
           "tags": [
             "Searching"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/searching-in-an-array-where-adjacent-differ-by-at-most-k/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_010",
@@ -923,7 +1119,9 @@
           "tags": [
             "Two Pointer",
             "Hash Set"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-a-pair-with-a-given-difference/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_011",
@@ -932,7 +1130,9 @@
           "tags": [
             "Two Pointer",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-four-elements-that-sum-to-a-given-value-4sum/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_012",
@@ -941,7 +1141,9 @@
           "tags": [
             "DP",
             "House Robber"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-sum-such-that-no-2-elements-are-adjacent/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_013",
@@ -949,7 +1151,9 @@
           "difficulty": "Medium",
           "tags": [
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-triplets-with-sum-smaller-than-a-given-value/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_014",
@@ -957,7 +1161,9 @@
           "difficulty": "Easy",
           "tags": [
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-2-sorted-arrays/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_015",
@@ -966,7 +1172,9 @@
           "tags": [
             "Prefix Sum",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-all-subarrays-with-0-sum/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_016",
@@ -974,7 +1182,9 @@
           "difficulty": "Easy",
           "tags": [
             "Prefix/Suffix Product"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/product-array-puzzle/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_017",
@@ -983,7 +1193,9 @@
           "tags": [
             "Sorting",
             "Bit Manipulation"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sort-array-according-to-count-of-set-bits/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_018",
@@ -992,7 +1204,9 @@
           "tags": [
             "Graph",
             "Cycle Sort"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-no-of-swaps-required-to-sort-the-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_019",
@@ -1001,7 +1215,9 @@
           "tags": [
             "Binary Search",
             "Prefix Sum"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/bishu-and-soldiers/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_020",
@@ -1010,7 +1226,9 @@
           "tags": [
             "Rabin-Karp",
             "2D Hash"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rasta-and-kheshtak/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_021",
@@ -1019,7 +1237,9 @@
           "tags": [
             "Intervals",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/kth-smallest-number-again/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_022",
@@ -1027,7 +1247,9 @@
           "difficulty": "Medium",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-pivot-element-in-a-sorted-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_023",
@@ -1035,7 +1257,9 @@
           "difficulty": "Hard",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/k-th-element-of-two-sorted-arrays/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_024",
@@ -1043,7 +1267,9 @@
           "difficulty": "Medium",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/aggressive-cows-binary-search-on-answer/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_025",
@@ -1051,7 +1277,9 @@
           "difficulty": "Hard",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/book-allocation-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_026",
@@ -1059,7 +1287,9 @@
           "difficulty": "Medium",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/eko---spoj-lumberjack-binary-search/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_027",
@@ -1068,7 +1298,9 @@
           "tags": [
             "Binary Search",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/job-scheduling-algorithm-weighted-job-scheduling/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_028",
@@ -1077,7 +1309,9 @@
           "tags": [
             "Math",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/missing-number-in-ap/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_029",
@@ -1086,7 +1320,9 @@
           "tags": [
             "Binary Search",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/smallest-number-with-at-least-n-trailing-zeroes-in-factorial/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_030",
@@ -1094,7 +1330,9 @@
           "difficulty": "Hard",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/painters-partition-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_031",
@@ -1102,7 +1340,9 @@
           "difficulty": "Medium",
           "tags": [
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/roti-prata-spoj/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_032",
@@ -1111,7 +1351,9 @@
           "tags": [
             "Two Pointer",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/doublehelix-spoj/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_033",
@@ -1120,7 +1362,9 @@
           "tags": [
             "Meet in the Middle",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/subset-sums-meet-in-the-middle/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_034",
@@ -1129,7 +1373,9 @@
           "tags": [
             "Merge Sort",
             "BIT"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-inversion-count/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_035",
@@ -1137,7 +1383,9 @@
           "difficulty": "Hard",
           "tags": [
             "In-place Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-merge-sort-in-place/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ss_036",
@@ -1146,7 +1394,9 @@
           "tags": [
             "QuickSort",
             "3-Way Partition"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/partitioning-and-sorting-arrays-with-many-repeated-entries/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -1163,7 +1413,9 @@
           "tags": [
             "LinkedList",
             "Pointers"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-program-to-reverse-the-linked-list-both-iterative-and-recursive/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_002",
@@ -1172,7 +1424,9 @@
           "tags": [
             "LinkedList",
             "Pointers"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-a-linked-list-in-group-of-given-size-very-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_003",
@@ -1180,7 +1434,9 @@
           "difficulty": "Easy",
           "tags": [
             "Floyd Cycle"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-program-to-detect-loop-in-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_004",
@@ -1188,7 +1444,9 @@
           "difficulty": "Medium",
           "tags": [
             "Floyd Cycle"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-program-to-delete-loop-in-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_005",
@@ -1196,7 +1454,9 @@
           "difficulty": "Medium",
           "tags": [
             "Floyd Cycle"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-starting-point-of-the-loop-in-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_006",
@@ -1204,7 +1464,9 @@
           "difficulty": "Easy",
           "tags": [
             "LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/remove-duplicates-in-a-sorted-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_007",
@@ -1213,7 +1475,9 @@
           "tags": [
             "LinkedList",
             "Hash Set"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/remove-duplicates-in-an-un-sorted-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_008",
@@ -1221,7 +1485,9 @@
           "difficulty": "Easy",
           "tags": [
             "LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-program-to-move-the-last-element-to-front-in-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_009",
@@ -1230,7 +1496,9 @@
           "tags": [
             "LinkedList",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/add-1-to-a-number-represented-as-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_010",
@@ -1239,7 +1507,9 @@
           "tags": [
             "LinkedList",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-lists/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_011",
@@ -1248,7 +1518,9 @@
           "tags": [
             "LinkedList",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/intersection-of-two-sorted-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_012",
@@ -1257,7 +1529,9 @@
           "tags": [
             "LinkedList",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/intersection-point-of-two-linked-lists/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_013",
@@ -1266,7 +1540,9 @@
           "tags": [
             "LinkedList",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-sort-for-linked-lists-very-important/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_014",
@@ -1275,7 +1551,9 @@
           "tags": [
             "LinkedList",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/quicksort-for-linked-lists-very-important/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_015",
@@ -1283,7 +1561,9 @@
           "difficulty": "Easy",
           "tags": [
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-middle-element-of-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_016",
@@ -1291,7 +1571,9 @@
           "difficulty": "Easy",
           "tags": [
             "LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-a-linked-list-is-a-circular-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_017",
@@ -1299,7 +1581,9 @@
           "difficulty": "Easy",
           "tags": [
             "LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/split-a-circular-linked-list-into-two-halves/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_018",
@@ -1308,7 +1592,9 @@
           "tags": [
             "LinkedList",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/write-a-program-to-check-whether-the-singly-linked-list-is-a-palindrome-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_019",
@@ -1316,7 +1602,9 @@
           "difficulty": "Easy",
           "tags": [
             "LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/deletion-from-a-circular-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_020",
@@ -1324,7 +1612,9 @@
           "difficulty": "Easy",
           "tags": [
             "Doubly LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-a-doubly-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_021",
@@ -1333,7 +1623,9 @@
           "tags": [
             "Doubly LinkedList",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-pairs-with-a-given-sum-in-a-dll/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_022",
@@ -1342,7 +1634,9 @@
           "tags": [
             "Doubly LinkedList",
             "Three Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-triplets-in-a-sorted-dll-whose-sum-is-equal-to-given-value-x/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_023",
@@ -1351,7 +1645,9 @@
           "tags": [
             "Doubly LinkedList",
             "Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sort-a-k-sorted-doubly-linked-list-very-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_024",
@@ -1359,7 +1655,9 @@
           "difficulty": "Easy",
           "tags": [
             "Doubly LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rotate-doublylinked-list-by-n-nodes/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_025",
@@ -1367,7 +1665,9 @@
           "difficulty": "Medium",
           "tags": [
             "Doubly LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rotate-a-doubly-linked-list-in-group-of-given-size-very-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_026",
@@ -1377,7 +1677,9 @@
             "LinkedList",
             "Heap",
             "Merge"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/flatten-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_027",
@@ -1385,7 +1687,9 @@
           "difficulty": "Easy",
           "tags": [
             "LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sort-a-ll-of-0s-1s-and-2s/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_028",
@@ -1394,7 +1698,9 @@
           "tags": [
             "LinkedList",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/clone-a-linked-list-with-next-and-random-pointer/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_029",
@@ -1403,7 +1709,9 @@
           "tags": [
             "LinkedList",
             "Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-k-sorted-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_030",
@@ -1412,7 +1720,9 @@
           "tags": [
             "LinkedList",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/multiply-2-no-represented-by-ll/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_031",
@@ -1421,7 +1731,9 @@
           "tags": [
             "LinkedList",
             "Reverse"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/delete-nodes-which-have-a-greater-value-on-right-side/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_032",
@@ -1429,7 +1741,9 @@
           "difficulty": "Easy",
           "tags": [
             "LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_033",
@@ -1438,7 +1752,9 @@
           "tags": [
             "LinkedList",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/program-for-nth-node-from-the-end-of-a-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_034",
@@ -1448,7 +1764,9 @@
             "Queue",
             "LinkedList",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-first-non-repeating-character-from-a-stream-of-characters/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_035",
@@ -1456,7 +1774,9 @@
           "difficulty": "Easy",
           "tags": [
             "Theory"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/can-we-reverse-a-linked-list-in-less-than-o-n-conceptual-analysis/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "ll_036",
@@ -1464,7 +1784,9 @@
           "difficulty": "Easy",
           "tags": [
             "Theory"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/why-quicksort-is-preferred-for-arrays-and-merge-sort-for-linkedlists-conceptual/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -1481,7 +1803,9 @@
           "tags": [
             "BFS",
             "Queue"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/level-order-traversal-of-a-binary-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_002",
@@ -1490,7 +1814,9 @@
           "tags": [
             "BFS",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-level-order-traversal/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_003",
@@ -1499,7 +1825,9 @@
           "tags": [
             "DFS",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/height-of-a-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_004",
@@ -1508,7 +1836,9 @@
           "tags": [
             "DFS",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/diameter-of-a-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_005",
@@ -1516,7 +1846,9 @@
           "difficulty": "Easy",
           "tags": [
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/mirror-of-a-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_006",
@@ -1525,7 +1857,9 @@
           "tags": [
             "Stack",
             "Iterative"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/inorder-traversal-of-a-tree-both-using-recursion-and-iteration/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_007",
@@ -1534,7 +1868,9 @@
           "tags": [
             "Stack",
             "Iterative"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/preorder-traversal-of-a-tree-both-using-recursion-and-iteration/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_008",
@@ -1543,7 +1879,9 @@
           "tags": [
             "Stack",
             "Iterative"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/postorder-traversal-of-a-tree-both-using-recursion-and-iteration/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_009",
@@ -1552,7 +1890,9 @@
           "tags": [
             "BFS",
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/left-view-of-a-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_010",
@@ -1561,7 +1901,9 @@
           "tags": [
             "BFS",
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/right-view-of-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_011",
@@ -1570,7 +1912,9 @@
           "tags": [
             "BFS",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/top-view-of-a-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_012",
@@ -1579,7 +1923,9 @@
           "tags": [
             "BFS",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/bottom-view-of-a-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_013",
@@ -1588,7 +1934,9 @@
           "tags": [
             "BFS",
             "Two Stacks"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/zig-zag-traversal-of-a-binary-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_014",
@@ -1597,7 +1945,9 @@
           "tags": [
             "DFS",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-a-tree-is-balanced-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_015",
@@ -1606,7 +1956,9 @@
           "tags": [
             "BFS",
             "Queue"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/diagonal-traversal-of-a-binary-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_016",
@@ -1615,7 +1967,9 @@
           "tags": [
             "DFS",
             "Traversal"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/boundary-traversal-of-a-binary-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_017",
@@ -1624,7 +1978,9 @@
           "tags": [
             "Stack",
             "Parsing"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/construct-binary-tree-from-string-with-bracket-representation/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_018",
@@ -1633,7 +1989,9 @@
           "tags": [
             "Inorder",
             "Pointers"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/convert-binary-tree-into-doubly-linked-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_019",
@@ -1642,7 +2000,9 @@
           "tags": [
             "DFS",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/convert-binary-tree-into-sum-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_020",
@@ -1651,7 +2011,9 @@
           "tags": [
             "Hash Map",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/construct-binary-tree-from-inorder-and-preorder-traversal/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_021",
@@ -1660,7 +2022,9 @@
           "tags": [
             "Inorder",
             "Cycle Sort"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-minimum-swaps-required-to-convert-a-binary-tree-into-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_022",
@@ -1668,7 +2032,9 @@
           "difficulty": "Easy",
           "tags": [
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-binary-tree-is-sum-tree-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_023",
@@ -1677,7 +2043,9 @@
           "tags": [
             "BFS",
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-all-leaf-nodes-are-at-same-level-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_024",
@@ -1686,7 +2054,9 @@
           "tags": [
             "Serialization",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-a-binary-tree-contains-duplicate-subtrees-of-size-2-or-more-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_025",
@@ -1694,7 +2064,9 @@
           "difficulty": "Easy",
           "tags": [
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-2-trees-are-mirror-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_026",
@@ -1702,7 +2074,9 @@
           "difficulty": "Medium",
           "tags": [
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sum-of-nodes-on-the-longest-path-from-root-to-leaf-node/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_027",
@@ -1711,7 +2085,9 @@
           "tags": [
             "DFS",
             "Union Find"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-given-graph-is-tree-or-not-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_028",
@@ -1719,7 +2095,9 @@
           "difficulty": "Medium",
           "tags": [
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-largest-subtree-sum-in-a-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_029",
@@ -1727,7 +2105,9 @@
           "difficulty": "Hard",
           "tags": [
             "DP on Trees"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-sum-of-nodes-in-binary-tree-such-that-no-two-are-adjacent/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_030",
@@ -1736,7 +2116,9 @@
           "tags": [
             "DFS",
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-all-k-sum-paths-in-a-binary-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_031",
@@ -1745,7 +2127,9 @@
           "tags": [
             "DFS",
             "LCA"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-lca-in-a-binary-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_032",
@@ -1754,7 +2138,9 @@
           "tags": [
             "LCA",
             "Distance"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-distance-between-2-nodes-in-a-binary-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_033",
@@ -1763,7 +2149,9 @@
           "tags": [
             "Binary Lifting",
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/kth-ancestor-of-node-in-a-binary-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_034",
@@ -1772,7 +2160,9 @@
           "tags": [
             "Serialization",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-all-duplicate-subtrees-in-a-binary-tree-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bt_035",
@@ -1781,7 +2171,9 @@
           "tags": [
             "DFS",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/tree-isomorphism-problem/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -1798,7 +2190,9 @@
           "tags": [
             "BST",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-a-value-in-a-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_002",
@@ -1807,7 +2201,9 @@
           "tags": [
             "BST",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/deletion-of-a-node-in-a-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_003",
@@ -1815,7 +2211,9 @@
           "difficulty": "Easy",
           "tags": [
             "BST"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-min-and-max-value-in-a-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_004",
@@ -1824,7 +2222,9 @@
           "tags": [
             "BST",
             "Inorder"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-inorder-successor-and-inorder-predecessor-in-a-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_005",
@@ -1833,7 +2233,9 @@
           "tags": [
             "BST",
             "Range Check"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-a-tree-is-a-bst-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_006",
@@ -1842,7 +2244,9 @@
           "tags": [
             "BST",
             "Pointers"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/populate-inorder-successor-of-all-nodes/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_007",
@@ -1851,7 +2255,9 @@
           "tags": [
             "BST",
             "LCA"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-lca-of-2-nodes-in-a-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_008",
@@ -1860,7 +2266,9 @@
           "tags": [
             "BST",
             "Monotonic Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/construct-bst-from-preorder-traversal/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_009",
@@ -1870,7 +2278,9 @@
             "BST",
             "Inorder",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/convert-binary-tree-into-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_010",
@@ -1880,7 +2290,9 @@
             "BST",
             "Inorder",
             "Divide & Conquer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/convert-a-normal-bst-into-a-balanced-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_011",
@@ -1890,7 +2302,9 @@
             "BST",
             "Inorder",
             "DLL"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-two-bst-v-v-v-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_012",
@@ -1899,7 +2313,9 @@
           "tags": [
             "BST",
             "Reverse Inorder"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-kth-largest-element-in-a-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_013",
@@ -1908,7 +2324,9 @@
           "tags": [
             "BST",
             "Inorder"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-kth-smallest-element-in-a-bst/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_014",
@@ -1918,7 +2336,9 @@
             "BST",
             "Two Pointer",
             "Iterative Inorder"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-pairs-from-2-bst-whose-sum-is-equal-to-given-value-x/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_015",
@@ -1927,7 +2347,9 @@
           "tags": [
             "BST",
             "Morris Traversal"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-median-of-bst-in-o-n-time-and-o-1-space/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_016",
@@ -1936,7 +2358,9 @@
           "tags": [
             "BST",
             "Range Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-bst-nodes-that-lie-in-a-given-range/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_017",
@@ -1945,7 +2369,9 @@
           "tags": [
             "BST",
             "Self-Balancing Tree"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/replace-every-element-with-the-least-greater-element-on-its-right/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_018",
@@ -1954,7 +2380,9 @@
           "tags": [
             "Interval Tree",
             "BST"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/given-n-appointments-find-the-conflicting-appointments/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_019",
@@ -1963,7 +2391,9 @@
           "tags": [
             "BST",
             "Monotonic Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-preorder-is-valid-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_020",
@@ -1972,7 +2402,9 @@
           "tags": [
             "BST",
             "Range Check"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-whether-bst-contains-dead-end/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_021",
@@ -1981,7 +2413,9 @@
           "tags": [
             "BST",
             "Postorder Bottom-Up"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/largest-bst-in-a-binary-tree-v-v-v-v-v-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bst_022",
@@ -1991,7 +2425,9 @@
             "BST",
             "Inorder",
             "Pointers"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/flatten-bst-to-sorted-list/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -2008,7 +2444,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/activity-selection-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_002",
@@ -2017,7 +2455,9 @@
           "tags": [
             "Greedy",
             "Disjoint Set"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/job-sequencing-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_003",
@@ -2027,7 +2467,9 @@
             "Greedy",
             "Heap",
             "Tree"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/huffman-coding/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_004",
@@ -2037,7 +2479,9 @@
             "Greedy",
             "DFS",
             "Graph"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/water-connection-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_005",
@@ -2046,7 +2490,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/fractional-knapsack-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_006",
@@ -2054,7 +2500,9 @@
           "difficulty": "Easy",
           "tags": [
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/greedy-algorithm-to-find-minimum-number-of-coins/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_007",
@@ -2063,7 +2511,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-trains-for-which-stoppage-can-be-provided/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_008",
@@ -2073,7 +2523,9 @@
             "Greedy",
             "Two Pointer",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-platforms-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_009",
@@ -2082,7 +2534,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/buy-maximum-stocks-if-i-stocks-can-be-bought-on-i-th-day/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_010",
@@ -2091,7 +2545,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-minimum-and-maximum-amount-to-buy-all-n-candies/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_011",
@@ -2101,7 +2557,9 @@
             "Greedy",
             "Graph",
             "Min/Max Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimize-cash-flow-among-a-given-set-of-friends-who-have-borrowed-money/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_012",
@@ -2110,7 +2568,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-cost-to-cut-a-board-into-squares/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_013",
@@ -2119,7 +2579,9 @@
           "tags": [
             "Greedy",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-it-is-possible-to-survive-on-island/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_014",
@@ -2128,7 +2590,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-maximum-meetings-in-one-room/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_015",
@@ -2136,7 +2600,9 @@
           "difficulty": "Medium",
           "tags": [
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-product-subset-of-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_016",
@@ -2145,7 +2611,9 @@
           "tags": [
             "Greedy",
             "Priority Queue"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximize-array-sum-after-k-negations/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_017",
@@ -2154,7 +2622,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximize-the-sum-of-arr-i-i/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_018",
@@ -2163,7 +2633,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-sum-of-absolute-difference-of-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_019",
@@ -2171,7 +2643,9 @@
           "difficulty": "Easy",
           "tags": [
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximize-sum-of-consecutive-differences-in-a-circular-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_020",
@@ -2180,7 +2654,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-sum-of-absolute-difference-of-pairs-of-two-arrays/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_021",
@@ -2189,7 +2665,9 @@
           "tags": [
             "Greedy",
             "Priority Queue"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/program-for-shortest-job-first-or-sjf-cpu-scheduling/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_022",
@@ -2198,7 +2676,9 @@
           "tags": [
             "Greedy",
             "LRU Cache"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/program-for-least-recently-used-lru-page-replacement-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_023",
@@ -2207,7 +2687,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/smallest-subset-with-sum-greater-than-all-other-elements/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_024",
@@ -2216,7 +2698,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/chocolate-distribution-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_025",
@@ -2225,7 +2709,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/defkin---defense-of-a-kingdom/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_026",
@@ -2234,7 +2720,9 @@
           "tags": [
             "Greedy",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/diehard---die-hard-spoj/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_027",
@@ -2243,7 +2731,9 @@
           "tags": [
             "Greedy",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/gergovia---wine-trading-in-gergovia/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_028",
@@ -2251,7 +2741,9 @@
           "difficulty": "Medium",
           "tags": [
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/picking-up-chicks-spoj/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_029",
@@ -2260,7 +2752,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/chocola---chocolate-spoj/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_030",
@@ -2269,7 +2763,9 @@
           "tags": [
             "Greedy",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/arrange---arranging-amplifiers/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_031",
@@ -2278,7 +2774,9 @@
           "tags": [
             "Greedy",
             "Approximation"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/k-centers-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_032",
@@ -2287,7 +2785,9 @@
           "tags": [
             "Greedy",
             "Min Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-cost-of-ropes/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_033",
@@ -2296,7 +2796,9 @@
           "tags": [
             "Greedy",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-smallest-number-with-given-number-of-digits-and-sum-of-digits/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_034",
@@ -2305,7 +2807,9 @@
           "tags": [
             "Greedy",
             "Max Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rearrange-characters-in-a-string-such-that-no-two-adjacent-are-same/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "gr_035",
@@ -2314,7 +2818,9 @@
           "tags": [
             "Greedy",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-maximum-sum-possible-equal-sum-of-three-stacks/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -2331,7 +2837,9 @@
           "tags": [
             "Backtracking",
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_002",
@@ -2339,7 +2847,9 @@
           "difficulty": "Hard",
           "tags": [
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/printing-all-solutions-in-n-queen-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_003",
@@ -2348,7 +2858,9 @@
           "tags": [
             "Backtracking",
             "Trie"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/word-break-problem-using-backtracking/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_004",
@@ -2357,7 +2869,9 @@
           "tags": [
             "Backtracking",
             "BFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/remove-invalid-parentheses/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_005",
@@ -2365,7 +2879,9 @@
           "difficulty": "Hard",
           "tags": [
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sudoku-solver/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_006",
@@ -2374,7 +2890,9 @@
           "tags": [
             "Backtracking",
             "Graph"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/m-coloring-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_007",
@@ -2383,7 +2901,9 @@
           "tags": [
             "Backtracking",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-all-palindromic-partitions-of-a-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_008",
@@ -2392,7 +2912,9 @@
           "tags": [
             "Backtracking",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/subset-sum-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_009",
@@ -2401,7 +2923,9 @@
           "tags": [
             "Backtracking",
             "Warnsdorff Rule"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/the-knights-tour-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_010",
@@ -2410,7 +2934,9 @@
           "tags": [
             "Backtracking",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/tug-of-war/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_011",
@@ -2419,7 +2945,9 @@
           "tags": [
             "Backtracking",
             "BFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-shortest-safe-route-in-a-path-with-landmines/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_012",
@@ -2427,7 +2955,9 @@
           "difficulty": "Medium",
           "tags": [
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/combinational-sum/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_013",
@@ -2435,7 +2965,9 @@
           "difficulty": "Hard",
           "tags": [
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-maximum-number-possible-by-doing-at-most-k-swaps/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_014",
@@ -2443,7 +2975,9 @@
           "difficulty": "Medium",
           "tags": [
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-all-permutations-of-a-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_015",
@@ -2452,7 +2986,9 @@
           "tags": [
             "Backtracking",
             "Graph"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-if-there-is-a-path-of-more-than-k-length-from-a-source/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_016",
@@ -2461,7 +2997,9 @@
           "tags": [
             "Backtracking",
             "Matrix"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-possible-route-in-a-matrix-with-hurdles/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_017",
@@ -2470,7 +3008,9 @@
           "tags": [
             "Backtracking",
             "Grid"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-all-possible-paths-from-top-left-to-bottom-right-of-a-mxn-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_018",
@@ -2479,7 +3019,9 @@
           "tags": [
             "Backtracking",
             "DP Bitmask"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/partition-of-a-set-into-k-subsets-with-equal-sum/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "btk_019",
@@ -2488,7 +3030,9 @@
           "tags": [
             "Math",
             "Factorial System"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-k-th-permutation-sequence-of-first-n-natural-numbers/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -2505,7 +3049,9 @@
           "tags": [
             "Stack",
             "Array/LL"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-stack-from-scratch/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_002",
@@ -2514,7 +3060,9 @@
           "tags": [
             "Queue",
             "Array/LL"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-queue-from-scratch/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_003",
@@ -2523,7 +3071,9 @@
           "tags": [
             "Stack",
             "Array"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-2-stacks-in-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_004",
@@ -2532,7 +3082,9 @@
           "tags": [
             "Stack",
             "Doubly LL"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-middle-element-of-a-stack/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_005",
@@ -2541,7 +3093,9 @@
           "tags": [
             "Stack",
             "Free List"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-n-stacks-in-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_006",
@@ -2549,7 +3103,9 @@
           "difficulty": "Easy",
           "tags": [
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-the-expression-has-valid-or-balanced-parenthesis-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_007",
@@ -2557,7 +3113,9 @@
           "difficulty": "Easy",
           "tags": [
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-a-string-using-stack/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_008",
@@ -2566,7 +3124,9 @@
           "tags": [
             "Stack",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/design-a-stack-that-supports-getmin-in-o-1-time-and-o-1-extra-space/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_009",
@@ -2574,7 +3134,9 @@
           "difficulty": "Medium",
           "tags": [
             "Monotonic Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-next-greater-element/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_010",
@@ -2583,7 +3145,9 @@
           "tags": [
             "Stack",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/the-celebrity-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_011",
@@ -2592,7 +3156,9 @@
           "tags": [
             "Stack",
             "Parsing"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/arithmetic-expression-evaluation-infix-to-postfix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_012",
@@ -2600,7 +3166,9 @@
           "difficulty": "Easy",
           "tags": [
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/evaluation-of-postfix-expression/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_013",
@@ -2609,7 +3177,9 @@
           "tags": [
             "Stack",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-a-method-to-insert-an-element-at-its-bottom-without-using-any-other-data-structure/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_014",
@@ -2618,7 +3188,9 @@
           "tags": [
             "Stack",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-a-stack-using-recursion/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_015",
@@ -2627,7 +3199,9 @@
           "tags": [
             "Stack",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sort-a-stack-using-recursion/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_016",
@@ -2636,7 +3210,9 @@
           "tags": [
             "Stack",
             "Sorting"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-overlapping-intervals/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_017",
@@ -2644,7 +3220,9 @@
           "difficulty": "Hard",
           "tags": [
             "Monotonic Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/largest-rectangular-area-in-histogram/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_018",
@@ -2653,7 +3231,9 @@
           "tags": [
             "Stack",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/length-of-the-longest-valid-substring/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_019",
@@ -2661,7 +3241,9 @@
           "difficulty": "Medium",
           "tags": [
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/expression-contains-redundant-bracket-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_020",
@@ -2670,7 +3252,9 @@
           "tags": [
             "Stack",
             "Queue"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-stack-using-queue/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_021",
@@ -2679,7 +3263,9 @@
           "tags": [
             "Stack",
             "Deque"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-stack-using-deque/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_022",
@@ -2687,7 +3273,9 @@
           "difficulty": "Medium",
           "tags": [
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/stack-permutations-check-if-an-array-is-stack-permutation-of-other/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_023",
@@ -2696,7 +3284,9 @@
           "tags": [
             "Queue",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-queue-using-stack/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_024",
@@ -2705,7 +3295,9 @@
           "tags": [
             "Queue",
             "Array"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-n-queue-in-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_025",
@@ -2714,7 +3306,9 @@
           "tags": [
             "Queue",
             "Array"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-a-circular-queue/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_026",
@@ -2723,7 +3317,9 @@
           "tags": [
             "Hash Map",
             "Doubly LL"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/lru-cache-implementation/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_027",
@@ -2732,7 +3328,9 @@
           "tags": [
             "Queue",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-a-queue-using-recursion/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_028",
@@ -2741,7 +3339,9 @@
           "tags": [
             "Queue",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/reverse-the-first-k-elements-of-a-queue/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_029",
@@ -2750,7 +3350,9 @@
           "tags": [
             "Queue",
             "Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/interleave-the-first-half-of-the-queue-with-second-half/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_030",
@@ -2759,7 +3361,9 @@
           "tags": [
             "Queue",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-first-circular-tour-that-visits-all-petrol-pumps/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_031",
@@ -2768,7 +3372,9 @@
           "tags": [
             "BFS",
             "Multi-source"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-time-required-to-rot-all-oranges/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_032",
@@ -2777,7 +3383,9 @@
           "tags": [
             "BFS",
             "Multi-source"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/distance-of-nearest-cell-having-1-in-a-binary-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_033",
@@ -2786,7 +3394,9 @@
           "tags": [
             "Queue",
             "Sliding Window"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_034",
@@ -2796,7 +3406,9 @@
             "BFS",
             "Queue",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-all-levels-of-two-trees-are-anagrams-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_035",
@@ -2805,7 +3417,9 @@
           "tags": [
             "Deque",
             "Sliding Window"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sum-of-minimum-and-maximum-elements-of-all-subarrays-of-size-k/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_036",
@@ -2814,7 +3428,9 @@
           "tags": [
             "Priority Queue",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-sum-of-squares-of-character-counts-in-a-given-string-after-removing-k-chars/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_037",
@@ -2823,7 +3439,9 @@
           "tags": [
             "Queue",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/queue-based-approach-or-first-non-repeating-character-in-a-stream/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "sq_038",
@@ -2831,7 +3449,9 @@
           "difficulty": "Medium",
           "tags": [
             "Monotonic Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/next-smaller-element/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -2848,7 +3468,9 @@
           "tags": [
             "Heap",
             "Array"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-a-maxheap-minheap-using-arrays-and-recursion/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_002",
@@ -2856,7 +3478,9 @@
           "difficulty": "Medium",
           "tags": [
             "HeapSort"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/sort-an-array-using-heap-heapsort/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_003",
@@ -2866,7 +3490,9 @@
             "Heap",
             "Sliding Window",
             "Deque"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_004",
@@ -2874,7 +3500,9 @@
           "difficulty": "Easy",
           "tags": [
             "Min Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/k-largest-element-in-an-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_005",
@@ -2883,7 +3511,9 @@
           "tags": [
             "QuickSelect",
             "Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/kth-smallest-and-largest-element-in-an-unsorted-array/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_006",
@@ -2892,7 +3522,9 @@
           "tags": [
             "Min Heap",
             "Divide & Conquer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-k-sorted-arrays-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_007",
@@ -2900,7 +3532,9 @@
           "difficulty": "Easy",
           "tags": [
             "Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-2-binary-max-heaps/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_008",
@@ -2909,7 +3543,9 @@
           "tags": [
             "Min Heap",
             "Prefix Sum"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/kth-largest-sum-continuous-subarrays/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_009",
@@ -2918,7 +3554,9 @@
           "tags": [
             "Max Heap",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/leetcode---reorganize-strings/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_010",
@@ -2927,7 +3565,9 @@
           "tags": [
             "Min Heap",
             "LinkedList"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/merge-k-sorted-linked-lists-v-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_011",
@@ -2936,7 +3576,9 @@
           "tags": [
             "Min Heap",
             "Sliding Window"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/smallest-range-in-k-lists/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_012",
@@ -2944,7 +3586,9 @@
           "difficulty": "Hard",
           "tags": [
             "Two Heaps"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/median-in-a-stream-of-integers/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_013",
@@ -2953,7 +3597,9 @@
           "tags": [
             "Heap",
             "Binary Tree"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-if-a-binary-tree-is-heap/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_014",
@@ -2962,7 +3608,9 @@
           "tags": [
             "Min Heap",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/connect-n-ropes-with-minimum-cost/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_015",
@@ -2972,7 +3620,9 @@
             "BST",
             "Inorder",
             "Preorder"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/convert-bst-to-min-heap/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_016",
@@ -2980,7 +3630,9 @@
           "difficulty": "Easy",
           "tags": [
             "Heapify"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/convert-min-heap-to-max-heap/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_017",
@@ -2989,7 +3641,9 @@
           "tags": [
             "Max Heap",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/rearrange-characters-in-a-string-such-that-no-two-adjacent-are-same/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "hp_018",
@@ -2998,7 +3652,9 @@
           "tags": [
             "Min Heap",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-sum-of-two-numbers-formed-from-digits-of-an-array/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -3014,7 +3670,9 @@
           "difficulty": "Easy",
           "tags": [
             "Adjacency List"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/create-a-graph-print-it/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_002",
@@ -3023,7 +3681,9 @@
           "tags": [
             "BFS",
             "Queue"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-bfs-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_003",
@@ -3032,7 +3692,9 @@
           "tags": [
             "DFS",
             "Recursion"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-dfs-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_004",
@@ -3041,7 +3703,9 @@
           "tags": [
             "Kahn's Algo",
             "DFS Colors"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/detect-cycle-in-directed-graph-using-bfs-dfs-algo/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_005",
@@ -3051,7 +3715,9 @@
             "BFS",
             "DFS",
             "Union Find"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/detect-cycle-in-undirected-graph-using-bfs-dfs-algo/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_006",
@@ -3060,7 +3726,9 @@
           "tags": [
             "DFS",
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/search-in-a-maze-rat-in-a-maze/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_007",
@@ -3069,7 +3737,9 @@
           "tags": [
             "BFS",
             "Grid Shortest Path"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-step-by-knight/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_008",
@@ -3078,7 +3748,9 @@
           "tags": [
             "BFS",
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/flood-fill-algo/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_009",
@@ -3087,7 +3759,9 @@
           "tags": [
             "BFS",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/clone-a-graph/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_010",
@@ -3096,7 +3770,9 @@
           "tags": [
             "Union Find",
             "DFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/making-wired-connections-number-of-operations-to-make-network-connected/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_011",
@@ -3105,7 +3781,9 @@
           "tags": [
             "BFS",
             "Shortest Path"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/word-ladder/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_012",
@@ -3114,7 +3792,9 @@
           "tags": [
             "Min Heap",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/dijkstra-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_013",
@@ -3123,7 +3803,9 @@
           "tags": [
             "Kahn's BFS",
             "DFS Stack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-topological-sort/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_014",
@@ -3132,7 +3814,9 @@
           "tags": [
             "Topological Sort",
             "Kahn's"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-time-taken-by-each-job-to-be-completed-given-by-a-directed-acyclic-graph/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_015",
@@ -3140,7 +3824,9 @@
           "difficulty": "Medium",
           "tags": [
             "Topological Sort"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-whether-it-is-possible-to-finish-all-tasks-or-not-from-given-dependencies-course-schedule/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_016",
@@ -3150,7 +3836,9 @@
             "BFS",
             "DFS",
             "Union Find"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-no-of-islands/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_017",
@@ -3158,7 +3846,9 @@
           "difficulty": "Hard",
           "tags": [
             "Topological Sort"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/given-a-sorted-dictionary-of-an-alien-language-find-order-of-characters/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_018",
@@ -3167,7 +3857,9 @@
           "tags": [
             "MST",
             "Union Find"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-kruskals-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_019",
@@ -3176,7 +3868,9 @@
           "tags": [
             "MST",
             "Min Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-prims-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_020",
@@ -3184,7 +3878,9 @@
           "difficulty": "Hard",
           "tags": [
             "Matrix Tree Theorem"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/total-no-of-spanning-tree-in-a-graph-kirchhoffs-theorem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_021",
@@ -3193,7 +3889,9 @@
           "tags": [
             "DP",
             "Negative Cycles"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-bellman-ford-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_022",
@@ -3202,7 +3900,9 @@
           "tags": [
             "All Pairs Shortest Path",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-floyd-warshall-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_023",
@@ -3210,7 +3910,9 @@
           "difficulty": "Hard",
           "tags": [
             "DP Bitmask"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/travelling-salesman-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_024",
@@ -3218,7 +3920,9 @@
           "difficulty": "Hard",
           "tags": [
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/graph-colouring-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_025",
@@ -3227,7 +3931,9 @@
           "tags": [
             "BFS",
             "Shortest Path"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/snake-and-ladders-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_026",
@@ -3236,7 +3942,9 @@
           "tags": [
             "DFS",
             "Bridges"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-bridge-in-a-graph-tarjans-algorithm/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_027",
@@ -3245,7 +3953,9 @@
           "tags": [
             "DFS",
             "Transpose Graph"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-strongly-connected-components-kosaraju-algo/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_028",
@@ -3253,7 +3963,9 @@
           "difficulty": "Medium",
           "tags": [
             "BFS 2-Coloring"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/check-whether-a-graph-is-bipartite-or-not/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_029",
@@ -3261,7 +3973,9 @@
           "difficulty": "Medium",
           "tags": [
             "Bellman Ford"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/detect-negative-cycle-in-a-graph/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_030",
@@ -3270,7 +3984,9 @@
           "tags": [
             "Topological Sort",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-path-in-a-directed-acyclic-graph/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_031",
@@ -3279,7 +3995,9 @@
           "tags": [
             "DFS",
             "Connected Components"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/journey-to-the-moon-hackerrank/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_032",
@@ -3288,7 +4006,9 @@
           "tags": [
             "Bellman Ford",
             "Dijkstra"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/cheapest-flights-within-k-stops/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_033",
@@ -3297,7 +4017,9 @@
           "tags": [
             "Euler Tour",
             "DFS Timer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/oliver-and-the-game/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_034",
@@ -3306,7 +4028,9 @@
           "tags": [
             "BFS",
             "State Space"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/water-jug-problem-using-bfs/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_035",
@@ -3314,7 +4038,9 @@
           "difficulty": "Hard",
           "tags": [
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-if-there-is-a-path-of-more-than-k-length-from-a-source/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_036",
@@ -3322,7 +4048,9 @@
           "difficulty": "Medium",
           "tags": [
             "Backtracking"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/m-colouring-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_037",
@@ -3330,7 +4058,9 @@
           "difficulty": "Hard",
           "tags": [
             "0-1 BFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-edges-to-reverse-to-make-path-from-source-to-destination/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_038",
@@ -3338,7 +4068,9 @@
           "difficulty": "Hard",
           "tags": [
             "Hierholzer's Algorithm"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/paths-to-travel-each-nodes-using-each-edge-seven-bridges-eulerian-path/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_039",
@@ -3347,7 +4079,9 @@
           "tags": [
             "NP-Hard",
             "2-Approximation"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/vertex-cover-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_040",
@@ -3356,7 +4090,9 @@
           "tags": [
             "Eulerian Circuit",
             "Matching"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/chinese-postman-or-route-inspection/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_041",
@@ -3365,7 +4101,9 @@
           "tags": [
             "Matrix Multiplication",
             "Graph"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/number-of-triangles-in-a-directed-and-undirected-graph/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_042",
@@ -3374,7 +4112,9 @@
           "tags": [
             "Greedy",
             "Heap"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimise-the-cashflow-among-a-given-set-of-friends-who-have-borrowed-money/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "grp_043",
@@ -3383,7 +4123,9 @@
           "tags": [
             "Bipartite Graph",
             "Complement Graph"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/two-clique-problem/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -3400,7 +4142,9 @@
           "tags": [
             "Trie",
             "Design"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/construct-a-trie-from-scratch/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "tri_002",
@@ -3408,7 +4152,9 @@
           "difficulty": "Hard",
           "tags": [
             "Trie"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-shortest-unique-prefix-for-every-word-in-a-given-list/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "tri_003",
@@ -3417,7 +4163,9 @@
           "tags": [
             "Trie",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/word-break-problem-trie-solution/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "tri_004",
@@ -3426,7 +4174,9 @@
           "tags": [
             "Trie",
             "Hash Map"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/given-a-sequence-of-words-print-all-anagrams-together/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "tri_005",
@@ -3435,7 +4185,9 @@
           "tags": [
             "Trie",
             "Autocomplete"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/implement-a-phone-directory/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "tri_006",
@@ -3444,7 +4196,9 @@
           "tags": [
             "Trie",
             "Matrix"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/print-unique-rows-in-a-given-boolean-matrix/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -3461,7 +4215,9 @@
           "tags": [
             "DP",
             "Knapsack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/coin-change-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_002",
@@ -3469,7 +4225,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/knapsack-problem-0-1/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_003",
@@ -3478,7 +4236,9 @@
           "tags": [
             "DP",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/binomial-coefficient-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_004",
@@ -3487,7 +4247,9 @@
           "tags": [
             "DP",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/permutation-coefficient-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_005",
@@ -3496,7 +4258,9 @@
           "tags": [
             "DP",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/program-for-nth-catalan-number/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_006",
@@ -3505,7 +4269,9 @@
           "tags": [
             "DP",
             "Interval"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/matrix-chain-multiplication/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_007",
@@ -3514,7 +4280,9 @@
           "tags": [
             "DP",
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/edit-distance/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_008",
@@ -3522,7 +4290,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/subset-sum-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_009",
@@ -3531,7 +4301,9 @@
           "tags": [
             "DP",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/friends-pairing-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_010",
@@ -3540,7 +4312,9 @@
           "tags": [
             "DP",
             "Grid"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/gold-mine-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_011",
@@ -3548,7 +4322,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/assembly-line-scheduling-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_012",
@@ -3557,7 +4333,9 @@
           "tags": [
             "DP",
             "Combinatorics"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/painting-the-fence-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_013",
@@ -3565,7 +4343,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximize-the-cut-segments/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_014",
@@ -3574,7 +4354,9 @@
           "tags": [
             "DP",
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-common-subsequence/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_015",
@@ -3583,7 +4365,9 @@
           "tags": [
             "DP",
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-repeated-subsequence/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_016",
@@ -3592,7 +4376,9 @@
           "tags": [
             "DP",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-increasing-subsequence/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_017",
@@ -3601,7 +4387,9 @@
           "tags": [
             "DP",
             "Space Optimization"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/space-optimized-solution-of-lcs/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_018",
@@ -3609,7 +4397,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP 3D"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/lcs-longest-common-subsequence-of-three-strings/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_019",
@@ -3617,7 +4407,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_020",
@@ -3625,7 +4417,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-all-subsequences-having-product-less-than-k/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_021",
@@ -3633,7 +4427,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-subsequence-such-that-difference-between-adjacent-is-one/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_022",
@@ -3641,7 +4437,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-subsequence-sum-such-that-no-three-are-consecutive/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_023",
@@ -3650,7 +4448,9 @@
           "tags": [
             "DP",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/egg-dropping-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_024",
@@ -3659,7 +4459,9 @@
           "tags": [
             "DP",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-length-chain-of-pairs/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_025",
@@ -3668,7 +4470,9 @@
           "tags": [
             "DP",
             "Matrix"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-size-square-sub-matrix-with-all-1s/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_026",
@@ -3677,7 +4481,9 @@
           "tags": [
             "DP",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-sum-of-pairs-with-specific-difference/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_027",
@@ -3686,7 +4492,9 @@
           "tags": [
             "DP",
             "Grid"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/min-cost-path-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_028",
@@ -3695,7 +4503,9 @@
           "tags": [
             "DP",
             "Kadane"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-difference-of-zeros-and-ones-in-binary-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_029",
@@ -3704,7 +4514,9 @@
           "tags": [
             "DP",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-number-of-jumps-to-reach-end/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_030",
@@ -3713,7 +4525,9 @@
           "tags": [
             "DP",
             "Unbounded Knapsack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-cost-to-fill-given-weight-in-a-bag/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_031",
@@ -3722,7 +4536,9 @@
           "tags": [
             "DP",
             "Two Pointer"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/minimum-removals-from-array-to-make-max---min-k/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_032",
@@ -3731,7 +4547,9 @@
           "tags": [
             "DP",
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-common-substring/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_033",
@@ -3740,7 +4558,9 @@
           "tags": [
             "DP",
             "Unbounded Knapsack"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-number-of-ways-to-reach-a-given-score-in-a-game/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_034",
@@ -3749,7 +4569,9 @@
           "tags": [
             "DP",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-balanced-binary-trees-of-height-h/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_035",
@@ -3757,7 +4579,9 @@
           "difficulty": "Easy",
           "tags": [
             "Kadane's Algo"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/largest-sum-contiguous-subarray-v-v-v-v-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_036",
@@ -3765,7 +4589,9 @@
           "difficulty": "Easy",
           "tags": [
             "Kadane's Algo"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/smallest-sum-contiguous-subarray/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_037",
@@ -3773,7 +4599,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/unbounded-knapsack-repetition-of-items-allowed/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_038",
@@ -3782,7 +4610,9 @@
           "tags": [
             "DP",
             "Trie"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/word-break-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_039",
@@ -3790,7 +4620,9 @@
           "difficulty": "Hard",
           "tags": [
             "DP on Trees"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/largest-independent-set-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_040",
@@ -3798,7 +4630,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/partition-problem-equal-subset-sum/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_041",
@@ -3806,7 +4640,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-palindromic-subsequence/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_042",
@@ -3814,7 +4650,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-all-palindromic-subsequences-in-a-given-string/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_043",
@@ -3823,7 +4661,9 @@
           "tags": [
             "DP",
             "Expand Center"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-palindromic-substring/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_044",
@@ -3831,7 +4671,9 @@
           "difficulty": "Medium",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/longest-alternating-subsequence/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_045",
@@ -3840,7 +4682,9 @@
           "tags": [
             "DP",
             "Binary Search"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/weighted-job-scheduling/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_046",
@@ -3849,7 +4693,9 @@
           "tags": [
             "Game Theory",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/coin-game-winner-where-every-player-has-three-choices/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_047",
@@ -3858,7 +4704,9 @@
           "tags": [
             "DP",
             "Combinatorics"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-derangements-permutation-such-that-no-element-appears-in-its-original-position/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_048",
@@ -3866,7 +4714,9 @@
           "difficulty": "Hard",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-profit-by-buying-and-selling-a-share-at-most-twice-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_049",
@@ -3875,7 +4725,9 @@
           "tags": [
             "Game Theory",
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/optimal-strategy-for-a-game/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_050",
@@ -3884,7 +4736,9 @@
           "tags": [
             "DP",
             "Interval"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/optimal-binary-search-tree/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_051",
@@ -3892,7 +4746,9 @@
           "difficulty": "Hard",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/palindrome-partitioning-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_052",
@@ -3900,7 +4756,9 @@
           "difficulty": "Hard",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/word-wrap-problem-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_053",
@@ -3909,7 +4767,9 @@
           "tags": [
             "DP",
             "BFS"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/mobile-numeric-keypad-problem-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_054",
@@ -3918,7 +4778,9 @@
           "tags": [
             "DP",
             "Interval"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/boolean-parenthesization-problem/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_055",
@@ -3928,7 +4790,9 @@
             "DP",
             "Matrix",
             "Prefix Sum"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/largest-rectangular-sub-matrix-whose-sum-is-0/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_056",
@@ -3937,7 +4801,9 @@
           "tags": [
             "DP",
             "Matrix"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/largest-area-rectangular-sub-matrix-with-equal-number-of-1s-and-0s-imp/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_057",
@@ -3946,7 +4812,9 @@
           "tags": [
             "DP",
             "Kadane 2D"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-sum-rectangle-in-a-2d-matrix/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_058",
@@ -3954,7 +4822,9 @@
           "difficulty": "Hard",
           "tags": [
             "DP"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-profit-by-buying-and-selling-a-share-at-most-k-times/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_059",
@@ -3963,7 +4833,9 @@
           "tags": [
             "DP",
             "String"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-if-a-string-is-interleaved-of-two-other-strings/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "dp_060",
@@ -3972,7 +4844,9 @@
           "tags": [
             "DP",
             "Greedy"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/maximum-length-of-pair-chain/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     },
@@ -3989,7 +4863,9 @@
           "tags": [
             "Bit Manipulation",
             "Brian Kernighan"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-set-bits-in-an-integer/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_002",
@@ -3998,7 +4874,9 @@
           "tags": [
             "Bit Manipulation",
             "XOR"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-the-two-non-repeating-elements-in-an-array-of-repeating-elements/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_003",
@@ -4007,7 +4885,9 @@
           "tags": [
             "Bit Manipulation",
             "XOR"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-number-of-bits-to-be-flipped-to-convert-a-to-b/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_004",
@@ -4016,7 +4896,9 @@
           "tags": [
             "Bit Manipulation",
             "Math"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/count-total-set-bits-in-all-numbers-from-1-to-n/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_005",
@@ -4024,7 +4906,9 @@
           "difficulty": "Easy",
           "tags": [
             "Bit Manipulation"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/program-to-find-whether-a-no-is-power-of-two/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_006",
@@ -4033,7 +4917,9 @@
           "tags": [
             "Bit Manipulation",
             "Log2"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/find-position-of-the-only-set-bit/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_007",
@@ -4042,7 +4928,9 @@
           "tags": [
             "Bit Manipulation",
             "Mask"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/copy-set-bits-in-a-range/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_008",
@@ -4051,7 +4939,9 @@
           "tags": [
             "Bit Manipulation",
             "Bit Shifts"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/divide-two-integers-without-using-multiplication-division-and-mod-operator/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_009",
@@ -4059,7 +4949,9 @@
           "difficulty": "Medium",
           "tags": [
             "Bit Manipulation"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/calculate-square-of-a-number-without-using-and-pow/1",
+          "source_platform": "GeeksforGeeks"
         },
         {
           "id": "bit_010",
@@ -4068,7 +4960,9 @@
           "tags": [
             "Bit Manipulation",
             "Combinatorics"
-          ]
+          ],
+          "source_url": "https://www.geeksforgeeks.org/problems/power-set-print-all-subsets-using-bitwise-operations/1",
+          "source_platform": "GeeksforGeeks"
         }
       ]
     }

@@ -77,16 +77,7 @@ const App = {
       sessionStorage.removeItem('vault_auth_token');
     } catch (e) {}
 
-    const loginView = document.getElementById('view-login');
-    if (loginView) {
-      loginView.classList.remove('hidden');
-      const errAlert = document.getElementById('login-error-alert');
-      const errMsg = document.getElementById('login-error-message');
-      if (errAlert && errMsg) {
-        errMsg.textContent = message;
-        errAlert.classList.remove('hidden');
-      }
-    }
+    window.location.href = '/login';
   },
 
   async checkAuth() {
@@ -96,8 +87,6 @@ const App = {
         const data = await res.json();
         this.state.currentUser = data.user;
         this.updateUserUI(data.user);
-        const loginView = document.getElementById('view-login');
-        if (loginView) loginView.classList.add('hidden');
         return true;
       } else if (res.status === 401) {
         // Clear stale/expired token immediately
@@ -112,8 +101,7 @@ const App = {
     }
 
     this.state.currentUser = null;
-    const loginView = document.getElementById('view-login');
-    if (loginView) loginView.classList.remove('hidden');
+    window.location.href = '/login';
     return false;
   },
 
@@ -236,13 +224,7 @@ const App = {
     this.state.currentUser = null;
     this.state.solvedChallenges.clear();
 
-    const loginView = document.getElementById('view-login');
-    if (loginView) loginView.classList.remove('hidden');
-
-    const adminSection = document.getElementById('sidebar-admin-section');
-    if (adminSection) adminSection.classList.add('hidden');
-
-    this.switchView('datascience');
+    window.location.href = '/login';
   },
 
   libraryDocs: [
@@ -3778,6 +3760,11 @@ const App = {
                       'Hard': 'bg-rose-500/15 text-rose-400 border-rose-500/30'
                     };
                     const diffBadge = diffColors[p.difficulty] || diffColors['Easy'];
+                    const srcUrl = p.source_url || `https://www.google.com/search?q=${encodeURIComponent(p.title)}+geeksforgeeks`;
+                    const srcPlatform = p.source_platform || 'GeeksforGeeks';
+                    const platformBadge = srcPlatform === 'LeetCode' 
+                      ? '<span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">LeetCode</span>'
+                      : '<span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">GFG</span>';
                     return `
                       <tr class="hover:bg-slate-900/60 transition-colors">
                         <td class="py-2.5 px-3 text-center">
@@ -3788,7 +3775,13 @@ const App = {
                             class="w-4 h-4 rounded border-slate-700 bg-slate-900 text-purple-500 focus:ring-0 cursor-pointer">
                         </td>
                         <td class="py-2.5 px-3 font-semibold ${p.solved ? 'line-through text-slate-500' : 'text-slate-100'}">
-                          ${this.escapeHtml(p.title)}
+                          <div class="flex items-center gap-2">
+                            <a href="${this.escapeHtml(srcUrl)}" target="_blank" rel="noopener noreferrer" class="hover:text-purple-300 hover:underline flex items-center gap-1.5 transition-colors">
+                              <span>${this.escapeHtml(p.title)}</span>
+                              <span class="text-[10px] opacity-70">↗</span>
+                            </a>
+                            ${platformBadge}
+                          </div>
                         </td>
                         <td class="py-2.5 px-3">
                           <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${diffBadge}">

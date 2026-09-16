@@ -36,7 +36,7 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import FastAPI, HTTPException, Request, Response, Depends, Cookie, Header
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -480,7 +480,7 @@ PING_COUNT = 0
 app = FastAPI(
     title="Career Learning Vault — Cloud API",
     description="Full-stack Multi-Tenant AI, Data Science & Cybersecurity Sandbox Hub",
-    version="3.7.0"
+    version="3.8.0"
 )
 
 app.add_middleware(
@@ -743,6 +743,7 @@ class LoginRequest(BaseModel):
     username: str
     password: str
     remember_me: bool = True
+    csrf_token: Optional[str] = None
 
 class ChangePasswordRequest(BaseModel):
     old_password: str
@@ -856,6 +857,29 @@ class RenameCustomCourseRequest(BaseModel):
     new_title: str
 
 
+def session_is_valid(token: Optional[str]) -> bool:
+    if not token:
+        return False
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            conn.row_factory = sqlite3.Row
+            cur = conn.cursor()
+            cur.execute("""
+                SELECT u.is_active, s.expires_at
+                FROM user_sessions s
+                JOIN users u ON s.user_id = u.id
+                WHERE s.token = ?
+            """, (token,))
+            row = cur.fetchone()
+            if not row or not row["is_active"]:
+                return False
+            exp = datetime.datetime.fromisoformat(row["expires_at"])
+            if datetime.datetime.now(timezone.utc) > exp:
+                return False
+            return True
+    except Exception:
+        return False
+
 # ── Authentication & RBAC Dependencies ──────────────────────────────────────
 def get_current_user(
     request: Request,
@@ -918,6 +942,12 @@ def require_admin(current_user: Dict[str, Any] = Depends(get_current_user)) -> D
 def login_endpoint(req: LoginRequest, request: Request, response: Response):
     """Authenticates user credentials, inspects for reckless attack payloads, and issues secure session token."""
     client_ip = get_client_ip(request)
+
+    # 0. Validate Double-Submit CSRF Token if present
+    csrf_cookie = request.cookies.get("csrf_token")
+    if csrf_cookie and req.csrf_token:
+        if not hmac.compare_digest(csrf_cookie, req.csrf_token):
+            raise HTTPException(status_code=403, detail="CSRF Security Validation Failed.")
 
     # 1. Check if IP is already banned
     ban_reason = is_ip_banned(client_ip)
@@ -2136,6 +2166,12 @@ def serve_sitemap_xml():
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://career-learning-vault.onrender.com/login</loc>
+    <lastmod>{now_str}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://career-learning-vault.onrender.com/#view-datascience</loc>
     <lastmod>{now_str}</lastmod>
     <changefreq>weekly</changefreq>
@@ -2219,11 +2255,32 @@ async def custom_404_handler(request: Request, exc: Exception):
             return HTMLResponse(content=f.read(), status_code=404)
     return HTMLResponse("<h1>404 — Not Found</h1>", status_code=404)
 
-# ── Frontend HTML Route ─────────────────────────────────────────────────────
+# ── Frontend HTML Routes ───────────────────────────────────────────────────
+
+@app.get("/login", response_class=HTMLResponse)
+def serve_login_page(request: Request, response: Response, vault_session: Optional[str] = Cookie(None)):
+    """Serves standalone login page with CSRF double-submit token. Redirects to / if already authenticated."""
+    if vault_session and session_is_valid(vault_session):
+        return RedirectResponse(url="/", status_code=302)
+
+    login_path = TEMPLATES_DIR / "login.html"
+    if not login_path.exists():
+        return HTMLResponse("<h1>Login Page Initializing...</h1>", status_code=200)
+
+    csrf_token = secrets.token_urlsafe(32)
+    with open(login_path, "r", encoding="utf-8") as f:
+        html_content = f.read().replace("{{ csrf_token }}", csrf_token)
+
+    res = HTMLResponse(content=html_content, status_code=200)
+    res.set_cookie(key="csrf_token", value=csrf_token, max_age=600, httponly=False, samesite="strict")
+    return res
 
 @app.get("/", response_class=HTMLResponse)
-def serve_dashboard():
-    """Serves the Watermelon / Refero UI Single Page Application."""
+def serve_dashboard(request: Request, vault_session: Optional[str] = Cookie(None)):
+    """Serves the Watermelon / Refero UI Single Page Application. Redirects to /login if unauthenticated."""
+    if not vault_session or not session_is_valid(vault_session):
+        return RedirectResponse(url="/login", status_code=302)
+
     index_path = TEMPLATES_DIR / "index.html"
     if not index_path.exists():
         return HTMLResponse("<h1>Career Learning Vault Web App is Initializing...</h1>", status_code=200)
