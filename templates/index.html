@@ -422,6 +422,18 @@
             </div>
           </div>
 
+          <div class="sidebar-item" data-view="compendium">
+            <div class="sidebar-indicator"></div>
+            <span class="text-base">📋</span>
+            <div class="flex-1 flex items-center justify-between">
+              <div>
+                <div class="leading-tight">Elite 450 DSA Compendium</div>
+                <div class="text-[10px] text-slate-400 font-normal">15 Domain Master Sheet</div>
+              </div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-mono font-bold">450 Qs</span>
+            </div>
+          </div>
+
           <div class="sidebar-item" data-view="library">
             <div class="sidebar-indicator"></div>
             <span class="text-base">📁</span>
@@ -1555,6 +1567,68 @@
           <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Complete Document Catalog</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5" id="library-cards">
             <!-- Populated dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW: ELITE 450 DSA COMPENDIUM                                     -->
+      <!-- =================================================================== -->
+      <section id="view-compendium" class="track-view space-y-6 hidden">
+        <!-- Sleek Hero Header -->
+        <div class="glass-panel px-5 py-4 relative overflow-hidden border border-purple-500/30 bg-gradient-to-r from-purple-500/10 via-slate-900/60 to-transparent flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
+          <div class="space-y-1 min-w-0">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-base md:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                <span>💎</span> <span>Elite 450 DSA Compendium</span>
+              </h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-300 text-[11px] font-bold font-mono">
+                447 Problem Master Sheet
+              </span>
+            </div>
+            <p class="text-xs text-slate-400">
+              The definitive 450-question interview mastery collection organized across 15 core algorithmic domains.
+            </p>
+          </div>
+          
+          <!-- Progress Stats Bar -->
+          <div class="flex items-center gap-3 bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex-shrink-0">
+            <div class="text-center px-2">
+              <div class="text-[10px] font-mono text-slate-400 uppercase">Solved</div>
+              <div class="text-lg font-black text-purple-300 font-mono" id="compendium-stat-solved">0 / 447</div>
+            </div>
+            <div class="w-24 space-y-1">
+              <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-purple-500 to-emerald-400 rounded-full transition-all duration-300" id="compendium-progress-bar" style="width: 0%"></div>
+              </div>
+              <div class="text-[10px] text-right font-mono text-emerald-400 font-bold" id="compendium-stat-percent">0%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="glass-panel p-3.5 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2 flex-wrap" id="compendium-difficulty-filters">
+            <span class="text-xs text-slate-400 font-semibold mr-1">Difficulty:</span>
+            <button onclick="App.filterCompendium('All')" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-500/20 border border-purple-500/40 text-purple-300 compendium-diff-btn active">All</button>
+            <button onclick="App.filterCompendium('Easy')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white compendium-diff-btn">Easy</button>
+            <button onclick="App.filterCompendium('Medium')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white compendium-diff-btn">Medium</button>
+            <button onclick="App.filterCompendium('Hard')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white compendium-diff-btn">Hard</button>
+          </div>
+          <div class="w-full sm:w-72">
+            <input 
+              type="text" 
+              id="compendium-search-input" 
+              placeholder="Search problem title or tag..." 
+              oninput="App.searchCompendium(this.value)"
+              class="w-full px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:border-purple-500/60 focus:outline-none">
+          </div>
+        </div>
+
+        <!-- 15 Topic Accordions Container -->
+        <div class="space-y-4" id="compendium-topics-container">
+          <div class="text-center py-12 text-slate-400 text-xs font-mono">
+            Loading Elite 450 DSA Compendium...
           </div>
         </div>
       </section>

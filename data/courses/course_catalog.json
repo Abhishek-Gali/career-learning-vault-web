@@ -184,6 +184,407 @@
               "duration": "1:12:43"
             }
           ]
+        },
+        {
+          "id": "hinton_neural_networks",
+          "title": "Neural Networks for Machine Learning — Geoffrey Hinton",
+          "institution": "University of Toronto / Google Brain (Geoffrey Hinton)",
+          "runtime": "12.7 Hours (78 Lectures)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "description": "Masterclass by Turing Laureate Geoffrey Hinton: backpropagation foundations, Hopfield nets, Boltzmann machines, RBMs, deep belief nets, recurrent nets, and capsule networks.",
+          "playlist_url": "https://www.youtube.com/playlist?list=PLoRl3Ht4JOcdU872GhiYWf6jwrk_SNhz9",
+          "videos": [
+            {
+              "id": "cbeTc-Urqak",
+              "title": "Lecture 1.1 — Why do we need machine learning  [Neural Networks for Machine Learning]",
+              "duration": "13:15"
+            },
+            {
+              "id": "0J5tM9bSbwA",
+              "title": "Lecture 1.2 — What are neural networks  [Neural Networks for Machine Learning]",
+              "duration": "8:31"
+            },
+            {
+              "id": "iKKfoP-naN8",
+              "title": "Lecture 1.3 — Some simple models of neurons  [Neural Networks for Machine Learning]",
+              "duration": "8:24"
+            },
+            {
+              "id": "RcgfwZ-FFBI",
+              "title": "Lecture 1.4 — A simple example of learning  [Neural Networks for Machine Learning]",
+              "duration": "5:39"
+            },
+            {
+              "id": "zKgRocke94k",
+              "title": "Lecture 1.5 — Three types of learning  [Neural Networks for Machine Learning]",
+              "duration": "7:38"
+            },
+            {
+              "id": "l0foB9mUrc4",
+              "title": "Lecture 2.1 — Types of neural network architectures  [Neural Networks for Machine Learning]",
+              "duration": "7:29"
+            },
+            {
+              "id": "YRMvQuutgS8",
+              "title": "Lecture 2.2 — Perceptrons: first-generation neural networks  [Neural Networks for Machine Learning]",
+              "duration": "8:17"
+            },
+            {
+              "id": "0T57_yjjB58",
+              "title": "Lecture 2.3 — A geometrical view of perceptrons  [Neural Networks for Machine Learning]",
+              "duration": "6:25"
+            },
+            {
+              "id": "d6nFTN081S8",
+              "title": "Lecture 2.4 — Why the learning works  [Neural Networks for Machine Learning]",
+              "duration": "5:10"
+            },
+            {
+              "id": "mI6jTc-8sUY",
+              "title": "Lecture 2.5 — What perceptrons can't do [Neural Networks for Machine Learning]",
+              "duration": "14:35"
+            },
+            {
+              "id": "Q0mTl9dQ4_I",
+              "title": "Lecture 3.1 — Learning the weights of a linear neuron  [Neural Networks for Machine Learning]",
+              "duration": "11:56"
+            },
+            {
+              "id": "tIovUOirJkE",
+              "title": "Lecture 3.2 — The error surface for a linear neuron  [Neural Networks for Machine Learning]",
+              "duration": "5:04"
+            },
+            {
+              "id": "Z8jzCvb62e8",
+              "title": "Lecture 3.3 — Learning weights of logistic output neuron [Neural Networks for Machine Learning]",
+              "duration": "3:57"
+            },
+            {
+              "id": "LOc_y67AzCA",
+              "title": "Lecture 3.4 — The backpropagation algorithm  [Neural Networks for Machine Learning]",
+              "duration": "11:52"
+            },
+            {
+              "id": "vlSI79ringA",
+              "title": "Lecture 3.5 — Using the derivatives from backpropagation  [Neural Networks for Machine Learning]",
+              "duration": "9:50"
+            },
+            {
+              "id": "ReUrmqStBd4",
+              "title": "Lecture 4.1 — Learning to predict the next word  [Neural Networks for Machine Learning]",
+              "duration": "12:34"
+            },
+            {
+              "id": "gzUhkCnE8_U",
+              "title": "Lecture 4.2 — A brief diversion into cognitive science  [Neural Networks for Machine Learning]",
+              "duration": "4:27"
+            },
+            {
+              "id": "mlaLLQofmR8",
+              "title": "Lecture 4.3 — The softmax output function  [Neural Networks for Machine Learning]",
+              "duration": "7:21"
+            },
+            {
+              "id": "_1zwTzpc50Q",
+              "title": "Lecture 4.4 — Neuro-probabilistic language models  [Neural Networks for Machine Learning]",
+              "duration": "7:53"
+            },
+            {
+              "id": "hd2opRsjmEI",
+              "title": "Lecture 4.5 — Dealing with many possible outputs  [Neural Networks for Machine Learning]",
+              "duration": "12:17"
+            },
+            {
+              "id": "Qx3i7VWYwhI",
+              "title": "Lecture 5.1 — Why object recognition is difficult  [Neural Networks for Machine Learning]",
+              "duration": "4:41"
+            },
+            {
+              "id": "SxD-YVxIygc",
+              "title": "Lecture 5.2 — Achieving viewpoint invariance  [Neural Networks for Machine Learning]",
+              "duration": "5:59"
+            },
+            {
+              "id": "UxY2pA_veBs",
+              "title": "Lecture 5.3 — Convolutional nets for digit recognition  [Neural Networks for Machine Learning]",
+              "duration": "16:02"
+            },
+            {
+              "id": "k4UEWXABWs4",
+              "title": "Lecture 5.4 — Convolutional nets for object recognition  [Neural Networks for Machine Learning]",
+              "duration": "17:45"
+            },
+            {
+              "id": "4BZBog1Zx6c",
+              "title": "Lecture 6.1 — Overview of mini batch gradient descent  [Neural Networks for Machine Learning]",
+              "duration": "8:23"
+            },
+            {
+              "id": "Xjtu1L7RwVM",
+              "title": "Lecture 6.2 — A bag of tricks for mini batch gradient descent [Neural Networks for Machine Learning]",
+              "duration": "13:16"
+            },
+            {
+              "id": "LdkkZglLZ0Q",
+              "title": "Lecture 6.3 — The momentum method  [Neural Networks for Machine Learning]",
+              "duration": "8:43"
+            },
+            {
+              "id": "GZG1hmWA-oA",
+              "title": "Lecture 6.4 — Adaptive learning rates for each connection  [Neural Networks for Machine Learning]",
+              "duration": "5:45"
+            },
+            {
+              "id": "defQQqkXEfE",
+              "title": "Lecture 6.5 — Rmsprop: normalize the gradient [Neural Networks for Machine Learning]",
+              "duration": "11:39"
+            },
+            {
+              "id": "enI1YMvCJ34",
+              "title": "Lecture 7.1 — Modeling sequences: a brief overview  [Neural Networks for Machine Learning]",
+              "duration": "17:24"
+            },
+            {
+              "id": "hTcm8AJjvfE",
+              "title": "Lecture 7.2 — Training RNNs with back propagation  [Neural Networks for Machine Learning]",
+              "duration": "6:24"
+            },
+            {
+              "id": "bVGdxHgxG34",
+              "title": "Lecture 7.3 — A toy example of training an RNN  [Neural Networks for Machine Learning]",
+              "duration": "6:15"
+            },
+            {
+              "id": "YZZye-AZCdQ",
+              "title": "Lecture 7.4 — Why it is difficult to train an RNN?  [Neural Networks for Machine Learning]",
+              "duration": "7:44"
+            },
+            {
+              "id": "93rzMHtYT_0",
+              "title": "Lecture 7.5 — Long term Short term memory [Neural Networks for Machine Learning]",
+              "duration": "9:16"
+            },
+            {
+              "id": "K2X0eBd-0lc",
+              "title": "Lecture 8.1 — A brief overview of Hessian-free optimization  [Neural Networks for Machine Learning]",
+              "duration": "14:25"
+            },
+            {
+              "id": "qhFF6-K-5kM",
+              "title": "Lecture 8.2 — Modeling character strings [Neural Networks for Machine Learning]",
+              "duration": "14:36"
+            },
+            {
+              "id": "bNcb4MhSZ0s",
+              "title": "Lecture 8.3 — Predicting the next character using HF  [Neural Networks for Machine Learning]",
+              "duration": "12:25"
+            },
+            {
+              "id": "vlRwUV_sGcs",
+              "title": "Lecture 8.4 — Echo State Networks  [Neural Networks for Machine Learning]",
+              "duration": "9:38"
+            },
+            {
+              "id": "W0SP8FTmGW0",
+              "title": "Lecture 9.1 — Overview of ways to improve generalization  [Neural Networks for Machine Learning]",
+              "duration": "11:45"
+            },
+            {
+              "id": "oUZrj0Jz4Bc",
+              "title": "Lecture 9.2 — Limiting the size of the weights  [Neural Networks for Machine Learning]",
+              "duration": "6:23"
+            },
+            {
+              "id": "LN0xtUuJsEI",
+              "title": "Lecture 9.3 — Using noise as a regularizer  [Neural Networks for Machine Learning]",
+              "duration": "7:32"
+            },
+            {
+              "id": "YcwZFNd3UvI",
+              "title": "Lecture 9.4 — Introduction to the full Bayesian approach  [Neural Networks for Machine Learning]",
+              "duration": "10:50"
+            },
+            {
+              "id": "vEPQNwxd1Y4",
+              "title": "Lecture 9.5 — The Bayesian interpretation of weight decay  [Neural Networks for Machine Learning]",
+              "duration": "10:53"
+            },
+            {
+              "id": "EJfqOAi_rj8",
+              "title": "Lecture 9.6 — MacKay 's quick and dirty method  [Neural Networks for Machine Learning]",
+              "duration": "3:32"
+            },
+            {
+              "id": "yIIFnTkvhrQ",
+              "title": "10.1 — Why it helps to combine models  [Neural Networks for Machine Learning]",
+              "duration": "13:11"
+            },
+            {
+              "id": "d_GVvIBlWtI",
+              "title": "Lecture 10.2 — Mixtures of Experts  [Neural Networks for Machine Learning]",
+              "duration": "13:16"
+            },
+            {
+              "id": "mAoSCUZQEMY",
+              "title": "Lecture 10.3 — The idea of full Bayesian learning  [Neural Networks for Machine Learning]",
+              "duration": "7:28"
+            },
+            {
+              "id": "OC6w_LZIyRo",
+              "title": "Lecture 10.4 — Making full Bayesian learning practical  [Neural Networks for Machine Learning]",
+              "duration": "6:45"
+            },
+            {
+              "id": "vAVOY8frLlQ",
+              "title": "Lecture 10.5 — Dropout  [Neural Networks for Machine Learning]",
+              "duration": "8:36"
+            },
+            {
+              "id": "DS6k0PhBjpI",
+              "title": "Lecture 11.1 — Hopfield Nets  [Neural Networks for Machine Learning]",
+              "duration": "13:02"
+            },
+            {
+              "id": "GgLNhHQ4ACY",
+              "title": "Lecture 11.2 — Dealing with spurious minima  [Neural Networks for Machine Learning]",
+              "duration": "11:03"
+            },
+            {
+              "id": "vVEju0zMCaA",
+              "title": "Lecture 11.3 — Hopfield nets with hidden units  [Neural Networks for Machine Learning]",
+              "duration": "9:40"
+            },
+            {
+              "id": "hmL9Kozwf7A",
+              "title": "Lecture 11.4 — Using stochastic units to improve search  [Neural Networks for Machine Learning]",
+              "duration": "10:25"
+            },
+            {
+              "id": "5jaBneYd5Ig",
+              "title": "Lecture 11.5 — How a Boltzmann machine models data  [Neural Networks for Machine Learning]",
+              "duration": "11:45"
+            },
+            {
+              "id": "MMBX--6_hA4",
+              "title": "Lecture 12.1 — Boltzmann machine learning  [Neural Networks for Machine Learning]",
+              "duration": "12:16"
+            },
+            {
+              "id": "ltv1KjVLCdE",
+              "title": "Lecture 12.2 — More efficient ways to get the statistics  [Neural Networks for Machine Learning]",
+              "duration": "14:49"
+            },
+            {
+              "id": "JvF3gninXi8",
+              "title": "Lecture 12.3 — Restricted Boltzmann Machines  [Neural Networks for Machine Learning]",
+              "duration": "10:55"
+            },
+            {
+              "id": "2gWEP6IewgM",
+              "title": "Lecture 12.4 — An example of RBM learning  [Neural Networks for Machine Learning]",
+              "duration": "7:15"
+            },
+            {
+              "id": "6xbPLDAoZ-U",
+              "title": "Lecture 12.5 — RBMs for collaborative filtering  [Neural Networks for Machine Learning]",
+              "duration": "8:17"
+            },
+            {
+              "id": "KSevMPjHgx4",
+              "title": "Lecture 13.1 — The ups and downs of backpropagation  [Neural Networks for Machine Learning]",
+              "duration": "9:54"
+            },
+            {
+              "id": "6yxJeySclIc",
+              "title": "Lecture 13.2 — Belief Nets  [Neural Networks for Machine Learning]",
+              "duration": "12:36"
+            },
+            {
+              "id": "VxfSqmxFl1c",
+              "title": "Lecture 13.3 — Learning sigmoid belief nets  [Neural Networks for Machine Learning]",
+              "duration": "11:26"
+            },
+            {
+              "id": "VKpc_z7b9I0",
+              "title": "Lecture 13.4 — The wake sleep algorithm  [Neural Networks for Machine Learning]",
+              "duration": "13:15"
+            },
+            {
+              "id": "cYAlxZI-VM8",
+              "title": "Lecture 14.1 — Learning layers of features by stacking RBMs  [Neural Networks for Machine Learning]",
+              "duration": "17:35"
+            },
+            {
+              "id": "0gX4BtLSqIY",
+              "title": "Lecture 14.2 — Discriminative learning for DBNs  [Neural Networks for Machine Learning]",
+              "duration": "9:41"
+            },
+            {
+              "id": "MJs9JHr8C-s",
+              "title": "Lecture 14.3 — Discriminative fine tuning  [Neural Networks for Machine Learning]",
+              "duration": "8:40"
+            },
+            {
+              "id": "XV7dYI9RLP4",
+              "title": "Lecture 14.4 — Modeling real valued data with an RBM  [Neural Networks for Machine Learning]",
+              "duration": "9:57"
+            },
+            {
+              "id": "evnofrn-QHo",
+              "title": "Lecture 14.5 — RBMs are infinite sigmoid belief nets  [Neural Networks for Machine Learning]",
+              "duration": "17:12"
+            },
+            {
+              "id": "hbU7nbVDzGE",
+              "title": "Lecture 15.1 — From PCA to autoencoders  [Neural Networks for Machine Learning]",
+              "duration": "7:58"
+            },
+            {
+              "id": "_Ex1Ur85AVs",
+              "title": "Lecture 15.2 — Deep autoencoders  [Neural Networks for Machine Learning]",
+              "duration": "4:11"
+            },
+            {
+              "id": "ARQ6PZh8vgE",
+              "title": "Lecture 15.3 — Deep autoencoders for document retrieval  [Neural Networks for Machine Learning]",
+              "duration": "8:19"
+            },
+            {
+              "id": "swjncYpcLsk",
+              "title": "Lecture 15.4 — Semantic Hashing  [Neural Networks for Machine Learning]",
+              "duration": "8:51"
+            },
+            {
+              "id": "MSYmyJgYOnU",
+              "title": "Lecture 15.5 — Learning binary codes for image retrieval  [Neural Networks for Machine Learning]",
+              "duration": "9:38"
+            },
+            {
+              "id": "e_n2hht9Yc8",
+              "title": "Lecture 15.6 — Shallow autoencoders for pre-training  [Neural Networks for Machine Learning]",
+              "duration": "7:03"
+            },
+            {
+              "id": "I8vlnVa721w",
+              "title": "Lecture 16.1 — Learning a joint model of images and captions  [Neural Networks for Machine Learning]",
+              "duration": "9:05"
+            },
+            {
+              "id": "z0qPxIf4l9I",
+              "title": "Lecture 16.2 — Hierarchical Coordinate Frames  [Neural Networks for Machine Learning]",
+              "duration": "9:41"
+            },
+            {
+              "id": "con_ONbhD2I",
+              "title": "Lecture 16.3 — Bayesian optimization of hyper-parameters  [Neural Networks for Machine Learning]",
+              "duration": "13:30"
+            },
+            {
+              "id": "IXJhAL6FEj0",
+              "title": "Lecture 16.4 — The fog of progress  [Neural Networks for Machine Learning]",
+              "duration": "2:25"
+            }
+          ]
         }
       ],
       "languages": {
@@ -225,6 +626,1325 @@
                   "id": "yZ0r6H-0Y60",
                   "title": "MIT 6.S191: Reinforcement Learning (Lecture 5)",
                   "duration": "44:50"
+                }
+              ]
+            },
+            {
+              "id": "sentdex_practical_ml",
+              "title": "Practical Machine Learning with Python — Sentdex",
+              "institution": "Harrison Kinsley (Sentdex)",
+              "runtime": "18.8 Hours (72 Lectures)",
+              "badge": "💻 APPLIED PYTHON ML",
+              "description": "Hands-on Python implementations from scratch and via Scikit-Learn: K-Nearest Neighbors, SVMs, Flat & Hierarchical Clustering, K-Means, Decision Trees, and Neural Networks.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLQVvvaa0QuDfKTOs3Keq_kaG2P55YRn5v",
+              "videos": [
+                {
+                  "id": "OGxgnH8y2NM",
+                  "title": "Practical Machine Learning Tutorial with Python Intro p.1",
+                  "duration": "5:55"
+                },
+                {
+                  "id": "JcI5Vnw0b2c",
+                  "title": "Regression Intro - Practical Machine Learning Tutorial with Python p.2",
+                  "duration": "10:58"
+                },
+                {
+                  "id": "lN5jesocJjk",
+                  "title": "Regression Features and Labels - Practical Machine Learning Tutorial with Python p.3",
+                  "duration": "10:17"
+                },
+                {
+                  "id": "r4mwkS2T9aI",
+                  "title": "Regression Training and Testing - Practical Machine Learning Tutorial with Python p.4",
+                  "duration": "16:26"
+                },
+                {
+                  "id": "QLVMqwpOLPk",
+                  "title": "Regression forecasting and predicting - Practical Machine Learning Tutorial with Python p.5",
+                  "duration": "14:28"
+                },
+                {
+                  "id": "za5s7RB_VLw",
+                  "title": "Pickling and Scaling - Practical Machine Learning Tutorial with Python p.6",
+                  "duration": "6:25"
+                },
+                {
+                  "id": "V59bYfIomVk",
+                  "title": "Regression How it Works - Practical Machine Learning Tutorial with Python p.7",
+                  "duration": "7:57"
+                },
+                {
+                  "id": "SvmueyhSkgQ",
+                  "title": "How to program the Best Fit Slope - Practical Machine Learning Tutorial with Python p.8",
+                  "duration": "11:44"
+                },
+                {
+                  "id": "KLGfMGsgP34",
+                  "title": "How to program the Best Fit Line - Practical Machine Learning Tutorial with Python p.9",
+                  "duration": "7:35"
+                },
+                {
+                  "id": "-fgYp74SNtk",
+                  "title": "R Squared Theory - Practical Machine Learning Tutorial with Python p.10",
+                  "duration": "8:36"
+                },
+                {
+                  "id": "QUyAFokOmow",
+                  "title": "Programming R Squared - Practical Machine Learning Tutorial with Python p.11",
+                  "duration": "7:01"
+                },
+                {
+                  "id": "Kpxwl2u-Wgk",
+                  "title": "Testing Assumptions - Practical Machine Learning Tutorial with Python p.12",
+                  "duration": "20:33"
+                },
+                {
+                  "id": "44jq6ano5n0",
+                  "title": "Classification w/ K Nearest Neighbors Intro - Practical Machine Learning Tutorial with Python p.13",
+                  "duration": "11:11"
+                },
+                {
+                  "id": "1i0zu9jHN6U",
+                  "title": "K Nearest Neighbors Application - Practical Machine Learning Tutorial with Python p.14",
+                  "duration": "21:41"
+                },
+                {
+                  "id": "hl3bQySs8sM",
+                  "title": "Euclidean Distance - Practical Machine Learning Tutorial with Python p.15",
+                  "duration": "6:53"
+                },
+                {
+                  "id": "n3RqsMz3-0A",
+                  "title": "Creating Our K Nearest Neighbors Algorithm - Practical Machine Learning with Python p.16",
+                  "duration": "9:15"
+                },
+                {
+                  "id": "GWHG3cS2PKc",
+                  "title": "Writing our own K Nearest Neighbors in Code - Practical Machine Learning Tutorial with Python p.17",
+                  "duration": "10:17"
+                },
+                {
+                  "id": "3XPhmnf96s0",
+                  "title": "Applying our K Nearest Neighbors Algorithm - Practical Machine Learning Tutorial with Python p.18",
+                  "duration": "13:17"
+                },
+                {
+                  "id": "r_D5TTV9-2c",
+                  "title": "Final thoughts on K Nearest Neighbors - Practical Machine Learning Tutorial with Python p.19",
+                  "duration": "14:37"
+                },
+                {
+                  "id": "mA5nwGoRAOo",
+                  "title": "Support Vector Machine Intro and Application  - Practical Machine Learning Tutorial with Python p.20",
+                  "duration": "8:31"
+                },
+                {
+                  "id": "HHUqhVzctQE",
+                  "title": "Understanding Vectors - Practical Machine Learning Tutorial with Python p.21",
+                  "duration": "6:07"
+                },
+                {
+                  "id": "VngCRWPrNNc",
+                  "title": "Support Vector Assertion - Practical Machine Learning Tutorial with Python p.22",
+                  "duration": "10:07"
+                },
+                {
+                  "id": "ZDu3LKv9gOI",
+                  "title": "Support Vector Machine Fundamentals - Practical Machine Learning Tutorial with Python p.23",
+                  "duration": "15:35"
+                },
+                {
+                  "id": "bGCafQT5h1s",
+                  "title": "Support Vector Machine Optimization - Practical Machine Learning Tutorial with Python p.24",
+                  "duration": "28:20"
+                },
+                {
+                  "id": "AbVtcUBlBok",
+                  "title": "Creating an SVM from scratch - Practical Machine Learning Tutorial with Python p.25",
+                  "duration": "10:16"
+                },
+                {
+                  "id": "QAs2olt7pJ4",
+                  "title": "SVM Training - Practical Machine Learning Tutorial with Python p.26",
+                  "duration": "14:23"
+                },
+                {
+                  "id": "VhHLpg7ZS4Q",
+                  "title": "SVM Optimization - Practical Machine Learning Tutorial with Python p.27",
+                  "duration": "17:37"
+                },
+                {
+                  "id": "yrnhziJk-z8",
+                  "title": "Completing SVM from Scratch - Practical Machine Learning Tutorial with Python p.28",
+                  "duration": "28:50"
+                },
+                {
+                  "id": "9IfT8KXX_9c",
+                  "title": "Kernels Introduction - Practical Machine Learning Tutorial with Python p.29",
+                  "duration": "15:22"
+                },
+                {
+                  "id": "xqg5S-GrrDQ",
+                  "title": "Why Kernels - Practical Machine Learning Tutorial with Python p.30",
+                  "duration": "21:19"
+                },
+                {
+                  "id": "JHaqodAQqiI",
+                  "title": "Soft Margin SVM - Practical Machine Learning Tutorial with Python p.31",
+                  "duration": "18:22"
+                },
+                {
+                  "id": "XdcfJX-mDG4",
+                  "title": "Soft Margin SVM and Kernels with CVXOPT - Practical Machine Learning Tutorial with Python p.32",
+                  "duration": "11:11"
+                },
+                {
+                  "id": "93AjE1YY5II",
+                  "title": "SVM Parameters - Practical Machine Learning Tutorial with Python p.33",
+                  "duration": "17:28"
+                },
+                {
+                  "id": "ZueoXMgCd1c",
+                  "title": "Clustering Introduction - Practical Machine Learning Tutorial with Python p.34",
+                  "duration": "20:15"
+                },
+                {
+                  "id": "8p6XaQSIFpY",
+                  "title": "Handling Non-Numeric Data - Practical Machine Learning Tutorial with Python p.35",
+                  "duration": "16:50"
+                },
+                {
+                  "id": "j6jstahQp2A",
+                  "title": "K Means with Titanic Dataset - Practical Machine Learning Tutorial with Python p.36",
+                  "duration": "17:09"
+                },
+                {
+                  "id": "H4JSN_99kig",
+                  "title": "Custom K Means - Practical Machine Learning Tutorial with Python p.37",
+                  "duration": "14:09"
+                },
+                {
+                  "id": "HRoeYblYhkg",
+                  "title": "K Means from Scratch - Practical Machine Learning Tutorial with Python p.38",
+                  "duration": "14:59"
+                },
+                {
+                  "id": "3ERPpzrDkVg",
+                  "title": "Mean Shift Intro - Practical Machine Learning Tutorial with Python p.39",
+                  "duration": "11:42"
+                },
+                {
+                  "id": "TO8I-nggpzs",
+                  "title": "Mean Shift with Titanic Dataset - Practical Machine Learning Tutorial with Python p.40",
+                  "duration": "22:48"
+                },
+                {
+                  "id": "P-iAd8b7zl4",
+                  "title": "Mean Shift from Scratch - Practical Machine Learning Tutorial with Python p.41",
+                  "duration": "17:27"
+                },
+                {
+                  "id": "k1alPDpSGBE",
+                  "title": "Mean Shift Dynamic Bandwidth - Practical Machine Learning Tutorial with Python p.42",
+                  "duration": "29:22"
+                },
+                {
+                  "id": "oYbVFhK_olY",
+                  "title": "Deep Learning with Neural Networks and TensorFlow Introduction",
+                  "duration": "22:33"
+                },
+                {
+                  "id": "CvspEt8kSIg",
+                  "title": "Installing TensorFlow (OPTIONAL) - Deep Learning with Neural Networks and TensorFlow p2.1",
+                  "duration": "27:46"
+                },
+                {
+                  "id": "pnSBZ6TEVjY",
+                  "title": "TensorFlow Basics - Deep Learning with Neural Networks p. 2",
+                  "duration": "15:50"
+                },
+                {
+                  "id": "BhpvH5DuVu8",
+                  "title": "Neural Network Model - Deep Learning with Neural Networks and TensorFlow",
+                  "duration": "32:51"
+                },
+                {
+                  "id": "PwAGxqrXSCs",
+                  "title": "Running our Network  - Deep Learning with Neural Networks and TensorFlow",
+                  "duration": "25:15"
+                },
+                {
+                  "id": "7fcWfUavO7E",
+                  "title": "Processing our own Data - Deep Learning with Neural Networks and TensorFlow part 5",
+                  "duration": "13:02"
+                },
+                {
+                  "id": "YFxVHD2TNII",
+                  "title": "Preprocessing cont'd - Deep Learning with Neural Networks and TensorFlow part 6",
+                  "duration": "22:49"
+                },
+                {
+                  "id": "6rDWwL6irG0",
+                  "title": "Training/Testing on our Data - Deep Learning with Neural Networks and TensorFlow part 7",
+                  "duration": "12:22"
+                },
+                {
+                  "id": "JeamFbHhmDo",
+                  "title": "Using More Data - Deep Learning with Neural Networks and TensorFlow part 8",
+                  "duration": "25:13"
+                },
+                {
+                  "id": "io6Ajf5XkaM",
+                  "title": "Installing the GPU version of TensorFlow for making use of your CUDA GPU",
+                  "duration": "15:54"
+                },
+                {
+                  "id": "r7-WPbx8VuY",
+                  "title": "Installing CPU and GPU TensorFlow on Windows",
+                  "duration": "18:16"
+                },
+                {
+                  "id": "hWgGJeAvLws",
+                  "title": "Recurrent Neural Networks (RNN) - Deep Learning with Neural Networks and TensorFlow 10",
+                  "duration": "12:38"
+                },
+                {
+                  "id": "dFARw8Pm0Gk",
+                  "title": "RNN Example in Tensorflow - Deep Learning with Neural Networks 11",
+                  "duration": "14:20"
+                },
+                {
+                  "id": "7Wq-QmMT4gM",
+                  "title": "Convolutional Neural Networks Basics - Deep Learning withTensorFlow 12",
+                  "duration": "9:11"
+                },
+                {
+                  "id": "mynJtLhhcXk",
+                  "title": "Convolutional Neural Networks with TensorFlow - Deep Learning with Neural Networks 13",
+                  "duration": "25:07"
+                },
+                {
+                  "id": "NMd7WjZiCzc",
+                  "title": "TFLearn - Deep Learning with Neural Networks and TensorFlow p. 14",
+                  "duration": "27:42"
+                },
+                {
+                  "id": "3zeg7H6cAJw",
+                  "title": "Intro - Training a neural network to play a game with TensorFlow and Open AI",
+                  "duration": "12:32"
+                },
+                {
+                  "id": "RVt4EN-XdPA",
+                  "title": "Training Data - Training a neural network to play a game with TensorFlow and Open AI p.2",
+                  "duration": "12:07"
+                },
+                {
+                  "id": "G-KvpNGudLw",
+                  "title": "Training Model - Training a neural network to play a game with TensorFlow and Open AI p.3",
+                  "duration": "14:38"
+                },
+                {
+                  "id": "HCBX2cuA5UU",
+                  "title": "Testing Network - Training a neural network to play a game with TensorFlow and Open AI p.4",
+                  "duration": "16:16"
+                },
+                {
+                  "id": "gT4F3HGYXf4",
+                  "title": "Intro and preprocessing - Using Convolutional Neural Network to Identify Dogs vs Cats p. 1",
+                  "duration": "12:51"
+                },
+                {
+                  "id": "Ge65ukmJTzQ",
+                  "title": "Building the Network - Using Convolutional Neural Network to Identify Dogs vs Cats p. 2",
+                  "duration": "9:05"
+                },
+                {
+                  "id": "ViO56ASqeks",
+                  "title": "Training - Using Convolutional Neural Network to Identify Dogs vs Cats p. 3",
+                  "duration": "19:02"
+                },
+                {
+                  "id": "27FPv1VHSsQ",
+                  "title": "Using our Network - Using Convolutional Neural Network to Identify Dogs vs Cats p. 4",
+                  "duration": "10:51"
+                },
+                {
+                  "id": "ulq9DjCJPDU",
+                  "title": "Introduction - 3D Convolutional Neural Network w/ Kaggle Lung Cancer Detection Competiton p.1",
+                  "duration": "11:35"
+                },
+                {
+                  "id": "KlffppN47lc",
+                  "title": "Reading Files - 3D Convolutional Neural Network w/ Kaggle and 3D medical imaging p.2",
+                  "duration": "20:55"
+                },
+                {
+                  "id": "MqcZYw8Tgpc",
+                  "title": "Visualizing - 3D Convolutional Neural Network w/ Kaggle and 3D medical imaging p.3",
+                  "duration": "9:42"
+                },
+                {
+                  "id": "lqhMTkouBx0",
+                  "title": "Resizing Data - 3D Convolutional Neural Network w/ Kaggle and 3D medical imaging p.4",
+                  "duration": "13:35"
+                },
+                {
+                  "id": "_DAeMDMHgtY",
+                  "title": "Preprocessing data - 3D Convolutional Neural Network w/ Kaggle and 3D medical imaging p.5",
+                  "duration": "10:55"
+                },
+                {
+                  "id": "CPZ5ihaNfJc",
+                  "title": "Running the Network - 3D Convolutional Neural Network w/ Kaggle and 3D medical imaging p.6",
+                  "duration": "29:22"
+                }
+              ]
+            },
+            {
+              "id": "math_monk_ml",
+              "title": "Machine Learning Theory — Mathematical Monk",
+              "institution": "Mathematical Monk",
+              "runtime": "35.2 Hours (160 Lectures)",
+              "badge": "📐 STATISTICAL LEARNING THEORY",
+              "description": "Deep mathematical derivations of ML algorithms: Bayesian inference, Gaussian processes, Dirichlet processes, Gibbs sampling, MCMC, Hidden Markov Models, and EM algorithms.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLD0F06AA0D2E8FFBA",
+              "videos": [
+                {
+                  "id": "yDLKJtOVx5c",
+                  "title": "(ML 1.1) Machine learning - overview and applications",
+                  "duration": "8:56"
+                },
+                {
+                  "id": "WpxK__SK2a0",
+                  "title": "(ML 1.2) What is supervised learning?",
+                  "duration": "10:26"
+                },
+                {
+                  "id": "lANt56UOaSk",
+                  "title": "(ML 1.3) What is unsupervised learning?",
+                  "duration": "8:58"
+                },
+                {
+                  "id": "pytUuJPOnVI",
+                  "title": "(ML 1.4) Variations on supervised and unsupervised",
+                  "duration": "12:43"
+                },
+                {
+                  "id": "oTtow2Ui8vg",
+                  "title": "(ML 1.5) Generative vs discriminative models",
+                  "duration": "11:00"
+                },
+                {
+                  "id": "4ObVzTuFivY",
+                  "title": "(ML 1.6) k-Nearest Neighbor classification algorithm",
+                  "duration": "14:19"
+                },
+                {
+                  "id": "p17C9q2M00Q",
+                  "title": "(ML 2.1) Classification trees (CART)",
+                  "duration": "10:16"
+                },
+                {
+                  "id": "zvUOpbgtW3c",
+                  "title": "(ML 2.2) Regression trees (CART)",
+                  "duration": "9:47"
+                },
+                {
+                  "id": "_RxqyvRK0Rw",
+                  "title": "(ML 2.3) Growing a regression tree (CART)",
+                  "duration": "13:44"
+                },
+                {
+                  "id": "S51plSJBC2g",
+                  "title": "(ML 2.4) Growing a classification tree (CART)",
+                  "duration": "14:06"
+                },
+                {
+                  "id": "UMtBWQ2m04g",
+                  "title": "(ML 2.5) Generalizations for trees (CART)",
+                  "duration": "13:20"
+                },
+                {
+                  "id": "5Lu1eTiX7qM",
+                  "title": "(ML 2.6) Bootstrap aggregation (Bagging)",
+                  "duration": "14:57"
+                },
+                {
+                  "id": "JM4Y0B6Ho90",
+                  "title": "(ML 2.7) Bagging for classification",
+                  "duration": "14:56"
+                },
+                {
+                  "id": "o7iDkcpOr_g",
+                  "title": "(ML 2.8) Random forests",
+                  "duration": "9:01"
+                },
+                {
+                  "id": "KYRAO8f5rXA",
+                  "title": "(ML 3.1) Decision theory (Basic Framework)",
+                  "duration": "10:55"
+                },
+                {
+                  "id": "NC_cTB1PHyQ",
+                  "title": "(ML 3.2) Minimizing conditional expected loss",
+                  "duration": "11:18"
+                },
+                {
+                  "id": "--nMFiqwoZA",
+                  "title": "(ML 3.3) Choosing f to minimize expected loss",
+                  "duration": "13:49"
+                },
+                {
+                  "id": "AihhnWyl-J0",
+                  "title": "(ML 3.4) Square loss",
+                  "duration": "11:44"
+                },
+                {
+                  "id": "frbX2JH-_Aw",
+                  "title": "(ML 3.5) The Big Picture (part 1)",
+                  "duration": "12:25"
+                },
+                {
+                  "id": "Ih4R42qPRWo",
+                  "title": "(ML 3.6) The Big Picture (part 2)",
+                  "duration": "9:58"
+                },
+                {
+                  "id": "VP3DxMxXw3Q",
+                  "title": "(ML 3.7) The Big Picture (part 3)",
+                  "duration": "10:54"
+                },
+                {
+                  "id": "aHwsEXCk4HA",
+                  "title": "(ML 4.1) Maximum Likelihood Estimation (MLE) (part 1)",
+                  "duration": "14:47"
+                },
+                {
+                  "id": "2vkm5ZIRsJU",
+                  "title": "(ML 4.2) Maximum Likelihood Estimation (MLE) (part 2)",
+                  "duration": "6:56"
+                },
+                {
+                  "id": "XtUNwVrWnPM",
+                  "title": "(ML 4.3) MLE for univariate Gaussian mean",
+                  "duration": "14:31"
+                },
+                {
+                  "id": "Ux77m6ujZCc",
+                  "title": "(ML 4.4) MLE for a PMF on a finite set (part 1)",
+                  "duration": "13:22"
+                },
+                {
+                  "id": "Ynn-m1eb5iU",
+                  "title": "(ML 4.5) MLE for a PMF on a finite set (part 2)",
+                  "duration": "11:14"
+                },
+                {
+                  "id": "_aNk4QKi2_o",
+                  "title": "(ML 5.1) Exponential families (part 1)",
+                  "duration": "14:52"
+                },
+                {
+                  "id": "Jc-gVN8tQC8",
+                  "title": "(ML 5.2) Exponential families (part 2)",
+                  "duration": "13:35"
+                },
+                {
+                  "id": "LcbwmT1OAKo",
+                  "title": "(ML 5.3) MLE for an exponential family (part 1)",
+                  "duration": "14:55"
+                },
+                {
+                  "id": "7EyKEtN-PJA",
+                  "title": "(ML 5.4) MLE for an exponential family (part 2)",
+                  "duration": "14:42"
+                },
+                {
+                  "id": "kkhdIriddSI",
+                  "title": "(ML 6.1) Maximum a posteriori (MAP) estimation",
+                  "duration": "13:31"
+                },
+                {
+                  "id": "KogqeZ_88-g",
+                  "title": "(ML 6.2) MAP for univariate Gaussian mean",
+                  "duration": "14:54"
+                },
+                {
+                  "id": "SFQK57G5VF8",
+                  "title": "(ML 6.3) Interpretation of MAP as convex combination",
+                  "duration": "5:54"
+                },
+                {
+                  "id": "0LQmZXCWMFI",
+                  "title": "(ML 7.1) Bayesian inference - A simple example",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "hMerhyG1JFs",
+                  "title": "(ML 7.2) Aspects of Bayesian inference",
+                  "duration": "14:37"
+                },
+                {
+                  "id": "VBOt7EoPL9M",
+                  "title": "(ML 7.3) Proportionality",
+                  "duration": "5:09"
+                },
+                {
+                  "id": "zXNB2vzKKIQ",
+                  "title": "(ML 7.4) Conjugate priors",
+                  "duration": "4:59"
+                },
+                {
+                  "id": "qpNAXnmy0GU",
+                  "title": "(ML 7.5) Beta-Bernoulli model (part 1)",
+                  "duration": "14:26"
+                },
+                {
+                  "id": "Rk6wMLuiNqI",
+                  "title": "(ML 7.6) Beta-Bernoulli model (part 2)",
+                  "duration": "13:07"
+                },
+                {
+                  "id": "nfBNOWv1pgE",
+                  "title": "(ML 7.7.A1) Dirichlet distribution",
+                  "duration": "14:32"
+                },
+                {
+                  "id": "emnfq4txDuI",
+                  "title": "(ML 7.7.A2) Expectation of a Dirichlet random variable",
+                  "duration": "9:28"
+                },
+                {
+                  "id": "UDVNyAp3T38",
+                  "title": "(ML 7.7) Dirichlet-Categorical model (part 1)",
+                  "duration": "14:54"
+                },
+                {
+                  "id": "igyptP5KMew",
+                  "title": "(ML 7.8) Dirichlet-Categorical model (part 2)",
+                  "duration": "6:38"
+                },
+                {
+                  "id": "SD-b50m1Zqo",
+                  "title": "(ML 7.9) Posterior distribution for univariate Gaussian (part 1)",
+                  "duration": "14:26"
+                },
+                {
+                  "id": "4aZrH1NoQ8o",
+                  "title": "(ML 7.10) Posterior distribution for univariate Gaussian (part 2)",
+                  "duration": "14:51"
+                },
+                {
+                  "id": "8yvBqhm92xA",
+                  "title": "(ML 8.1) Naive Bayes classification",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "qX7n53NWYI4",
+                  "title": "(ML 8.2) More about Naive Bayes",
+                  "duration": "14:43"
+                },
+                {
+                  "id": "CW9YGii1nSA",
+                  "title": "(ML 8.3) Bayesian Naive Bayes (part 1)",
+                  "duration": "14:11"
+                },
+                {
+                  "id": "p96ojC75p5M",
+                  "title": "(ML 8.4) Bayesian Naive Bayes (part 2)",
+                  "duration": "14:46"
+                },
+                {
+                  "id": "LEFt2WzBUD4",
+                  "title": "(ML 8.5) Bayesian Naive Bayes (part 3)",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "dBUeoruhYTk",
+                  "title": "(ML 8.6) Bayesian Naive Bayes (part 4)",
+                  "duration": "12:05"
+                },
+                {
+                  "id": "rVviNyIR-fI",
+                  "title": "(ML 9.1) Linear regression - Nonlinearity via basis functions",
+                  "duration": "14:56"
+                },
+                {
+                  "id": "kdAGH6mtNAM",
+                  "title": "(ML 9.2) Linear regression - Definition & Motivation",
+                  "duration": "14:56"
+                },
+                {
+                  "id": "15rYk2izYlY",
+                  "title": "(ML 9.3) Choosing f under linear regression",
+                  "duration": "14:25"
+                },
+                {
+                  "id": "ulZW99jsMXY",
+                  "title": "(ML 9.4) MLE for linear regression (part 1)",
+                  "duration": "14:25"
+                },
+                {
+                  "id": "n5QZL1B8FaE",
+                  "title": "(ML 9.5) MLE for linear regression (part 2)",
+                  "duration": "14:32"
+                },
+                {
+                  "id": "3djOlw_iVbg",
+                  "title": "(ML 9.6) MLE for linear regression (part 3)",
+                  "duration": "14:52"
+                },
+                {
+                  "id": "HJSNb4GyiE8",
+                  "title": "(ML 9.7) Basis functions MLE",
+                  "duration": "6:08"
+                },
+                {
+                  "id": "dtkGq9tdYcI",
+                  "title": "(ML 10.1) Bayesian Linear Regression",
+                  "duration": "11:45"
+                },
+                {
+                  "id": "nrd4AnDLR3U",
+                  "title": "(ML 10.2) Posterior for linear regression (part 1)",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "qz2U8coNwV4",
+                  "title": "(ML 10.3) Posterior for linear regression (part 2)",
+                  "duration": "14:55"
+                },
+                {
+                  "id": "xyuSiKXttxw",
+                  "title": "(ML 10.4) Predictive distribution for linear regression (part 1)",
+                  "duration": "14:55"
+                },
+                {
+                  "id": "vTcsacTqlfQ",
+                  "title": "(ML 10.5) Predictive distribution for linear regression (part 2)",
+                  "duration": "14:52"
+                },
+                {
+                  "id": "LCISTY9S6SQ",
+                  "title": "(ML 10.6) Predictive distribution for linear regression (part 3)",
+                  "duration": "14:41"
+                },
+                {
+                  "id": "g5BjTQghNf8",
+                  "title": "(ML 10.7) Predictive distribution for linear regression (part 4)",
+                  "duration": "13:49"
+                },
+                {
+                  "id": "6GhSiM0frIk",
+                  "title": "(ML 11.1) Estimators",
+                  "duration": "12:33"
+                },
+                {
+                  "id": "5SPm4TmYTX0",
+                  "title": "(ML 11.2) Decision theory terminology in different contexts",
+                  "duration": "11:17"
+                },
+                {
+                  "id": "b1GxZdFN6cY",
+                  "title": "(ML 11.3) Frequentist risk, Bayesian expected loss, and Bayes risk",
+                  "duration": "14:05"
+                },
+                {
+                  "id": "WdnP1gmb8Hw",
+                  "title": "(ML 11.4) Choosing a decision rule - Bayesian and frequentist",
+                  "duration": "10:06"
+                },
+                {
+                  "id": "C3nIFH649wY",
+                  "title": "(ML 11.5) Bias-Variance decomposition",
+                  "duration": "13:34"
+                },
+                {
+                  "id": "Ow7xMTF2BfQ",
+                  "title": "(ML 11.6) Inadmissibility",
+                  "duration": "12:30"
+                },
+                {
+                  "id": "6-3x_b6Im9M",
+                  "title": "(ML 11.7) A fun exercise on inadmissibility",
+                  "duration": "5:05"
+                },
+                {
+                  "id": "y9lueF5-nEg",
+                  "title": "(ML 11.8) Bayesian decision theory",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "rW0B8o7JtFk",
+                  "title": "(ML 12.1) Model selection - introduction and examples",
+                  "duration": "14:23"
+                },
+                {
+                  "id": "W0NLs-A6hhQ",
+                  "title": "(ML 12.2) Bias-variance in model selection",
+                  "duration": "12:35"
+                },
+                {
+                  "id": "cK08YC5aj3U",
+                  "title": "(ML 12.3) Model complexity parameters",
+                  "duration": "4:47"
+                },
+                {
+                  "id": "1CFof6hU3cI",
+                  "title": "(ML 12.4) Bayesian model selection",
+                  "duration": "13:17"
+                },
+                {
+                  "id": "m5StqDv-YlM",
+                  "title": "(ML 12.5) Cross-validation (part 1)",
+                  "duration": "14:29"
+                },
+                {
+                  "id": "OcJwdF8zBjM",
+                  "title": "(ML 12.6) Cross-validation (part 2)",
+                  "duration": "14:12"
+                },
+                {
+                  "id": "mvbBycl8BNM",
+                  "title": "(ML 12.7) Cross-validation (part 3)",
+                  "duration": "14:40"
+                },
+                {
+                  "id": "jkhyJ9R_UTY",
+                  "title": "(ML 12.8) Other approaches to model selection",
+                  "duration": "7:36"
+                },
+                {
+                  "id": "3XysEf3IQN4",
+                  "title": "(ML 13.1) Directed graphical models - introductory examples (part 1)",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "A7Ypw5d9580",
+                  "title": "(ML 13.2) Directed graphical models - introductory examples (part 2)",
+                  "duration": "7:23"
+                },
+                {
+                  "id": "do8_7bW__3k",
+                  "title": "(ML 13.3) Directed graphical models - formalism (part 1)",
+                  "duration": "14:50"
+                },
+                {
+                  "id": "GDQYVbu1CDw",
+                  "title": "(ML 13.4) Directed graphical models - formalism (part 2)",
+                  "duration": "12:24"
+                },
+                {
+                  "id": "2jB5x_q3oX0",
+                  "title": "(ML 13.5) Generative process specification",
+                  "duration": "10:59"
+                },
+                {
+                  "id": "X2sjH7tGI4s",
+                  "title": "(ML 13.6) Graphical model for Bayesian linear regression",
+                  "duration": "14:46"
+                },
+                {
+                  "id": "w6siVHrf2Ho",
+                  "title": "(ML 13.7) Graphical model for Bayesian Naive Bayes",
+                  "duration": "14:46"
+                },
+                {
+                  "id": "2RQQTEy1ugs",
+                  "title": "(ML 13.8) Conditional independence in graphical models - basic examples (part 1)",
+                  "duration": "14:13"
+                },
+                {
+                  "id": "_3kZBBS2_dQ",
+                  "title": "(ML 13.9) Conditional independence in graphical models - basic examples (part 2)",
+                  "duration": "14:25"
+                },
+                {
+                  "id": "IjoWqnH6HmU",
+                  "title": "(ML 13.10) D-separation (part 1)",
+                  "duration": "13:39"
+                },
+                {
+                  "id": "zJIK5uOyJi0",
+                  "title": "(ML 13.11) D-separation (part 2)",
+                  "duration": "9:25"
+                },
+                {
+                  "id": "aA-gTNxy1rw",
+                  "title": "(ML 13.12) How to use D-separation - illustrative examples (part 1)",
+                  "duration": "14:31"
+                },
+                {
+                  "id": "8PfJHrydxV0",
+                  "title": "(ML 13.13) How to use D-separation - illustrative examples (part 2)",
+                  "duration": "13:36"
+                },
+                {
+                  "id": "7KGdE2AK_MQ",
+                  "title": "(ML 14.1) Markov models - motivating examples",
+                  "duration": "13:29"
+                },
+                {
+                  "id": "WUjt98HcHlk",
+                  "title": "(ML 14.2) Markov chains (discrete-time) (part 1)",
+                  "duration": "14:43"
+                },
+                {
+                  "id": "j6OUj9tleVM",
+                  "title": "(ML 14.3) Markov chains (discrete-time) (part 2)",
+                  "duration": "8:06"
+                },
+                {
+                  "id": "TPRoLreU9lA",
+                  "title": "(ML 14.4) Hidden Markov models (HMMs) (part 1)",
+                  "duration": "14:30"
+                },
+                {
+                  "id": "M_IIW0VYMEA",
+                  "title": "(ML 14.5) Hidden Markov models (HMMs) (part 2)",
+                  "duration": "12:35"
+                },
+                {
+                  "id": "7zDARfKVm7s",
+                  "title": "(ML 14.6) Forward-Backward algorithm for HMMs",
+                  "duration": "14:56"
+                },
+                {
+                  "id": "M7afek1nEKM",
+                  "title": "(ML 14.7) Forward algorithm (part 1)",
+                  "duration": "14:51"
+                },
+                {
+                  "id": "MPmrFu4jFk4",
+                  "title": "(ML 14.8) Forward algorithm (part 2)",
+                  "duration": "14:06"
+                },
+                {
+                  "id": "jwYuki9GgJo",
+                  "title": "(ML 14.9) Backward algorithm",
+                  "duration": "14:47"
+                },
+                {
+                  "id": "-RVM21Voo7Q",
+                  "title": "(ML 14.10) Underflow and the log-sum-exp trick",
+                  "duration": "14:32"
+                },
+                {
+                  "id": "RwwfUICZLsA",
+                  "title": "(ML 14.11) Viterbi algorithm (part 1)",
+                  "duration": "14:33"
+                },
+                {
+                  "id": "t3JIk3Jgifs",
+                  "title": "(ML 14.12) Viterbi algorithm (part 2)",
+                  "duration": "13:56"
+                },
+                {
+                  "id": "28BMpgxn_Ec",
+                  "title": "(ML 15.1) Newton's method (for optimization) - intuition",
+                  "duration": "11:16"
+                },
+                {
+                  "id": "42zJ5xrdOqo",
+                  "title": "(ML 15.2) Newton's method (for optimization) in multiple dimensions",
+                  "duration": "14:46"
+                },
+                {
+                  "id": "-Z2a_mzl9LM",
+                  "title": "(ML 15.3) Logistic regression (binary) - intuition",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "_7b352zYicY",
+                  "title": "(ML 15.4) Logistic regression (binary) - formalism",
+                  "duration": "11:04"
+                },
+                {
+                  "id": "hWLdFMccpTY",
+                  "title": "(ML 15.5) Logistic regression (binary) - computing the gradient",
+                  "duration": "14:54"
+                },
+                {
+                  "id": "jUwjbiBUR-k",
+                  "title": "(ML 15.6) Logistic regression (binary) - computing the Hessian",
+                  "duration": "13:56"
+                },
+                {
+                  "id": "X-7sA83PjPM",
+                  "title": "(ML 15.7) Logistic regression (binary) - applying Newton's method",
+                  "duration": "14:30"
+                },
+                {
+                  "id": "0MQEt10e4NM",
+                  "title": "(ML 16.1) K-means clustering (part 1)",
+                  "duration": "13:33"
+                },
+                {
+                  "id": "4shfFAArxSc",
+                  "title": "(ML 16.2) K-means clustering (part 2)",
+                  "duration": "14:17"
+                },
+                {
+                  "id": "AnbiNaVp3eQ",
+                  "title": "(ML 16.3) Expectation-Maximization (EM) algorithm",
+                  "duration": "14:37"
+                },
+                {
+                  "id": "6JZ-PKpx5Kc",
+                  "title": "(ML 16.4) Why EM makes sense (part 1)",
+                  "duration": "14:26"
+                },
+                {
+                  "id": "X9yF2djExhY",
+                  "title": "(ML 16.5) Why EM makes sense (part 2)",
+                  "duration": "14:44"
+                },
+                {
+                  "id": "Rkl30Fr2S38",
+                  "title": "(ML 16.6) Gaussian mixture model (Mixture of Gaussians)",
+                  "duration": "14:51"
+                },
+                {
+                  "id": "WaKNSBeDLTw",
+                  "title": "(ML 16.7) EM for the Gaussian mixture model (part 1)",
+                  "duration": "14:51"
+                },
+                {
+                  "id": "pOBXsUec0JA",
+                  "title": "(ML 16.8) EM for the Gaussian mixture model (part 2)",
+                  "duration": "14:49"
+                },
+                {
+                  "id": "jv2tfR7tyi0",
+                  "title": "(ML 16.9) EM for the Gaussian mixture model (part 3)",
+                  "duration": "14:54"
+                },
+                {
+                  "id": "xEShcq1qE7Y",
+                  "title": "(ML 16.10) EM for the Gaussian mixture model (part 4)",
+                  "duration": "14:56"
+                },
+                {
+                  "id": "Spn78lMGh0M",
+                  "title": "(ML 16.11) The likelihood is nondecreasing under EM (part 1)",
+                  "duration": "14:46"
+                },
+                {
+                  "id": "OLFdU4KpHq8",
+                  "title": "(ML 16.12) The likelihood is nondecreasing under EM (part 2)",
+                  "duration": "14:45"
+                },
+                {
+                  "id": "xpkaTRxzQ2k",
+                  "title": "(ML 16.13) EM for MAP estimation",
+                  "duration": "14:42"
+                },
+                {
+                  "id": "AadKNJU1-lk",
+                  "title": "(ML 17.1) Sampling methods - why sampling, pros and cons",
+                  "duration": "12:42"
+                },
+                {
+                  "id": "ioVccVC_Smg",
+                  "title": "(ML 17.2) Monte Carlo methods - A little history",
+                  "duration": "9:09"
+                },
+                {
+                  "id": "7TybpwBlcMk",
+                  "title": "(ML 17.3) Monte Carlo approximation",
+                  "duration": "14:51"
+                },
+                {
+                  "id": "x3b_DAEmZnU",
+                  "title": "(ML 17.4) Examples of Monte Carlo approximation",
+                  "duration": "14:45"
+                },
+                {
+                  "id": "S3LAOZxGcnk",
+                  "title": "(ML 17.5) Importance sampling - introduction",
+                  "duration": "13:43"
+                },
+                {
+                  "id": "3Mw6ivkDVZc",
+                  "title": "(ML 17.6) Importance sampling - intuition",
+                  "duration": "10:41"
+                },
+                {
+                  "id": "gYvlnu5AAzE",
+                  "title": "(ML 17.7) Importance sampling without normalization constants",
+                  "duration": "11:58"
+                },
+                {
+                  "id": "irheiVXJRm8",
+                  "title": "(ML 17.8) Smirnov transform (Inverse transform sampling) -  invertible case",
+                  "duration": "14:49"
+                },
+                {
+                  "id": "S7EXgOomvgc",
+                  "title": "(ML 17.9) Smirnov transform (Inverse transform sampling) - general case",
+                  "duration": "14:13"
+                },
+                {
+                  "id": "Xd0TN-JoACA",
+                  "title": "(ML 17.10) Sampling an exponential using Smirnov",
+                  "duration": "9:09"
+                },
+                {
+                  "id": "7VwIGwWFu1M",
+                  "title": "(ML 17.11) Rejection sampling - uniform case",
+                  "duration": "12:50"
+                },
+                {
+                  "id": "psV7c5Cn6DU",
+                  "title": "(ML 17.12) Rejection sampling - non-uniform case",
+                  "duration": "14:54"
+                },
+                {
+                  "id": "tiWQwIISOuo",
+                  "title": "(ML 17.13) Proof of rejection sampling (part 1)",
+                  "duration": "14:41"
+                },
+                {
+                  "id": "MwrqNAN_md4",
+                  "title": "(ML 17.14) Proof of rejection sampling (part 2)",
+                  "duration": "10:33"
+                },
+                {
+                  "id": "12eZWG0Z5gY",
+                  "title": "(ML 18.1) Markov chain Monte Carlo (MCMC) introduction",
+                  "duration": "17:04"
+                },
+                {
+                  "id": "ZjrJpkD3o1w",
+                  "title": "(ML 18.2) Ergodic theorem for Markov chains",
+                  "duration": "14:48"
+                },
+                {
+                  "id": "tByUQbJdt14",
+                  "title": "(ML 18.3) Stationary distributions, Irreducibility, and Aperiodicity",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "Pce7KKeUf5w",
+                  "title": "(ML 18.4) Examples of Markov chains with various properties (part 1)",
+                  "duration": "12:46"
+                },
+                {
+                  "id": "daY4lgEyEPc",
+                  "title": "(ML 18.5) Examples of Markov chains with various properties (part 2)",
+                  "duration": "14:58"
+                },
+                {
+                  "id": "xxDkdwQdGvs",
+                  "title": "(ML 18.6) Detailed balance (a.k.a. Reversibility)",
+                  "duration": "14:43"
+                },
+                {
+                  "id": "gxHe9wAWuGQ",
+                  "title": "(ML 18.7) Metropolis algorithm for MCMC",
+                  "duration": "16:54"
+                },
+                {
+                  "id": "0j-Pq1OU4LY",
+                  "title": "(ML 18.8) Correctness of the Metropolis algorithm",
+                  "duration": "19:26"
+                },
+                {
+                  "id": "Dzx5xNT79TI",
+                  "title": "(ML 18.9) Example illustrating the Metropolis algorithm",
+                  "duration": "22:53"
+                },
+                {
+                  "id": "vU6AiEYED9E",
+                  "title": "(ML 19.1) Gaussian processes - definition and first examples",
+                  "duration": "12:06"
+                },
+                {
+                  "id": "16oPvgOd3UI",
+                  "title": "(ML 19.2) Existence of Gaussian processes",
+                  "duration": "6:18"
+                },
+                {
+                  "id": "clMbOOz6yR0",
+                  "title": "(ML 19.3) Examples of Gaussian processes (part 1)",
+                  "duration": "11:47"
+                },
+                {
+                  "id": "e7as_wY0hUI",
+                  "title": "(ML 19.4) Examples of Gaussian processes (part 2)",
+                  "duration": "13:45"
+                },
+                {
+                  "id": "v980qbL8h-8",
+                  "title": "(ML 19.5) Positive semidefinite kernels (Covariance functions)",
+                  "duration": "14:53"
+                },
+                {
+                  "id": "juTjfwTZ7XQ",
+                  "title": "(ML 19.6) Inner products and PSD kernels",
+                  "duration": "14:29"
+                },
+                {
+                  "id": "Sc5hOS5HqdY",
+                  "title": "(ML 19.7) Operations preserving positive semidefinite kernels",
+                  "duration": "9:40"
+                },
+                {
+                  "id": "EIm2vZ-70hQ",
+                  "title": "(ML 19.8) Proof that a product of PSD kernels is a PSD kernel",
+                  "duration": "16:46"
+                },
+                {
+                  "id": "upJ31CIVWZo",
+                  "title": "(ML 19.9) GP regression - introduction",
+                  "duration": "19:45"
+                },
+                {
+                  "id": "UH1d2mxwet8",
+                  "title": "(ML 19.10) GP regression - the key step",
+                  "duration": "14:30"
+                },
+                {
+                  "id": "JdZr74mtZkU",
+                  "title": "(ML 19.11) GP regression - model and inference",
+                  "duration": "19:27"
+                }
+              ]
+            },
+            {
+              "id": "mueller_applied_ml",
+              "title": "Applied Machine Learning — Prof. Andreas Mueller",
+              "institution": "Columbia University (Prof. Andreas Mueller - Scikit-Learn Core Developer)",
+              "runtime": "26.6 Hours (22 Lectures)",
+              "badge": "🏛️ COLUMBIA UNIVERSITY",
+              "description": "Production applied ML taught by core Scikit-Learn developer: model evaluation, pipeline construction, hyperparameter optimization, text feature extraction, trees, and neural nets.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PL_pVmAaAnxIRnSw6wiCpSvshFyCREZmlM",
+              "videos": [
+                {
+                  "id": "d79mzijMAw0",
+                  "title": "Channel Intro - Applied Machine Learning",
+                  "duration": "1:28"
+                },
+                {
+                  "id": "rbvpiPJuK64",
+                  "title": "Applied ML 2020 - 01 Introduction",
+                  "duration": "1:16:02"
+                },
+                {
+                  "id": "OW3oco7nlV4",
+                  "title": "Applied ML 2020 - 02 Visualization and matplotlib",
+                  "duration": "1:07:31"
+                },
+                {
+                  "id": "7_YzyMYC2zM",
+                  "title": "Applied ML 2020 - 03 Supervised learning and model validation",
+                  "duration": "1:12:00"
+                },
+                {
+                  "id": "XpOBSaktb6s",
+                  "title": "Applied ML 2020 - 04 - Preprocessing",
+                  "duration": "1:07:41"
+                },
+                {
+                  "id": "-OOsfj5Revo",
+                  "title": "Applied ML 2020 - 05 - Linear Models for Regression",
+                  "duration": "1:06:55"
+                },
+                {
+                  "id": "_dqBhUrq09U",
+                  "title": "Applied ML 2020 - 06 - Linear Models for Classification",
+                  "duration": "1:07:50"
+                },
+                {
+                  "id": "nomd5ylZ2dw",
+                  "title": "Applied ML 2020 - 07 - Decision Trees and Random Forests",
+                  "duration": "1:07:58"
+                },
+                {
+                  "id": "yrTW5YTmFjw",
+                  "title": "Applied ML 2020 - 08 - Gradient Boosting",
+                  "duration": "1:02:12"
+                },
+                {
+                  "id": "trg3YkCsjqE",
+                  "title": "Applied ML 2020 - 09 - Model Evaluation and Metrics",
+                  "duration": "1:18:23"
+                },
+                {
+                  "id": "w3OPq0V8fr8",
+                  "title": "Applied ML 2020 - 10 - Calibration, Imbalanced data",
+                  "duration": "1:16:14"
+                },
+                {
+                  "id": "FDhyS6Xjxa8",
+                  "title": "Applied ML 2020 - 11 - Model Inspection and Feature Selection",
+                  "duration": "1:15:15"
+                },
+                {
+                  "id": "bmBezdqHTAg",
+                  "title": "Applied ML 2020 - 12 - AutoML (plus some feature selection)",
+                  "duration": "1:25:39"
+                },
+                {
+                  "id": "CrFOGyU32PM",
+                  "title": "Applied ML 2020 - 13 - Dimensionality reduction",
+                  "duration": "1:30:34"
+                },
+                {
+                  "id": "HFioJ62H7dM",
+                  "title": "Applied ML 2020 - 14 - Clustering and Mixture Models",
+                  "duration": "1:26:33"
+                },
+                {
+                  "id": "A8yDjNsUQJA",
+                  "title": "Applied ML 2020 - 15 - Working with Text Data",
+                  "duration": "1:27:09"
+                },
+                {
+                  "id": "xdmFx4-3Ukw",
+                  "title": "Applied ML 2020 - 16 - Topic models for text data",
+                  "duration": "1:18:35"
+                },
+                {
+                  "id": "xgjnlGBpLUs",
+                  "title": "Applied ML 2020 - 17 - Word vectors and document embeddings",
+                  "duration": "1:03:05"
+                },
+                {
+                  "id": "CRRPLlgYWZw",
+                  "title": "Applied ML 2020 - 18 - Neural Networks",
+                  "duration": "1:19:37"
+                },
+                {
+                  "id": "PP7Hr3tGbIo",
+                  "title": "Applied ML 2020 - 19 - Keras and Convolutional neural nets",
+                  "duration": "1:16:01"
+                },
+                {
+                  "id": "2FNmbX901r0",
+                  "title": "Applied ML 2020 - 20 - Advanced neural networks",
+                  "duration": "1:36:29"
+                },
+                {
+                  "id": "GVGEnaJsuu8",
+                  "title": "Applied ML 2020 - 21 - Time Series and Forecasting",
+                  "duration": "1:12:37"
+                }
+              ]
+            },
+            {
+              "id": "fcc_tensorflow2",
+              "title": "TensorFlow 2.0 Complete Course — freeCodeCamp",
+              "institution": "freeCodeCamp / Tim Ruscica",
+              "runtime": "6.9 Hours (1 Lectures)",
+              "badge": "⚡ TENSORFLOW 2.0 BOOTCAMP",
+              "description": "7-hour deep dive into TensorFlow 2.0 & Keras: Tensors, Core Algorithms, CNNs, RNNs, Natural Language Processing with LSTMs, and Reinforcement Learning with Q-Learning.",
+              "playlist_url": "https://youtu.be/tPYj3fFJGjk",
+              "videos": [
+                {
+                  "id": "tPYj3fFJGjk",
+                  "title": "TensorFlow 2.0 Complete Course - Python Neural Networks for Beginners Tutorial",
+                  "duration": "6:52:08"
                 }
               ]
             }
@@ -787,6 +2507,1739 @@
               "duration": "8:23"
             }
           ]
+        },
+        {
+          "id": "mit_60001_intro_cs",
+          "title": "MIT 6.0001: Introduction to Computer Science and Programming in Python",
+          "institution": "MIT OpenCourseWare (Prof. Ana Bell, Eric Grimson, John Guttag)",
+          "runtime": "10.0 Hours (38 Lectures)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "description": "Foundational introduction to computer science, algorithmic thinking, Python data structures, recursion, object-oriented design, and floating-point computation.",
+          "playlist_url": "https://www.youtube.com/playlist?list=PLUl4u3cNGP63WbdFxL8giv4yhgdMGaZNA",
+          "videos": [
+            {
+              "id": "nykOeWgQcHM",
+              "title": "1. What is Computation?",
+              "duration": "43:06"
+            },
+            {
+              "id": "Y6J8I056Ffw",
+              "title": "Shell vs. Editor",
+              "duration": "1:20"
+            },
+            {
+              "id": "F-_PKUUM-qY",
+              "title": "Python vs. Math",
+              "duration": "1:37"
+            },
+            {
+              "id": "EFCdr_43qmU",
+              "title": "Bindings",
+              "duration": "1:40"
+            },
+            {
+              "id": "0jljZRnHwOI",
+              "title": "2. Branching and Iteration",
+              "duration": "43:31"
+            },
+            {
+              "id": "w4uxYDPsjbw",
+              "title": "Strings",
+              "duration": "0:53"
+            },
+            {
+              "id": "lniF6ys2CIk",
+              "title": "Comparisons",
+              "duration": "1:23"
+            },
+            {
+              "id": "jjbWNcIjmzc",
+              "title": "Branching",
+              "duration": "1:06"
+            },
+            {
+              "id": "P-0w8xWcnDQ",
+              "title": "While Loops",
+              "duration": "1:51"
+            },
+            {
+              "id": "mrvBnZIEsZY",
+              "title": "For Loops",
+              "duration": "1:55"
+            },
+            {
+              "id": "SE4P7IVCunE",
+              "title": "3. String Manipulation, Guess and Check, Approximations, Bisection",
+              "duration": "45:02"
+            },
+            {
+              "id": "-jjUoTiaSHw",
+              "title": "String Manipulations",
+              "duration": "3:05"
+            },
+            {
+              "id": "4WtaFLayz_w",
+              "title": "For Loops With Strings",
+              "duration": "4:19"
+            },
+            {
+              "id": "MjbuarJ7SE0",
+              "title": "4. Decomposition, Abstraction, and Functions",
+              "duration": "41:09"
+            },
+            {
+              "id": "4gPwo38MNss",
+              "title": "Function Calls",
+              "duration": "2:35"
+            },
+            {
+              "id": "QaOHeMnpnmU",
+              "title": "Functions as Arguments",
+              "duration": "3:33"
+            },
+            {
+              "id": "RvRKT-jXvko",
+              "title": "5. Tuples, Lists, Aliasing, Mutability, and Cloning",
+              "duration": "41:28"
+            },
+            {
+              "id": "ncpb4wIsQu8",
+              "title": "Tuples",
+              "duration": "3:29"
+            },
+            {
+              "id": "zYVWQpCitKQ",
+              "title": "Simple Lists",
+              "duration": "2:49"
+            },
+            {
+              "id": "SrkqbLOQcEo",
+              "title": "List Operations",
+              "duration": "3:06"
+            },
+            {
+              "id": "FKp-6sojt9A",
+              "title": "List Aliasing/Mutation",
+              "duration": "1:55"
+            },
+            {
+              "id": "WPSeyjX1-4s",
+              "title": "6. Recursion and Dictionaries",
+              "duration": "48:22"
+            },
+            {
+              "id": "9H6muyZjms0",
+              "title": "7. Testing, Debugging, Exceptions, and Assertions",
+              "duration": "41:33"
+            },
+            {
+              "id": "5McjE8e5gIg",
+              "title": "Black Box and Glass Box Testing",
+              "duration": "2:04"
+            },
+            {
+              "id": "-wz4iU2V-Yo",
+              "title": "Errors",
+              "duration": "1:16"
+            },
+            {
+              "id": "0Whyfs88TYE",
+              "title": "Exceptions",
+              "duration": "2:41"
+            },
+            {
+              "id": "-DP1i2ZU9gk",
+              "title": "8. Object Oriented Programming",
+              "duration": "41:44"
+            },
+            {
+              "id": "vqn_yk5aFcI",
+              "title": "Class Definition",
+              "duration": "0:50"
+            },
+            {
+              "id": "2__KumJsGXc",
+              "title": "Class Instance",
+              "duration": "2:21"
+            },
+            {
+              "id": "goalLDamePE",
+              "title": "Methods",
+              "duration": "1:26"
+            },
+            {
+              "id": "_ax4eNMI9Dw",
+              "title": "Method Call",
+              "duration": "1:47"
+            },
+            {
+              "id": "qq7I2MQNrtU",
+              "title": "Special Methods",
+              "duration": "2:12"
+            },
+            {
+              "id": "FlGjISF3l78",
+              "title": "9. Python Classes and Inheritance",
+              "duration": "47:28"
+            },
+            {
+              "id": "C_pgH5QhIZ8",
+              "title": "Getters and Setters",
+              "duration": "1:45"
+            },
+            {
+              "id": "8s0d87sjy1A",
+              "title": "Subclass",
+              "duration": "2:46"
+            },
+            {
+              "id": "o9nW0uBqvEo",
+              "title": "10. Understanding Program Efficiency, Part 1",
+              "duration": "51:26"
+            },
+            {
+              "id": "7lQXYl_L28w",
+              "title": "11. Understanding Program Efficiency, Part 2",
+              "duration": "49:13"
+            },
+            {
+              "id": "6LOwPhPDwVc",
+              "title": "12. Searching and Sorting",
+              "duration": "48:32"
+            }
+          ]
+        },
+        {
+          "id": "mit_1806_linear_algebra",
+          "title": "MIT 18.06: Linear Algebra (Prof. Gilbert Strang)",
+          "institution": "MIT OpenCourseWare (Prof. Gilbert Strang)",
+          "runtime": "28.0 Hours (36 Lectures)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "description": "The gold-standard linear algebra foundation: vector spaces, nullspace, projection matrices, Gram-Schmidt orthogonalization, eigenvalues/eigenvectors, positive definite matrices, SVD, and PCA.",
+          "playlist_url": "https://www.youtube.com/playlist?list=PLE7DDD91010BC51F8",
+          "videos": [
+            {
+              "id": "7UJ4CFRGd-U",
+              "title": "An Interview with Gilbert Strang on Teaching Linear Algebra",
+              "duration": "7:34"
+            },
+            {
+              "id": "J7DzL2_Na80",
+              "title": "1. The Geometry of Linear Equations",
+              "duration": "39:49"
+            },
+            {
+              "id": "QVKj3LADCnA",
+              "title": "2. Elimination with Matrices.",
+              "duration": "47:42"
+            },
+            {
+              "id": "FX4C-JpTFgY",
+              "title": "3. Multiplication and Inverse Matrices",
+              "duration": "46:49"
+            },
+            {
+              "id": "MsIvs_6vC38",
+              "title": "4. Factorization into A = LU",
+              "duration": "48:05"
+            },
+            {
+              "id": "JibVXBElKL0",
+              "title": "5. Transposes, Permutations, Spaces R^n",
+              "duration": "47:42"
+            },
+            {
+              "id": "8o5Cmfpeo6g",
+              "title": "6. Column Space and Nullspace",
+              "duration": "46:01"
+            },
+            {
+              "id": "VqP2tREMvt0",
+              "title": "7. Solving Ax = 0: Pivot Variables, Special Solutions",
+              "duration": "43:20"
+            },
+            {
+              "id": "9Q1q7s1jTzU",
+              "title": "8. Solving Ax = b: Row Reduced Form R",
+              "duration": "47:20"
+            },
+            {
+              "id": "yjBerM5jWsc",
+              "title": "9. Independence, Basis, and Dimension",
+              "duration": "50:14"
+            },
+            {
+              "id": "nHlE7EgJFds",
+              "title": "10. The Four Fundamental Subspaces",
+              "duration": "49:20"
+            },
+            {
+              "id": "2IdtqGM6KWU",
+              "title": "11. Matrix Spaces; Rank 1; Small World Graphs",
+              "duration": "45:56"
+            },
+            {
+              "id": "6-wh6yvk6uc",
+              "title": "12. Graphs, Networks, Incidence Matrices",
+              "duration": "47:57"
+            },
+            {
+              "id": "l88D4r74gtM",
+              "title": "13. Quiz 1 Review",
+              "duration": "47:40"
+            },
+            {
+              "id": "YzZUIYRCE38",
+              "title": "14. Orthogonal Vectors and Subspaces",
+              "duration": "49:48"
+            },
+            {
+              "id": "Y_Ac6KiQ1t0",
+              "title": "15. Projections onto Subspaces",
+              "duration": "48:51"
+            },
+            {
+              "id": "osh80YCg_GM",
+              "title": "16. Projection Matrices and Least Squares",
+              "duration": "48:05"
+            },
+            {
+              "id": "0MtwqhIwdrI",
+              "title": "17. Orthogonal Matrices and Gram-Schmidt",
+              "duration": "49:10"
+            },
+            {
+              "id": "srxexLishgY",
+              "title": "18. Properties of Determinants",
+              "duration": "49:12"
+            },
+            {
+              "id": "23LLB9mNJvc",
+              "title": "19. Determinant Formulas and Cofactors",
+              "duration": "53:17"
+            },
+            {
+              "id": "QNpj-gOXW9M",
+              "title": "20. Cramer's Rule, Inverse Matrix, and Volume",
+              "duration": "51:01"
+            },
+            {
+              "id": "cdZnhQjJu4I",
+              "title": "21. Eigenvalues and Eigenvectors",
+              "duration": "51:23"
+            },
+            {
+              "id": "13r9QY6cmjc",
+              "title": "22. Diagonalization and Powers of A",
+              "duration": "51:50"
+            },
+            {
+              "id": "IZqwi0wJovM",
+              "title": "23. Differential Equations and exp(At)",
+              "duration": "51:03"
+            },
+            {
+              "id": "lGGDIGizcQ0",
+              "title": "24. Markov Matrices; Fourier Series",
+              "duration": "51:12"
+            },
+            {
+              "id": "QuZL5IKpO_U",
+              "title": "24b. Quiz 2 Review",
+              "duration": "48:20"
+            },
+            {
+              "id": "UCc9q_cAhho",
+              "title": "25. Symmetric Matrices and Positive Definiteness",
+              "duration": "43:52"
+            },
+            {
+              "id": "M0Sa8fLOajA",
+              "title": "26. Complex Matrices; Fast Fourier Transform",
+              "duration": "47:52"
+            },
+            {
+              "id": "vF7eyJ2g3kU",
+              "title": "27. Positive Definite Matrices and Minima",
+              "duration": "50:40"
+            },
+            {
+              "id": "TSdXJw83kyA",
+              "title": "28. Similar Matrices and Jordan Form",
+              "duration": "45:56"
+            },
+            {
+              "id": "TX_vooSnhm8",
+              "title": "29. Singular Value Decomposition",
+              "duration": "40:29"
+            },
+            {
+              "id": "Ts3o2I8_Mxc",
+              "title": "30. Linear Transformations and Their Matrices",
+              "duration": "49:27"
+            },
+            {
+              "id": "0h43aV4aH7I",
+              "title": "31. Change of Basis; Image Compression",
+              "duration": "50:14"
+            },
+            {
+              "id": "HgC1l_6ySkc",
+              "title": "32. Quiz 3 Review",
+              "duration": "47:06"
+            },
+            {
+              "id": "Go2aLo7ZOlU",
+              "title": "33. Left and Right Inverses; Pseudoinverse",
+              "duration": "41:53"
+            },
+            {
+              "id": "RWvi4Vx4CDc",
+              "title": "34. Final Course Review",
+              "duration": "43:26"
+            }
+          ]
+        },
+        {
+          "id": "mit_6041_probability",
+          "title": "MIT 6.041: Probabilistic Systems Analysis and Applied Probability",
+          "institution": "MIT OpenCourseWare (Prof. John Tsitsiklis)",
+          "runtime": "30.0 Hours (266 Lectures)",
+          "badge": "⭐ ESSENTIAL GOLDEN ANCHOR",
+          "description": "Rigorous probability theory foundation for data science: sample spaces, conditional probability, Bayes' rule, random variables, PMFs/PDFs, expectation, variance, Markov chains, and Limit Theorems.",
+          "playlist_url": "https://www.youtube.com/playlist?list=PLUl4u3cNGP60hI9ATjSFgLZpbNJ7myAg6",
+          "videos": [
+            {
+              "id": "1uW3qMFA9Ho",
+              "title": "L01.1 Lecture Overview",
+              "duration": "1:52"
+            },
+            {
+              "id": "iQ2edOqEQAs",
+              "title": "L01.2 Sample Space",
+              "duration": "5:38"
+            },
+            {
+              "id": "__T3eJtjoic",
+              "title": "L01.3 Sample Space Examples",
+              "duration": "5:03"
+            },
+            {
+              "id": "pA83XtLeVig",
+              "title": "L01.4 Probability Axioms",
+              "duration": "8:55"
+            },
+            {
+              "id": "WTyLg_I1oFY",
+              "title": "L01.5 Simple Properties of Probabilities",
+              "duration": "11:05"
+            },
+            {
+              "id": "N3I2ZLbh6zQ",
+              "title": "L01.6 More Properties of Probabilities",
+              "duration": "8:40"
+            },
+            {
+              "id": "AsSQdpZdP8U",
+              "title": "L01.7 A Discrete Example",
+              "duration": "5:13"
+            },
+            {
+              "id": "NbYB0fiHoCs",
+              "title": "L01.8 A Continuous Example",
+              "duration": "5:20"
+            },
+            {
+              "id": "mUxg3j_h5GM",
+              "title": "L01.9 Countable Additivity",
+              "duration": "12:10"
+            },
+            {
+              "id": "uGGTX2ypzKI",
+              "title": "L01.10 Interpretations & Uses of Probabilities",
+              "duration": "3:48"
+            },
+            {
+              "id": "-630YTQEuCI",
+              "title": "S01.0 Mathematical Background Overview",
+              "duration": "1:25"
+            },
+            {
+              "id": "47W1ApSRUqs",
+              "title": "S01.1 Sets",
+              "duration": "10:55"
+            },
+            {
+              "id": "pdR9hV8mRWE",
+              "title": "S01.2 De Morgan's Laws",
+              "duration": "4:53"
+            },
+            {
+              "id": "kuhlfBPQPq0",
+              "title": "S01.3 Sequences and their Limits",
+              "duration": "6:00"
+            },
+            {
+              "id": "Lgacew5BjDI",
+              "title": "S01.4 When Does a Sequence Converge",
+              "duration": "2:46"
+            },
+            {
+              "id": "nYe4OZVCnIs",
+              "title": "S01.5 Infinite Series",
+              "duration": "3:11"
+            },
+            {
+              "id": "cCmWW7Hu43A",
+              "title": "S01.6 The Geometric Series",
+              "duration": "4:07"
+            },
+            {
+              "id": "9QJt03983Gg",
+              "title": "S01.7 About the Order of Summation in Series with Multiple Indices",
+              "duration": "10:05"
+            },
+            {
+              "id": "MqocbJ-FPo0",
+              "title": "S01.8 Countable and Uncountable Sets",
+              "duration": "6:19"
+            },
+            {
+              "id": "YIZd23zGV3M",
+              "title": "S01.9 Proof That a Set of Real Numbers is Uncountable",
+              "duration": "4:02"
+            },
+            {
+              "id": "0xuRh3dz_Nc",
+              "title": "S01.10 Bonferroni's Inequality",
+              "duration": "9:28"
+            },
+            {
+              "id": "B5y6fy5iUtg",
+              "title": "L02.1 Lecture Overview",
+              "duration": "2:07"
+            },
+            {
+              "id": "MPRKc4UPoJk",
+              "title": "L02.2 Conditional Probabilities",
+              "duration": "9:00"
+            },
+            {
+              "id": "YenDB3yOfDc",
+              "title": "L02.3 A Die Roll Example",
+              "duration": "5:02"
+            },
+            {
+              "id": "L_pEeYLGaP0",
+              "title": "L02.4 Conditional Probabilities Obey the Same Axioms",
+              "duration": "7:45"
+            },
+            {
+              "id": "uL31gpFdarc",
+              "title": "L02.5 A Radar Example and Three Basic Tools",
+              "duration": "10:59"
+            },
+            {
+              "id": "ugzs7dgQ-JE",
+              "title": "L02.6 The Multiplication Rule",
+              "duration": "6:17"
+            },
+            {
+              "id": "8odFouBR2wE",
+              "title": "L02.7 Total Probability Theorem",
+              "duration": "5:25"
+            },
+            {
+              "id": "kz2tvO_ZAKI",
+              "title": "L02.8 Bayes' Rule",
+              "duration": "4:28"
+            },
+            {
+              "id": "QXKgTPR_8wk",
+              "title": "L03.1 Lecture Overview",
+              "duration": "1:27"
+            },
+            {
+              "id": "rZKUmNvCjis",
+              "title": "L03.2 A Coin Tossing Example",
+              "duration": "7:59"
+            },
+            {
+              "id": "w423ypsUHf0",
+              "title": "L03.3 Independence of Two Events",
+              "duration": "6:10"
+            },
+            {
+              "id": "JZkT3NU2mPM",
+              "title": "L03.4 Independence of Event Complements",
+              "duration": "2:59"
+            },
+            {
+              "id": "7B3cDe39lwY",
+              "title": "L03.5 Conditional Independence",
+              "duration": "2:46"
+            },
+            {
+              "id": "TAyA-rjmesQ",
+              "title": "L03.6 Independence Versus Conditional Independence",
+              "duration": "5:30"
+            },
+            {
+              "id": "UbQcqFH33G0",
+              "title": "L03.7 Independence of a Collection of Events",
+              "duration": "6:00"
+            },
+            {
+              "id": "aJXfyfQs2Mc",
+              "title": "L03.8 Independence Versus Pairwise Independence",
+              "duration": "8:35"
+            },
+            {
+              "id": "UDkq_cLVSmc",
+              "title": "L03.9 Reliability",
+              "duration": "7:28"
+            },
+            {
+              "id": "iPWyElxtk-8",
+              "title": "L03.10 The King's Sibling",
+              "duration": "6:54"
+            },
+            {
+              "id": "poeHeiiiLKI",
+              "title": "L04.1 Lecture Overview",
+              "duration": "2:29"
+            },
+            {
+              "id": "-k8WU-KB0rk",
+              "title": "L04.2 The Counting Principle",
+              "duration": "11:12"
+            },
+            {
+              "id": "KrjZyCRi29o",
+              "title": "L04.3 Die Roll Example",
+              "duration": "4:39"
+            },
+            {
+              "id": "o_qO7RYBF10",
+              "title": "L04.4 Combinations",
+              "duration": "10:08"
+            },
+            {
+              "id": "8llkkbCPHb4",
+              "title": "L04.5 Binomial Probabilities",
+              "duration": "6:38"
+            },
+            {
+              "id": "2f9EfEga4Oo",
+              "title": "L04.6 A Coin Tossing Example",
+              "duration": "11:48"
+            },
+            {
+              "id": "hJjiCrdsNV8",
+              "title": "L04.7 Partitions",
+              "duration": "5:20"
+            },
+            {
+              "id": "IC-pnm6PEGk",
+              "title": "L04.8 Each Person Gets An Ace",
+              "duration": "9:45"
+            },
+            {
+              "id": "5A_H1eHbOCY",
+              "title": "L04.9 Multinomial Probabilities",
+              "duration": "10:36"
+            },
+            {
+              "id": "ArfHGPHL8kU",
+              "title": "L05.1 Lecture Overview",
+              "duration": "1:40"
+            },
+            {
+              "id": "vfqPpai_9jI",
+              "title": "L05.2 Definition of Random Variables",
+              "duration": "9:14"
+            },
+            {
+              "id": "zW1_iugJvF0",
+              "title": "L05.3 Probability Mass Functions",
+              "duration": "10:21"
+            },
+            {
+              "id": "J8L9kRGSvSY",
+              "title": "L05.4 Bernoulli & Indicator Random Variables",
+              "duration": "3:06"
+            },
+            {
+              "id": "JoQDJMZA7F8",
+              "title": "L05.5 Uniform Random Variables",
+              "duration": "4:06"
+            },
+            {
+              "id": "jOC4ATKBWlI",
+              "title": "L05.6 Binomial Random Variables",
+              "duration": "6:08"
+            },
+            {
+              "id": "whbKmwMmB4s",
+              "title": "L05.7 Geometric Random Variables",
+              "duration": "7:37"
+            },
+            {
+              "id": "_yJsO5955ZE",
+              "title": "L05.8 Expectation",
+              "duration": "10:38"
+            },
+            {
+              "id": "GARQ31BrKQA",
+              "title": "L05.9 Elementary Properties of Expectation",
+              "duration": "4:12"
+            },
+            {
+              "id": "gB5TCCfF6e4",
+              "title": "L05.10 The Expected Value Rule",
+              "duration": "10:00"
+            },
+            {
+              "id": "0IJFBMIU6x4",
+              "title": "L05.11 Linearity of Expectations",
+              "duration": "3:59"
+            },
+            {
+              "id": "Xwd4ABlO0Dc",
+              "title": "S05.1 Supplement: Functions",
+              "duration": "8:08"
+            },
+            {
+              "id": "n9FTM9f9A6I",
+              "title": "L06.1 Lecture Overview",
+              "duration": "2:02"
+            },
+            {
+              "id": "ZWo1XgAQE5k",
+              "title": "L06.2 Variance",
+              "duration": "10:43"
+            },
+            {
+              "id": "7_livg-uaVs",
+              "title": "L06.3 The Variance of the Bernoulli & The Uniform",
+              "duration": "8:40"
+            },
+            {
+              "id": "2_KBeHiUDiY",
+              "title": "L06.4 Conditional PMFs & Expectations Given an Event",
+              "duration": "7:31"
+            },
+            {
+              "id": "GnEyIawrWBg",
+              "title": "L06.5 Total Expectation Theorem",
+              "duration": "6:28"
+            },
+            {
+              "id": "MuqLI4otMIQ",
+              "title": "L06.6 Geometric PMF Memorylessness & Expectation",
+              "duration": "10:29"
+            },
+            {
+              "id": "7nu97OYx4X4",
+              "title": "L06.7 Joint PMFs and the Expected Value Rule",
+              "duration": "10:16"
+            },
+            {
+              "id": "TbRh71BMJvw",
+              "title": "L06.8 Linearity of Expectations & The Mean of the Binomial",
+              "duration": "8:25"
+            },
+            {
+              "id": "17Z89x_ZWQ4",
+              "title": "L07.1 Lecture Overview",
+              "duration": "1:50"
+            },
+            {
+              "id": "T_Q3M_HV94w",
+              "title": "L07.2 Conditional PMFs",
+              "duration": "10:48"
+            },
+            {
+              "id": "vJAG4EzSQZA",
+              "title": "L07.3 Conditional Expectation & the Total Expectation Theorem",
+              "duration": "6:10"
+            },
+            {
+              "id": "F6H50Hbulbk",
+              "title": "L07.4 Independence of Random Variables",
+              "duration": "5:08"
+            },
+            {
+              "id": "JsEvwRGa1JA",
+              "title": "L07.5 Example",
+              "duration": "4:44"
+            },
+            {
+              "id": "R4nGGs0m7lo",
+              "title": "L07.6 Independence & Expectations",
+              "duration": "4:22"
+            },
+            {
+              "id": "YQ26hzI4OJk",
+              "title": "L07.7 Independence, Variances & the Binomial Variance",
+              "duration": "7:09"
+            },
+            {
+              "id": "Kycmb2IwV-Y",
+              "title": "L07.8 The Hat Problem",
+              "duration": "16:09"
+            },
+            {
+              "id": "WXIU2tK4qtc",
+              "title": "S07.1 The Inclusion-Exclusion Formula",
+              "duration": "11:13"
+            },
+            {
+              "id": "sSWHT2kbkvc",
+              "title": "S07.2 The Variance of the Geometric",
+              "duration": "5:42"
+            },
+            {
+              "id": "GOmLwHaa8Ik",
+              "title": "S07.3 Independence of Random Variables Versus Independence of Events",
+              "duration": "6:51"
+            },
+            {
+              "id": "eXf2Zak-s0o",
+              "title": "L08.1 Lecture Overview",
+              "duration": "1:13"
+            },
+            {
+              "id": "8QFpZ3FndBc",
+              "title": "L08.2 Probability Density Functions",
+              "duration": "11:09"
+            },
+            {
+              "id": "jPB9zI8F7rE",
+              "title": "L08.3 Uniform & Piecewise Constant PDFs",
+              "duration": "2:52"
+            },
+            {
+              "id": "wOmfOJyxZ6M",
+              "title": "L08.4 Means & Variances",
+              "duration": "6:57"
+            },
+            {
+              "id": "bXmDp8R8n8U",
+              "title": "L08.5 Mean & Variance of the Uniform",
+              "duration": "3:56"
+            },
+            {
+              "id": "FOFtMqCxZt0",
+              "title": "L08.6 Exponential Random Variables",
+              "duration": "8:09"
+            },
+            {
+              "id": "4QeL1ma_XJ0",
+              "title": "L08.7 Cumulative Distribution Functions",
+              "duration": "12:48"
+            },
+            {
+              "id": "6UMv4vb4y7c",
+              "title": "L08.8 Normal Random Variables",
+              "duration": "9:14"
+            },
+            {
+              "id": "DrBIORgOzSA",
+              "title": "L08.9 Calculation of Normal Probabilities",
+              "duration": "10:11"
+            },
+            {
+              "id": "G11r4Srh4u8",
+              "title": "L09.1 Lecture Overview",
+              "duration": "1:33"
+            },
+            {
+              "id": "mHj4A1gh_ws",
+              "title": "L09.2 Conditioning A Continuous Random Variable on an Event",
+              "duration": "9:56"
+            },
+            {
+              "id": "5CHUuMZZzSY",
+              "title": "L09.3 Conditioning Example",
+              "duration": "3:08"
+            },
+            {
+              "id": "3kxnPEDecIA",
+              "title": "L09.4 Memorylessness of the Exponential PDF",
+              "duration": "8:18"
+            },
+            {
+              "id": "Mv8tuMBQk-g",
+              "title": "L09.5 Total Probability & Expectation Theorems",
+              "duration": "6:51"
+            },
+            {
+              "id": "VJhDWandNwc",
+              "title": "L09.6 Mixed Random Variables",
+              "duration": "5:35"
+            },
+            {
+              "id": "O4QYcoxuLHE",
+              "title": "L09.7 Joint PDFs",
+              "duration": "9:18"
+            },
+            {
+              "id": "h8DKVKfWU_Q",
+              "title": "L09.8 From The Joint to the Marginal",
+              "duration": "7:23"
+            },
+            {
+              "id": "WFMTus20mz4",
+              "title": "L09.9 Continuous Analogs of Various Properties",
+              "duration": "1:40"
+            },
+            {
+              "id": "AVVbUKstn8A",
+              "title": "L09.10 Joint CDFs",
+              "duration": "4:16"
+            },
+            {
+              "id": "KSrPJe7y9oA",
+              "title": "S09.1 Buffon's Needle & Monte Carlo Simulation",
+              "duration": "16:12"
+            },
+            {
+              "id": "nQukfQgIIqw",
+              "title": "L10.1 Lecture Overview",
+              "duration": "1:42"
+            },
+            {
+              "id": "Kj6iEzXsFkI",
+              "title": "L10.2 Conditional PDFs",
+              "duration": "6:57"
+            },
+            {
+              "id": "mKcWk_DmS7M",
+              "title": "L10.3 Comments on Conditional PDFs",
+              "duration": "4:34"
+            },
+            {
+              "id": "0cD-tcITuck",
+              "title": "L10.4 Total Probability & Total Expectation Theorems",
+              "duration": "5:17"
+            },
+            {
+              "id": "JCQnsPggTp8",
+              "title": "L10.5 Independence",
+              "duration": "3:35"
+            },
+            {
+              "id": "aXFbBcabaQA",
+              "title": "L10.6 Stick-Breaking Example",
+              "duration": "10:02"
+            },
+            {
+              "id": "qOQxeYGOIag",
+              "title": "L10.7 Independent Normals",
+              "duration": "5:36"
+            },
+            {
+              "id": "WSrVCCBOeg4",
+              "title": "L10.8 Bayes Rule Variations",
+              "duration": "3:27"
+            },
+            {
+              "id": "363JQxFwLXg",
+              "title": "L10.9 Mixed Bayes Rule",
+              "duration": "8:33"
+            },
+            {
+              "id": "27d9Gew3llM",
+              "title": "L10.10 Detection of a Binary Signal",
+              "duration": "9:15"
+            },
+            {
+              "id": "wnts35dE1Sg",
+              "title": "L10.11 Inference of the Bias of a Coin",
+              "duration": "6:00"
+            },
+            {
+              "id": "d5mV88S2fNY",
+              "title": "L11.1 Lecture Overview",
+              "duration": "1:52"
+            },
+            {
+              "id": "NRnAuKxx6XA",
+              "title": "L11.2 The PMF of a Function of a Discrete Random Variable",
+              "duration": "6:42"
+            },
+            {
+              "id": "11iF2ovjKOg",
+              "title": "L11.3 A Linear Function of a Continuous Random Variable",
+              "duration": "11:18"
+            },
+            {
+              "id": "eFDU7t6Jxzc",
+              "title": "L11.4 A Linear Function of a Normal Random Variable",
+              "duration": "2:45"
+            },
+            {
+              "id": "X-AzW70e2M0",
+              "title": "L11.5 The PDF of a General Function",
+              "duration": "9:47"
+            },
+            {
+              "id": "PaI-oaOBHKU",
+              "title": "L11.6 The Monotonic Case",
+              "duration": "11:07"
+            },
+            {
+              "id": "zM39sZL9oGE",
+              "title": "L11.7 The Intuition for the Monotonic Case",
+              "duration": "5:28"
+            },
+            {
+              "id": "uFx7fWujWsU",
+              "title": "L11.8 A Nonmonotonic Example",
+              "duration": "7:14"
+            },
+            {
+              "id": "X-krLprDrOI",
+              "title": "L11.9 The PDF of a Function of Multiple Random Variables",
+              "duration": "7:42"
+            },
+            {
+              "id": "yvHu34mEXzk",
+              "title": "S11.1 Simulation",
+              "duration": "12:35"
+            },
+            {
+              "id": "wBnlmQR5Vhk",
+              "title": "L12.1 Lecture Overview",
+              "duration": "1:29"
+            },
+            {
+              "id": "zbu8KQx9bqM",
+              "title": "L12.2 The Sum of Independent Discrete Random Variables",
+              "duration": "7:52"
+            },
+            {
+              "id": "d2M4LNSeIn4",
+              "title": "L12.3 The Sum of Independent Continuous Random Variables",
+              "duration": "6:45"
+            },
+            {
+              "id": "aGbP_7yAiEk",
+              "title": "L12.4 The Sum of Independent Normal Random Variables",
+              "duration": "3:10"
+            },
+            {
+              "id": "K2Tlj27nkjs",
+              "title": "L12.5 Covariance",
+              "duration": "5:54"
+            },
+            {
+              "id": "RQKJBpaCCeo",
+              "title": "L12.6 Covariance Properties",
+              "duration": "5:48"
+            },
+            {
+              "id": "GH7dwoXSD0s",
+              "title": "L12.7 The Variance of the Sum of Random Variables",
+              "duration": "5:36"
+            },
+            {
+              "id": "HTs6Zhc2S1M",
+              "title": "L12.8 The Correlation Coefficient",
+              "duration": "7:03"
+            },
+            {
+              "id": "uxVRfj60z98",
+              "title": "L12.9 Proof of Key Properties of the Correlation Coefficient",
+              "duration": "3:52"
+            },
+            {
+              "id": "J3aMHIajtFc",
+              "title": "L12.10 Interpreting the Correlation Coefficient",
+              "duration": "5:50"
+            },
+            {
+              "id": "6-gN0dDHU-4",
+              "title": "L12.11 Correlations Matter",
+              "duration": "6:22"
+            },
+            {
+              "id": "zc6PfijY8_s",
+              "title": "L13.1 Lecture Overview",
+              "duration": "1:47"
+            },
+            {
+              "id": "strrrdJivco",
+              "title": "L13.2 Conditional Expectation as a Random Variable",
+              "duration": "4:31"
+            },
+            {
+              "id": "yDkm9AYaczk",
+              "title": "L13.3 The Law of Iterated Expectations",
+              "duration": "3:58"
+            },
+            {
+              "id": "LVfIS8pBI6Y",
+              "title": "L13.4 Stick-Breaking Revisited",
+              "duration": "3:53"
+            },
+            {
+              "id": "-T34yGp4T7A",
+              "title": "L13.5 Forecast Revisions",
+              "duration": "4:38"
+            },
+            {
+              "id": "X04gTpC7wAs",
+              "title": "L13.6 The Conditional Variance",
+              "duration": "5:02"
+            },
+            {
+              "id": "mHonq7Gjjqg",
+              "title": "L13.7 Derivation of the Law of Total Variance",
+              "duration": "4:54"
+            },
+            {
+              "id": "-0pzpXHq_io",
+              "title": "L13.8 A Simple Example",
+              "duration": "6:29"
+            },
+            {
+              "id": "BjjkSM1Dasg",
+              "title": "L13.9 Section Means and Variances",
+              "duration": "9:04"
+            },
+            {
+              "id": "xdewLsXI_UQ",
+              "title": "L13.10 Mean of the Sum of a Random Number of Random Variables",
+              "duration": "6:26"
+            },
+            {
+              "id": "SgM16HNeC3o",
+              "title": "L13.11 Variance of the Sum of a Random Number of Random Variables",
+              "duration": "5:10"
+            },
+            {
+              "id": "2BttG14vI7c",
+              "title": "S13.1 Conditional Expectation Properties",
+              "duration": "8:13"
+            },
+            {
+              "id": "aNLEnFtWwhg",
+              "title": "L14.1 Lecture Overview",
+              "duration": "2:10"
+            },
+            {
+              "id": "z1lAn4GMaFs",
+              "title": "L14.2 Overview of Some Application Domains",
+              "duration": "5:17"
+            },
+            {
+              "id": "v5fOm80VAnc",
+              "title": "L14.3 Types of Inference Problems",
+              "duration": "5:24"
+            },
+            {
+              "id": "0w_4QcvBYII",
+              "title": "L14.4 The Bayesian Inference Framework",
+              "duration": "9:48"
+            },
+            {
+              "id": "aYg2je06Cpg",
+              "title": "L14.5 Discrete Parameter, Discrete Observation",
+              "duration": "6:46"
+            },
+            {
+              "id": "OlKmZj2TKnk",
+              "title": "L14.6 Discrete Parameter, Continuous Observation",
+              "duration": "4:35"
+            },
+            {
+              "id": "CN_TJBPv2Qs",
+              "title": "L14.7 Continuous Parameter, Continuous Observation",
+              "duration": "3:46"
+            },
+            {
+              "id": "46Ym07yKf4A",
+              "title": "L14.8 Inferring the Unknown Bias of a Coin and the Beta Distribution",
+              "duration": "7:35"
+            },
+            {
+              "id": "gJSPef9zC0c",
+              "title": "L14.9 Inferring the Unknown Bias of a Coin - Point Estimates",
+              "duration": "9:30"
+            },
+            {
+              "id": "_hDfZF64wic",
+              "title": "L14.10 Summary",
+              "duration": "5:41"
+            },
+            {
+              "id": "8yaRt24qA1M",
+              "title": "S14.1 The Beta Formula",
+              "duration": "10:24"
+            },
+            {
+              "id": "FMrYw7sgyxQ",
+              "title": "L15.1 Lecture Overview",
+              "duration": "1:59"
+            },
+            {
+              "id": "RgGFvOpcQXY",
+              "title": "L15.2 Recognizing Normal PDFs",
+              "duration": "7:15"
+            },
+            {
+              "id": "qgICsL7ybWc",
+              "title": "L15.3 Estimating a Normal Random Variable in the Presence of Additive Noise",
+              "duration": "8:18"
+            },
+            {
+              "id": "FT0ptFu6dVA",
+              "title": "L15.4 The Case of Multiple Observations",
+              "duration": "13:47"
+            },
+            {
+              "id": "CipR1Jypkz0",
+              "title": "L15.5 The Mean Squared Error",
+              "duration": "13:02"
+            },
+            {
+              "id": "rFUb1nvh3CQ",
+              "title": "L15.6 Multiple Parameters; Trajectory Estimation",
+              "duration": "10:32"
+            },
+            {
+              "id": "qinepPxDUcY",
+              "title": "L15.7 Linear Normal Models",
+              "duration": "5:12"
+            },
+            {
+              "id": "wTKRruMNOHw",
+              "title": "L15.8 Trajectory Estimation Illustration",
+              "duration": "10:55"
+            },
+            {
+              "id": "MlsVWPWIxHI",
+              "title": "L16.1 Lecture Overview",
+              "duration": "1:13"
+            },
+            {
+              "id": "gH_OmTJ9vQs",
+              "title": "L16.2 LMS Estimation in the Absence of Observations",
+              "duration": "6:48"
+            },
+            {
+              "id": "1R4IzkWSNgI",
+              "title": "L16.3 LMS Estimation of One Random Variable Based on Another",
+              "duration": "9:24"
+            },
+            {
+              "id": "CdrVM6MGnGo",
+              "title": "L16.4 LMS Performance Evaluation",
+              "duration": "4:32"
+            },
+            {
+              "id": "O-dyKz5dpeY",
+              "title": "L16.5 Example: The LMS Estimate",
+              "duration": "6:31"
+            },
+            {
+              "id": "tpaE_C8rqf8",
+              "title": "L16.6 Example Continued: LMS Performance Evaluation",
+              "duration": "5:29"
+            },
+            {
+              "id": "jzhFxJflHXQ",
+              "title": "L16.7 LMS Estimation with Multiple Observations or Unknowns",
+              "duration": "5:24"
+            },
+            {
+              "id": "BlO3xyeaZME",
+              "title": "L16.8 Properties of the LMS Estimation Error",
+              "duration": "5:59"
+            },
+            {
+              "id": "kwbDWPrPfQI",
+              "title": "L17.1 Lecture Overview",
+              "duration": "1:41"
+            },
+            {
+              "id": "_HL7qwWvON4",
+              "title": "L17.2 LLMS Formulation",
+              "duration": "4:58"
+            },
+            {
+              "id": "k9f0N3ADvdM",
+              "title": "L17.3 Solution to the LLMS Problem",
+              "duration": "5:06"
+            },
+            {
+              "id": "yqdcK6-9kv8",
+              "title": "L17.4 Remarks on the LLMS Solution and on the Error Variance",
+              "duration": "8:02"
+            },
+            {
+              "id": "KPF8owESMdo",
+              "title": "L17.5 LLMS Example",
+              "duration": "6:43"
+            },
+            {
+              "id": "4CkWjk40TBY",
+              "title": "L17.6 LLMS for Inferring the Parameter of a Coin",
+              "duration": "11:29"
+            },
+            {
+              "id": "ipSdsosGJBs",
+              "title": "L17.7 LLMS with Multiple Observations",
+              "duration": "6:54"
+            },
+            {
+              "id": "byGWKoOc6EM",
+              "title": "L17.8 The Simplest LLMS Example with Multiple Observations",
+              "duration": "5:06"
+            },
+            {
+              "id": "f_BHF-OYwr4",
+              "title": "L17.9 The Representation of the Data Matters in LLMS",
+              "duration": "7:03"
+            },
+            {
+              "id": "sD0i6bWxmRY",
+              "title": "L18.1 Lecture Overview",
+              "duration": "1:57"
+            },
+            {
+              "id": "vjYanZ1nsZg",
+              "title": "L18.2 The Markov Inequality",
+              "duration": "10:21"
+            },
+            {
+              "id": "d5pnfFvggYk",
+              "title": "L18.3 The Chebyshev Inequality",
+              "duration": "5:57"
+            },
+            {
+              "id": "Yh5bR7X3ch8",
+              "title": "L18.4 The Weak Law of Large Numbers",
+              "duration": "7:31"
+            },
+            {
+              "id": "uQTFiXQR4PQ",
+              "title": "L18.5 Polling",
+              "duration": "8:12"
+            },
+            {
+              "id": "Ajar_6MAOLw",
+              "title": "L18.6 Convergence in Probability",
+              "duration": "8:28"
+            },
+            {
+              "id": "_l9y2Kv8VHw",
+              "title": "L18.7 Convergence in Probability Examples",
+              "duration": "8:05"
+            },
+            {
+              "id": "iBqEF1cB7nE",
+              "title": "L18.8 Related Topics",
+              "duration": "6:44"
+            },
+            {
+              "id": "AH5jnR3RxJU",
+              "title": "S18.1 Convergence in Probability of the Sum of Two Random Variables",
+              "duration": "10:13"
+            },
+            {
+              "id": "GDJFLfmyb20",
+              "title": "S18.2 Jensen's Inequality",
+              "duration": "12:19"
+            },
+            {
+              "id": "MWcO8ZTOQQQ",
+              "title": "S18.3 Hoeffding's Inequality",
+              "duration": "18:28"
+            },
+            {
+              "id": "Hmm9IqosCv4",
+              "title": "L19.1 Lecture Overview",
+              "duration": "1:50"
+            },
+            {
+              "id": "IrKUM3nNXJE",
+              "title": "L19.2 The Central Limit Theorem",
+              "duration": "6:58"
+            },
+            {
+              "id": "Cw2Lz5I3wk0",
+              "title": "L19.3 Discussion of the CLT",
+              "duration": "9:00"
+            },
+            {
+              "id": "Bj3sA7vGpYo",
+              "title": "L19.4 Illustration of the CLT",
+              "duration": "2:54"
+            },
+            {
+              "id": "pd7dvQBqQqY",
+              "title": "L19.5 CLT Examples",
+              "duration": "13:56"
+            },
+            {
+              "id": "fBfMIVXc_OM",
+              "title": "L19.6 Normal Approximation to the Binomial",
+              "duration": "11:53"
+            },
+            {
+              "id": "mxpC3MEiATQ",
+              "title": "L19.7 Polling Revisited",
+              "duration": "13:54"
+            },
+            {
+              "id": "P5rZKt3SgNM",
+              "title": "L20.1 Lecture Overview",
+              "duration": "2:46"
+            },
+            {
+              "id": "fMHJPEcoC08",
+              "title": "L20.2 Overview of the Classical Statistical Framework",
+              "duration": "11:00"
+            },
+            {
+              "id": "nuXDb9B3y0M",
+              "title": "L20.3 The Sample Mean and Some Terminology",
+              "duration": "4:58"
+            },
+            {
+              "id": "lET4uQLpmM0",
+              "title": "L20.4 On the Mean Squared Error of an Estimator",
+              "duration": "6:53"
+            },
+            {
+              "id": "NInNhFm046w",
+              "title": "L20.5 Confidence Intervals",
+              "duration": "5:04"
+            },
+            {
+              "id": "mImHCY0A3a0",
+              "title": "L20.6 Confidence Intervals for the Estimation of the Mean",
+              "duration": "4:27"
+            },
+            {
+              "id": "MzvRQFYUEFU",
+              "title": "L20.7 Confidence Intervals for the Mean, When the Variance is Unknown",
+              "duration": "6:13"
+            },
+            {
+              "id": "8Zq9TKaCV-A",
+              "title": "L20.8 Other Natural Estimators",
+              "duration": "4:37"
+            },
+            {
+              "id": "ZgCBmERwZlI",
+              "title": "L20.9 Maximum Likelihood Estimation",
+              "duration": "6:32"
+            },
+            {
+              "id": "00krscK7iBA",
+              "title": "L20.10 Maximum Likelihood Estimation Examples",
+              "duration": "10:20"
+            },
+            {
+              "id": "HDvYPl8D8Bs",
+              "title": "L21.1 Lecture Overview",
+              "duration": "2:01"
+            },
+            {
+              "id": "lmHjUxi2EH4",
+              "title": "L21.2 The Bernoulli Process",
+              "duration": "4:21"
+            },
+            {
+              "id": "JYI5xKlH_MU",
+              "title": "L21.3 Stochastic Processes",
+              "duration": "6:21"
+            },
+            {
+              "id": "GwOklYjwHDI",
+              "title": "L21.4 Review of Known Properties of the Bernoulli Process",
+              "duration": "2:20"
+            },
+            {
+              "id": "xi_iT9Rh434",
+              "title": "L21.5 The Fresh Start Property",
+              "duration": "11:26"
+            },
+            {
+              "id": "5kdv3r-YgK0",
+              "title": "L21.6 Example: The Distribution of a Busy Period",
+              "duration": "4:16"
+            },
+            {
+              "id": "m-enGdJ-j8s",
+              "title": "L21.7 The Time of the K-th Arrival",
+              "duration": "8:12"
+            },
+            {
+              "id": "AyCLokHV774",
+              "title": "L21.8 Merging of Bernoulli Processes",
+              "duration": "7:12"
+            },
+            {
+              "id": "ozbtgvLKAqE",
+              "title": "L21.9 Splitting a Bernoulli Process",
+              "duration": "5:54"
+            },
+            {
+              "id": "fZ0bbrbNq58",
+              "title": "L21.10 The Poisson Approximation to the Binomial",
+              "duration": "6:12"
+            },
+            {
+              "id": "RVc5hXzVFc4",
+              "title": "L22.1 Lecture Overview",
+              "duration": "1:31"
+            },
+            {
+              "id": "D_EGYzqmapc",
+              "title": "L22.2 Definition of the Poisson Process",
+              "duration": "5:07"
+            },
+            {
+              "id": "PJExYLw0qtc",
+              "title": "L22.3 Applications of the Poisson Process",
+              "duration": "3:03"
+            },
+            {
+              "id": "tzW5jlfEvwU",
+              "title": "L22.4 The Poisson PMF for the Number of Arrivals",
+              "duration": "8:01"
+            },
+            {
+              "id": "2JoRO8Cydtc",
+              "title": "L22.5 The Mean and Variance of the Number of Arrivals",
+              "duration": "3:22"
+            },
+            {
+              "id": "LJuVb-sxzoo",
+              "title": "L22.6 A Simple Example",
+              "duration": "3:07"
+            },
+            {
+              "id": "6stYmO_N7LI",
+              "title": "L22.7 Time of the K-th Arrival",
+              "duration": "10:41"
+            },
+            {
+              "id": "r_rzDNLODQw",
+              "title": "L22.8 The Fresh Start Property and Its Implications",
+              "duration": "10:33"
+            },
+            {
+              "id": "jXf5Sz7V87I",
+              "title": "L22.9 Summary of Results",
+              "duration": "2:34"
+            },
+            {
+              "id": "MvGuBQZZuLM",
+              "title": "L22.10 An Example",
+              "duration": "14:08"
+            },
+            {
+              "id": "7wqaa4uqwao",
+              "title": "L23.1 Lecture Overview",
+              "duration": "1:39"
+            },
+            {
+              "id": "_IX_9ajyOxI",
+              "title": "L23.2 The Sum of Independent Poisson Random Variables",
+              "duration": "4:03"
+            },
+            {
+              "id": "XWKXOUvqC-U",
+              "title": "L23.3 Merging Independent Poisson Processes",
+              "duration": "8:22"
+            },
+            {
+              "id": "mgAhDIdbUK8",
+              "title": "L23.4 Where is an Arrival of the Merged Process Coming From?",
+              "duration": "5:00"
+            },
+            {
+              "id": "xDN5Onmu0mk",
+              "title": "L23.5 The Time Until the First (or last) Lightbulb Burns Out",
+              "duration": "11:25"
+            },
+            {
+              "id": "eV0kTm1h7mQ",
+              "title": "L23.6 Splitting a Poisson Process",
+              "duration": "5:06"
+            },
+            {
+              "id": "sG3_Bveu_cA",
+              "title": "L23.7 Random Incidence in the Poisson Process",
+              "duration": "9:09"
+            },
+            {
+              "id": "aS1o7uTaLF0",
+              "title": "L23.8 Random Incidence in a Non-Poisson Process",
+              "duration": "4:36"
+            },
+            {
+              "id": "GkD5tIgc-Bo",
+              "title": "L23.9 Different Sampling Methods can Give Different Results",
+              "duration": "3:59"
+            },
+            {
+              "id": "t_EcSVTWmwk",
+              "title": "S23.1 Poisson Versus Normal Approximations to the Binomial",
+              "duration": "8:56"
+            },
+            {
+              "id": "3vMZtGUdTVw",
+              "title": "S23.2 Poisson Arrivals During an Exponential Interval",
+              "duration": "9:37"
+            },
+            {
+              "id": "LBiYeL4qD2M",
+              "title": "L24.1 Lecture Overview",
+              "duration": "1:59"
+            },
+            {
+              "id": "K-ck5dOsPgQ",
+              "title": "L24.2 Introduction to Markov Processes",
+              "duration": "2:09"
+            },
+            {
+              "id": "VCyJGp6Enxg",
+              "title": "L24.3 Checkout Counter Example",
+              "duration": "12:10"
+            },
+            {
+              "id": "hsQnmrHbbms",
+              "title": "L24.4 Discrete-Time Finite-State Markov Chains",
+              "duration": "7:53"
+            },
+            {
+              "id": "UwwqPwp16_0",
+              "title": "L24.5 N-Step Transition Probabilities",
+              "duration": "10:59"
+            },
+            {
+              "id": "l6YYHaV1aGc",
+              "title": "L24.6 A Numerical Example - Part I",
+              "duration": "9:26"
+            },
+            {
+              "id": "h2w1tTTltrU",
+              "title": "L24.7 Generic Convergence Questions",
+              "duration": "5:32"
+            },
+            {
+              "id": "wSQaYn2h-e8",
+              "title": "L24.8 Recurrent and Transient States",
+              "duration": "5:37"
+            },
+            {
+              "id": "N61FzRr2so0",
+              "title": "L25.1 Brief Introduction (RES.6-012 Introduction to Probability)",
+              "duration": "1:40"
+            },
+            {
+              "id": "uviHu6m_YnM",
+              "title": "L25.2 Lecture Overview",
+              "duration": "1:05"
+            },
+            {
+              "id": "cph71QcwHeQ",
+              "title": "L25.3 Markov Chain Review",
+              "duration": "6:15"
+            },
+            {
+              "id": "8QyQSZQ4uKQ",
+              "title": "L25.4 The Probability of a Path",
+              "duration": "6:39"
+            },
+            {
+              "id": "UcKhhEc_LyQ",
+              "title": "L25.5 Recurrent and Transient States: Review",
+              "duration": "3:26"
+            },
+            {
+              "id": "TWedESDFcLQ",
+              "title": "L25.6 Periodic States",
+              "duration": "6:49"
+            },
+            {
+              "id": "99yuPxvdfP8",
+              "title": "L25.7 Steady-State Probabilities and Convergence",
+              "duration": "9:13"
+            },
+            {
+              "id": "cQtCpJyl77o",
+              "title": "L25.8 A Numerical Example - Part II",
+              "duration": "3:58"
+            },
+            {
+              "id": "c-BLp-585aU",
+              "title": "L25.9 Visit Frequency Interpretation of Steady-State Probabilities",
+              "duration": "5:19"
+            },
+            {
+              "id": "XKYpKYspe1w",
+              "title": "L25.10 Birth-Death Processes - Part I",
+              "duration": "8:56"
+            },
+            {
+              "id": "KdAsNQVdaNk",
+              "title": "L25.11 Birth-Death Processes - Part II",
+              "duration": "8:57"
+            },
+            {
+              "id": "Xa6-qJvZkUg",
+              "title": "L26.1 Brief Introduction (RES.6-012 Introduction to Probability)",
+              "duration": "1:41"
+            },
+            {
+              "id": "UZOT_ddWpco",
+              "title": "L26.2 Lecture Overview",
+              "duration": "0:40"
+            },
+            {
+              "id": "rRwWYRh8Ypg",
+              "title": "L26.3 Review of Steady-State Behavior",
+              "duration": "9:12"
+            },
+            {
+              "id": "XsowwurOvH0",
+              "title": "L26.4 A Numerical Example - Part III",
+              "duration": "10:35"
+            },
+            {
+              "id": "85le_VkEK5A",
+              "title": "L26.5 Design of a Phone System",
+              "duration": "18:30"
+            },
+            {
+              "id": "vEsUsaK1HBk",
+              "title": "L26.6 Absorption Probabilities",
+              "duration": "9:58"
+            },
+            {
+              "id": "iUF135CGTeI",
+              "title": "L26.7 Expected Time to Absorption",
+              "duration": "11:30"
+            },
+            {
+              "id": "BW_EHmZf2pM",
+              "title": "L26.8 Mean First Passage Time",
+              "duration": "8:44"
+            },
+            {
+              "id": "Ne2lmAZI4-I",
+              "title": "L26.9 Gambler's Ruin",
+              "duration": "11:24"
+            }
+          ]
         }
       ],
       "languages": {
@@ -893,6 +4346,188 @@
                   "id": "ihLwJPHkMRY",
                   "title": "Lecture 18 - Epilogue",
                   "duration": "1:09:28"
+                }
+              ]
+            },
+            {
+              "id": "mit_18065_math_bigdata",
+              "title": "MIT 18.065: Matrix Methods in Data Analysis, Signal Processing, and ML",
+              "institution": "MIT OpenCourseWare (Prof. Gilbert Strang)",
+              "runtime": "14.2 Hours (20 Lectures)",
+              "badge": "🎓 MIT GRADUATE COURSE",
+              "description": "Advanced linear algebra for data science & ML: column spaces, low-rank matrix approximations, SVD derivatives, randomized linear algebra, gradient descent, and deep neural net algebra.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLUl4u3cNGP62uI_DWNdWoIMsgPcLGOx-V",
+              "videos": [
+                {
+                  "id": "t4K6lney7Zw",
+                  "title": "1. Artificial Intelligence and Machine Learning",
+                  "duration": "1:14:24"
+                },
+                {
+                  "id": "RpPlj2HnuWg",
+                  "title": "2. Cyber Network Data Processing; AI Data Architecture",
+                  "duration": "1:16:41"
+                },
+                {
+                  "id": "0sKPkJME2Jw",
+                  "title": "Lecture: Mathematics of Big Data and Machine Learning",
+                  "duration": "38:16"
+                },
+                {
+                  "id": "zNGKX-4PRsk",
+                  "title": "0. Introduction",
+                  "duration": "50:28"
+                },
+                {
+                  "id": "P5SjikeOHr0",
+                  "title": "0. Examples Demonstration",
+                  "duration": "31:56"
+                },
+                {
+                  "id": "KXJVqsbh_4Y",
+                  "title": "1. Using Associative Arrays",
+                  "duration": "45:24"
+                },
+                {
+                  "id": "5RqTJWf1l_A",
+                  "title": "1. Examples Demonstration",
+                  "duration": "24:57"
+                },
+                {
+                  "id": "tUk8o-ZbF4c",
+                  "title": "2. Group Theory",
+                  "duration": "1:11:42"
+                },
+                {
+                  "id": "WkYdi40yNwY",
+                  "title": "2. Examples Demonstration",
+                  "duration": "7:15"
+                },
+                {
+                  "id": "pHOPafutFSo",
+                  "title": "3. Entity Analysis in Unstructured Data",
+                  "duration": "45:42"
+                },
+                {
+                  "id": "2DDjHvH8d2k",
+                  "title": "3. Examples Demonstration",
+                  "duration": "32:57"
+                },
+                {
+                  "id": "zkcj6JrhGy8",
+                  "title": "4. Analysis of Structured Data",
+                  "duration": "41:54"
+                },
+                {
+                  "id": "moJ7TQb5Fuk",
+                  "title": "4. Examples Demonstration",
+                  "duration": "24:00"
+                },
+                {
+                  "id": "mbr667kATEg",
+                  "title": "5. Perfect Power Law Graphs -- Generation, Sampling, Construction, and Fitting",
+                  "duration": "53:50"
+                },
+                {
+                  "id": "R6-LQbqUCI0",
+                  "title": "5. Examples Demonstration",
+                  "duration": "24:05"
+                },
+                {
+                  "id": "hMUpevQzNzY",
+                  "title": "6. Bio Sequence Cross Correlation",
+                  "duration": "44:53"
+                },
+                {
+                  "id": "ADQck0zeBLQ",
+                  "title": "6. Examples Demonstration",
+                  "duration": "22:22"
+                },
+                {
+                  "id": "0cmj5TfFCLY",
+                  "title": "Demonstration 7",
+                  "duration": "1:23:22"
+                },
+                {
+                  "id": "MTakzGAhYvo",
+                  "title": "7. Kronecker Graphs, Data Generation, and Performance",
+                  "duration": "44:43"
+                },
+                {
+                  "id": "4StlYd7xKFA",
+                  "title": "7. Examples Demonstration",
+                  "duration": "13:18"
+                }
+              ]
+            },
+            {
+              "id": "3b1b_essence_calculus",
+              "title": "3Blue1Brown: Essence of Calculus",
+              "institution": "Grant Sanderson (3Blue1Brown)",
+              "runtime": "3.2 Hours (12 Lectures)",
+              "badge": "🎨 VISUAL MATHEMATICS",
+              "description": "Visual, intuitive breakdown of derivatives, integrals, Taylor series, power series, multivariate gradients, and differential equations vital for optimization algorithms.",
+              "playlist_url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr",
+              "videos": [
+                {
+                  "id": "WUvTyaaNkzM",
+                  "title": "The essence of calculus",
+                  "duration": "17:05"
+                },
+                {
+                  "id": "9vKqVkMQHKk",
+                  "title": "The paradox of the derivative | Chapter 2, Essence of calculus",
+                  "duration": "16:50"
+                },
+                {
+                  "id": "S0_qX4VJhMQ",
+                  "title": "Derivative formulas through geometry | Chapter 3, Essence of calculus",
+                  "duration": "17:34"
+                },
+                {
+                  "id": "YG15m2VwSjA",
+                  "title": "Visualizing the chain rule and product rule | Chapter 4, Essence of calculus",
+                  "duration": "15:56"
+                },
+                {
+                  "id": "m2MIpDrF7Es",
+                  "title": "What's so special about Euler's number e? | Chapter 5, Essence of calculus",
+                  "duration": "13:50"
+                },
+                {
+                  "id": "qb40J4N1fa4",
+                  "title": "Implicit differentiation, what's going on here? | Chapter 6, Essence of calculus",
+                  "duration": "15:34"
+                },
+                {
+                  "id": "kfF40MiS7zA",
+                  "title": "Limits, L'Hôpital's rule, and epsilon delta definitions | Chapter 7, Essence of calculus",
+                  "duration": "18:27"
+                },
+                {
+                  "id": "rfG8ce4nNh0",
+                  "title": "Integration and the fundamental theorem of calculus | Chapter 8, Essence of calculus",
+                  "duration": "20:46"
+                },
+                {
+                  "id": "FnJqaIESC2s",
+                  "title": "What does area have to do with slope? | Chapter 9, Essence of calculus",
+                  "duration": "12:39"
+                },
+                {
+                  "id": "BLkz5LGWihw",
+                  "title": "Higher order derivatives | Chapter 10, Essence of calculus",
+                  "duration": "5:39"
+                },
+                {
+                  "id": "3d6DsjIBzJ4",
+                  "title": "Taylor series | Chapter 11, Essence of calculus",
+                  "duration": "22:20"
+                },
+                {
+                  "id": "CfW845LNObM",
+                  "title": "The other way to visualize derivatives | Chapter 12, Essence of calculus",
+                  "duration": "14:26"
                 }
               ]
             }

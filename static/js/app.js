@@ -43,7 +43,12 @@ const App = {
     // Custom Video & Playlist Ingestion State
     customCourses: { ml: [], ds: [], cyber: [], dsa: [] },
     deferredInstallPrompt: null,
-    loginParticlesAnimId: null
+    loginParticlesAnimId: null,
+
+    // Elite 450 DSA Compendium State
+    compendiumData: null,
+    compendiumFilterDiff: 'All',
+    compendiumSearchQuery: ''
   },
 
   getAuthHeaders() {
@@ -358,6 +363,7 @@ const App = {
     await this.loadInterviewTracks();
     await this.loadCourseCatalog();
     await this.loadCustomCourses();
+    await this.loadCompendium();
     this.renderLibraryCatalog();
     this.renderDrillsHub();
     this.renderAllCourseTracks();
@@ -453,6 +459,7 @@ const App = {
       'drills': 'Technical Interview Drills Hub (280 Qs) — Career Learning Vault',
       'quiz': 'Live Technical Quiz Drills — Career Learning Vault',
       'sandbox': 'Interactive Coding Sandbox (312 Qs) — Career Learning Vault',
+      'compendium': 'Elite 450 DSA Compendium (450 Qs) — Career Learning Vault',
       'library': 'Vault Library & Curated Textbooks — Career Learning Vault',
       'admin': 'Admin Management Console — Career Learning Vault'
     };
@@ -476,6 +483,10 @@ const App = {
 
     if (viewName === 'admin') {
       this.loadAdminUsers();
+    }
+
+    if (viewName === 'compendium') {
+      this.loadCompendium();
     }
 
     if (viewName === 'drills') {
@@ -3671,7 +3682,210 @@ const App = {
       editor.value = starter;
       this.state.editorContent = starter;
     }
-  }
+  },
+
+  // ── Elite 450 DSA Compendium Engine ───────────────────────────────────────
+  async loadCompendium() {
+    try {
+      const res = await fetch('/api/compendium', { headers: this.getAuthHeaders() });
+      if (res.ok) {
+        this.state.compendiumData = await res.json();
+        this.renderCompendium();
+      }
+    } catch (e) {
+      console.warn('Failed to load compendium:', e);
+    }
+  },
+
+  renderCompendium() {
+    const container = document.getElementById('compendium-topics-container');
+    if (!container || !this.state.compendiumData) return;
+
+    const comp = this.state.compendiumData;
+    const totalCount = comp.total_questions || 447;
+    const userSolved = comp.user_solved_count || 0;
+    const pct = Math.min(100, Math.round((userSolved / totalCount) * 100));
+
+    const solvedEl = document.getElementById('compendium-stat-solved');
+    if (solvedEl) solvedEl.textContent = `${userSolved} / ${totalCount}`;
+
+    const barEl = document.getElementById('compendium-progress-bar');
+    if (barEl) barEl.style.width = `${pct}%`;
+
+    const pctEl = document.getElementById('compendium-stat-percent');
+    if (pctEl) pctEl.textContent = `${pct}%`;
+
+    const filterDiff = this.state.compendiumFilterDiff || 'All';
+    const searchQ = (this.state.compendiumSearchQuery || '').toLowerCase().trim();
+
+    let html = '';
+
+    (comp.topics || []).forEach((topic) => {
+      let filteredProbs = topic.problems || [];
+      if (filterDiff !== 'All') {
+        filteredProbs = filteredProbs.filter(p => p.difficulty.toLowerCase() === filterDiff.toLowerCase());
+      }
+      if (searchQ) {
+        filteredProbs = filteredProbs.filter(p => 
+          p.title.toLowerCase().includes(searchQ) || 
+          p.id.toLowerCase().includes(searchQ) ||
+          (p.tags || []).some(tag => tag.toLowerCase().includes(searchQ))
+        );
+      }
+
+      if (searchQ && filteredProbs.length === 0) return;
+
+      const topicSolved = filteredProbs.filter(p => p.solved).length;
+
+      html += `
+        <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-lg">
+          <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between cursor-pointer select-none" onclick="App.toggleCompendiumTopic('${topic.id}')">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">${topic.icon || '📌'}</span>
+              <div>
+                <h3 class="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+                  <span>${this.escapeHtml(topic.title)}</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-semibold">${filteredProbs.length} Qs</span>
+                </h3>
+                <p class="text-[11px] text-slate-400 font-normal">${this.escapeHtml(topic.description || '')}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono font-bold ${topicSolved === filteredProbs.length && filteredProbs.length > 0 ? 'text-emerald-400' : 'text-purple-300'}">
+                ${topicSolved} / ${filteredProbs.length} Solved
+              </span>
+              <span class="text-slate-400 text-sm transition-transform" id="comp-accordion-icon-${topic.id}">▼</span>
+            </div>
+          </div>
+
+          <div class="p-4 space-y-2 bg-slate-950/60" id="comp-accordion-body-${topic.id}">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs text-slate-300">
+                <thead class="text-[10px] font-mono uppercase tracking-wider text-slate-500 border-b border-slate-800/80">
+                  <tr>
+                    <th class="py-2 px-3 w-12 text-center">Status</th>
+                    <th class="py-2 px-3">Problem Title</th>
+                    <th class="py-2 px-3 w-28">Difficulty</th>
+                    <th class="py-2 px-3 w-48">Tags</th>
+                    <th class="py-2 px-3 w-28 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/50">
+                  ${filteredProbs.map(p => {
+                    const diffColors = {
+                      'Easy': 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+                      'Medium': 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+                      'Hard': 'bg-rose-500/15 text-rose-400 border-rose-500/30'
+                    };
+                    const diffBadge = diffColors[p.difficulty] || diffColors['Easy'];
+                    return `
+                      <tr class="hover:bg-slate-900/60 transition-colors">
+                        <td class="py-2.5 px-3 text-center">
+                          <input 
+                            type="checkbox" 
+                            ${p.solved ? 'checked' : ''} 
+                            onchange="App.toggleCompendiumProblem('${p.id}', this.checked)"
+                            class="w-4 h-4 rounded border-slate-700 bg-slate-900 text-purple-500 focus:ring-0 cursor-pointer">
+                        </td>
+                        <td class="py-2.5 px-3 font-semibold ${p.solved ? 'line-through text-slate-500' : 'text-slate-100'}">
+                          ${this.escapeHtml(p.title)}
+                        </td>
+                        <td class="py-2.5 px-3">
+                          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${diffBadge}">
+                            ${p.difficulty}
+                          </span>
+                        </td>
+                        <td class="py-2.5 px-3">
+                          <div class="flex items-center gap-1 flex-wrap">
+                            ${(p.tags || []).map(t => `<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-slate-900 border border-slate-800 text-slate-400">${this.escapeHtml(t)}</span>`).join('')}
+                          </div>
+                        </td>
+                        <td class="py-2.5 px-3 text-right">
+                          <button 
+                            onclick="App.toggleCompendiumProblem('${p.id}')" 
+                            class="px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all ${p.solved ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-purple-500/15 text-purple-300 border border-purple-500/30 hover:bg-purple-500/25'}">
+                            ${p.solved ? '✓ Solved' : 'Mark Solved'}
+                          </button>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    if (!html) {
+      html = `
+        <div class="text-center py-12 text-slate-400 text-xs font-mono glass-panel rounded-2xl p-8 border border-slate-800">
+          No problems matched your filter criteria "${this.escapeHtml(searchQ || filterDiff)}".
+        </div>
+      `;
+    }
+
+    container.innerHTML = html;
+  },
+
+  toggleCompendiumTopic(topicId) {
+    const body = document.getElementById(`comp-accordion-body-${topicId}`);
+    const icon = document.getElementById(`comp-accordion-icon-${topicId}`);
+    if (body) {
+      body.classList.toggle('hidden');
+      if (icon) {
+        icon.style.transform = body.classList.contains('hidden') ? 'rotate(-90deg)' : 'rotate(0deg)';
+      }
+    }
+  },
+
+  filterCompendium(diff) {
+    this.state.compendiumFilterDiff = diff;
+    document.querySelectorAll('.compendium-diff-btn').forEach(btn => {
+      const isMatch = btn.textContent.trim().toLowerCase() === diff.toLowerCase();
+      btn.classList.toggle('active', isMatch);
+      btn.classList.toggle('bg-purple-500/20', isMatch);
+      btn.classList.toggle('text-purple-300', isMatch);
+      btn.classList.toggle('font-bold', isMatch);
+      btn.classList.toggle('bg-slate-900', !isMatch);
+      btn.classList.toggle('text-slate-300', !isMatch);
+    });
+    this.renderCompendium();
+  },
+
+  searchCompendium(query) {
+    this.state.compendiumSearchQuery = query;
+    this.renderCompendium();
+  },
+
+  async toggleCompendiumProblem(problemId, explicitState = null) {
+    try {
+      const res = await fetch('/api/compendium/toggle', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({ problem_id: problemId, solved: explicitState })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (this.state.compendiumData && this.state.compendiumData.topics) {
+          let userSolved = 0;
+          this.state.compendiumData.topics.forEach(t => {
+            t.problems.forEach(p => {
+              if (p.id === problemId) {
+                p.solved = data.solved;
+              }
+              if (p.solved) userSolved++;
+            });
+          });
+          this.state.compendiumData.user_solved_count = userSolved;
+        }
+        this.renderCompendium();
+      }
+    } catch (e) {
+      console.warn('Failed to toggle compendium problem:', e);
+    }
+  },
 };
 
 window.addEventListener('DOMContentLoaded', () => {

@@ -404,12 +404,23 @@ def init_db():
                 )
             """)
 
+            # 9. User Compendium Progress Table
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS user_compendium_progress (
+                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    problem_id TEXT NOT NULL,
+                    solved_at TEXT NOT NULL,
+                    PRIMARY KEY (user_id, problem_id)
+                )
+            """)
+
             # Performance & FK Indexes
             conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_user ON user_sessions(user_id)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_expires ON user_sessions(expires_at)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_progress_user ON user_challenge_progress(user_id, challenge_id)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_quiz_user ON user_quiz_history(user_id, track_key)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_custom_courses_user ON user_custom_courses(user_id, track_key)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_compendium_user ON user_compendium_progress(user_id)")
             conn.commit()
 
             # Seed Super Admin Account ONLY IF users table is completely empty (first-time deployment)
@@ -469,7 +480,7 @@ PING_COUNT = 0
 app = FastAPI(
     title="Career Learning Vault — Cloud API",
     description="Full-stack Multi-Tenant AI, Data Science & Cybersecurity Sandbox Hub",
-    version="3.6.0"
+    version="3.7.0"
 )
 
 app.add_middleware(
@@ -1304,6 +1315,80 @@ def healthcheck():
         "timestamp_utc": datetime.datetime.now(timezone.utc).isoformat(),
         "cron_status": "AWAKE (24/7 Keep-Alive Active)"
     }
+
+# ── Elite 450 DSA Compendium Routes ───────────────────────────────────────
+COMPENDIUM_FILE = DATA_DIR / "compendium" / "dsa_compendium.json"
+
+class ToggleCompendiumRequest(BaseModel):
+    problem_id: str
+    solved: Optional[bool] = None
+
+@app.get("/api/compendium")
+def get_dsa_compendium(current_user: Dict[str, Any] = Depends(get_current_user)):
+    """Returns the Elite 450 DSA Compendium with per-user solved status merged."""
+    if not COMPENDIUM_FILE.exists():
+        raise HTTPException(status_code=404, detail="Compendium data file not found.")
+    
+    with open(COMPENDIUM_FILE, "r", encoding="utf-8") as f:
+        comp_data = json.load(f)
+    
+    user_id = current_user["id"]
+    solved_set = set()
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT problem_id FROM user_compendium_progress WHERE user_id = ?", (user_id,))
+            solved_set = {row[0] for row in cur.fetchall()}
+    except Exception as e:
+        print(f"[Compendium] DB fetch error: {e}")
+
+    total_solved = 0
+    for topic in comp_data.get("topics", []):
+        topic_solved = 0
+        for problem in topic.get("problems", []):
+            is_solved = problem["id"] in solved_set
+            problem["solved"] = is_solved
+            if is_solved:
+                topic_solved += 1
+                total_solved += 1
+        topic["solved_count"] = topic_solved
+
+    comp_data["user_solved_count"] = total_solved
+    return comp_data
+
+@app.post("/api/compendium/toggle")
+def toggle_compendium_problem(
+    payload: ToggleCompendiumRequest,
+    current_user: Dict[str, Any] = Depends(get_current_user)
+):
+    """Toggles or sets the solved state for a specific compendium problem."""
+    pid = payload.problem_id.strip()
+    if not pid:
+        raise HTTPException(status_code=400, detail="Missing problem_id")
+    
+    user_id = current_user["id"]
+    now_iso = datetime.datetime.now(timezone.utc).isoformat()
+    
+    try:
+        with sqlite3.connect(str(DB_PATH)) as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT problem_id FROM user_compendium_progress WHERE user_id = ? AND problem_id = ?", (user_id, pid))
+            exists = cur.fetchone() is not None
+            
+            if payload.solved is True or (payload.solved is None and not exists):
+                cur.execute("""
+                    INSERT OR REPLACE INTO user_compendium_progress (user_id, problem_id, solved_at)
+                    VALUES (?, ?, ?)
+                """, (user_id, pid, now_iso))
+                new_state = True
+            else:
+                cur.execute("DELETE FROM user_compendium_progress WHERE user_id = ? AND problem_id = ?", (user_id, pid))
+                new_state = False
+            
+            conn.commit()
+            return {"status": "SUCCESS", "problem_id": pid, "solved": new_state}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {e}")
 
 @app.get("/api/platforms")
 def get_platforms():
