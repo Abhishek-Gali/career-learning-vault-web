@@ -1,0 +1,31 @@
+# Python / Venv
+.venv/
+.pip-cache/
+.playwright/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Local Data Storage (Everything stays on E:\)
+data/db/*.db
+data/db/*.db-wal
+data/db/*.db-shm
+!data/db/clf_c02.db
+data/cache/
+data/exports/
+data/logs/
+
+# Environment variables
+.env
+
+# Testing / IDE
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+.vscode/
+.idea/

@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Sequential Reader (Question 1 to {{ total_count }}) — CLF-C02{% endblock %}
+
+{% block content %}
+<div class="header-banner">
+    <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span class="badge badge-source" style="font-size: 12px; padding: 4px 10px;">
+                Sequential Reading Mode
+            </span>
+            <span style="font-size: 13px; color: var(--text-muted);">Question 1 through #{{ total_count }}</span>
+        </div>
+        <h1>Complete Question Catalog (1 &rarr; {{ total_count }})</h1>
+        <p>Distraction-free sequential catalog of every question in the database, ordered from Question #1 to the very last question.</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+        <button id="toggle-answers-btn" class="btn btn-outline" onclick="toggleAllAnswers()" style="font-size: 13px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span id="toggle-text">Hide Correct Answers (Self-Test Mode)</span>
+        </button>
+        <a href="{{ request.scope.get('root_path', '') }}/quiz" class="btn btn-primary" style="font-size: 13px;">
+            Take Timed Quiz
+        </a>
+    </div>
+</div>
+
+<!-- Sticky Reader Navigation Bar -->
+<div class="card" style="padding: 16px 20px; position: sticky; top: 12px; z-index: 40; box-shadow: 0 4px 12px rgba(0,0,0,0.08); background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px);">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+        <!-- Left: Status & Domain Tabs -->
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 13px; font-weight: 700; color: #1e293b;">
+                Questions {{ start_idx }}–{{ end_idx }} of {{ total_count }}
+            </span>
+            <span style="color: #cbd5e1;">|</span>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?batch={{ batch }}" class="btn {% if not selected_domain %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">All</a>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=1&batch={{ batch }}" class="btn {% if selected_domain == 1 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">D1: Concepts</a>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=2&batch={{ batch }}" class="btn {% if selected_domain == 2 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">D2: Security</a>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=3&batch={{ batch }}" class="btn {% if selected_domain == 3 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">D3: Technology</a>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=4&batch={{ batch }}" class="btn {% if selected_domain == 4 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">D4: Billing</a>
+        </div>
+
+        <!-- Right: Jump to Question & Batch Size -->
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <!-- Jump form -->
+            <form method="get" action="{{ request.scope.get('root_path', '') }}/questions/reader" style="display: flex; align-items: center; gap: 6px;">
+                {% if selected_domain %}<input type="hidden" name="domain" value="{{ selected_domain }}">{% endif %}
+                <input type="hidden" name="batch" value="{{ batch }}">
+                <span style="font-size: 12px; font-weight: 700; color: #64748b;">JUMP TO #:</span>
+                <input type="number" name="jump_to" min="1" max="{{ total_count }}" placeholder="e.g. 1" style="width: 80px; padding: 6px 8px; font-size: 13px;" required>
+                <button type="submit" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Go</button>
+            </form>
+
+            <span style="color: #cbd5e1;">|</span>
+
+            <!-- Batch selector -->
+            <div style="display: flex; align-items: center; gap: 4px;">
+                <span style="font-size: 12px; font-weight: 700; color: #64748b;">VIEW:</span>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=50&page=1" class="btn {% if batch == 50 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 8px; font-size: 12px;">50</a>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=100&page=1" class="btn {% if batch == 100 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 8px; font-size: 12px;">100</a>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=250&page=1" class="btn {% if batch == 250 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 8px; font-size: 12px;">250</a>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=1200&page=1" class="btn {% if batch >= 1000 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 8px; font-size: 12px;" title="View all 1,045 questions on one page">All</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Questions Stream (1 to Last) -->
+<div id="questions-container" class="questions-stream">
+    {% for q in questions %}
+        <div id="q-{{ q.id }}" style="scroll-margin-top: 100px;">
+            {% include "questions/partials/question_card.html" %}
+        </div>
+    {% else %}
+        <div class="card" style="text-align: center; padding: 60px 20px;">
+            <p style="color: var(--text-muted); font-size: 15px;">No questions found for the selected range.</p>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Bottom Pagination (if multiple pages) -->
+{% if total_pages > 1 %}
+<div class="card" style="padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <div style="font-size: 13px; color: var(--text-muted);">
+        Page <b>{{ current_page }}</b> of <b>{{ total_pages }}</b> (Questions {{ start_idx }}–{{ end_idx }} of {{ total_count }})
+    </div>
+    
+    <div style="display: flex; gap: 6px; align-items: center;">
+        {% if current_page > 1 %}
+        <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch={{ batch }}&page=1" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">&laquo; First (Q#1)</a>
+        <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch={{ batch }}&page={{ current_page - 1 }}" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">&larr; Prev</a>
+        {% endif %}
+
+        <span style="font-size: 13px; font-weight: 700; padding: 0 8px;">Page {{ current_page }}</span>
+
+        {% if current_page < total_pages %}
+        <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch={{ batch }}&page={{ current_page + 1 }}" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">Next &rarr;</a>
+        <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch={{ batch }}&page={{ total_pages }}" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">Last (Q#{{ total_count }}) &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<script>
+let answersHidden = false;
+
+function toggleAllAnswers() {
+    answersHidden = !answersHidden;
+    const correctItems = document.querySelectorAll('.option-item.correct');
+    const explanations = document.querySelectorAll('.explanation-box');
+    const toggleBtnText = document.getElementById('toggle-text');
+
+    correctItems.forEach(el => {
+        if (answersHidden) {
+            el.classList.add('hide-correct-state');
+        } else {
+            el.classList.remove('hide-correct-state');
+        }
+    });
+
+    explanations.forEach(el => {
+        if (answersHidden) {
+            el.style.display = 'none';
+        } else {
+            el.style.display = 'block';
+        }
+    });
+
+    if (answersHidden) {
+        toggleBtnText.innerText = "Show Answers & Explanations";
+    } else {
+        toggleBtnText.innerText = "Hide Correct Answers (Self-Test Mode)";
+    }
+}
+</script>
+
+<style>
+.hide-correct-state {
+    background: #ffffff !important;
+    border-color: var(--border-color) !important;
+    color: #1e293b !important;
+    font-weight: normal !important;
+}
+.hide-correct-state .option-bubble {
+    background: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+    color: #334155 !important;
+}
+.hide-correct-state span[style*="color: #15803d"] {
+    display: none !important;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,451 @@
+sources:
+  # --- 1. OFFICIAL AWS SOURCES ---
+  - name: "AWS Official Sample Questions"
+    domain: "aws.amazon.com"
+    tier: "OFFICIAL"
+    enabled: true
+    priority: 100
+    allowed_paths:
+      - "/training-and-certification/"
+      - "/certification/certified-cloud-practitioner/"
+      - "/whitepapers/"
+      - "/blogs/aws/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 2.0
+    sitemap_urls: []
+    rss_urls:
+      - "https://aws.amazon.com/blogs/aws/feed/"
+    license: "AWS Official Reference"
+    notes: "Official CLF-C02 sample questions and architecture overviews"
+
+  - name: "AWS Skill Builder Public Practice"
+    domain: "explore.skillbuilder.aws"
+    tier: "OFFICIAL"
+    enabled: true
+    priority: 95
+    allowed_paths:
+      - "/learn/"
+      - "/learn/course/external/view/elearning/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 2.0
+    sitemap_urls: []
+    rss_urls: []
+    license: "AWS Skill Builder"
+    notes: "Official learning portal and standard practice sets"
+
+  - name: "AWS re:Post Community Knowledge"
+    domain: "repost.aws"
+    tier: "OFFICIAL"
+    enabled: true
+    priority: 90
+    allowed_paths:
+      - "/questions/"
+      - "/articles/"
+      - "/knowledge-center/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 2.0
+    sitemap_urls: []
+    rss_urls: []
+    license: "AWS Community Reference"
+    notes: "Official AWS community knowledge base and troubleshooting FAQs"
+
+  # --- 2. ESTABLISHED EDUCATIONAL & TRAINING PROVIDERS ---
+  - name: "Tutorials Dojo Free Practice Exam & Cheat Sheets"
+    domain: "tutorialsdojo.com"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 88
+    allowed_paths:
+      - "/aws-certified-cloud-practitioner-clf-c02-practice-exams/"
+      - "/aws-cheat-sheets/"
+      - "/courses/aws-certified-cloud-practitioner-practice-exams/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls:
+      - "https://tutorialsdojo.com/sitemap_index.xml"
+    rss_urls:
+      - "https://tutorialsdojo.com/feed/"
+    license: "Educational Reference"
+    notes: "Top-rated AWS certification practice tests and comparison cheat sheets"
+
+  - name: "Digital Cloud Training Free CLF-C02 Sample"
+    domain: "digitalcloud.training"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 86
+    allowed_paths:
+      - "/free-aws-certified-cloud-practitioner-practice-exam/"
+      - "/category/aws-certified-cloud-practitioner/"
+      - "/certification-training/aws-certified-cloud-practitioner/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls:
+      - "https://digitalcloud.training/sitemap.xml"
+    rss_urls:
+      - "https://digitalcloud.training/feed/"
+    license: "Educational Reference"
+    notes: "Established AWS training academy with free sample exams"
+
+  - name: "FreeCodeCamp AWS Certification Hub"
+    domain: "freecodecamp.org"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 85
+    allowed_paths:
+      - "/news/aws-certified-cloud-practitioner-study-guide/"
+      - "/news/aws-certified-cloud-practitioner-clf-c02-practice-exam/"
+      - "/news/tag/aws/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.0
+    sitemap_urls: []
+    rss_urls:
+      - "https://www.freecodecamp.org/news/rss/"
+    license: "Open Educational Resource"
+    notes: "Free open educational study guides, full courses, and sample quizzes"
+
+  - name: "Cloud Academy AWS Blog & Quizzes"
+    domain: "cloudacademy.com"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 80
+    allowed_paths:
+      - "/blog/aws-cloud-practitioner-certification-exam-clf-c02/"
+      - "/blog/tag/aws/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls:
+      - "https://cloudacademy.com/blog/feed/"
+    license: "Educational"
+    notes: "Cloud Academy educational writeups and sample practice questions"
+
+  - name: "A Cloud Guru / Pluralsight AWS Guides"
+    domain: "pluralsight.com"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 80
+    allowed_paths:
+      - "/resources/blog/cloud/aws-certified-cloud-practitioner-clf-c02/"
+      - "/resources/blog/cloud/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational"
+    notes: "Industry standard cloud training blog with exam deep dives"
+
+  - name: "Whizlabs Free AWS Practice Tests"
+    domain: "whizlabs.com"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 82
+    allowed_paths:
+      - "/blog/aws-certified-cloud-practitioner-questions-answers/"
+      - "/blog/aws-certified-cloud-practitioner-exam-guide/"
+      - "/blog/category/aws/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls:
+      - "https://www.whizlabs.com/blog/feed/"
+    license: "Educational Reference"
+    notes: "Practice test provider with free blog question samples"
+
+  - name: "KnowledgeHut AWS Cloud Practitioner Practice"
+    domain: "knowledgehut.com"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 78
+    allowed_paths:
+      - "/blog/cloud-computing/aws-cloud-practitioner-exam-questions"
+      - "/blog/cloud-computing/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational Reference"
+    notes: "Professional training provider practice question compilations"
+
+  - name: "Simplilearn AWS Practitioner Sample Sets"
+    domain: "simplilearn.com"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 78
+    allowed_paths:
+      - "/tutorials/aws-tutorial/aws-cloud-practitioner-exam-questions"
+      - "/tutorials/aws-tutorial/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational"
+    notes: "Tutorial sets and practice questions for certification candidates"
+
+  - name: "Edureka AWS Certification Questions"
+    domain: "edureka.co"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 75
+    allowed_paths:
+      - "/blog/aws-cloud-practitioner-exam-questions/"
+      - "/blog/category/cloud-computing/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational"
+    notes: "Curated exam question series with step-by-step rationales"
+
+  - name: "Intellipaat AWS Practice Quiz"
+    domain: "intellipaat.com"
+    tier: "ESTABLISHED_EDUCATIONAL"
+    enabled: true
+    priority: 75
+    allowed_paths:
+      - "/blog/aws-cloud-practitioner-exam-questions/"
+      - "/blog/category/cloud-computing/aws/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational"
+    notes: "Technical training portal with practice scenario questions"
+
+  - name: "ExamTopics Community Discussion (Free Samples)"
+    domain: "examtopics.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 75
+    allowed_paths:
+      - "/discussions/amazon/view/"
+      - "/exams/amazon/aws-certified-cloud-practitioner-clf-c02/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 2.0
+    sitemap_urls: []
+    rss_urls: []
+    license: "Community Discussion"
+    notes: "Community discussion threads on practice scenarios"
+
+  # --- 3. COMMUNITY, INSTRUCTOR & DEVELOPER PLATFORMS ---
+  - name: "Stephane Maarek Cloud Practitioner Blog"
+    domain: "datacumulus.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 85
+    allowed_paths:
+      - "/blog/"
+      - "/aws-certified-cloud-practitioner/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Instructor Educational"
+    notes: "Resources and study notes from top Udemy AWS instructor"
+
+  - name: "Neal Davis Digital Cloud Notes"
+    domain: "nealdavis.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 80
+    allowed_paths:
+      - "/aws-certification/"
+      - "/blog/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational"
+    notes: "Detailed architecture summaries and practice questions"
+
+  - name: "Dev.to AWS Cloud Practitioner Community"
+    domain: "dev.to"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 75
+    allowed_paths:
+      - "/t/aws"
+      - "/t/cloudpractitioner"
+      - "/t/clfc02"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.0
+    sitemap_urls: []
+    rss_urls:
+      - "https://dev.to/feed/tag/aws"
+      - "https://dev.to/feed/tag/cloudpractitioner"
+    license: "Community Published"
+    notes: "Developer community articles, flashcards, and quiz breakdowns"
+
+  - name: "Medium Cloud Engineering Publications"
+    domain: "medium.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 70
+    allowed_paths:
+      - "/tag/aws-cloud-practitioner"
+      - "/tag/clf-c02"
+      - "/tag/aws-certification"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 2.0
+    sitemap_urls: []
+    rss_urls: []
+    license: "Community Published"
+    notes: "Articles detailing exam experiences, revision notes, and study sets"
+
+  - name: "Hashnode AWS Creators Network"
+    domain: "hashnode.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 72
+    allowed_paths:
+      - "/n/aws"
+      - "/n/cloud"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Community Published"
+    notes: "Tech blogs and practice exam summaries"
+
+  - name: "GeeksforGeeks AWS Cloud Practitioner Questions"
+    domain: "geeksforgeeks.org"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 80
+    allowed_paths:
+      - "/aws-certified-cloud-practitioner-practice-questions/"
+      - "/aws-cloud-practitioner-study-guide/"
+      - "/category/cloud-computing/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational Reference"
+    notes: "Computer science portal with comprehensive multiple-choice question sets"
+
+  - name: "Sanfoundry AWS Cloud Architecture MCQs"
+    domain: "sanfoundry.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 74
+    allowed_paths:
+      - "/amazon-web-services-questions-answers/"
+      - "/cloud-computing-questions-answers/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational"
+    notes: "Extensive topic-by-topic multiple-choice question repository"
+
+  - name: "JavaTpoint AWS Cloud Questions"
+    domain: "javatpoint.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 70
+    allowed_paths:
+      - "/aws-cloud-practitioner-questions"
+      - "/aws-tutorial"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational"
+    notes: "Beginner-friendly cloud concepts and question breakdowns"
+
+  - name: "Cloudbytes.dev AWS Practice Lab"
+    domain: "cloudbytes.dev"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 78
+    allowed_paths:
+      - "/snippets/aws/"
+      - "/courses/aws-cloud-practitioner/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational Reference"
+    notes: "Interactive cloud snippets and study questions"
+
+  - name: "AWSBytes Blog & Practice Questions"
+    domain: "awsbytes.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 75
+    allowed_paths:
+      - "/aws-certified-cloud-practitioner-clf-c02-practice-questions/"
+      - "/category/aws/"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 1.5
+    sitemap_urls: []
+    rss_urls: []
+    license: "Educational"
+    notes: "Focused CLF-C02 sample questions with detailed explanations"
+
+  # --- 4. OPEN SOURCE & REPOSITORY STUDY SETS ---
+  - name: "GitHub Public AWS Study Repository (Kananirav)"
+    domain: "github.com"
+    tier: "COMMUNITY_EDUCATIONAL"
+    enabled: true
+    priority: 82
+    allowed_paths:
+      - "/kananinirav/AWS-Certified-Cloud-Practitioner-Notes"
+      - "/alozano-77/AWS-Certified-Cloud-Practitioner"
+      - "/Ditectrev/AWS-Certified-Cloud-Practitioner-Notes"
+      - "/undergroundwires/AWS-in-bullet-points"
+    blocked_paths: []
+    requires_login: false
+    robots_policy: "RESPECT"
+    rate_limit: 2.0
+    sitemap_urls: []
+    rss_urls: []
+    license: "MIT / Open Source"
+    notes: "Public markdown study notes, summaries, and flashcards"

@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Question #{{ q.id }} — CLF-C02 Provenance & Details{% endblock %}
+
+{% block content %}
+<div class="header-banner">
+    <div>
+        <a href="{{ request.scope.get('root_path', '') }}/questions" style="color: var(--primary); text-decoration: none; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Question Bank
+        </a>
+        <h1 style="margin-top: 10px;">Question #{{ q.id }} &bull; Domain {{ q.domain }}: {{ q.domain_name }}</h1>
+        <p>Curriculum Task Statement: <b>Task {{ q.task_statement or '3.1' }}</b> &bull; Quality Rating: <b>{{ q.quality_score|round(0)|int }}%</b></p>
+    </div>
+    <div style="display: flex; gap: 8px;">
+        <a href="{{ request.scope.get('root_path', '') }}/quiz" class="btn btn-secondary">Quiz Mode</a>
+    </div>
+</div>
+
+<!-- Question Display Card -->
+<div class="card">
+    <div style="display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; align-items: center;">
+        {% if q.is_generated %}
+        <span class="badge badge-generated">Generated Practice</span>
+        {% else %}
+        <span class="badge badge-source">Recent Public Source</span>
+        {% endif %}
+
+        {% if q.answer_status == 'VERIFIED' %}
+        <span class="badge badge-verified">&#10004; Verified AWS Documentation</span>
+        {% endif %}
+
+        <span class="badge badge-older">Difficulty: {{ q.difficulty }}</span>
+        <span class="badge badge-older">Type: {{ q.question_type }}</span>
+    </div>
+
+    <!-- Stem Text -->
+    <div class="stem-text" style="font-size: 18px; font-weight: 700; line-height: 1.6; margin-bottom: 24px;">
+        {{ q.stem }}
+    </div>
+
+    <!-- Options List -->
+    <ul class="options-list" style="margin: 20px 0;">
+        {% for opt in q.options %}
+        <li class="option-item {% if opt.is_correct %}correct{% endif %}" style="padding: 14px 18px;">
+            <span class="option-bubble">{{ opt.option_key }}</span>
+            <span style="flex: 1;">{{ opt.option_text }}</span>
+            {% if opt.is_correct %}
+            <span style="color: #15803d; font-weight: 800; font-size: 13px; display: inline-flex; align-items: center; gap: 4px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Correct Answer
+            </span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Explanation Box -->
+    {% if q.explanation %}
+    <div class="explanation-box" style="margin-top: 24px; padding: 18px 22px;">
+        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #334155; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="16" y2="12"/><line x1="12" x2="12.01" y1="8" y2="8"/></svg>
+            Comprehensive Explanation & Study Reference
+        </div>
+        <p style="font-size: 15px; line-height: 1.7; color: #1e293b;">{{ q.explanation }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Associated Services -->
+    {% if q.services and q.services|length > 0 %}
+    <div class="services-row" style="margin-top: 18px;">
+        <span style="font-size: 12px; font-weight: 700; color: #64748b; margin-right: 6px; align-self: center;">AWS Services Involved:</span>
+        {% for svc in q.services %}
+        <span class="service-pill" style="font-size: 12px; padding: 3px 10px;">{{ svc.service_name }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<!-- Prominent Source Origin & Recency Lineage Card -->
+<div class="card" style="border-left: 4px solid var(--aws-orange);">
+    <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff9900" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+        Source Lineage & Exact Recency Timeline
+    </h2>
+    
+    <table>
+        <tr>
+            <td style="width: 240px; font-weight: 700; color: #475569;">Origin / Source Name:</td>
+            <td>
+                {% if q.sources and q.sources|length > 0 %}
+                <span style="font-weight: 700; color: #0f172a;">{{ q.sources[0].source_title }}</span>
+                {% else %}
+                <span>Deterministic Curriculum Practice Generator</span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: 700; color: #475569;">Public Source URL:</td>
+            <td>
+                {% if q.sources and q.sources|length > 0 %}
+                <a href="{{ q.sources[0].source_url }}" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: 600; text-decoration: underline;">
+                    {{ q.sources[0].source_url }} &rarr;
+                </a>
+                {% else %}
+                <span style="color: var(--text-muted);">Self-Contained Local Invariant</span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: 700; color: #475569;">When Question Came Up:</td>
+            <td>
+                {% if q.published_at %}
+                <span style="font-weight: 800; font-size: 15px; color: #0f172a;">
+                    {% if q.published_at.strftime is defined %}
+                        {{ q.published_at.strftime('%B %d, %Y (%Y-%m-%d)') }}
+                    {% else %}
+                        {{ q.published_at }}
+                    {% endif %}
+                </span>
+                <span class="recency-status-badge" style="margin-left: 10px;">
+                    Recent &bull; Active CLF-C02 6-12M Window
+                </span>
+                {% else %}
+                <span style="font-weight: 600;">Current CLF-C02 Cycle</span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: 700; color: #475569;">Date Confidence & Evidence:</td>
+            <td>
+                <span class="badge badge-source">{{ q.date_confidence }} Confidence</span>
+                <span style="color: var(--text-muted); font-size: 13px; margin-left: 8px;">Extracted from dataset repository metadata and release tags</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: 700; color: #475569;">Extraction Strategy:</td>
+            <td>
+                <code>{{ q.sources[0].extraction_method if q.sources else 'ALGORITHMIC_GENERATION' }}</code>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: 700; color: #475569;">Exact SHA-256 Hash:</td>
+            <td><code style="font-size: 12px; color: #475569;">{{ q.exact_hash }}</code></td>
+        </tr>
+        <tr>
+            <td style="font-weight: 700; color: #475569;">Canonical Question ID:</td>
+            <td><code>{{ q.uuid }}</code></td>
+        </tr>
+    </table>
+</div>
+
+<!-- Authoritative AWS Verification Evidence -->
+{% if q.verifications and q.verifications|length > 0 %}
+<div class="card" style="border-left: 4px solid var(--success);">
+    <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        Authoritative AWS Documentation Verification Evidence
+    </h2>
+
+    {% for v in q.verifications %}
+    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 18px; margin-bottom: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div style="font-weight: 700; font-size: 15px; color: #15803d;">{{ v.source_title }}</div>
+            <span class="badge badge-source">{{ v.evidence_type or 'OFFICIAL_DOCS' }} &bull; {{ (v.confidence * 100)|round(0)|int }}% Confidence</span>
+        </div>
+        <p style="font-size: 14px; color: #334155; line-height: 1.6; margin-bottom: 10px;">{{ v.supporting_text_summary }}</p>
+        <a href="{{ v.source_url }}" target="_blank" rel="noopener noreferrer" style="font-size: 13px; font-weight: 700; color: #1d4ed8; text-decoration: underline; display: inline-flex; align-items: center; gap: 4px;">
+            Open Authoritative AWS Documentation Reference &rarr;
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

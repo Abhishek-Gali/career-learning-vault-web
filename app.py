@@ -2661,6 +2661,21 @@ def serve_dashboard(request: Request, vault_session: Optional[str] = Cookie(None
     with open(index_path, "r", encoding="utf-8") as f:
         return HTMLResponse(content=f.read(), status_code=200)
 
+
+# ─── Mount AWS Cloud Practitioner (Question Finder) Sub-Application ────────────
+try:
+    QF_ROOT = BASE_DIR / "question_finder"
+    if str(QF_ROOT) not in sys.path:
+        sys.path.insert(0, str(QF_ROOT))
+
+    from qf_app.main import create_app as create_qf_app
+    qf_app = create_qf_app()
+    app.mount("/aws-cloud", qf_app)
+    print("[AWS Cloud] AWS Cloud Practitioner (Question Finder) sub-app mounted at /aws-cloud")
+except Exception as e:
+    print(f"[AWS Cloud Error] Could not mount AWS Cloud sub-app: {e}")
+
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))

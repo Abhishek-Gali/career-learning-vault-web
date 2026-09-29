@@ -1,0 +1,93 @@
+exam_code: "CLF-C02"
+exam_name: "AWS Certified Cloud Practitioner"
+official_url: "https://d1.awsstatic.com/training-and-certification/docs-cloud-practitioner/AWS-Certified-Cloud-Practitioner_Exam-Guide.pdf"
+
+domains:
+  - number: 1
+    name: "Cloud Concepts"
+    weighting: 0.24
+    tasks:
+      - number: "1.1"
+        statement: "Define the benefits of the AWS Cloud."
+        keywords: ["agility", "elasticity", "scalability", "high availability", "fault tolerance", "global infrastructure", "disaster recovery"]
+      - number: "1.2"
+        statement: "Identify design principles of the AWS Cloud."
+        keywords: ["Well-Architected", "Operational Excellence", "Security", "Reliability", "Performance Efficiency", "Cost Optimization", "Sustainability", "loose coupling", "redundancy"]
+      - number: "1.3"
+        statement: "Understand the benefits of and strategies for migration to the AWS Cloud."
+        keywords: ["Cloud Adoption Framework", "CAF", "7 Rs", "rehost", "replatform", "refactor", "repurchase", "relocate", "retain", "retire", "Migration Hub", "Application Migration Service", "MGN", "Database Migration Service", "DMS", "Schema Conversion Tool", "SCT"]
+      - number: "1.4"
+        statement: "Understand concepts of cloud economics."
+        keywords: ["CapEx", "OpEx", "capital expenditures", "operational expenditures", "Total Cost of Ownership", "TCO", "economies of scale", "right sizing"]
+
+  - number: 2
+    name: "Security and Compliance"
+    weighting: 0.30
+    tasks:
+      - number: "2.1"
+        statement: "Understand the AWS shared responsibility model."
+        keywords: ["shared responsibility", "security of the cloud", "security in the cloud", "hardware", "facilities", "patching", "encryption", "firewall configuration"]
+      - number: "2.2"
+        statement: "Understand AWS Cloud security, governance, and compliance concepts."
+        keywords: ["AWS Artifact", "compliance reports", "AWS Organizations", "Service Control Policies", "SCP", "AWS Control Tower", "encryption at rest", "encryption in transit", "AWS CloudTrail", "audit logs"]
+      - number: "2.3"
+        statement: "Identify AWS access management capabilities."
+        keywords: ["IAM", "Identity and Access Management", "IAM user", "IAM group", "IAM role", "IAM policy", "least privilege", "MFA", "multi-factor authentication", "root user", "credentials", "access keys", "IAM Identity Center", "Single Sign-On", "SSO"]
+      - number: "2.4"
+        statement: "Identify components and resources for security."
+        keywords: ["AWS KMS", "Key Management Service", "AWS WAF", "Web Application Firewall", "AWS Shield", "DDoS", "Amazon GuardDuty", "threat detection", "Amazon Inspector", "vulnerability scan", "AWS Secrets Manager", "Amazon Macie", "sensitive data", "PII", "AWS Security Hub", "AWS Network Firewall"]
+
+  - number: 3
+    name: "Cloud Technology and Services"
+    weighting: 0.34
+    tasks:
+      - number: "3.1"
+        statement: "Define methods of deploying and operating in the AWS Cloud."
+        keywords: ["AWS Management Console", "AWS CLI", "Command Line Interface", "AWS SDK", "Software Development Kit", "Infrastructure as Code", "IaC", "AWS CloudFormation", "AWS Elastic Beanstalk", "AWS CloudShell", "AWS Systems Manager"]
+      - number: "3.2"
+        statement: "Define the AWS global infrastructure."
+        keywords: ["Regions", "Availability Zones", "AZ", "Edge Locations", "Points of Presence", "Regional Edge Caches", "AWS Local Zones", "AWS Wavelength", "AWS Outposts"]
+      - number: "3.3"
+        statement: "Identify AWS compute services."
+        keywords: ["Amazon EC2", "instance types", "EC2 Auto Scaling", "Amazon Lightsail", "containers", "Amazon ECS", "Elastic Container Service", "Amazon EKS", "Elastic Kubernetes Service", "Amazon ECR", "Elastic Container Registry", "serverless", "AWS Lambda", "AWS Fargate", "AWS Batch"]
+      - number: "3.4"
+        statement: "Identify AWS database services."
+        keywords: ["Amazon RDS", "Relational Database Service", "Amazon Aurora", "Amazon DynamoDB", "NoSQL", "Amazon DocumentDB", "Amazon ElastiCache", "Redis", "Memcached", "Amazon Neptune", "graph database", "Amazon MemoryDB", "AWS DMS"]
+      - number: "3.5"
+        statement: "Identify AWS network services."
+        keywords: ["Amazon VPC", "Virtual Private Cloud", "subnets", "public subnet", "private subnet", "Internet Gateway", "IGW", "NAT Gateway", "route tables", "Security Groups", "Network ACLs", "NACL", "Amazon Route 53", "DNS", "Amazon CloudFront", "CDN", "AWS Direct Connect", "AWS VPN", "AWS Transit Gateway", "AWS Global Accelerator", "AWS PrivateLink"]
+      - number: "3.6"
+        statement: "Identify AWS storage services."
+        keywords: ["Amazon S3", "Simple Storage Service", "S3 Standard", "S3 Intelligent-Tiering", "S3 Glacier", "Glacier Deep Archive", "Amazon EBS", "Elastic Block Store", "instance store", "Amazon EFS", "Elastic File System", "Amazon FSx", "AWS Storage Gateway", "AWS Backup", "AWS Snow Family", "Snowball", "Snowcone", "AWS DataSync", "AWS Elastic Disaster Recovery"]
+      - number: "3.7"
+        statement: "Identify AWS artificial intelligence and machine learning (AI/ML) services and analytics services."
+        keywords: ["Amazon SageMaker", "Amazon Bedrock", "Generative AI", "Amazon Rekognition", "Amazon Comprehend", "Amazon Polly", "Amazon Transcribe", "Amazon Translate", "Amazon Lex", "Amazon Kendra", "Amazon Athena", "Amazon EMR", "AWS Glue", "Amazon Kinesis", "Amazon QuickSight", "Amazon Redshift", "data warehouse", "Amazon OpenSearch Service"]
+      - number: "3.8"
+        statement: "Identify services from other in-scope AWS service categories."
+        keywords: ["Amazon SNS", "Simple Notification Service", "Amazon SQS", "Simple Queue Service", "Amazon EventBridge", "AWS Step Functions", "Amazon Connect", "Amazon SES", "AWS CodePipeline", "AWS CodeBuild", "AWS CodeDeploy", "AWS CodeCommit", "AWS X-Ray"]
+
+  - number: 4
+    name: "Billing, Pricing, and Support"
+    weighting: 0.12
+    tasks:
+      - number: "4.1"
+        statement: "Compare AWS pricing models."
+        keywords: ["On-Demand", "Reserved Instances", "RI", "Standard RI", "Convertible RI", "Spot Instances", "Savings Plans", "Compute Savings Plans", "Dedicated Hosts", "Dedicated Instances", "data transfer out", "free tier"]
+      - number: "4.2"
+        statement: "Understand resources for billing, budget, and cost management."
+        keywords: ["AWS Cost Explorer", "AWS Budgets", "Cost and Usage Report", "CUR", "AWS Pricing Calculator", "AWS Billing Conductor", "cost allocation tags", "consolidated billing", "AWS Organizations billing"]
+      - number: "4.3"
+        statement: "Identify AWS technical resources and AWS Support options."
+        keywords: ["AWS Support", "Basic Support", "Developer Support", "Business Support", "Enterprise On-Ramp", "Enterprise Support", "Technical Account Manager", "TAM", "AWS Trusted Advisor", "AWS Health Dashboard", "AWS Knowledge Center", "AWS re:Post", "AWS Whitepapers", "AWS Partner Network", "APN"]
+
+out_of_scope_services:
+  - "AWS Elemental MediaConnect"
+  - "AWS Elemental MediaConvert"
+  - "AWS Elemental MediaLive"
+  - "AWS Elemental MediaPackage"
+  - "AWS Elemental MediaStore"
+  - "AWS Elemental MediaTailor"
+  - "Amazon Interactive Video Service"
+  - "Amazon GameLift"
+  - "Amazon Braket"
+  - "AWS RoboMaker"

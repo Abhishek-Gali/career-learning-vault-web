@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Sources Registry — CLF-C02 Researcher{% endblock %}
+
+{% block content %}
+<div class="header-banner">
+    <div>
+        <h1>Registered Sources & Provider Health</h1>
+        <p style="color: var(--text-muted); font-size: 14px;">Known public repositories and educational domains</p>
+    </div>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>Source Name</th>
+                <th>Domain</th>
+                <th>Tier</th>
+                <th>Priority</th>
+                <th>Rate Limit</th>
+                <th>Pages Crawled</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in sources %}
+            <tr>
+                <td><b>{{ s.name }}</b></td>
+                <td><code>{{ s.domain }}</code></td>
+                <td><span class="badge badge-older">{{ s.tier }}</span></td>
+                <td>{{ s.priority }}</td>
+                <td>{{ s.rate_limit }}s</td>
+                <td>{{ s.pages|length }}</td>
+                <td>
+                    {% if s.enabled %}
+                    <span class="badge badge-source">Active</span>
+                    {% else %}
+                    <span class="badge badge-quarantined">Disabled</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

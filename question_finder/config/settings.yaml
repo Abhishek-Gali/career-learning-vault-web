@@ -1,0 +1,41 @@
+research:
+  months: 6
+  recent_source_target: 1000
+  total_study_target: 1000
+  language: en
+  date_policy: RECENT_PUBLICATION_OR_SUBSTANTIAL_UPDATE
+
+crawler:
+  max_pages_per_run: 5000
+  request_timeout_seconds: 20
+  max_content_size_mb: 10
+  max_concurrency: 8
+  respect_robots: true
+  max_redirects: 5
+  user_agent: "CLF-C02-Researcher/0.1 (educational-study-research-tool; local-first)"
+
+quality:
+  minimum_score: 60
+  fuzzy_duplicate_threshold: 85
+
+verification:
+  require_answer: true
+  max_evidence_sources: 5
+
+generation:
+  enabled: true
+  count_only_as_supplementary: true
+  max_per_topic: 25
+
+search:
+  searxng_enabled: false
+  searxng_url: "http://localhost:8080"
+  direct_sources_enabled: true
+  rss_enabled: true
+  sitemap_enabled: true
+
+ui:
+  host: "127.0.0.1"
+  port: 8000
+  questions_per_page: 20
+  quiz_size: 25

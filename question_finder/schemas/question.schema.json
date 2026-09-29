@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CLF-C02 Question Schema",
+  "type": "object",
+  "required": ["id", "stem", "question_type", "options", "correct_option_ids", "is_generated"],
+  "properties": {
+    "id": { "type": "string" },
+    "uuid": { "type": "string" },
+    "stem": { "type": "string", "minLength": 10 },
+    "question_type": {
+      "type": "string",
+      "enum": ["SINGLE_CHOICE", "MULTIPLE_RESPONSE", "TRUE_FALSE", "MATCHING", "SCENARIO"]
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["id", "text"],
+        "properties": {
+          "id": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      }
+    },
+    "correct_option_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "explanation": { "type": "string" },
+    "curriculum": {
+      "type": "object",
+      "properties": {
+        "domain": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "domain_name": { "type": "string" },
+        "task_statement": { "type": "string" },
+        "services": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "topics": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "date": {
+      "type": "object",
+      "properties": {
+        "published_at": { "type": ["string", "null"] },
+        "updated_at": { "type": ["string", "null"] },
+        "retrieved_at": { "type": "string" },
+        "confidence": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW", "UNKNOWN"] },
+        "recentness_status": { "type": "string" }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["VERIFIED", "PARTIALLY_VERIFIED", "UNVERIFIED", "CONFLICTING", "REJECTED"] },
+        "confidence": { "type": "number" },
+        "evidence_url": { "type": ["string", "null"] },
+        "citation": { "type": ["string", "null"] }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "source_kind": { "type": "string" },
+        "source_url": { "type": ["string", "null"] },
+        "source_title": { "type": ["string", "null"] },
+        "extraction_method": { "type": ["string", "null"] }
+      }
+    },
+    "is_generated": { "type": "boolean" },
+    "generation_method": { "type": ["string", "null"] },
+    "quality_score": { "type": "number" }
+  }
+}

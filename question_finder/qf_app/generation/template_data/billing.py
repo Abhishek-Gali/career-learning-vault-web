@@ -1,0 +1,43 @@
+"""Domain 4: Billing, Pricing, and Support Templates."""
+
+BILLING_TEMPLATES = [
+    {
+        "id": "BILL_01",
+        "stem": "Which Amazon EC2 purchasing option offers the steepest discount (up to 90%) for workloads with flexible start and end times that can withstand service interruptions?",
+        "correct": "Spot Instances",
+        "distractors": ["On-Demand Instances", "Dedicated Hosts", "Standard Reserved Instances"],
+        "explanation": "Amazon EC2 Spot Instances allow you to request unused EC2 capacity at steep discounts, ideal for fault-tolerant and interruptible batch workloads.",
+        "domain": 4,
+        "domain_name": "Billing, Pricing, and Support",
+        "task": "4.1",
+        "services": ["Amazon EC2"],
+        "topics": ["EC2 Pricing Models", "Spot Instances"],
+        "aws_source": "https://aws.amazon.com/ec2/spot/",
+    },
+    {
+        "id": "BILL_02",
+        "stem": "Which AWS tool enables users to visualize, understand, and forecast their historical AWS spending and usage trends over time with custom filtering?",
+        "correct": "AWS Cost Explorer",
+        "distractors": ["AWS Pricing Calculator", "AWS Marketplace", "AWS Billing Conductor"],
+        "explanation": "AWS Cost Explorer has an easy-to-use interface that lets you visualize, understand, and manage your AWS costs and usage over time.",
+        "domain": 4,
+        "domain_name": "Billing, Pricing, and Support",
+        "task": "4.2",
+        "services": ["AWS Cost Explorer"],
+        "topics": ["Cost Management", "Cost Explorer"],
+        "aws_source": "https://aws.amazon.com/aws-cost-management/aws-cost-explorer/",
+    },
+    {
+        "id": "BILL_03",
+        "stem": "Which AWS Support Plan provides 24x7 phone, email, and chat access to Cloud Support Engineers, along with full access to all AWS Trusted Advisor checks?",
+        "correct": "Business Support",
+        "distractors": ["Basic Support", "Developer Support", "Free Tier"],
+        "explanation": "The Business Support plan provides 24x7 phone, chat, and email support, 1-hour response times for production down issues, and full Trusted Advisor checks.",
+        "domain": 4,
+        "domain_name": "Billing, Pricing, and Support",
+        "task": "4.3",
+        "services": ["AWS Support Plans", "AWS Trusted Advisor"],
+        "topics": ["Support Plans", "Business Support"],
+        "aws_source": "https://aws.amazon.com/premiumsupport/plans/",
+    },
+]

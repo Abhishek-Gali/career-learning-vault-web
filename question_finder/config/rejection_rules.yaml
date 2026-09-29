@@ -1,0 +1,37 @@
+# Rejection & Quarantine Rules
+
+suspicious_keywords:
+  - "actual exam question"
+  - "real exam dump"
+  - "leaked questions"
+  - "brain dump"
+  - "braindump"
+  - "guaranteed pass"
+  - "100% real exam"
+  - "memorized questions"
+  - "exact questions from exam"
+  - "nda violation"
+
+legacy_clf_c01_markers:
+  - "clf-c01"
+  - "clfc01"
+  - "older cloud practitioner exam"
+  - "aws certified cloud practitioner 2018"
+  - "aws certified cloud practitioner 2019"
+  - "aws certified cloud practitioner 2020"
+  - "aws certified cloud practitioner 2021"
+
+retired_services_or_terms:
+  - "amazon simpledb"
+  - "aws opsworks"
+  - "aws cloudsearch"  # legacy
+  - "amazon elastic transcoder"
+  - "aws data pipeline"
+  - "amazon mobile analytics"
+
+minimum_structural_requirements:
+  min_stem_length: 15
+  min_options_count: 2
+  max_options_count: 10
+  min_option_length: 2
+  require_correct_answer: true

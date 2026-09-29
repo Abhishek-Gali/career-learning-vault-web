@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AWS CLF-C02 Practice Question Researcher{% endblock %}</title>
+    <link rel="stylesheet" href="{{ request.scope.get('root_path', '') }}/static/css/style.css">
+    <script src="{{ request.scope.get('root_path', '') }}/static/vendor/htmx.min.js"></script>
+    <script src="{{ request.scope.get('root_path', '') }}/static/js/app.js"></script>
+</head>
+<body>
+    <aside class="sidebar">
+        <div style="margin-bottom: 18px;">
+            <a href="/" style="display: flex; align-items: center; gap: 8px; color: #34d399; background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.35); padding: 9px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700; transition: all 0.2s ease;">
+                <span style="font-size: 15px;">&larr;</span>
+                <span>Back to Career Vault</span>
+            </a>
+        </div>
+
+        <div class="brand">
+            <div class="brand-logo">AWS</div>
+            <div class="brand-text">
+                <h2>CLF-C02</h2>
+                <span>Cloud Practitioner</span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a href="{{ request.scope.get('root_path', '') }}/" class="{% if request.url.path in ['/', request.scope.get('root_path', ''), request.scope.get('root_path', '') + '/'] %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ request.scope.get('root_path', '') }}/questions" class="{% if '/questions' in request.url.path and '/reader' not in request.url.path %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+                    <span>Question Bank</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader" class="{% if '/reader' in request.url.path %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    <span>Question 1 &rarr; Last</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ request.scope.get('root_path', '') }}/quiz" class="{% if '/quiz' in request.url.path %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                    <span>Study & Quiz Mode</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ request.scope.get('root_path', '') }}/sources" class="{% if '/sources' in request.url.path %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                    <span>Public Sources</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ request.scope.get('root_path', '') }}/research" class="{% if '/research' in request.url.path %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 21-4.3-4.3"/><circle cx="11" cy="11" r="8"/></svg>
+                    <span>Research Pipeline</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ request.scope.get('root_path', '') }}/audit" class="{% if '/audit' in request.url.path %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Audit & Provenance</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ request.scope.get('root_path', '') }}/settings" class="{% if '/settings' in request.url.path %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-status-pill">
+                <span class="status-dot"></span>
+                <span>1,045 Questions Synced</span>
+            </div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 10px; line-height: 1.4;">
+                Strictly Local • Self-Contained E:\
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding-top: 0;">
+        <div style="background: linear-gradient(90deg, #090d16 0%, #1e293b 100%); border-bottom: 1px solid rgba(16, 185, 129, 0.25); padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 24px;">
+            <a href="/" style="color: #34d399; font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 16px; font-weight: 900;">&larr;</span>
+                <span>Return to Career Learning Vault</span>
+            </a>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 11px; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.12); padding: 3px 12px; border-radius: 999px; border: 1px solid rgba(56, 189, 248, 0.3);">
+                    ☁️ AWS CLF-C02 Track
+                </span>
+            </div>
+        </div>
+        <div style="padding: 0 32px 32px 32px;">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<div class="question-card-container">
+    <!-- Header: ID, Domain, Type & Status -->
+    <div class="question-header-row">
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <span class="question-id-pill">#{{ q.id }}</span>
+            
+            {% if q.is_generated %}
+            <span class="badge badge-generated">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Generated Practice
+            </span>
+            {% else %}
+            <span class="badge badge-source">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Recent Public Source
+            </span>
+            {% endif %}
+
+            {% if q.answer_status == 'VERIFIED' %}
+            <span class="badge badge-verified">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                Verified Answer
+            </span>
+            {% endif %}
+
+            <span class="domain-tag">
+                <b>Domain {{ q.domain or 3 }}:</b> {{ q.domain_name or 'Technology' }} &bull; Task {{ q.task_statement or '3.1' }}
+            </span>
+        </div>
+
+        <a href="{{ request.scope.get('root_path', '') }}/questions/{{ q.id }}" class="btn btn-outline" style="font-size: 12px; padding: 5px 12px;">
+            Full Provenance &rarr;
+        </a>
+    </div>
+
+    <!-- PROMINENT SOURCE & RECENCY PROVENANCE BANNER -->
+    <div class="source-provenance-banner">
+        <div class="provenance-info-group">
+            <!-- Source Origin -->
+            <div class="provenance-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <span class="label">SOURCE:</span>
+                {% if q.sources and q.sources|length > 0 %}
+                    <a href="{{ q.sources[0].source_url }}" target="_blank" rel="noopener noreferrer" class="val-source" title="Open source target in new tab">
+                        {{ q.sources[0].source_title or 'Open Educational Repository' }} &rarr;
+                    </a>
+                {% else %}
+                    <span style="font-weight: 600; color: #6d28d9;">Deterministic Curriculum Practice Template</span>
+                {% endif %}
+            </div>
+
+            <!-- When Question Came Up -->
+            <div class="provenance-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff9900" stroke-width="2.5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                <span class="label">QUESTION CAME UP / VERIFIED:</span>
+                {% if q.published_at %}
+                    <span class="val-date">
+                        {% if q.published_at.strftime is defined %}
+                            {{ q.published_at.strftime('%B %d, %Y') }}
+                        {% else %}
+                            {{ (q.published_at|string)[:10] }}
+                        {% endif %}
+                    </span>
+                    <span class="recency-status-badge">
+                        {% if 'RECENT' in (q.recentness_status or '') %}
+                        Recent &bull; Last 6-12 Months
+                        {% else %}
+                        {{ q.recentness_status }}
+                        {% endif %}
+                    </span>
+                {% else %}
+                    <span class="val-date">Current CLF-C02 Cycle</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 8px; align-items: center;">
+            {% if q.sources and q.sources|length > 0 %}
+            <span class="strategy-tag">{{ q.sources[0].extraction_method }}</span>
+            {% endif %}
+            <span class="strategy-tag" title="Quality Score">{{ q.quality_score|round(0)|int }}% Quality</span>
+        </div>
+    </div>
+
+    <!-- Question Stem -->
+    <div class="stem-text">{{ q.stem }}</div>
+
+    <!-- Question Options -->
+    <ul class="options-list">
+        {% for opt in q.options %}
+        <li class="option-item {% if opt.is_correct %}correct{% endif %}">
+            <span class="option-bubble">{{ opt.option_key }}</span>
+            <span>{{ opt.option_text }}</span>
+            {% if opt.is_correct %}
+            <span style="margin-left: auto; font-size: 12px; font-weight: 700; color: #15803d; display: flex; align-items: center; gap: 4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Correct Answer
+            </span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Explanation Box -->
+    {% if q.explanation %}
+    <div class="explanation-box">
+        <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="16" y2="12"/><line x1="12" x2="12.01" y1="8" y2="8"/></svg>
+            Explanation & Curriculum Guidance
+        </div>
+        <div>{{ q.explanation }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Associated Services Pills -->
+    {% if q.services and q.services|length > 0 %}
+    <div class="services-row">
+        <span style="font-size: 11px; font-weight: 700; color: #64748b; margin-right: 4px; align-self: center;">AWS Services:</span>
+        {% for svc in q.services %}
+        <span class="service-pill">{{ svc.service_name }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>

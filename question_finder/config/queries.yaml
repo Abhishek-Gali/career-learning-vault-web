@@ -1,0 +1,109 @@
+# Query Matrix Templates for CLF-C02 Search Discovery
+
+intent_modifiers:
+  - "practice questions"
+  - "exam questions"
+  - "sample questions"
+  - "quiz questions answers"
+  - "multiple choice questions"
+  - "test questions explanation"
+  - "free practice test"
+  - "study guide questions"
+
+domain_topics:
+  # Domain 1: Cloud Concepts (24%)
+  - domain: 1
+    task: "1.1"
+    topic: "AWS Cloud benefits agility scalability elasticity fault tolerance high availability"
+  - domain: 1
+    task: "1.2"
+    topic: "AWS Well-Architected Framework 6 pillars operational excellence security reliability performance cost sustainability"
+  - domain: 1
+    task: "1.3"
+    topic: "AWS Cloud Adoption Framework CAF migration 7 Rs rehost replatform refactor repurchase"
+  - domain: 1
+    task: "1.4"
+    topic: "Cloud economics CapEx OpEx total cost of ownership TCO economies of scale right sizing"
+
+  # Domain 2: Security and Compliance (30%)
+  - domain: 2
+    task: "2.1"
+    topic: "AWS shared responsibility model security of the cloud security in the cloud customer responsibility"
+  - domain: 2
+    task: "2.2"
+    topic: "AWS Cloud security governance compliance AWS Artifact AWS Organizations AWS Control Tower CloudTrail"
+  - domain: 2
+    task: "2.3"
+    topic: "AWS Identity and Access Management IAM least privilege MFA roles policies IAM Identity Center"
+  - domain: 2
+    task: "2.4"
+    topic: "AWS security services AWS KMS AWS WAF AWS Shield Amazon GuardDuty Amazon Inspector Secrets Manager Macie"
+
+  # Domain 3: Cloud Technology and Services (34%)
+  - domain: 3
+    task: "3.1"
+    topic: "Deploying and operating AWS Management Console AWS CLI SDK Infrastructure as Code CloudFormation"
+  - domain: 3
+    task: "3.2"
+    topic: "AWS Global Infrastructure Regions Availability Zones Edge Locations Local Zones Wavelength"
+  - domain: 3
+    task: "3.3"
+    topic: "AWS compute EC2 instances Auto Scaling Lambda serverless ECS EKS containers Lightsail Elastic Beanstalk"
+  - domain: 3
+    task: "3.4"
+    topic: "AWS database Amazon RDS Aurora DynamoDB ElastiCache DocumentDB Neptune database migration DMS"
+  - domain: 3
+    task: "3.5"
+    topic: "AWS networking VPC subnets Internet Gateway NAT Gateway Security Groups Network ACLs Route 53 CloudFront Direct Connect"
+  - domain: 3
+    task: "3.6"
+    topic: "AWS storage Amazon S3 storage classes Glacier EBS Elastic Block Store EFS FSx Storage Gateway AWS Backup"
+  - domain: 3
+    task: "3.7"
+    topic: "AWS AI ML analytics Amazon SageMaker Bedrock Rekognition Athena EMR Glue Kinesis QuickSight Redshift"
+  - domain: 3
+    task: "3.8"
+    topic: "AWS integration and developer tools SNS SQS EventBridge Step Functions CloudShell CodePipeline CloudWatch"
+
+  # Domain 4: Billing, Pricing, and Support (12%)
+  - domain: 4
+    task: "4.1"
+    topic: "AWS pricing models On-Demand Reserved Instances Spot Savings Plans Dedicated Hosts data transfer pricing"
+  - domain: 4
+    task: "4.2"
+    topic: "AWS billing Cost Explorer AWS Budgets Cost and Usage Report CUR Pricing Calculator consolidated billing"
+  - domain: 4
+    task: "4.3"
+    topic: "AWS Support plans Basic Developer Business Enterprise On-Ramp Enterprise Trusted Advisor Technical Account Manager"
+
+services:
+  - "Amazon EC2"
+  - "Amazon S3"
+  - "AWS Lambda"
+  - "Amazon RDS"
+  - "Amazon DynamoDB"
+  - "Amazon VPC"
+  - "AWS IAM"
+  - "Amazon CloudWatch"
+  - "AWS CloudTrail"
+  - "AWS CloudFormation"
+  - "AWS Trusted Advisor"
+  - "AWS Organizations"
+  - "Amazon Route 53"
+  - "Amazon CloudFront"
+  - "AWS Auto Scaling"
+  - "AWS Cost Explorer"
+  - "AWS Budgets"
+  - "AWS Shield"
+  - "AWS WAF"
+  - "Amazon GuardDuty"
+  - "AWS KMS"
+  - "Amazon SNS"
+  - "Amazon SQS"
+  - "Amazon EventBridge"
+  - "AWS Artifact"
+  - "AWS Pricing Calculator"
+  - "AWS Support Plans"
+  - "Amazon Bedrock"
+  - "Amazon SageMaker"
+  - "AWS Systems Manager"
