@@ -1,55 +1,70 @@
 {% extends "base.html" %}
 
-{% block title %}Quiz Results — Session #{{ session.id }}{% endblock %}
+{% block title %}Quiz Results — Session #{{ session.id }} — Career Vault{% endblock %}
 
 {% block content %}
 <div class="header-banner">
     <div>
         <h1>Quiz Performance Results</h1>
-        <p style="color: var(--text-muted); font-size: 14px;">Session completed on {{ session.completed_at }}</p>
+        <p>Session completed on <b style="color: #ffffff;">{{ session.completed_at }}</b></p>
     </div>
     <div>
         <a href="{{ request.scope.get('root_path', '') }}/quiz" class="btn btn-primary">Start Another Quiz</a>
     </div>
 </div>
 
-<div class="grid-4">
-    <div class="stat-card" style="border-left-color: {% if session.score_percentage >= 70 %}var(--success){% else %}var(--danger){% endif %};">
-        <div class="val">{{ session.score_percentage|round(1) }}%</div>
+<div class="grid-4" style="margin-bottom: 28px;">
+    <div class="stat-card" style="--accent-gradient: {% if session.score_percentage >= 70 %}linear-gradient(90deg, #10b981, #34d399){% else %}linear-gradient(90deg, #f43f5e, #fb7185){% endif %};">
+        <div class="val" style="color: {% if session.score_percentage >= 70 %}#34d399{% else %}#fb7185{% endif %};">{{ session.score_percentage|round(1) }}%</div>
         <div class="lbl">Overall Score (Passing: 70%)</div>
+        <div class="subtext">
+            {% if session.score_percentage >= 70 %}
+            <span class="badge badge-source">Passed</span>
+            {% else %}
+            <span class="badge badge-quarantined">Needs Review</span>
+            {% endif %}
+        </div>
     </div>
-    <div class="stat-card" style="border-left-color: var(--success);">
-        <div class="val">{{ session.correct_count }} / {{ session.total_questions }}</div>
+    <div class="stat-card" style="--accent-gradient: linear-gradient(90deg, #10b981, #34d399);">
+        <div class="val" style="color: #34d399;">{{ session.correct_count }} / {{ session.total_questions }}</div>
         <div class="lbl">Correct Answers</div>
+        <div class="subtext">
+            <span class="badge badge-source">{{ ((session.correct_count / session.total_questions) * 100)|round(0)|int }}% Accuracy</span>
+        </div>
     </div>
-    <div class="stat-card" style="border-left-color: var(--primary);">
-        <div class="val">{{ session.mode }}</div>
+    <div class="stat-card" style="--accent-gradient: linear-gradient(90deg, #38bdf8, #818cf8);">
+        <div class="val" style="font-size: 20px; color: #38bdf8;">{{ session.mode }}</div>
         <div class="lbl">Session Mode</div>
+        <div class="subtext">
+            <span class="badge badge-verified">Targeted Drill</span>
+        </div>
     </div>
 </div>
 
 <div class="card">
-    <h2 style="font-size: 18px; margin-bottom: 16px;">Question Breakdown & Explanations</h2>
+    <h2 style="font-size: 18px; font-weight: 800; color: #ffffff; margin-bottom: 20px;">Question Breakdown & Explanations</h2>
     {% for ans in session.answers %}
-    <div class="question-block">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-            <span style="font-weight: 700;">Question #{{ ans.question.id }}</span>
+    <div class="question-card-container" style="background: rgba(22, 30, 49, 0.6); margin-bottom: 16px; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <span class="question-id-pill">Question #{{ ans.question.id }}</span>
             {% if ans.is_correct %}
-            <span class="badge badge-source">&#10004; Correct</span>
+            <span class="badge badge-source">&#10004; Correct Answer</span>
             {% else %}
-            <span class="badge badge-quarantined">&#10008; Incorrect</span>
+            <span class="badge badge-quarantined">&#10008; Incorrect Choice</span>
             {% endif %}
         </div>
-        <div class="stem-text">{{ ans.question.stem }}</div>
-        <div style="font-size: 13px; margin: 8px 0;">
-            <b>Your Selection:</b> {{ ans.selected_option_keys|join(', ') }} |
+        <div class="stem-text" style="font-size: 15.5px; color: #ffffff; margin-bottom: 12px;">{{ ans.question.stem }}</div>
+        <div style="font-size: 13.5px; margin: 10px 0; color: var(--text-light); font-family: 'JetBrains Mono', monospace;">
+            <b>Your Selection:</b> <span style="color: {% if ans.is_correct %}var(--rind-emerald-light){% else %}var(--flesh-coral){% endif %}; font-weight: 700;">{{ ans.selected_option_keys|join(', ') }}</span> |
             <b>Correct Option(s):</b>
-            {% for opt in ans.question.options if opt.is_correct %}
-            {{ opt.option_key }}{% if not loop.last %}, {% endif %}
-            {% endfor %}
+            <span style="color: var(--rind-emerald-light); font-weight: 700;">
+                {% for opt in ans.question.options if opt.is_correct %}
+                {{ opt.option_key }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </span>
         </div>
         {% if ans.question.explanation %}
-        <div style="font-size: 13px; color: #334155; background: #f8fafc; padding: 10px; border-radius: 6px;">
+        <div class="explanation-box" style="margin-top: 10px;">
             <b>Explanation:</b> {{ ans.question.explanation }}
         </div>
         {% endif %}

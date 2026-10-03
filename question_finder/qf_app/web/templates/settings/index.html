@@ -1,35 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Settings & Configuration — CLF-C02 Researcher{% endblock %}
+{% block title %}Settings & Configuration — CLF-C02 Researcher — Career Vault{% endblock %}
 
 {% block content %}
 <div class="header-banner">
     <div>
         <h1>System Settings & Storage Configuration</h1>
-        <p style="color: var(--text-muted); font-size: 14px;">Local-first operational parameters</p>
+        <p>Local-first operational parameters and filesystem storage configuration</p>
     </div>
 </div>
 
 <div class="card">
-    <h2 style="font-size: 16px; margin-bottom: 12px;">Filesystem Containment (Project Root)</h2>
-    <table>
-        <tr><td style="font-weight: 600; width: 220px;">Database File:</td><td><code>{{ paths.DEFAULT_DB_PATH }}</code></td></tr>
-        <tr><td style="font-weight: 600;">Page Cache Directory:</td><td><code>{{ paths.PAGE_CACHE_DIR }}</code></td></tr>
-        <tr><td style="font-weight: 600;">Curriculum Directory:</td><td><code>{{ paths.CURRICULUM_CACHE_DIR }}</code></td></tr>
-        <tr><td style="font-weight: 600;">Exports Directory:</td><td><code>{{ paths.EXPORTS_DIR }}</code></td></tr>
-        <tr><td style="font-weight: 600;">Logs Directory:</td><td><code>{{ paths.LOGS_DIR }}</code></td></tr>
-    </table>
+    <h2 style="font-size: 16px; font-weight: 800; color: #ffffff; margin-bottom: 16px;">Filesystem Containment (Project Root)</h2>
+    <div class="table-container">
+        <table>
+            <tr><td style="font-weight: 700; width: 240px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Database File:</td><td><code style="color: var(--cyan-accent); font-family: 'JetBrains Mono', monospace;">{{ paths.DEFAULT_DB_PATH }}</code></td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Page Cache Directory:</td><td><code style="color: var(--text-light); font-family: 'JetBrains Mono', monospace;">{{ paths.PAGE_CACHE_DIR }}</code></td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Curriculum Directory:</td><td><code style="color: var(--text-light); font-family: 'JetBrains Mono', monospace;">{{ paths.CURRICULUM_CACHE_DIR }}</code></td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Exports Directory:</td><td><code style="color: var(--text-light); font-family: 'JetBrains Mono', monospace;">{{ paths.EXPORTS_DIR }}</code></td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Logs Directory:</td><td><code style="color: var(--text-light); font-family: 'JetBrains Mono', monospace;">{{ paths.LOGS_DIR }}</code></td></tr>
+        </table>
+    </div>
 </div>
 
 <div class="card">
-    <h2 style="font-size: 16px; margin-bottom: 12px;">Active Operational Parameters</h2>
-    <table>
-        <tr><td style="font-weight: 600; width: 220px;">Research Window:</td><td>{{ settings.research.months }} Calendar Months</td></tr>
-        <tr><td style="font-weight: 600;">Recent Source Target:</td><td>{{ settings.research.recent_source_target }} Questions</td></tr>
-        <tr><td style="font-weight: 600;">Request Timeout:</td><td>{{ settings.crawler.request_timeout_seconds }} seconds</td></tr>
-        <tr><td style="font-weight: 600;">Respect Robots.txt:</td><td>{{ settings.crawler.respect_robots }}</td></tr>
-        <tr><td style="font-weight: 600;">Fuzzy Duplicate Threshold:</td><td>{{ settings.quality.fuzzy_duplicate_threshold }}%</td></tr>
-        <tr><td style="font-weight: 600;">Supplementary Gen:</td><td>{{ settings.generation.enabled }}</td></tr>
-    </table>
+    <h2 style="font-size: 16px; font-weight: 800; color: #ffffff; margin-bottom: 16px;">Active Operational Parameters</h2>
+    <div class="table-container">
+        <table>
+            <tr><td style="font-weight: 700; width: 240px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Research Window:</td><td style="font-family: 'JetBrains Mono', monospace; color: #ffffff;">{{ settings.research.months }} Calendar Months</td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Recent Source Target:</td><td style="font-family: 'JetBrains Mono', monospace; color: var(--cyan-accent);">{{ settings.research.recent_source_target }} Questions</td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Request Timeout:</td><td style="font-family: 'JetBrains Mono', monospace; color: #ffffff;">{{ settings.crawler.request_timeout_seconds }} seconds</td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Respect Robots.txt:</td><td><span class="badge badge-source">{{ settings.crawler.respect_robots }}</span></td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Fuzzy Duplicate Threshold:</td><td style="font-family: 'JetBrains Mono', monospace; color: #ffffff;">{{ settings.quality.fuzzy_duplicate_threshold }}%</td></tr>
+            <tr><td style="font-weight: 700; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">Supplementary Gen:</td><td><span class="badge badge-generated">{{ settings.generation.enabled }}</span></td></tr>
+        </table>
+    </div>
 </div>
 {% endblock %}

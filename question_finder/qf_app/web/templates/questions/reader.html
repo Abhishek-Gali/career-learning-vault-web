@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}Sequential Reader (Question 1 to {{ total_count }}) — CLF-C02{% endblock %}
+{% block title %}Sequential Reader (Question 1 to {{ total_count }}) — Career Vault{% endblock %}
 
 {% block content %}
 <div class="header-banner">
     <div>
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-            <span class="badge badge-source" style="font-size: 12px; padding: 4px 10px;">
+            <span class="badge badge-source" style="font-size: 11px; padding: 3px 10px;">
                 Sequential Reading Mode
             </span>
-            <span style="font-size: 13px; color: var(--text-muted);">Question 1 through #{{ total_count }}</span>
+            <span style="font-size: 13px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">Question 1 through #{{ total_count }}</span>
         </div>
         <h1>Complete Question Catalog (1 &rarr; {{ total_count }})</h1>
         <p>Distraction-free sequential catalog of every question in the database, ordered from Question #1 to the very last question.</p>
     </div>
-    <div style="display: flex; gap: 10px; align-items: center;">
+    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
         <button id="toggle-answers-btn" class="btn btn-outline" onclick="toggleAllAnswers()" style="font-size: 13px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
             <span id="toggle-text">Hide Correct Answers (Self-Test Mode)</span>
@@ -26,41 +26,41 @@
 </div>
 
 <!-- Sticky Reader Navigation Bar -->
-<div class="card" style="padding: 16px 20px; position: sticky; top: 12px; z-index: 40; box-shadow: 0 4px 12px rgba(0,0,0,0.08); background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px);">
+<div class="reader-toolbar">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
         <!-- Left: Status & Domain Tabs -->
         <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-            <span style="font-size: 13px; font-weight: 700; color: #1e293b;">
-                Questions {{ start_idx }}–{{ end_idx }} of {{ total_count }}
+            <span style="font-size: 13px; font-weight: 700; color: #ffffff; font-family: 'JetBrains Mono', monospace;">
+                Questions <span style="color: var(--cyan-accent);">{{ start_idx }}–{{ end_idx }}</span> of <span style="color: var(--cyan-accent);">{{ total_count }}</span>
             </span>
-            <span style="color: #cbd5e1;">|</span>
-            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?batch={{ batch }}" class="btn {% if not selected_domain %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">All</a>
-            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=1&batch={{ batch }}" class="btn {% if selected_domain == 1 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">D1: Concepts</a>
-            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=2&batch={{ batch }}" class="btn {% if selected_domain == 2 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">D2: Security</a>
-            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=3&batch={{ batch }}" class="btn {% if selected_domain == 3 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">D3: Technology</a>
-            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=4&batch={{ batch }}" class="btn {% if selected_domain == 4 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 4px 10px;">D4: Billing</a>
+            <span style="color: var(--border-subtle); margin: 0 4px;">|</span>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?batch={{ batch }}" class="btn {% if not selected_domain %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 5px 12px;">All</a>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=1&batch={{ batch }}" class="btn {% if selected_domain == 1 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 5px 12px;">D1: Concepts</a>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=2&batch={{ batch }}" class="btn {% if selected_domain == 2 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 5px 12px;">D2: Security</a>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=3&batch={{ batch }}" class="btn {% if selected_domain == 3 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 5px 12px;">D3: Technology</a>
+            <a href="{{ request.scope.get('root_path', '') }}/questions/reader?domain=4&batch={{ batch }}" class="btn {% if selected_domain == 4 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 12px; padding: 5px 12px;">D4: Billing</a>
         </div>
 
         <!-- Right: Jump to Question & Batch Size -->
-        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
             <!-- Jump form -->
             <form method="get" action="{{ request.scope.get('root_path', '') }}/questions/reader" style="display: flex; align-items: center; gap: 6px;">
                 {% if selected_domain %}<input type="hidden" name="domain" value="{{ selected_domain }}">{% endif %}
                 <input type="hidden" name="batch" value="{{ batch }}">
-                <span style="font-size: 12px; font-weight: 700; color: #64748b;">JUMP TO #:</span>
-                <input type="number" name="jump_to" min="1" max="{{ total_count }}" placeholder="e.g. 1" style="width: 80px; padding: 6px 8px; font-size: 13px;" required>
-                <button type="submit" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Go</button>
+                <span style="font-size: 11px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.6px;">JUMP TO #:</span>
+                <input type="number" name="jump_to" min="1" max="{{ total_count }}" placeholder="e.g. 1" class="search-input" style="width: 80px; padding: 5px 8px; font-size: 12.5px; font-family: 'JetBrains Mono', monospace;" required>
+                <button type="submit" class="btn btn-secondary" style="padding: 5px 12px; font-size: 12px; font-weight: 700;">Go</button>
             </form>
 
-            <span style="color: #cbd5e1;">|</span>
+            <span style="color: var(--border-subtle); margin: 0 4px;">|</span>
 
             <!-- Batch selector -->
-            <div style="display: flex; align-items: center; gap: 4px;">
-                <span style="font-size: 12px; font-weight: 700; color: #64748b;">VIEW:</span>
-                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=50&page=1" class="btn {% if batch == 50 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 8px; font-size: 12px;">50</a>
-                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=100&page=1" class="btn {% if batch == 100 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 8px; font-size: 12px;">100</a>
-                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=250&page=1" class="btn {% if batch == 250 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 8px; font-size: 12px;">250</a>
-                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=1200&page=1" class="btn {% if batch >= 1000 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 8px; font-size: 12px;" title="View all 1,045 questions on one page">All</a>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <span style="font-size: 11px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.6px;">VIEW:</span>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=50&page=1" class="btn {% if batch == 50 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 10px; font-size: 12px; font-family: 'JetBrains Mono', monospace;">50</a>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=100&page=1" class="btn {% if batch == 100 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 10px; font-size: 12px; font-family: 'JetBrains Mono', monospace;">100</a>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=250&page=1" class="btn {% if batch == 250 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 10px; font-size: 12px; font-family: 'JetBrains Mono', monospace;">250</a>
+                <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch=1200&page=1" class="btn {% if batch >= 1000 %}btn-secondary{% else %}btn-outline{% endif %}" style="padding: 4px 10px; font-size: 12px; font-family: 'JetBrains Mono', monospace;" title="View all 1,045 questions on one page">All</a>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
 <!-- Questions Stream (1 to Last) -->
 <div id="questions-container" class="questions-stream">
     {% for q in questions %}
-        <div id="q-{{ q.id }}" style="scroll-margin-top: 100px;">
+        <div id="q-{{ q.id }}" style="scroll-margin-top: 110px;">
             {% include "questions/partials/question_card.html" %}
         </div>
     {% else %}
@@ -81,18 +81,18 @@
 
 <!-- Bottom Pagination (if multiple pages) -->
 {% if total_pages > 1 %}
-<div class="card" style="padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-    <div style="font-size: 13px; color: var(--text-muted);">
-        Page <b>{{ current_page }}</b> of <b>{{ total_pages }}</b> (Questions {{ start_idx }}–{{ end_idx }} of {{ total_count }})
+<div class="card" style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <div style="font-size: 13.5px; color: var(--text-muted);">
+        Page <b style="color: #ffffff; font-family: 'JetBrains Mono', monospace;">{{ current_page }}</b> of <b style="color: #ffffff; font-family: 'JetBrains Mono', monospace;">{{ total_pages }}</b> (Questions {{ start_idx }}–{{ end_idx }} of {{ total_count }})
     </div>
     
-    <div style="display: flex; gap: 6px; align-items: center;">
+    <div style="display: flex; gap: 8px; align-items: center;">
         {% if current_page > 1 %}
         <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch={{ batch }}&page=1" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">&laquo; First (Q#1)</a>
         <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch={{ batch }}&page={{ current_page - 1 }}" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">&larr; Prev</a>
         {% endif %}
 
-        <span style="font-size: 13px; font-weight: 700; padding: 0 8px;">Page {{ current_page }}</span>
+        <span style="font-size: 13px; font-weight: 700; padding: 0 10px; color: var(--cyan-accent); font-family: 'JetBrains Mono', monospace;">Page {{ current_page }}</span>
 
         {% if current_page < total_pages %}
         <a href="{{ request.scope.get('root_path', '') }}/questions/reader?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}batch={{ batch }}&page={{ current_page + 1 }}" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">Next &rarr;</a>
@@ -137,17 +137,18 @@ function toggleAllAnswers() {
 
 <style>
 .hide-correct-state {
-    background: #ffffff !important;
-    border-color: var(--border-color) !important;
-    color: #1e293b !important;
+    background: rgba(22, 30, 49, 0.6) !important;
+    border-color: var(--border-subtle) !important;
+    color: var(--text-light) !important;
     font-weight: normal !important;
 }
 .hide-correct-state .option-bubble {
-    background: #f1f5f9 !important;
-    border-color: #cbd5e1 !important;
-    color: #334155 !important;
+    background: rgba(15, 23, 42, 0.9) !important;
+    border-color: var(--border-subtle) !important;
+    color: var(--cyan-accent) !important;
+    box-shadow: none !important;
 }
-.hide-correct-state span[style*="color: #15803d"] {
+.hide-correct-state span[style*="font-family: 'JetBrains Mono'"] {
     display: none !important;
 }
 </style>

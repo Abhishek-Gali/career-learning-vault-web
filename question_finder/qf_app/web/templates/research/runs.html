@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Research Runs — CLF-C02 Researcher{% endblock %}
+{% block title %}Research Runs — CLF-C02 Researcher — Career Vault{% endblock %}
 
 {% block content %}
 <div class="header-banner">
     <div>
         <h1>Research Pipeline Execution History</h1>
-        <p style="color: var(--text-muted); font-size: 14px;">Historical runs, checkpoints, and discovery yield</p>
+        <p>Historical runs, checkpoints, and discovery yield</p>
     </div>
     <form action="{{ request.scope.get('root_path', '') }}/research/trigger" method="post">
         <button type="submit" class="btn btn-primary">Start New Research Run</button>
@@ -14,35 +14,37 @@
 </div>
 
 <div class="card">
-    <table>
-        <thead>
-            <tr>
-                <th>Run ID</th>
-                <th>Status</th>
-                <th>Research Window</th>
-                <th>Started At</th>
-                <th>Completed At</th>
-                <th>Yield (Recent / Gen / Total)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for r in runs %}
-            <tr>
-                <td><b>#{{ r.id }}</b> (<code>{{ r.run_uuid[:8] }}</code>)</td>
-                <td><span class="badge badge-source">{{ r.status }}</span></td>
-                <td>{{ r.window_start }} &rarr; {{ r.window_end }}</td>
-                <td>{{ r.started_at }}</td>
-                <td>{{ r.completed_at or 'In Progress' }}</td>
-                <td>
-                    {{ r.stats_json.get('recent_source_questions', 0) }} /
-                    {{ r.stats_json.get('questions_generated', 0) }} /
-                    {{ r.stats_json.get('total_study_questions', 0) }}
-                </td>
-            </tr>
-            {% else %}
-            <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No research runs executed yet.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Run ID</th>
+                    <th>Status</th>
+                    <th>Research Window</th>
+                    <th>Started At</th>
+                    <th>Completed At</th>
+                    <th>Yield (Recent / Gen / Total)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in runs %}
+                <tr>
+                    <td><b style="color: #ffffff;">#{{ r.id }}</b> (<code style="color: var(--cyan-accent); font-family: 'JetBrains Mono', monospace;">{{ r.run_uuid[:8] }}</code>)</td>
+                    <td><span class="badge badge-source">{{ r.status }}</span></td>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-light);">{{ r.window_start }} &rarr; {{ r.window_end }}</td>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);">{{ r.started_at }}</td>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);">{{ r.completed_at or 'In Progress' }}</td>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--cyan-accent);">
+                        {{ r.stats_json.get('recent_source_questions', 0) }} /
+                        {{ r.stats_json.get('questions_generated', 0) }} /
+                        {{ r.stats_json.get('total_study_questions', 0) }}
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No research runs executed yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

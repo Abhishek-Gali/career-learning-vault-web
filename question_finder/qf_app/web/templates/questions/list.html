@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Question Bank (1,045 CLF-C02 Questions) — Researcher{% endblock %}
+{% block title %}Question Bank (1,045 CLF-C02 Questions) — Career Vault{% endblock %}
 
 {% block content %}
 <div class="header-banner">
@@ -8,8 +8,8 @@
         <h1>CLF-C02 Question Bank</h1>
         <p>Curated, deduplicated, and verified practice questions from recent public sources with complete origin provenance.</p>
     </div>
-    <div style="display: flex; gap: 10px; align-items: center;">
-        <a href="{{ request.scope.get('root_path', '') }}/questions/reader" class="btn btn-primary" style="background: #10b981; color: white;">
+    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <a href="{{ request.scope.get('root_path', '') }}/questions/reader" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #0b101c;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
             Sequential Reader (1 &rarr; Last)
         </a>
@@ -21,20 +21,20 @@
 </div>
 
 <!-- Quick Domain Filter Pills -->
-<div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-    <a href="{{ request.scope.get('root_path', '') }}/questions?order={{ order_dir }}&limit={{ limit }}" class="btn {% if not selected_domain %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 6px 14px;">
+<div style="display: flex; gap: 10px; margin-bottom: 22px; flex-wrap: wrap;">
+    <a href="{{ request.scope.get('root_path', '') }}/questions?order={{ order_dir }}&limit={{ limit }}" class="btn {% if not selected_domain %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 7px 16px;">
         All Domains ({{ total_count }})
     </a>
-    <a href="{{ request.scope.get('root_path', '') }}/questions?domain=1&order={{ order_dir }}&limit={{ limit }}" class="btn {% if selected_domain == 1 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 6px 14px;">
+    <a href="{{ request.scope.get('root_path', '') }}/questions?domain=1&order={{ order_dir }}&limit={{ limit }}" class="btn {% if selected_domain == 1 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 7px 16px;">
         Domain 1: Cloud Concepts
     </a>
-    <a href="{{ request.scope.get('root_path', '') }}/questions?domain=2&order={{ order_dir }}&limit={{ limit }}" class="btn {% if selected_domain == 2 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 6px 14px;">
+    <a href="{{ request.scope.get('root_path', '') }}/questions?domain=2&order={{ order_dir }}&limit={{ limit }}" class="btn {% if selected_domain == 2 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 7px 16px;">
         Domain 2: Security & Compliance
     </a>
-    <a href="{{ request.scope.get('root_path', '') }}/questions?domain=3&order={{ order_dir }}&limit={{ limit }}" class="btn {% if selected_domain == 3 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 6px 14px;">
+    <a href="{{ request.scope.get('root_path', '') }}/questions?domain=3&order={{ order_dir }}&limit={{ limit }}" class="btn {% if selected_domain == 3 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 7px 16px;">
         Domain 3: Technology & Services
     </a>
-    <a href="{{ request.scope.get('root_path', '') }}/questions?domain=4&order={{ order_dir }}&limit={{ limit }}" class="btn {% if selected_domain == 4 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 6px 14px;">
+    <a href="{{ request.scope.get('root_path', '') }}/questions?domain=4&order={{ order_dir }}&limit={{ limit }}" class="btn {% if selected_domain == 4 %}btn-primary{% else %}btn-outline{% endif %}" style="font-size: 13px; padding: 7px 16px;">
         Domain 4: Billing & Support
     </a>
 </div>
@@ -69,7 +69,7 @@
             <option value="200" {% if limit == 200 %}selected{% endif %}>200 per page</option>
         </select>
 
-        <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">
+        <button type="submit" class="btn btn-primary" style="padding: 10px 22px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             Filter
         </button>
@@ -81,10 +81,10 @@
 </div>
 
 <!-- Result Status Header & Jump To Box -->
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 4px; flex-wrap: wrap; gap: 12px;">
-    <div style="font-size: 14px; font-weight: 700; color: #334155;">
-        Showing Questions {{ start_idx }}–{{ end_idx }} of {{ total_count }} total
-        {% if search_query %}for &ldquo;{{ search_query }}&rdquo;{% endif %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 4px; flex-wrap: wrap; gap: 14px;">
+    <div style="font-size: 14px; font-weight: 700; color: #ffffff;">
+        Showing Questions <span style="color: var(--cyan-accent); font-family: 'JetBrains Mono', monospace;">{{ start_idx }}–{{ end_idx }}</span> of <span style="color: var(--cyan-accent); font-family: 'JetBrains Mono', monospace;">{{ total_count }}</span> total
+        {% if search_query %}for &ldquo;<span style="color: var(--aws-orange);">{{ search_query }}</span>&rdquo;{% endif %}
     </div>
 
     <!-- Quick Jump to Question Form -->
@@ -93,9 +93,9 @@
         {% if search_query %}<input type="hidden" name="q" value="{{ search_query }}">{% endif %}
         <input type="hidden" name="order" value="{{ order_dir }}">
         <input type="hidden" name="limit" value="{{ limit }}">
-        <span style="font-size: 12px; font-weight: 700; color: #64748b;">JUMP TO QUESTION #:</span>
-        <input type="number" name="jump_to" min="1" max="{{ total_count }}" placeholder="e.g. 1" style="width: 85px; padding: 6px 10px; font-size: 13px;" required>
-        <button type="submit" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Jump</button>
+        <span style="font-size: 11px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.6px;">JUMP TO QUESTION #:</span>
+        <input type="number" name="jump_to" min="1" max="{{ total_count }}" placeholder="e.g. 1" class="search-input" style="width: 85px; padding: 6px 10px; font-size: 13px; font-family: 'JetBrains Mono', monospace;" required>
+        <button type="submit" class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px; font-weight: 700;">Jump</button>
     </form>
 </div>
 
@@ -105,8 +105,8 @@
         {% include "questions/partials/question_card.html" %}
     {% else %}
         <div class="card" style="text-align: center; padding: 60px 20px;">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" style="margin: 0 auto 16px auto;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></svg>
-            <h3 style="font-size: 18px; color: #1e293b; margin-bottom: 8px;">No matching questions found</h3>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" style="margin: 0 auto 16px auto;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></svg>
+            <h3 style="font-size: 18px; color: #ffffff; margin-bottom: 8px; font-weight: 700;">No matching questions found</h3>
             <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Try adjusting your search terms or clearing the domain filters.</p>
             <a href="{{ request.scope.get('root_path', '') }}/questions" class="btn btn-secondary">View All Questions</a>
         </div>
@@ -116,17 +116,17 @@
 <!-- Pagination Footer -->
 {% if total_pages > 1 %}
 <div class="card" style="padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-    <div style="font-size: 13px; color: var(--text-muted);">
-        Page <b>{{ current_page }}</b> of <b>{{ total_pages }}</b> (Questions {{ start_idx }}–{{ end_idx }} of {{ total_count }})
+    <div style="font-size: 13.5px; color: var(--text-muted);">
+        Page <b style="color: #ffffff; font-family: 'JetBrains Mono', monospace;">{{ current_page }}</b> of <b style="color: #ffffff; font-family: 'JetBrains Mono', monospace;">{{ total_pages }}</b> (Questions {{ start_idx }}–{{ end_idx }} of {{ total_count }})
     </div>
     
-    <div style="display: flex; gap: 6px; align-items: center;">
+    <div style="display: flex; gap: 8px; align-items: center;">
         {% if current_page > 1 %}
         <a href="{{ request.scope.get('root_path', '') }}/questions?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}{% if search_query %}q={{ search_query }}&{% endif %}order={{ order_dir }}&limit={{ limit }}&page=1" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">&laquo; First (#1)</a>
         <a href="{{ request.scope.get('root_path', '') }}/questions?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}{% if search_query %}q={{ search_query }}&{% endif %}order={{ order_dir }}&limit={{ limit }}&page={{ current_page - 1 }}" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">&larr; Prev</a>
         {% endif %}
 
-        <span style="font-size: 13px; font-weight: 700; padding: 0 10px;">Page {{ current_page }}</span>
+        <span style="font-size: 13px; font-weight: 700; padding: 0 10px; color: var(--cyan-accent); font-family: 'JetBrains Mono', monospace;">Page {{ current_page }}</span>
 
         {% if current_page < total_pages %}
         <a href="{{ request.scope.get('root_path', '') }}/questions?{% if selected_domain %}domain={{ selected_domain }}&{% endif %}{% if search_query %}q={{ search_query }}&{% endif %}order={{ order_dir }}&limit={{ limit }}&page={{ current_page + 1 }}" class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;">Next &rarr;</a>

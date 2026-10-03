@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Start Study Session — CLF-C02 Researcher{% endblock %}
+{% block title %}Start Study Session — CLF-C02 Researcher — Career Vault{% endblock %}
 
 {% block content %}
 <div class="header-banner">
     <div>
         <h1>Interactive Practice & Quiz Mode</h1>
-        <p style="color: var(--text-muted); font-size: 14px;">Select practice mode and curriculum filters</p>
+        <p>Select practice mode, curriculum filters, and question count for targeted examination training.</p>
     </div>
 </div>
 
-<div class="card" style="max-width: 600px;">
-    <form action="{{ request.scope.get('root_path', '') }}/quiz/start" method="post" style="display: flex; flex-direction: column; gap: 16px;">
+<div class="card" style="max-width: 640px;">
+    <form action="{{ request.scope.get('root_path', '') }}/quiz/start" method="post" style="display: flex; flex-direction: column; gap: 20px;">
         <div>
-            <label style="font-weight: 600; font-size: 14px; display: block; margin-bottom: 6px;">Quiz Mode</label>
-            <select name="mode" style="width: 100%;">
+            <label style="font-weight: 700; font-size: 13.5px; display: block; margin-bottom: 8px; color: #ffffff; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">Quiz Mode</label>
+            <select name="mode" class="select-filter" style="width: 100%; padding: 12px 16px;">
                 <option value="RANDOM">Random Mixed Practice</option>
-                <option value="RECENT_SOURCE_ONLY">Recent Public Source Questions Only</option>
-                <option value="GENERATED_ONLY">Generated Practice Questions Only</option>
+                <option value="RECENT_SOURCE_ONLY">Recent Public Source Questions Only (1,000 Qs)</option>
+                <option value="GENERATED_ONLY">Generated Practice Questions Only (45 Qs)</option>
                 <option value="VERIFIED_ONLY">Verified Questions Only</option>
                 <option value="DOMAIN_PRACTICE">Domain-Weighted Practice (24/30/34/12%)</option>
                 <option value="WEAK_TOPIC">Target Weak Topics</option>
@@ -26,26 +26,26 @@
         </div>
 
         <div>
-            <label style="font-weight: 600; font-size: 14px; display: block; margin-bottom: 6px;">Domain Filter (Optional)</label>
-            <select name="domain" style="width: 100%;">
-                <option value="">All Domains</option>
-                <option value="1">Domain 1: Cloud Concepts (24%)</option>
-                <option value="2">Domain 2: Security & Compliance (30%)</option>
-                <option value="3">Domain 3: Technology & Services (34%)</option>
-                <option value="4">Domain 4: Billing & Support (12%)</option>
+            <label style="font-weight: 700; font-size: 13.5px; display: block; margin-bottom: 8px; color: #ffffff; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">Domain Filter (Optional)</label>
+            <select name="domain" class="select-filter" style="width: 100%; padding: 12px 16px;">
+                <option value="">All Domains (Full Coverage)</option>
+                <option value="1">Domain 1: Cloud Concepts (24% Exam Weight)</option>
+                <option value="2">Domain 2: Security & Compliance (30% Exam Weight)</option>
+                <option value="3">Domain 3: Technology & Services (34% Exam Weight)</option>
+                <option value="4">Domain 4: Billing & Support (12% Exam Weight)</option>
             </select>
         </div>
 
         <div>
-            <label style="font-weight: 600; font-size: 14px; display: block; margin-bottom: 6px;">Question Count</label>
-            <select name="limit" style="width: 100%;">
-                <option value="10">10 Questions</option>
-                <option value="25" selected>25 Questions (Standard Practice)</option>
-                <option value="65">65 Questions (Full Exam Simulation)</option>
+            <label style="font-weight: 700; font-size: 13.5px; display: block; margin-bottom: 8px; color: #ffffff; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">Question Pool Size</label>
+            <select name="limit" class="select-filter" style="width: 100%; padding: 12px 16px;">
+                <option value="10">10 Questions (Quick Warmup)</option>
+                <option value="25" selected>25 Questions (Standard Practice Drill)</option>
+                <option value="65">65 Questions (Full Official Exam Simulation)</option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="padding: 12px; font-size: 16px; margin-top: 8px;">
+        <button type="submit" class="btn btn-primary" style="padding: 14px; font-size: 15px; margin-top: 10px; width: 100%;">
             Start Quiz Session &rarr;
         </button>
     </form>

@@ -1,68 +1,72 @@
 {% extends "base.html" %}
 
-{% block title %}Audit Trail — CLF-C02 Researcher{% endblock %}
+{% block title %}Audit Trail — CLF-C02 Researcher — Career Vault{% endblock %}
 
 {% block content %}
 <div class="header-banner">
     <div>
         <h1>System Audit Trail & Rejections</h1>
-        <p style="color: var(--text-muted); font-size: 14px;">Auditable decision log and quarantine records</p>
+        <p>Auditable decision log, candidate triage records, and quarantine history</p>
     </div>
 </div>
 
 <div class="card">
-    <h2 style="font-size: 16px; margin-bottom: 12px;">Recent Audit Decisions</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Timestamp</th>
-                <th>Entity</th>
-                <th>Operation</th>
-                <th>Decision</th>
-                <th>Reason</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for l in logs %}
-            <tr>
-                <td>{{ l.timestamp }}</td>
-                <td>{{ l.entity_type }} #{{ l.entity_id }}</td>
-                <td><span class="badge badge-older">{{ l.operation }}</span></td>
-                <td><b>{{ l.decision }}</b></td>
-                <td>{{ l.reason }}</td>
-            </tr>
-            {% else %}
-            <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No audit log entries found.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h2 style="font-size: 16px; font-weight: 800; color: #ffffff; margin-bottom: 16px;">Recent Audit Decisions</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Entity</th>
+                    <th>Operation</th>
+                    <th>Decision</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in logs %}
+                <tr>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);">{{ l.timestamp }}</td>
+                    <td style="font-weight: 700; color: #ffffff;">{{ l.entity_type }} #{{ l.entity_id }}</td>
+                    <td><span class="badge badge-older">{{ l.operation }}</span></td>
+                    <td><b style="color: var(--rind-emerald-light);">{{ l.decision }}</b></td>
+                    <td style="color: var(--text-light);">{{ l.reason }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">No audit log entries found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="card">
-    <h2 style="font-size: 16px; margin-bottom: 12px;">Rejected / Quarantined Candidates</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Rejected At</th>
-                <th>Entity Type</th>
-                <th>Identifier</th>
-                <th>Reason</th>
-                <th>Component</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for r in rejections %}
-            <tr>
-                <td>{{ r.rejected_at }}</td>
-                <td>{{ r.entity_type }}</td>
-                <td><code>{{ r.entity_id[:40] }}</code></td>
-                <td><span class="badge badge-quarantined">{{ r.reason }}</span></td>
-                <td>{{ r.component }}</td>
-            </tr>
-            {% else %}
-            <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No rejection records found.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h2 style="font-size: 16px; font-weight: 800; color: #ffffff; margin-bottom: 16px;">Rejected / Quarantined Candidates</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rejected At</th>
+                    <th>Entity Type</th>
+                    <th>Identifier</th>
+                    <th>Reason</th>
+                    <th>Component</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in rejections %}
+                <tr>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);">{{ r.rejected_at }}</td>
+                    <td style="font-weight: 700; color: #ffffff;">{{ r.entity_type }}</td>
+                    <td><code style="color: var(--cyan-accent); font-family: 'JetBrains Mono', monospace; font-size: 12px;">{{ r.entity_id[:40] }}</code></td>
+                    <td><span class="badge badge-quarantined">{{ r.reason }}</span></td>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">{{ r.component }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">No rejection records found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

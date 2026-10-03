@@ -3,17 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}AWS CLF-C02 Practice Question Researcher{% endblock %}</title>
-    <link rel="stylesheet" href="{{ request.scope.get('root_path', '') }}/static/css/style.css">
+    <title>{% block title %}AWS CLF-C02 Practice Question Researcher — Career Vault{% endblock %}</title>
+    
+    <!-- Inter & JetBrains Mono Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Refero & Watermelon UI Dark Obsidian Theme -->
+    <link rel="stylesheet" href="{{ request.scope.get('root_path', '') }}/static/css/style.css?v=4.0.0">
     <script src="{{ request.scope.get('root_path', '') }}/static/vendor/htmx.min.js"></script>
     <script src="{{ request.scope.get('root_path', '') }}/static/js/app.js"></script>
 </head>
 <body>
     <aside class="sidebar">
+        <!-- Return to Career Learning Vault -->
         <div style="margin-bottom: 18px;">
-            <a href="/" style="display: flex; align-items: center; gap: 8px; color: #34d399; background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.35); padding: 9px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700; transition: all 0.2s ease;">
-                <span style="font-size: 15px;">&larr;</span>
-                <span>Back to Career Vault</span>
+            <a href="/" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #34d399; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); padding: 10px 14px; border-radius: 10px; text-decoration: none; font-size: 12.5px; font-weight: 700; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 16px; line-height: 1;">&larr;</span>
+                    <span>Career Vault</span>
+                </div>
+                <span style="font-size: 10px; color: #10b981; font-family: 'JetBrains Mono', monospace; font-weight: 800; background: rgba(16, 185, 129, 0.2); padding: 2px 6px; border-radius: 4px;">HUB</span>
             </a>
         </div>
 
@@ -81,25 +92,27 @@
                 <span class="status-dot"></span>
                 <span>1,045 Questions Synced</span>
             </div>
-            <div style="font-size: 11px; color: #64748b; margin-top: 10px; line-height: 1.4;">
+            <div style="font-size: 11px; color: #64748b; margin-top: 8px; line-height: 1.4; font-family: 'JetBrains Mono', monospace;">
                 Strictly Local • Self-Contained E:\
             </div>
         </div>
     </aside>
 
     <main class="main-content" style="padding-top: 0;">
-        <div style="background: linear-gradient(90deg, #090d16 0%, #1e293b 100%); border-bottom: 1px solid rgba(16, 185, 129, 0.25); padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 24px;">
-            <a href="/" style="color: #34d399; font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+        <!-- Top Persistent Navigation & Breadcrumb Strip -->
+        <div style="background: rgba(9, 13, 22, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); margin-bottom: 28px;">
+            <a href="/" style="color: #34d399; font-size: 13.5px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
                 <span style="font-size: 16px; font-weight: 900;">&larr;</span>
                 <span>Return to Career Learning Vault</span>
             </a>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 11px; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.12); padding: 3px 12px; border-radius: 999px; border: 1px solid rgba(56, 189, 248, 0.3);">
-                    ☁️ AWS CLF-C02 Track
+                <span style="font-size: 11px; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.12); padding: 4px 14px; border-radius: 999px; border: 1px solid rgba(56, 189, 248, 0.3); font-family: 'JetBrains Mono', monospace;">
+                    ☁️ AWS Certified Cloud Practitioner Track
                 </span>
             </div>
         </div>
-        <div style="padding: 0 32px 32px 32px;">
+        
+        <div style="padding: 0 36px 36px 36px;">
             {% block content %}{% endblock %}
         </div>
     </main>
