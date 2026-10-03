@@ -11,11 +11,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Refero & Watermelon UI Dark Obsidian Theme -->
-    <link rel="stylesheet" href="{{ request.scope.get('root_path', '') }}/static/css/style.css?v=4.0.0">
+    <link rel="stylesheet" href="{{ request.scope.get('root_path', '') }}/static/css/style.css?v=4.1.0">
     <script src="{{ request.scope.get('root_path', '') }}/static/vendor/htmx.min.js"></script>
-    <script src="{{ request.scope.get('root_path', '') }}/static/js/app.js"></script>
+    <script src="{{ request.scope.get('root_path', '') }}/static/js/app.js?v=4.1.0"></script>
 </head>
 <body>
+    <!-- Mobile Hamburger Menu Button -->
+    <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileSidebar()" aria-label="Toggle Navigation Menu">
+        ☰
+    </button>
+
+    <!-- Mobile Sidebar Overlay Backdrop -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
+
     <aside class="sidebar">
         <!-- Return to Career Learning Vault -->
         <div style="margin-bottom: 18px;">
@@ -98,21 +106,21 @@
         </div>
     </aside>
 
-    <main class="main-content" style="padding-top: 0;">
+    <main class="main-content">
         <!-- Top Persistent Navigation & Breadcrumb Strip -->
-        <div style="background: rgba(9, 13, 22, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); margin-bottom: 28px;">
-            <a href="/" style="color: #34d399; font-size: 13.5px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+        <div class="top-nav-strip">
+            <a href="/" class="top-nav-return-btn">
                 <span style="font-size: 16px; font-weight: 900;">&larr;</span>
-                <span>Return to Career Learning Vault</span>
+                <span class="top-nav-return-text">Return to Career Learning Vault</span>
             </a>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 11px; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.12); padding: 4px 14px; border-radius: 999px; border: 1px solid rgba(56, 189, 248, 0.3); font-family: 'JetBrains Mono', monospace;">
+            <div class="top-nav-badge-wrap">
+                <span class="top-nav-track-badge">
                     ☁️ AWS Certified Cloud Practitioner Track
                 </span>
             </div>
         </div>
         
-        <div style="padding: 0 36px 36px 36px;">
+        <div class="main-page-content">
             {% block content %}{% endblock %}
         </div>
     </main>
