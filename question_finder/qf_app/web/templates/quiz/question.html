@@ -3,19 +3,58 @@
 {% block title %}Question {{ current_index }} of {{ total_questions }} — CLF-C02 Quiz — Career Vault{% endblock %}
 
 {% block content %}
-<div class="header-banner">
+<div class="header-banner" style="align-items: center;">
     <div>
-        <span style="font-size: 11px; font-weight: 800; color: var(--aws-orange); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'JetBrains Mono', monospace;">
-            SESSION #{{ session_id }} &bull; {{ mode }}
-        </span>
-        <h1 style="margin-top: 6px;">Question {{ current_index }} of {{ total_questions }}</h1>
-        <p>Domain {{ q.domain or 3 }}: <b style="color: #ffffff;">{{ q.domain_name or 'Technology' }}</b> &bull; Task {{ q.task_statement or '3.1' }}</p>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+            <span style="font-size: 11px; font-weight: 800; color: var(--aws-orange); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'JetBrains Mono', monospace; background: rgba(255, 153, 0, 0.12); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255, 153, 0, 0.3);">
+                SESSION #{{ session_id }} &bull; {{ mode }}
+            </span>
+            <span style="font-size: 12.5px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">
+                Domain {{ q.domain or 3 }}: <b style="color: #ffffff;">{{ q.domain_name or 'Technology' }}</b> &bull; Task {{ q.task_statement or '3.1' }}
+            </span>
+        </div>
+        <h1 style="margin: 0; font-size: 24px;">Question {{ current_index }} of {{ total_questions }}</h1>
     </div>
-    <div>
-        <a href="{{ request.scope.get('root_path', '') }}/quiz" class="btn btn-outline" style="font-size: 13px;">Exit Session</a>
+
+    <!-- Countdown Timer & Actions -->
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <div id="quiz-timer-box" class="quiz-timer-pill" data-remaining="{{ remaining_seconds }}" data-session-id="{{ session_id }}" data-result-url="{{ request.scope.get('root_path', '') }}/quiz/{{ session_id }}/result">
+            <span id="timer-icon" style="font-size: 16px;">⏱️</span>
+            <span style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">TIME REMAINING:</span>
+            <span id="quiz-timer-display" style="font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 800; color: #ffffff; letter-spacing: 0.8px;">--:--</span>
+        </div>
+
+        <a href="{{ request.scope.get('root_path', '') }}/quiz" onclick="return confirm('Exit this quiz session? Your answers so far have been saved.');" class="btn btn-outline" style="font-size: 12.5px; padding: 7px 14px;">
+            Exit Quiz
+        </a>
     </div>
 </div>
 
+<!-- Question Navigator Palette -->
+<div class="card quiz-palette-card" style="padding: 14px 18px; margin-bottom: 22px; max-width: 950px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+        <div style="font-size: 11.5px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;">
+            <span>🧭</span>
+            <span>Question Navigator</span>
+            <span style="color: var(--border-subtle);">&bull;</span>
+            <span style="color: var(--rind-emerald-light);">{{ answered_count }} of {{ total_questions }} Answered</span>
+        </div>
+        <div style="display: flex; gap: 14px; font-size: 11px; font-weight: 600; color: var(--text-dim); font-family: 'JetBrains Mono', monospace;">
+            <span style="display: flex; align-items: center; gap: 5px;"><span class="palette-legend-dot answered"></span> Answered</span>
+            <span style="display: flex; align-items: center; gap: 5px;"><span class="palette-legend-dot current"></span> Current</span>
+            <span style="display: flex; align-items: center; gap: 5px;"><span class="palette-legend-dot unanswered"></span> Unanswered</span>
+        </div>
+    </div>
+    <div class="quiz-palette-grid">
+        {% for item in palette %}
+        <button type="button" onclick="jumpToQuestion({{ item.index }})" class="palette-btn {% if item.is_current %}current{% elif item.is_answered %}answered{% else %}unanswered{% endif %}" title="Question {{ item.index }}{% if item.is_answered %} (Answered){% endif %}">
+            {{ item.index }}
+        </button>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Main Question Card -->
 <div class="card" style="max-width: 950px;">
     <!-- Prominent Source & Recency Banner -->
     <div class="source-provenance-banner">
@@ -58,9 +97,11 @@
     </div>
 
     <!-- Question Form -->
-    <form action="{{ request.scope.get('root_path', '') }}/quiz/{{ session_id }}/submit" method="post">
+    <form id="quiz-question-form" action="{{ request.scope.get('root_path', '') }}/quiz/{{ session_id }}/submit" method="post">
         <input type="hidden" name="question_id" value="{{ q.id }}">
         <input type="hidden" name="current_index" value="{{ current_index }}">
+        <input type="hidden" id="target_index_input" name="target_index" value="{{ next_index }}">
+        <input type="hidden" id="action_input" name="action" value="next">
 
         <!-- Stem -->
         <div class="stem-text" style="font-size: 17px; margin: 20px 0 26px 0; color: #ffffff; line-height: 1.65;">
@@ -70,11 +111,11 @@
         <!-- Options -->
         <div class="options-list">
             {% for opt in shuffled_options %}
-            <label class="option-item quiz-option-label" style="cursor: pointer; padding: 16px 20px; transition: all 0.2s ease;">
+            <label class="option-item quiz-option-label {% if opt.option_key in existing_selection %}selected{% endif %}" style="cursor: pointer; padding: 16px 20px; transition: all 0.2s ease;">
                 {% if q.question_type == 'MULTIPLE_RESPONSE' %}
-                <input type="checkbox" name="selected_options" value="{{ opt.option_key }}" class="quiz-option-input">
+                <input type="checkbox" name="selected_options" value="{{ opt.option_key }}" {% if opt.option_key in existing_selection %}checked{% endif %} class="quiz-option-input" onchange="syncOptionSelection(this)">
                 {% else %}
-                <input type="radio" name="selected_options" value="{{ opt.option_key }}" required class="quiz-option-input">
+                <input type="radio" name="selected_options" value="{{ opt.option_key }}" {% if opt.option_key in existing_selection %}checked{% endif %} class="quiz-option-input" onchange="syncOptionSelection(this)">
                 {% endif %}
                 <span class="option-bubble">{{ opt.option_key }}</span>
                 <span style="font-size: 15px; font-weight: 500; line-height: 1.5; color: var(--text-light); flex: 1;">{{ opt.option_text }}</span>
@@ -82,14 +123,132 @@
             {% endfor %}
         </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border-subtle); flex-wrap: wrap; gap: 14px;">
-            <div style="font-size: 13.5px; color: var(--text-muted);">
-                Progress: Question <b style="color: #ffffff; font-family: 'JetBrains Mono', monospace;">{{ current_index }}</b> of <b style="color: #ffffff; font-family: 'JetBrains Mono', monospace;">{{ total_questions }}</b>
+        <!-- Bottom Navigation & Action Bar -->
+        <div class="quiz-nav-action-bar">
+            <div>
+                {% if has_prev %}
+                <button type="button" onclick="navigateQuestion({{ prev_index }})" class="btn btn-secondary" style="padding: 11px 22px; font-size: 13.5px; font-weight: 700;">
+                    &larr; Previous Question
+                </button>
+                {% else %}
+                <button type="button" disabled class="btn btn-secondary" style="opacity: 0.35; cursor: not-allowed; padding: 11px 22px; font-size: 13.5px;">
+                    &larr; Previous Question
+                </button>
+                {% endif %}
             </div>
-            <button type="submit" class="btn btn-primary" style="padding: 12px 32px; font-size: 14.5px;">
-                Submit Answer &rarr;
-            </button>
+
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <button type="button" onclick="finishQuizEarly()" class="btn btn-outline" style="font-size: 13px; color: var(--text-muted); padding: 11px 18px;">
+                    Finish & Review
+                </button>
+
+                {% if has_next %}
+                <button type="button" onclick="saveAndNext({{ next_index }})" class="btn btn-primary" style="padding: 11px 28px; font-size: 14px; font-weight: 700;">
+                    Save & Next Question &rarr;
+                </button>
+                {% else %}
+                <button type="button" onclick="submitFinalQuiz()" class="btn btn-primary" style="padding: 11px 32px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);">
+                    Finish & View Results &rarr;
+                </button>
+                {% endif %}
+            </div>
         </div>
     </form>
 </div>
+
+<script>
+// Quiz Countdown Timer & Navigation Engine
+(function() {
+    const timerBox = document.getElementById('quiz-timer-box');
+    const timerDisplay = document.getElementById('quiz-timer-display');
+    const form = document.getElementById('quiz-question-form');
+    const targetIndexInput = document.getElementById('target_index_input');
+    const actionInput = document.getElementById('action_input');
+
+    let remainingSeconds = parseInt(timerBox ? timerBox.getAttribute('data-remaining') : '0', 10);
+    const resultUrl = timerBox ? timerBox.getAttribute('data-result-url') : '';
+
+    function formatTime(seconds) {
+        if (seconds < 0) seconds = 0;
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        if (hrs > 0) {
+            return `${hrs}:${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function updateTimerUI() {
+        if (!timerDisplay) return;
+        timerDisplay.textContent = formatTime(remainingSeconds);
+        if (remainingSeconds <= 120 && remainingSeconds > 0) {
+            timerBox.classList.add('timer-warning');
+        } else {
+            timerBox.classList.remove('timer-warning');
+        }
+    }
+
+    updateTimerUI();
+
+    const timerInterval = setInterval(function() {
+        remainingSeconds--;
+        updateTimerUI();
+
+        if (remainingSeconds <= 0) {
+            clearInterval(timerInterval);
+            alert("⏰ Time's up! Submitting your exam session now for scoring.");
+            actionInput.value = 'finish';
+            form.submit();
+        }
+    }, 1000);
+
+    // Global navigation handlers
+    window.syncOptionSelection = function(inputEl) {
+        const isRadio = inputEl.type === 'radio';
+        if (isRadio) {
+            document.querySelectorAll('.quiz-option-label').forEach(lbl => lbl.classList.remove('selected'));
+            if (inputEl.checked) {
+                inputEl.closest('.quiz-option-label').classList.add('selected');
+            }
+        } else {
+            if (inputEl.checked) {
+                inputEl.closest('.quiz-option-label').classList.add('selected');
+            } else {
+                inputEl.closest('.quiz-option-label').classList.remove('selected');
+            }
+        }
+    };
+
+    window.saveAndNext = function(nextIdx) {
+        targetIndexInput.value = nextIdx;
+        actionInput.value = 'next';
+        form.submit();
+    };
+
+    window.navigateQuestion = function(targetIdx) {
+        targetIndexInput.value = targetIdx;
+        actionInput.value = 'prev';
+        form.submit();
+    };
+
+    window.jumpToQuestion = function(targetIdx) {
+        targetIndexInput.value = targetIdx;
+        actionInput.value = 'jump';
+        form.submit();
+    };
+
+    window.finishQuizEarly = function() {
+        if (confirm("Are you sure you want to finish the quiz now? All unanswered questions will be marked as skipped.")) {
+            actionInput.value = 'finish';
+            form.submit();
+        }
+    };
+
+    window.submitFinalQuiz = function() {
+        actionInput.value = 'finish';
+        form.submit();
+    };
+})();
+</script>
 {% endblock %}
