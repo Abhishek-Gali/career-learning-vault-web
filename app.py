@@ -120,38 +120,96 @@ def load_banned_ips_cache():
         with sqlite3.connect(str(DB_PATH)) as conn:
             conn.row_factory = sqlite3.Row
             cur = conn.cursor()
-            cur.execute("SELECT ip, reason, banned_at, expires_at, strike_count, is_permanent FROM banned_ips")
             now_iso = datetime.datetime.now(timezone.utc).isoformat()
+            # Purge any expired bans from persistent database
+            conn.execute("DELETE FROM banned_ips WHERE expires_at IS NOT NULL AND expires_at <= ?", (now_iso,))
+            conn.commit()
+            cur.execute("SELECT ip, reason, banned_at, expires_at, strike_count, is_permanent FROM banned_ips")
             cache = {}
             for row in cur.fetchall():
-                exp = row["expires_at"]
-                if exp and exp < now_iso:
-                    continue
                 cache[row["ip"]] = dict(row)
             _BANNED_IPS_CACHE = cache
     except Exception as e:
         print(f"[Security Info] Load banned IPs cache: {e}")
 
-def is_ip_banned(ip: str) -> Optional[str]:
+def is_ip_banned(ip: str) -> Optional[Dict[str, Any]]:
+    """Checks if an IP address is actively banned. Automatically purges expired bans."""
     if not ip or ip in ("127.0.0.1", "localhost", "::1"):
         return None
-    if ip in _BANNED_IPS_CACHE:
-        info = _BANNED_IPS_CACHE[ip]
-        exp = info.get("expires_at")
-        if exp:
-            now_iso = datetime.datetime.now(timezone.utc).isoformat()
-            if exp < now_iso:
-                _BANNED_IPS_CACHE.pop(ip, None)
-                return None
-        return info.get("reason", "IP banned for security violations.")
-    return None
 
-def ban_ip_address(ip: str, reason: str, duration_hours: Optional[int] = 1, is_permanent: bool = False):
+    now = datetime.datetime.now(timezone.utc)
+    now_iso = now.isoformat()
+
+    info = _BANNED_IPS_CACHE.get(ip)
+    if not info:
+        try:
+            with sqlite3.connect(str(DB_PATH)) as conn:
+                conn.row_factory = sqlite3.Row
+                cur = conn.cursor()
+                cur.execute("SELECT ip, reason, banned_at, expires_at, strike_count, is_permanent FROM banned_ips WHERE ip = ?", (ip,))
+                row = cur.fetchone()
+                if row:
+                    info = dict(row)
+                    _BANNED_IPS_CACHE[ip] = info
+        except Exception:
+            pass
+
+    if not info:
+        return None
+
+    exp = info.get("expires_at")
+    if exp:
+        try:
+            exp_dt = datetime.datetime.fromisoformat(exp)
+            if exp_dt.tzinfo is None:
+                exp_dt = exp_dt.replace(tzinfo=timezone.utc)
+            if now >= exp_dt:
+                # Ban has expired! Purge immediately from cache and database
+                _BANNED_IPS_CACHE.pop(ip, None)
+                # Clear failed login buckets for this IP so user receives a clean slate after serving cooldown
+                keys_to_clear = [k for k in list(_FAILED_LOGINS.keys()) if k.startswith(f"{ip}:")]
+                for k in keys_to_clear:
+                    _FAILED_LOGINS.pop(k, None)
+                try:
+                    with sqlite3.connect(str(DB_PATH)) as conn:
+                        conn.execute("DELETE FROM banned_ips WHERE ip = ?", (ip,))
+                        conn.commit()
+                except Exception:
+                    pass
+                return None
+            remaining_seconds = max(1, int((exp_dt - now).total_seconds()))
+        except Exception:
+            remaining_seconds = 300
+    else:
+        remaining_seconds = -1  # Permanent
+
+    return {
+        "reason": info.get("reason", "IP banned for security violations."),
+        "remaining_seconds": remaining_seconds,
+        "is_permanent": bool(info.get("is_permanent", 0)),
+    }
+
+def ban_ip_address(
+    ip: str,
+    reason: str,
+    duration_minutes: Optional[int] = 5,
+    duration_hours: Optional[int] = None,
+    is_permanent: bool = False
+):
+    """Bans an IP address. Defaults to a temporary 5-minute lockout."""
     if not ip or ip in ("127.0.0.1", "localhost", "::1"):
         return
     now = datetime.datetime.now(timezone.utc)
     now_iso = now.isoformat()
-    expires_at = (now + timedelta(hours=duration_hours)).isoformat() if (duration_hours and not is_permanent) else None
+
+    if duration_hours is not None and duration_hours > 0:
+        total_minutes = duration_hours * 60
+    elif duration_minutes is not None and duration_minutes > 0:
+        total_minutes = duration_minutes
+    else:
+        total_minutes = 5
+
+    expires_at = (now + timedelta(minutes=total_minutes)).isoformat() if not is_permanent else None
     try:
         with sqlite3.connect(str(DB_PATH)) as conn:
             conn.execute("""
@@ -202,7 +260,8 @@ def log_security_event(ip: str, event_type: str, details: str):
     except Exception:
         pass
 
-def check_rate_limit(key: str, max_attempts: int = 5, window_sec: int = 900) -> bool:
+def check_rate_limit(key: str, max_attempts: int = 5, window_sec: int = 300) -> bool:
+    """Rate limit checker with default 5-minute (300s) sliding window."""
     now = time.time()
     attempts = _FAILED_LOGINS.get(key, [])
     attempts = [t for t in attempts if now - t < window_sec]
@@ -529,12 +588,19 @@ app.add_middleware(
 async def security_and_cache_middleware(request: Request, call_next):
     # Immediate IP Ban Check (Protects all routes from banned attackers)
     client_ip = get_client_ip(request)
-    ban_reason = is_ip_banned(client_ip)
-    if ban_reason:
+    ban_info = is_ip_banned(client_ip)
+    if ban_info:
+        reason = ban_info["reason"]
+        remaining = ban_info["remaining_seconds"]
+        time_text = f" ({remaining // 60}m {remaining % 60}s remaining)" if remaining > 0 else ""
         if request.url.path.startswith("/api/"):
             return JSONResponse(
                 status_code=403,
-                content={"detail": f"Access Denied: Your IP ({client_ip}) has been banned. Reason: {ban_reason}"}
+                content={
+                    "detail": f"Access Denied: Your IP ({client_ip}) is temporarily banned{time_text}. Reason: {reason}",
+                    "remaining_seconds": remaining,
+                    "is_banned": True
+                }
             )
         return HTMLResponse(
             f"""<!DOCTYPE html>
@@ -543,13 +609,31 @@ async def security_and_cache_middleware(request: Request, call_next):
             <body class="bg-[#080c14] text-slate-100 min-h-screen flex items-center justify-center p-4">
               <div class="max-w-md w-full bg-slate-900 border border-rose-500/40 rounded-3xl p-8 text-center shadow-2xl">
                 <div class="text-6xl mb-4">🛡️</div>
-                <h1 class="text-2xl font-black text-rose-400 mb-2">Access Suspended</h1>
-                <p class="text-xs text-slate-400 mb-4">Your IP address (<code>{client_ip}</code>) has been blocked due to detected security violations or reckless login attacks.</p>
-                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl text-left text-xs font-mono text-rose-300 mb-6">
-                  <strong>Reason:</strong> {ban_reason}
+                <h1 class="text-2xl font-black text-rose-400 mb-2">Temporary Access Suspension</h1>
+                <p class="text-xs text-slate-400 mb-4">Your IP address (<code>{client_ip}</code>) has been temporarily locked out due to repeated failed login attempts or security triggers.</p>
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl text-left text-xs font-mono text-rose-300 mb-4">
+                  <strong>Reason:</strong> {reason}
                 </div>
-                <p class="text-[11px] text-slate-500 font-mono">Contact the System Administrator (@admin) to review and unban this IP.</p>
+                <div class="p-3 bg-rose-950/40 border border-rose-800/50 rounded-xl text-center text-xs font-mono text-rose-200 mb-6">
+                  Cooldown Remaining: <span id="cooldown-timer" class="font-bold text-rose-400 text-sm">{remaining // 60}m {remaining % 60}s</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-mono">This ban automatically expires after 5 minutes. You do not need to contact support.</p>
               </div>
+              <script>
+                let sec = {remaining};
+                const timerEl = document.getElementById('cooldown-timer');
+                const tInt = setInterval(() => {{
+                  sec--;
+                  if (sec <= 0) {{
+                    clearInterval(tInt);
+                    window.location.reload();
+                  }} else if (timerEl) {{
+                    const m = Math.floor(sec / 60);
+                    const s = sec % 60;
+                    timerEl.textContent = `${{m}}m ${{s < 10 ? '0' : ''}}${{s}}s`;
+                  }}
+                }}, 1000);
+              </script>
             </body></html>""",
             status_code=403
         )
@@ -908,6 +992,8 @@ def session_is_valid(token: Optional[str]) -> bool:
             if not row or not row["is_active"]:
                 return False
             exp = datetime.datetime.fromisoformat(row["expires_at"])
+            if exp.tzinfo is None:
+                exp = exp.replace(tzinfo=timezone.utc)
             if datetime.datetime.now(timezone.utc) > exp:
                 return False
             return True
@@ -945,10 +1031,14 @@ def get_current_user(
         # Check expiration
         try:
             exp = datetime.datetime.fromisoformat(row["expires_at"])
+            if exp.tzinfo is None:
+                exp = exp.replace(tzinfo=timezone.utc)
             if datetime.datetime.now(timezone.utc) > exp:
                 conn.execute("DELETE FROM user_sessions WHERE token = ?", (token,))
                 conn.commit()
                 raise HTTPException(status_code=401, detail="Your session has expired. Please log in again.", headers={"WWW-Authenticate": "Bearer"})
+        except HTTPException:
+            raise
         except Exception:
             pass
 
@@ -984,35 +1074,42 @@ def login_endpoint(req: LoginRequest, request: Request, response: Response):
             raise HTTPException(status_code=403, detail="CSRF Security Validation Failed.")
 
     # 1. Check if IP is already banned
-    ban_reason = is_ip_banned(client_ip)
-    if ban_reason:
-        log_security_event(client_ip, "BLOCKED_BANNED_IP", f"Login attempt from banned IP: {ban_reason}")
-        raise HTTPException(
+    ban_info = is_ip_banned(client_ip)
+    if ban_info:
+        reason = ban_info["reason"]
+        remaining = ban_info["remaining_seconds"]
+        time_text = f" ({remaining // 60}m {remaining % 60}s remaining)" if remaining > 0 else ""
+        log_security_event(client_ip, "BLOCKED_BANNED_IP", f"Login attempt from banned IP: {reason}")
+        return JSONResponse(
             status_code=403,
-            detail=f"Access Denied: Your IP ({client_ip}) has been banned. Reason: {ban_reason}"
+            content={
+                "detail": f"Access Denied: Your IP ({client_ip}) is temporarily banned{time_text}. Reason: {reason}",
+                "remaining_seconds": remaining,
+                "is_banned": True
+            }
         )
 
-    # 2. Inspect for Reckless Injection / Attack Payloads in Username or Password
+    # 2. Inspect for Reckless Injection / Attack Payloads ONLY in Username
+    # Passwords can contain special symbols (#, --, /*) and are hashed with PBKDF2 and queried via parameterized SQL!
     u_reckless = check_reckless_payload(req.username)
-    p_reckless = check_reckless_payload(req.password)
-    if u_reckless or p_reckless:
-        attack_type = u_reckless or p_reckless
-        ban_ip_address(client_ip, f"Malicious payload pattern detected in login: {attack_type}", duration_hours=24)
-        log_security_event(client_ip, "RECKLESS_LOGIN_ATTACK", f"Payload attack in login field: {req.username[:40]}")
+    if u_reckless:
+        ban_ip_address(client_ip, f"Malicious payload pattern detected in username: {u_reckless}", duration_minutes=5)
+        log_security_event(client_ip, "RECKLESS_LOGIN_ATTACK", f"Payload attack in username field: {req.username[:40]}")
         raise HTTPException(
             status_code=403,
-            detail="Security Violation: Reckless malicious attack pattern detected. Your IP address has been banned."
+            detail="Security Violation: Malicious attack pattern detected in username. Your IP address has been temporarily banned for 5 minutes."
         )
 
     rate_key = f"{client_ip}:{req.username.lower()}"
 
-    # 3. Check Brute-Force Rate Limiting (5 failed attempts triggers automatic 1-hour IP Ban)
-    if not check_rate_limit(rate_key, max_attempts=5, window_sec=900):
-        ban_ip_address(client_ip, "Brute-force credential stuffing (5 failed login attempts in 15 mins)", duration_hours=1)
+    # 3. Check Brute-Force Rate Limiting (5 failed attempts triggers automatic 5-minute IP Ban)
+    if not check_rate_limit(rate_key, max_attempts=5, window_sec=300):
+        ban_ip_address(client_ip, "Brute-force credential stuffing (5 failed login attempts in 5 mins)", duration_minutes=5)
+        clear_failed_logins(rate_key)
         log_security_event(client_ip, "BRUTE_FORCE_BAN", f"Auto-banned after exceeding failed attempts for user: {req.username}")
         raise HTTPException(
             status_code=403,
-            detail="Security Lockout: 5 consecutive failed login attempts detected. Your IP address has been temporarily banned for 1 hour."
+            detail="Security Lockout: 5 consecutive failed login attempts detected. Your IP address has been temporarily banned for 5 minutes."
         )
 
     with sqlite3.connect(str(DB_PATH)) as conn:
@@ -1026,14 +1123,15 @@ def login_endpoint(req: LoginRequest, request: Request, response: Response):
             cur_attempts = len(_FAILED_LOGINS.get(rate_key, []))
             remaining = max(0, 5 - cur_attempts)
             if remaining == 0:
-                ban_ip_address(client_ip, "Brute-force credential stuffing (5 failed login attempts)", duration_hours=1)
+                ban_ip_address(client_ip, "Brute-force credential stuffing (5 failed login attempts)", duration_minutes=5)
+                clear_failed_logins(rate_key)
                 raise HTTPException(
                     status_code=403,
-                    detail="Security Lockout: Too many failed login attempts. Your IP address has been banned for 1 hour."
+                    detail="Security Lockout: Too many failed login attempts. Your IP address has been temporarily banned for 5 minutes."
                 )
             raise HTTPException(
                 status_code=401,
-                detail=f"Invalid username or password. ({remaining} attempt{'s' if remaining != 1 else ''} remaining before automated IP ban)"
+                detail=f"Invalid username or password. ({remaining} attempt{'s' if remaining != 1 else ''} remaining before temporary 5-minute lockout)"
             )
 
         if not user["is_active"]:
@@ -1058,13 +1156,14 @@ def login_endpoint(req: LoginRequest, request: Request, response: Response):
 
         # Set HttpOnly Session Cookie (Accessible via browser requests & sendBeacon)
         max_age_sec = days * 86400
+        is_https = request.url.scheme == "https" or request.headers.get("x-forwarded-proto") == "https"
         response.set_cookie(
             key="vault_session",
             value=token,
             max_age=max_age_sec,
             httponly=True,
             samesite="lax",
-            secure=False # Set to True behind HTTPS in prod, False supports localhost dev
+            secure=is_https
         )
 
         return {
@@ -2646,7 +2745,7 @@ def serve_login_page(request: Request, response: Response, vault_session: Option
         html_content = f.read().replace("{{ csrf_token }}", csrf_token)
 
     res = HTMLResponse(content=html_content, status_code=200)
-    res.set_cookie(key="csrf_token", value=csrf_token, max_age=600, httponly=False, samesite="strict")
+    res.set_cookie(key="csrf_token", value=csrf_token, max_age=86400, httponly=False, samesite="lax")
     return res
 
 @app.get("/", response_class=HTMLResponse)

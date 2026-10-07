@@ -278,9 +278,53 @@
       return null;
     }
 
+    let lockoutTimerId = null;
+
+    function startLockoutCountdown(seconds) {
+      if (lockoutTimerId) clearInterval(lockoutTimerId);
+      const submitBtn = document.getElementById('login-submit-btn');
+      const errAlert = document.getElementById('login-error-alert');
+      const errMsg = document.getElementById('login-error-message');
+      
+      let remaining = seconds;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+
+      function update() {
+        if (remaining <= 0) {
+          clearInterval(lockoutTimerId);
+          lockoutTimerId = null;
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            submitBtn.innerHTML = '<span>Sign In to Vault</span><span>→</span>';
+          }
+          if (errMsg) errMsg.textContent = 'Temporary cooldown expired. You may now attempt to sign in.';
+          return;
+        }
+        const m = Math.floor(remaining / 60);
+        const s = remaining % 60;
+        const timeStr = `${m}m ${s < 10 ? '0' : ''}${s}s`;
+        if (submitBtn) {
+          submitBtn.innerHTML = `<span>Locked Out (${timeStr})</span>`;
+        }
+        if (errMsg) {
+          errMsg.innerHTML = `Access temporarily restricted. Cooldown remaining: <strong class="font-mono text-rose-200">${timeStr}</strong>`;
+        }
+        remaining--;
+      }
+
+      update();
+      lockoutTimerId = setInterval(update, 1000);
+    }
+
     // Login Form Handler
     async function handleLoginSubmit(e) {
       e.preventDefault();
+      if (lockoutTimerId) return;
+
       const uInput = document.getElementById('login-username');
       const pInput = document.getElementById('login-password');
       const rInput = document.getElementById('login-remember');
@@ -329,6 +373,9 @@
             errAlert.classList.remove('hidden');
             if (errMsg) errMsg.textContent = data.detail || 'Invalid username or password.';
           }
+          if (data.remaining_seconds && data.remaining_seconds > 0) {
+            startLockoutCountdown(data.remaining_seconds);
+          }
         }
       } catch (err) {
         if (errAlert) {
@@ -336,7 +383,7 @@
           if (errMsg) errMsg.textContent = 'Server connection failed. Please try again.';
         }
       } finally {
-        if (submitBtn) {
+        if (submitBtn && !lockoutTimerId) {
           submitBtn.disabled = false;
           submitBtn.innerHTML = '<span>Sign In to Vault</span><span>→</span>';
         }
